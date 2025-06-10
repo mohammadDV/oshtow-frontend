@@ -5,7 +5,7 @@ export default async function ContactPage() {
   const t = await getTranslations("pages");
 
   return (
-    <div className="lg:mt-14 mt-8 mb-20 lg:mb-28">
+    <div className="lg:mt-14 mt-8 mb-16 lg:mb-24">
       <h1 className="text-2xl lg:text-3xl text-title text-center font-semibold mb-3">
         {t("contact.title")}
       </h1>
