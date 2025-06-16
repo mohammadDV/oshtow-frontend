@@ -113,6 +113,12 @@ body {
   }
 }
 
+.container {
+  @media (width >= 96rem) {
+    max-width: 80rem;
+  }
+}
+
 .loading {
   background-color: currentColor;
   mask-size: 100%;
