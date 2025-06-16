@@ -1,6 +1,16 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
+
+export const isEmpty = (value: any): boolean => {
+  return (
+    value === undefined ||
+    value === null ||
+    value == "" ||
+    (typeof value === "object" && Object.keys(value).length === 0) ||
+    (typeof value === "string" && value.trim().length === 0)
+  );
+};

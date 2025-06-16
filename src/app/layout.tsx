@@ -1,6 +1,7 @@
+import { peydaFont } from "@/constants/localFont";
 import type { Metadata } from "next";
 import "./globals.css";
-import { peydaFont } from "@/constants/localFont";
+import "../assets/icons/solar.css"
 
 export const metadata: Metadata = {
   title: "اوشتو | جابجایی سریع مرسوله های بین المللی",
