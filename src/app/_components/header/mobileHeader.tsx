@@ -1,7 +1,10 @@
 import { Icon } from "@/ui/icon"
+import { useTranslations } from "next-intl";
 import Link from "next/link"
 
 export const MobileHeader = () => {
+    const t = useTranslations('common');
+
     return (
         <>
             <div className="h-14 bg-primary w-full rounded-b-2xl">
@@ -9,7 +12,7 @@ export const MobileHeader = () => {
             <div className="mx-4 p-4 rounded-xl bg-white -mt-8">
                 <div className="flex items-center justify-between">
                     <Link href={'/'} className="text-xl font-bold text-primary">
-                        اوشتو (لوگو)
+                        {t('brand.name')}
                     </Link>
                     <div className="flex items-center justify-end gap-4">
                         <Icon icon="solar--headphones-round-bold-duotone" className="text-text" />

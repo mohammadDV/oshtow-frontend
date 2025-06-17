@@ -5,48 +5,50 @@ import { Button } from "@/ui/button"
 import { Icon } from "@/ui/icon"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-
-const menuData = [
-    {
-        id: 1,
-        title: 'صفحه اصلی',
-        link: '/'
-    },
-    {
-        id: 2,
-        title: 'مرسوله ها',
-        link: '/consignments'
-    },
-    {
-        id: 3,
-        title: 'سفر ها',
-        link: '/trips'
-    },
-    {
-        id: 4,
-        title: 'سوالات متداول',
-        link: '/faq'
-    },
-    {
-        id: 5,
-        title: 'درباره ما',
-        link: '/about'
-    },
-    {
-        id: 6,
-        title: 'تماس با ما',
-        link: '/contact'
-    },
-]
+import { useTranslations } from 'next-intl'
 
 export const Header = () => {
     const pathname = usePathname();
+    const t = useTranslations('common');
+    
+    const menuData = [
+        {
+            id: 1,
+            title: t('navigation.home'),
+            link: '/'
+        },
+        {
+            id: 2,
+            title: t('navigation.consignments'),
+            link: '/consignments'
+        },
+        {
+            id: 3,
+            title: t('navigation.trips'),
+            link: '/trips'
+        },
+        {
+            id: 4,
+            title: t('navigation.faq'),
+            link: '/faq'
+        },
+        {
+            id: 5,
+            title: t('navigation.about'),
+            link: '/about'
+        },
+        {
+            id: 6,
+            title: t('navigation.contact'),
+            link: '/contact'
+        },
+    ];
 
     return (
         <div className="bg-white w-full py-6 border-b border-border">
             <div className="container mx-auto flex items-center justify-between px-4">
                 <Link href={'/'} className="text-3xl font-bold text-primary">
-                    اوشتو (لوگو)
+                    {t('brand.name')}
                 </Link>
                 <ul className="flex items-center justify-center gap-8">
                     {menuData.map(item => (
@@ -59,7 +61,7 @@ export const Header = () => {
                 </ul>
                 <Button variant='default'>
                     <Icon icon="solar--user-outline" sizeClass="size-5" />
-                    ورود / ثبت نام
+                    {t('buttons.loginRegister')}
                 </Button>
             </div>
         </div>
