@@ -1,6 +1,7 @@
 import { peydaFont } from "@/constants/localFont";
 import type { Metadata } from "next";
 import "../assets/icons/solar.css";
+import "../assets/icons/others.css";
 import { Header } from "./_components/header";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';

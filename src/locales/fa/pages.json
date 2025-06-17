@@ -1,3 +1,16 @@
 {
-  "home": {}
+  "home": {
+    "heroTitle": "جابجایی سریع‌تر، هوشمندتر و ارزان‌تر با پلتفرم اوشتو!",
+    "heroDescription": "جابجایی سریع مرسوله های بین المللی را به اوشتو بسپارید.",
+    "heroSendButton": "ارسال فوری بسته",
+    "heroSubmitTrip": "ثبت سفر",
+    "trips": "سفر ها",
+    "consignments": "مرسوله ها",
+    "originCity": "مبدا (شهر)",
+    "originDescription": "مبدا سفر در چه شهری باشد؟",
+    "intentionCity": "مقصد (شهر)",
+    "intentionDescription": "مقصد سفر در چه شهری باشد؟",
+    "tripDate": "تاریخ سفر",
+    "dateDescription": "سفر در چه بازه زمانی باشد؟"
+  }
 }

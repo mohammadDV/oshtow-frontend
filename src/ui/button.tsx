@@ -5,6 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import { Loading } from "./loading"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg cursor-pointer text-base font-normal transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -14,7 +15,7 @@ const buttonVariants = cva(
         default:
           "bg-gradient-to-l from-primary to-primary-light text-primary-foreground hover:opacity-90",
         outline:
-          "border-2 border-border bg-background hover:border-sub/35 text-title",
+          "border-2 border-border bg-transparent hover:border-sub/35 text-title",
         ghost:
           "text-primary dark:hover:bg-sub/30 bg-sub/20",
         link:
@@ -61,7 +62,7 @@ function Button({
       disabled={isLoading || disabled}
       {...props}>
       {children}
-      {/* {isLoading && <Loading type="spinner" size={'normal'} />} */}
+      {isLoading && <Loading type="spinner" />}
     </Comp>
   )
 }
