@@ -11,6 +11,12 @@
     "intentionCity": "مقصد (شهر)",
     "intentionDescription": "مقصد سفر در چه شهری باشد؟",
     "tripDate": "تاریخ سفر",
-    "dateDescription": "سفر در چه بازه زمانی باشد؟"
+    "dateDescription": "سفر در چه بازه زمانی باشد؟",
+    "reduceCostTitle": "کاهش هزینه ها در ارسال",
+    "reduceCostDescription": "با پلتفرم ما، هزینه‌های اضافی ارسال را کنار بگذارید!",
+    "saveTimeTitle": "صرفه‌جویی در زمان",
+    "saveTimeDescription": " بسته‌های شما بدون معطلی به مقصد می‌رسند",
+    "holidaysTitle": "فعال در روزهای تعطیل",
+    "holidaysDescription": " در روزهای تعطیل هم در کنار شما هستیم! "
   }
 }
