@@ -10,7 +10,7 @@ export const Hero = () => {
 
     return (
         <>
-            <section className="relative w-full -mt-24 lg:mt-0 z-20 h-[40vh] lg:h-[65vh] overflow-hidden">
+            <section className="relative w-full -mt-24 lg:mt-0 z-20 h-[40vh] lg:h-[60vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
                         src={heroBg}

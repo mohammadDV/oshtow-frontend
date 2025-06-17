@@ -9,7 +9,7 @@ export const MobileHeader = () => {
         <>
             <div className="h-14 bg-primary w-full rounded-b-2xl z-10">
             </div>
-            <div className="mx-4 p-4 rounded-xl bg-white -mt-8 z-30 relative">
+            <div className="mx-4 p-4 rounded-xl bg-white -mt-8 z-30 relative ">
                 <div className="flex items-center justify-between">
                     <Link href={'/'} className="text-xl font-bold text-primary">
                         {t('brand.name')}
