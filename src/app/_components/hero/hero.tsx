@@ -19,7 +19,7 @@ export const Hero = () => {
                         quality={100}
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-l from-neutral-800/80 to-neutral-800/50 lg:bg-gradient-to-r lg:from-neutral-800 lg:to-neutral-800/20"></div>
+                    <div className="absolute inset-0 bg-gradient-to-l from-gray-800/80 to-gray-800/50 lg:bg-gradient-to-r lg:from-gray-800 lg:to-gray-800/20"></div>
                 </div>
 
                 <div className="relative container px-4 mt-6 lg:mt-0 mx-auto z-10 h-full lg:pb-24 flex justify-end">

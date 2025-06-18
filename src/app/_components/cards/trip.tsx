@@ -9,7 +9,7 @@ export const TripCard = () => {
 
     return (
         <div className="relative overflow-hidden transition-all cursor-pointer h-72 lg:h-96 rounded-2xl lg:rounded-3xl">
-            <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-neutral-800 to-neutral-800/20"></div>
+            <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-800"></div>
             <Image src={istanbulVertical} alt="" className="object-cover w-full h-full" />
             <div className="absolute bottom-0 z-20 w-full p-4 lg:p-5">
                 <h3 className="text-white text-xl lg:text-2xl font-semibold">
@@ -38,7 +38,7 @@ export const TripCard = () => {
                     </div>
                     <Link
                         href={'/'}
-                        className="flex items-center justify-center text-xs lg:text-sm gap-1 px-2 lg:px-2.5 py-1.5 rounded-full text-white bg-primary">
+                        className="flex items-center justify-center text-xs lg:text-sm gap-1 px-2 lg:px-2.5 py-1 rounded-full text-white bg-primary">
                         {t('buttons.seeMore')}
                         <Icon icon="solar--alt-arrow-left-outline" sizeClass="size-3 lg:size-3.5" />
                     </Link>
