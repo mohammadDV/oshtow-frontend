@@ -10,7 +10,7 @@ export const Hero = () => {
 
     return (
         <>
-            <section className="relative w-full -mt-24 lg:mt-0 z-20 h-[40vh] lg:h-[60vh] overflow-hidden">
+            <section className="relative w-full -mt-24 lg:mt-0 z-20 h-72 lg:h-[60vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
                         src={heroBg}
@@ -19,7 +19,7 @@ export const Hero = () => {
                         quality={100}
                         className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-l from-gray-800/80 to-gray-800/50 lg:bg-gradient-to-r lg:from-gray-800 lg:to-gray-800/20"></div>
+                    <div className="absolute inset-0 bg-gradient-to-l from-gray-700/80 to-gray-700/60 lg:bg-gradient-to-r lg:from-gray-700 lg:to-gray-700/20"></div>
                 </div>
 
                 <div className="relative container px-4 mt-6 lg:mt-0 mx-auto z-10 h-full lg:pb-24 flex justify-end">

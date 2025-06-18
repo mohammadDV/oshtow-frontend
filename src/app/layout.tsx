@@ -1,14 +1,16 @@
 import { peydaFont } from "@/constants/localFont";
+import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
+import { defaultLocale } from '@/lib/i18n';
 import type { Metadata } from "next";
-import "../assets/icons/solar.css";
-import "../assets/icons/others.css";
-import { Header } from "./_components/header";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { defaultLocale } from '@/lib/i18n';
-import './globals.css';
-import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
+import "swiper/css";
+import "swiper/css/navigation";
+import "../assets/icons/others.css";
+import "../assets/icons/solar.css";
+import { Header } from "./_components/header";
 import { MobileHeader } from "./_components/header/mobileHeader";
+import './globals.css';
 
 export const metadata: Metadata = {
   title: "اوشتو | جابجایی سریع مرسوله های بین المللی",

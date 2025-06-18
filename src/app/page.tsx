@@ -1,22 +1,48 @@
-import { usePagesTranslation } from "@/hooks/useTranslation";
+import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
+import { getTranslations } from "next-intl/server";
 import { Benefits } from "./_components/benefits";
-import { ConsignmentsCarousel } from "./_components/consignmentsCarousel";
-import { Hero } from "./_components/hero";
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { TripsCarousel } from "./_components/tripsCarousel";
+import { ConsignmentCard } from "./_components/cards/consignment";
+import { PostCard } from "./_components/cards/post";
+import { TripCard } from "./_components/cards/trip";
+import { Carousel } from "./_components/carousel";
 import { CtaBanner } from "./_components/ctaBanner";
+import { Hero } from "./_components/hero";
+import { LastPosts } from "./_components/lastPosts";
 
-export default function HomePage() {
-  const t = usePagesTranslation();
-
+export default async function HomePage() {
+  const isMobile = await isMobileDevice();
+  const t = await getTranslations("pages");
+  
   return (
     <>
       <Hero />
       <Benefits />
-      <ConsignmentsCarousel title={t('home.lastConsignments')} />
-      <TripsCarousel title={t('home.lastTrips')} />
+      <Carousel
+        title={t("home.lastConsignments")}
+        seeMoreLink="/"
+        slides={Array.from({ length: 6 }, (_, index) => (
+          <ConsignmentCard key={index} />
+        ))}
+      />
+      <Carousel
+        title={t("home.lastTrips")}
+        seeMoreLink="/"
+        slides={Array.from({ length: 6 }, (_, index) => (
+          <TripCard key={index} />
+        ))}
+      />
       <CtaBanner />
+      {isMobile ? (
+        <Carousel
+          title={t("home.postsTitle")}
+          seeMoreLink="/"
+          slides={Array.from({ length: 4 }, (_, index) => (
+            <PostCard key={index} heightClass="h-64" showAuthor/>
+          ))}
+        />
+      ) : (
+        <LastPosts />
+      )}
     </>
   );
 }

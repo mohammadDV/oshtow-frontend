@@ -9,7 +9,7 @@ export const TripCard = () => {
 
     return (
         <div className="relative overflow-hidden transition-all cursor-pointer h-72 lg:h-96 rounded-2xl lg:rounded-3xl">
-            <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-800"></div>
+            <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-700"></div>
             <Image src={istanbulVertical} alt="" className="object-cover w-full h-full" />
             <div className="absolute bottom-0 z-20 w-full p-4 lg:p-5">
                 <h3 className="text-white text-xl lg:text-2xl font-semibold">
