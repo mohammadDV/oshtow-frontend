@@ -10,7 +10,7 @@ export const Footer = () => {
   const useFullLinks = [
     {
       id: 1,
-      title: t("navigation.home"),
+      title: t("navigation.firstPage"),
       link: "/",
     },
     {
@@ -64,7 +64,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="lg:mt-20 mt-12 container mx-auto px-4">
+    <footer className="lg:mt-20 mt-12 container mx-auto px-4 mb-24 lg:mb-0">
       <div className="flex items-center gap-4">
         <span className="text-2xl lg:text-3xl font-bold text-primary flex-1 min-w-max">
           {t("brand.name")}

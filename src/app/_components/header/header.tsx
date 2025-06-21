@@ -14,7 +14,7 @@ export const Header = () => {
     const menuData = [
         {
             id: 1,
-            title: t('navigation.home'),
+            title: t('navigation.firstPage'),
             link: '/'
         },
         {

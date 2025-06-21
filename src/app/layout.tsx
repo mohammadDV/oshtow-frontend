@@ -12,6 +12,7 @@ import { Header } from "./_components/header";
 import { MobileHeader } from "./_components/header/mobileHeader";
 import "./globals.css";
 import { Footer } from "./_components/footer";
+import { BottomNavigation } from "./_components/bottomNavigation";
 
 export const metadata: Metadata = {
   title: "اوشتو | جابجایی سریع مرسوله های بین المللی",
@@ -34,6 +35,7 @@ export default async function RootLayout({
           {isMobile ? <MobileHeader /> : <Header />}
           {children}
           <Footer />
+          {isMobile && <BottomNavigation />}
         </NextIntlClientProvider>
       </body>
     </html>

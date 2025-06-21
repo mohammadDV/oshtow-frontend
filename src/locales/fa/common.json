@@ -12,7 +12,7 @@
     "loginRegister": "ورود / ثبت نام"
   },
   "navigation": {
-    "home": "صفحه اصلی",
+    "firstPage": "صفحه اصلی",
     "about": "درباره ما",
     "contact": "تماس با ما",
     "consignments": "مرسوله ها",
@@ -20,7 +20,12 @@
     "faq": "سوالات متداول",
     "magazine": "مجله",
     "privacyPolicy": "سیاست و حریم خصوصی",
-    "plansCost": "تعرفه ها و هزینه ها"
+    "plansCost": "تعرفه ها و هزینه ها",
+    "home": "خانه",
+    "ads": "آگهی ها",
+    "submitAd": "ثبت آگهی",
+    "profile": "پروفایل",
+    "others": "سایر"
   },
   "messages": {
     "loading": "در حال بارگذاری...",
