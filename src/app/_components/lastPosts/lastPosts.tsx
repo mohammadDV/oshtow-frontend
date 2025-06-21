@@ -34,9 +34,9 @@ export const LastPosts = () => {
       </div>
       <div className="grid lg:grid-cols-3 gap-5">
         <PostCard heightClass="h-96" showAuthor />
-        <div className="flex flex-col gap-4">
-          <PostCard heightClass="h-[184px]" />
-          <PostCard heightClass="h-[184px]" />
+        <div className="flex flex-col gap-5">
+          <PostCard heightClass="h-[182px]" />
+          <PostCard heightClass="h-[182px]" />
         </div>
         <PostCard heightClass="h-96" showAuthor />
       </div>
