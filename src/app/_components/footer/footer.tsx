@@ -116,29 +116,34 @@ export const Footer = () => {
           <h4 className="text-title font-semibold mb-4 lg:mt-0 mt-2">
             {t("footer.socialNetworks")}
           </h4>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-5">
             <Icon
-              icon="solar--widget-outline"
-              sizeClass="size-5"
+              icon="streamline-logos--telegram-logo-2"
+              sizeClass="size-7"
               className="text-primary"
             />
             <Icon
-              icon="solar--widget-outline"
-              sizeClass="size-5"
+              icon="streamline-logos--instagram-logo-2"
+              sizeClass="size-7"
               className="text-primary"
             />
             <Icon
-              icon="solar--widget-outline"
-              sizeClass="size-5"
+              icon="streamline-logos--whatsapp-logo"
+              sizeClass="size-7"
               className="text-primary"
             />
             <Icon
-              icon="solar--widget-outline"
-              sizeClass="size-5"
+              icon="streamline-logos--linkedin-logo"
+              sizeClass="size-7"
+              className="text-primary"
+            />
+            <Icon
+              icon="streamline-logos--google-mail-logo"
+              sizeClass="size-7"
               className="text-primary"
             />
           </div>
-          <div className="grid grid-cols-3 gap-3 mt-6">
+          <div className="grid grid-cols-3 gap-3 mt-8">
             <div className="flex items-center justify-center p-3 border-2 border-border rounded-lg">
               <Image
                 src={"/images/enamad.png"}
