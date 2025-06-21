@@ -24,5 +24,15 @@
     "ctaDescription": "همین حالا در کمتر از چند دقیقه ثبت نام کنید!",
     "ctaButton": "ثبت نام در اوشتو",
     "postsTitle": "از مجله اوشتو"
+  },
+  "consignments": {
+    "title": "جستجوی آگهی مرسوله ها",
+    "sort": "مرتب سازی",
+    "newest": "جدیدترین",
+    "lightest": "سبک ترین",
+    "heaviest": "سنگین ترین",
+    "filters": "فیلتر ها",
+    "removeFilters": "پاک کردن فیلتر ها",
+    "founded": "مرسوله یافت شد"
   }
 }
