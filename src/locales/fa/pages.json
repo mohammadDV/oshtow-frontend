@@ -44,5 +44,23 @@
     "filters": "فیلتر ها",
     "removeFilters": "پاک کردن فیلتر ها",
     "founded": "سفر یافت شد"
+  },
+  "singleConsignment": {
+    "category": "دسته بندی:",
+    "details": "جزئیات مرسوله",
+    "origin": "مبدا مرسوله",
+    "destination": "مقصد مرسوله",
+    "startDate": "ارسال از تاریخ",
+    "endDate": "ارسال تا تاریخ",
+    "weight": "وزن مرسوله",
+    "size": "ابعاد مرسوله",
+    "description": "توضیحات مرسوله",
+    "share":"اشتراک گذاری مرسوله",
+    "copyLink": "کپی لینک",
+    "submitProposalTitle": "ثبت پیشنهاد برای این مرسوله",
+    "submitProposal": "ثبت پیشنهاد",
+    "chat": "چت با ارسال کننده",
+    "submitInfo": "برای چت با ارسال کننده یا ثبت پیشنهاد، ابتدا باید در سایت ثبت نام کنید.",
+    "sameItems": "مرسوله ها مشابه"
   }
 }

@@ -76,7 +76,7 @@ export const Footer = () => {
           <h4 className="text-title font-semibold mb-2 lg:mb-3.5">
             {t("footer.aboutSite")}
           </h4>
-          <p className="text-caption font-light text-justify text-sm leading-8">
+          <p className="text-caption font-normal text-justify text-sm leading-8">
             {t("footer.aboutContent")}
           </p>
         </div>
@@ -89,7 +89,7 @@ export const Footer = () => {
               {useFullLinks.map((item) => (
                 <li
                   key={item.id}
-                  className="hover:text-primary transition-all text-caption text-sm font-light"
+                  className="hover:text-primary transition-all text-caption text-sm font-normal"
                 >
                   <Link href={item.link}>{item.title}</Link>
                 </li>
@@ -104,7 +104,7 @@ export const Footer = () => {
               {customerGuide.map((item) => (
                 <li
                   key={item.id}
-                  className="hover:text-primary transition-all text-caption text-sm font-light"
+                  className="hover:text-primary transition-all text-caption text-sm font-normal"
                 >
                   <Link href={item.link}>{item.title}</Link>
                 </li>
@@ -113,32 +113,32 @@ export const Footer = () => {
           </div>
         </div>
         <div>
-          <h4 className="text-title font-semibold mb-4 lg:mt-0 mt-2">
+          <h4 className="text-title font-semibold mb-3.5 lg:mt-0 mt-2">
             {t("footer.socialNetworks")}
           </h4>
           <div className="flex items-center gap-5">
             <Icon
-              icon="streamline-logos--telegram-logo-2"
+              icon="iconoir--telegram"
               sizeClass="size-7"
               className="text-primary"
             />
             <Icon
-              icon="streamline-logos--instagram-logo-2"
+              icon="iconoir--instagram"
               sizeClass="size-7"
               className="text-primary"
             />
             <Icon
-              icon="streamline-logos--whatsapp-logo"
+              icon="iconoir--whatsapp"
               sizeClass="size-7"
               className="text-primary"
             />
             <Icon
-              icon="streamline-logos--linkedin-logo"
+              icon="iconoir--facebook"
               sizeClass="size-7"
               className="text-primary"
             />
             <Icon
-              icon="streamline-logos--google-mail-logo"
+              icon="iconoir--linkedin"
               sizeClass="size-7"
               className="text-primary"
             />

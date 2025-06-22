@@ -13,6 +13,8 @@ interface CarouselProps {
   slides: Array<JSX.Element>;
   seeMoreLink?: string;
   disableNavigation?: boolean;
+  desktopSlidesPerView?: number;
+  mobileSlidesPerView?: number;
 }
 
 export const Carousel = ({
@@ -20,6 +22,8 @@ export const Carousel = ({
   slides,
   disableNavigation,
   seeMoreLink,
+  desktopSlidesPerView,
+  mobileSlidesPerView,
 }: CarouselProps) => {
   const t = useCommonTranslation();
   const swiperRef = useRef<SwiperType>(null);
@@ -84,7 +88,7 @@ export const Carousel = ({
         }}
         modules={[Navigation]}
         spaceBetween={16}
-        slidesPerView={1.5}
+        slidesPerView={mobileSlidesPerView || 1.5}
         breakpoints={{
           640: {
             slidesPerView: 2,
@@ -95,7 +99,7 @@ export const Carousel = ({
             spaceBetween: 20,
           },
           1024: {
-            slidesPerView: 4,
+            slidesPerView: desktopSlidesPerView || 4,
             spaceBetween: 20,
           },
         }}

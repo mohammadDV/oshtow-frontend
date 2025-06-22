@@ -8,11 +8,10 @@ import { usePathname } from "next/navigation";
 
 export const BottomNavigation = () => {
   const pathname = usePathname();
-
   const t = useCommonTranslation();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white z-50 py-3 border-t border-border px-5">
+    <div className="fixed bottom-0 left-0 right-0 bg-white z-40 py-3 border-t border-border px-5">
       <div className="flex items-center justify-between">
         <Link href={"/"} className="flex flex-col gap-1.5 items-center">
           <Icon
