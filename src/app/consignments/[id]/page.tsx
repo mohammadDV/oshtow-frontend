@@ -190,7 +190,7 @@ export default async function SingleConsignmentPage() {
           </div>
 
           {!isMobile && (
-            <div className="lg:w-1/3 rounded-3xl p-5 bg-white sticky top-4">
+            <div className="lg:w-1/3 rounded-3xl p-6 bg-white sticky top-4">
               <p className="text-title font-normal text-lg mb-4">
                 {t("singleConsignment.submitProposalTitle")}
               </p>
