@@ -22,7 +22,7 @@ export default async function SingleTripPage() {
             quality={100}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-gray-700/90 to-gray-700/30 lg:bg-gradient-to-l lg:from-gray-700 lg:to-gray-700/25"></div>
+          <div className="absolute inset-0 bg-gradient-to-l from-gray-700/90 to-gray-700/30 lg:bg-gradient-to-l lg:from-gray-700/90 lg:to-gray-700/25"></div>
         </div>
 
         <div className="relative lg:max-w-6xl px-4 mx-auto z-10 h-full">
