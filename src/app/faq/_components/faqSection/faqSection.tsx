@@ -8,26 +8,105 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/ui/accordion";
-import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 export const FaqSection = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("1");
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const isScrollingToSection = useRef(false);
+  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const selectCategoryIdHandler = (id: string) => setSelectedCategoryId(id);
+  const scrollToSection = useCallback((categoryId: string) => {
+    const targetSection = sectionRefs.current[categoryId];
+    if (targetSection) {
+      isScrollingToSection.current = true;
+      setSelectedCategoryId(categoryId);
+
+      targetSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      });
+
+      setTimeout(() => {
+        isScrollingToSection.current = false;
+      }, 1000);
+    }
+  }, []);
+
+  const setSectionRef = useCallback((id: string) => (el: HTMLDivElement | null) => {
+    sectionRefs.current[id] = el;
+  }, []);
+
+  useEffect(() => {
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      if (isScrollingToSection.current) return;
+
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+
+      debounceTimeoutRef.current = setTimeout(() => {
+        const visibleEntries = entries.filter(entry => entry.isIntersecting);
+        
+        if (visibleEntries.length > 0) {
+          const mostVisible = visibleEntries.reduce((prev, current) => {
+            return current.intersectionRatio > prev.intersectionRatio ? current : prev;
+          });
+          
+          const categoryId = mostVisible.target.getAttribute('data-category-id');
+          if (categoryId) {
+            setSelectedCategoryId(prevId => {
+              return prevId !== categoryId ? categoryId : prevId;
+            });
+          }
+        }
+      }, 100);
+    };
+
+    observerRef.current = new IntersectionObserver(handleIntersection, {
+      root: null,
+      rootMargin: '-5% 0px -80% 0px',
+      threshold: [0, 0.25, 0.5, 0.75, 1.0]
+    });
+
+    const currentSections = Object.values(sectionRefs.current).filter(Boolean);
+    currentSections.forEach(section => {
+      if (section && observerRef.current) {
+        observerRef.current.observe(section);
+      }
+    });
+
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+      observerRef.current?.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (observerRef.current) {
+      Object.values(sectionRefs.current).forEach(section => {
+        if (section) {
+          observerRef.current?.observe(section);
+        }
+      });
+    }
+  }, [faqData]);
 
   return (
     <div className="lg:max-w-5xl mx-auto lg:px-4 mt-8 lg:mt-16">
       <div className="flex flex-col lg:flex-row justify-between gap-10 relative">
-        <div className="lg:w-1/5 pr-4 lg:pr-0">
+        <div className="lg:w-1/5 pr-2 lg:pr-0 sticky top-[86px] bg-white lg:bg-transparent lg:py-0 lg:mx-0 py-2 mx-4 rounded-md">
           <div className="flex overflow-auto w-full lg:flex-col gap-1 lg:border-r-2 lg:pr-3 border-hint/75 sticky top-8">
             {faqData.map((category) => (
-              <Link
+              <button
                 key={category.id}
-                href={`#faq-${category.id}`}
-                onClick={() => selectCategoryIdHandler(category.id)}
+                onClick={() => scrollToSection(category.id)}
                 className={cn(
-                  "font-normal p-2.5 lg:p-3 rounded-md lg:rounded-lg relative cursor-pointer min-w-max transition-all",
+                  "font-normal p-2.5 lg:p-3 rounded-md lg:rounded-lg relative cursor-pointer min-w-max transition-all text-right",
                   category.id === selectedCategoryId
                     ? "text-primary bg-sub/25 font-semibold"
                     : "text-text hover:text-primary"
@@ -37,14 +116,19 @@ export const FaqSection = () => {
                 {category.id === selectedCategoryId && (
                   <div className="hidden lg:block absolute w-0.5 bg-primary top-0 bottom-0 -right-3.5"></div>
                 )}
-              </Link>
+              </button>
             ))}
           </div>
         </div>
         <div className="flex-1 px-4 lg:px-0">
           <div className="flex flex-col gap-8 lg:gap-12">
             {faqData.map((faq) => (
-              <div key={faq.id} id={`faq-${faq.id}`}>
+              <div
+                key={faq.id}
+                ref={setSectionRef(faq.id)}
+                data-category-id={faq.id}
+                className="scroll-mt-20"
+              >
                 <h3 className="mb-2.5 lg:mb-4 text-title font-semibold text-lg lg:text-xl">
                   {faq.title}
                 </h3>

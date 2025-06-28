@@ -81,6 +81,18 @@
     "submitInfo": "برای چت با مسافر یا ثبت درخواست، ابتدا باید در سایت ثبت نام کنید.",
     "sameItems": "سفرهای مشابه"
   },
+  "user": {
+    "submittedReviews": "نظرات ثبت شده",
+    "submittedTrips": "سفر های ثبت شده",
+    "submittedConsignments": "مرسوله ها ثبت شده",
+    "lastReviews": "آخرین نظرات",
+    "lastActivities": "آخرین فعالیت ها",
+    "lastConsignments": "آخرین مرسوله ها",
+    "lastTrips": "آخرین سفر ها",
+    "aboutMe": "درباره من",
+    "profileDetail": "جزییات پروفایل",
+    "allAds": "تمام آگهی ها"
+  },
   "contact": {
     "title": "تماس با ما",
     "description": "ما همیشه آماده پاسخگویی به شما هستیم",
