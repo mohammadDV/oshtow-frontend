@@ -44,7 +44,7 @@ export const Carousel = ({
           <div className="h-0.5 rounded-full w-9 lg:w-12 bg-hint"></div>
         </div>
         <div className="flex items-center justify-end gap-4">
-          {!disableNavigation && (
+          {!disableNavigation || slides?.length > 4 && (
             <div className="hidden lg:flex items-center gap-2">
               <button
                 onClick={handlePrevSlide}

@@ -1,13 +1,21 @@
 import { useCommonTranslation } from "@/hooks/useTranslation";
+import { Project } from "@/types/project.type";
 import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
 import Link from "next/link";
 
-export const ConsignmentCard = () => {
+interface ConsignmentCardProps {
+  data: Project
+}
+
+export const ConsignmentCard = ({ data }: ConsignmentCardProps) => {
   const t = useCommonTranslation();
 
   return (
-    <div className="bg-white rounded-2xl lg:rounded-3xl p-4 lg:p-5">
+    <div className="bg-white rounded-2xl lg:rounded-3xl p-4 lg:p-5 relative overflow-hidden">
+      {data.vip && <div className="absolute -left-6 top-2.5 w-24 h-6 bg-violet-400 -rotate-45 flex items-center justify-center">
+        <Icon icon="solar--crown-minimalistic-outline" sizeClass="size-4" className="text-white" />
+      </div>}
       <div className="flex items-center gap-2.5">
         <div className="flex items-center justify-center size-10 lg:size-12 rounded-lg lg:rounded-xl bg-gradient-to-l from-light to-light/25">
           <Icon
@@ -16,11 +24,13 @@ export const ConsignmentCard = () => {
             className="text-sub"
           />
         </div>
-        <h3 className="text-title lg:text-lg font-semibold">اوراق و مدارک</h3>
+        <h3 className="text-title lg:text-lg font-semibold">
+          {data.title}
+        </h3>
       </div>
       <div className="relative flex items-center justify-between my-3 lg:my-4">
         <p className="text-text text-sm lg:text-base font-normal bg-white z-10 pl-2">
-          تهران
+          {data.origin.city.title}
         </p>
         <div className="bg-white z-10 flex items-center justify-between px-1.5">
           <Icon
@@ -30,7 +40,7 @@ export const ConsignmentCard = () => {
           />
         </div>
         <p className="text-text text-sm lg:text-base font-normal bg-white z-10 pr-2">
-          استانبول
+          {data.origin.city.title}
         </p>
         <hr className="border-t border-dashed border-hint absolute left-0 right-0 z-0" />
       </div>
@@ -41,7 +51,7 @@ export const ConsignmentCard = () => {
             sizeClass="size-5"
             className="text-sub"
           />
-          <p className="text-xs font-normal text-text">8 اردیبهشت</p>
+          <p className="text-xs font-normal text-text">{data.send_date}</p>
         </div>
         <div className="flex items-center gap-1.5">
           <Icon
@@ -49,10 +59,10 @@ export const ConsignmentCard = () => {
             sizeClass="size-5"
             className="text-sub"
           />
-          <p className="text-xs font-normal text-text">1 کیلوگرم</p>
+          <p className="text-xs font-normal text-text">{data.weight} کیلوگرم</p>
         </div>
       </div>
-      <Link href={'/consignments/1'}>
+      <Link href={`/consignments/${data.id}`}>
         <Button
           variant={"default"}
           size={"default"}
