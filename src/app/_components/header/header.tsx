@@ -20,12 +20,12 @@ export const Header = () => {
         {
             id: 2,
             title: t('navigation.senders'),
-            link: '/projects/senders'
+            link: '/projects/sender'
         },
         {
             id: 3,
             title: t('navigation.passengers'),
-            link: '/projects/passengers'
+            link: '/projects/passenger'
         },
         {
             id: 4,

@@ -8,3 +8,7 @@ export const getProvinces = async (countryId: number): Promise<ApiResponse> => {
 export const getCities = async (provinceId: number): Promise<ApiResponse> => {
   return await readData(`${apiUrls.locations.cities}/${provinceId}`);
 }
+
+export const getCityDetails = async (cityId: number): Promise<ApiResponse> => {
+  return await readData(`${apiUrls.locations.cities}/${cityId}/details`);
+}

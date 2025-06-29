@@ -50,7 +50,8 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
       )}
       <main className="flex-1">
         <h1 className="text-title text-xl lg:text-2xl font-semibold mb-3 lg:mb-4">
-          {t("projects.sendersTitle")}
+          {resolvedParams.type === "sender" && t("projects.sendersTitle")}
+          {resolvedParams.type === "passenger" && t("projects.passengersTitle")}
         </h1>
         <div className="flex items-center flex-wrap lg:justify-between gap-2">
           {isMobile && (
@@ -68,7 +69,9 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
           <ProjectsSort />
           {!isMobile && (
             <p className="text-sm font-normal text-caption">
-              {projectsData.total} {t("projects.foundedSender")}
+              {projectsData.total} {' '}
+              {resolvedParams.type === "sender" && t("projects.foundedSender")}
+              {resolvedParams.type === "passenger" && t("projects.foundedPassenger")}
             </p>
           )}
         </div>

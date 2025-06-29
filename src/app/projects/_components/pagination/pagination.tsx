@@ -3,7 +3,7 @@
 import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
 import { PaginationLink } from "@/types/project.type";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +17,7 @@ interface PaginationProps {
 export const Pagination = ({ currentPage, links }: PaginationProps) => {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const params = useParams();
 
     const createQueryString = useCallback(
         (name: string, value: string) => {
@@ -28,7 +29,7 @@ export const Pagination = ({ currentPage, links }: PaginationProps) => {
     );
 
     const handlePageChange = (page: number) => {
-        router.push(`/projects/sender?${createQueryString('page', page.toString())}`);
+        router.push(`/projects/${params.type}?${createQueryString('page', page.toString())}`);
     };
 
     const renderPageButton = (link: PaginationLink, index: number) => {
