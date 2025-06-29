@@ -33,7 +33,11 @@
     "heaviest": "سنگین ترین",
     "filters": "فیلتر ها",
     "removeFilters": "پاک کردن فیلتر ها",
-    "founded": "مرسوله یافت شد"
+    "founded": "مرسوله یافت شد",
+    "chooseOrigin": "انتخاب مبدا",
+    "chooseOriginCountry": "کشور مبدا را انتخاب کنید",
+    "chooseOriginProvince": "استان مبدا را انتخاب کنید",
+    "chooseOriginCity": "شهر مبدا را انتخاب کنید"
   },
   "trips": {
     "title": "جستجوی آگهی سفر ها",

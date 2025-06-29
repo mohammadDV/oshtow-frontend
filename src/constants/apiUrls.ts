@@ -5,4 +5,9 @@ export const apiUrls = {
     search: "/projects/search",
     single: "/project",
   },
+  locations: {
+    countries: "/countries",
+    provinces: "/provinces",
+    cities: "/cities",
+  },
 };

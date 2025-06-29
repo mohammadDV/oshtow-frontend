@@ -2,12 +2,37 @@ import { getTranslations } from "next-intl/server";
 import { ConsignmentsFilters } from "./_components/filters";
 import { ConsignmentsSort } from "./_components/sort";
 import { ConsignmentsList } from "./_components/list";
+import { Pagination } from "./_components/pagination";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { Icon } from "@/ui/icon";
+import { getConsignments } from "./_api/getConsignments";
 
-export default async function ConsignmentsPage() {
+interface ConsignmentsPageProps {
+  searchParams: {
+    page?: string;
+    o_country_id?: string;
+    o_province_id?: string;
+    o_city_id?: string;
+  };
+}
+
+export default async function ConsignmentsPage({ searchParams }: ConsignmentsPageProps) {
   const isMobile = await isMobileDevice();
   const t = await getTranslations("pages");
+
+  const resolvedSearchParams = await searchParams;
+
+  const page = parseInt(resolvedSearchParams?.page || "1");
+  const o_country_id = resolvedSearchParams?.o_country_id;
+  const o_province_id = resolvedSearchParams?.o_province_id;
+  const o_city_id = resolvedSearchParams?.o_city_id;
+
+  const consignmentsData = await getConsignments({
+    page,
+    o_country_id,
+    o_province_id,
+    o_city_id
+  });
 
   return (
     <div className="flex items-start justify-between lg:gap-9 container mx-auto px-4 mt-4 lg:mt-12">
@@ -36,11 +61,17 @@ export default async function ConsignmentsPage() {
           <ConsignmentsSort />
           {!isMobile && (
             <p className="text-sm font-normal text-caption">
-              999 {t("consignments.founded")}
+              {consignmentsData.total} {t("consignments.founded")}
             </p>
           )}
         </div>
-        <ConsignmentsList isMobile={isMobile} />
+        <ConsignmentsList isMobile={isMobile} data={consignmentsData.data} />
+        <Pagination
+          currentPage={consignmentsData.current_page}
+          lastPage={consignmentsData.last_page}
+          links={consignmentsData.links}
+          total={consignmentsData.total}
+        />
       </main>
     </div>
   );

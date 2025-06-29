@@ -16,8 +16,8 @@ export const TripCard = ({ data }: TripCardProps) => {
   return (
     <Link href={`/trips/${data.id}`}>
       <div className="relative overflow-hidden transition-all cursor-pointer h-56 lg:h-[350px] rounded-2xl lg:rounded-3xl">
-        {data.vip && <div className="absolute left-0 top-0 w-14 h-8 bg-violet-400 rounded-br-3xl flex items-center justify-center">
-          <Icon icon="solar--crown-minimalistic-outline" sizeClass="size-4.5" className="text-white" />
+        {data?.vip && <div className="absolute left-2 top-2 lg:left-3 lg:top-3 size-6 lg:size-7 bg-violet-400 flex items-center rounded-full justify-center">
+          <Icon icon="solar--crown-minimalistic-outline" sizeClass="size-3.5 lg:size-4" className="text-white" />
         </div>}
         <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-700"></div>
         <Image
@@ -26,7 +26,7 @@ export const TripCard = ({ data }: TripCardProps) => {
           className="object-cover w-full h-full"
         />
         <div className="absolute bottom-0 z-20 w-full p-3.5 lg:p-5">
-          <h3 className="text-white text-xl lg:text-2xl font-semibold">
+          <h3 className="text-white text-xl lg:text-2xl font-semibold line-clamp-1">
             {data.title}
           </h3>
           <div className="flex items-center justify-between mt-3 lg:mt-4 mb-2.5 lg:mb-3">
