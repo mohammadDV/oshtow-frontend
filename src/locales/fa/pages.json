@@ -41,7 +41,11 @@
     "chooseOrigin": "انتخاب مبدا",
     "chooseOriginCountry": "کشور مبدا را انتخاب کنید",
     "chooseOriginProvince": "استان مبدا را انتخاب کنید",
-    "chooseOriginCity": "شهر مبدا را انتخاب کنید"
+    "chooseOriginCity": "شهر مبدا را انتخاب کنید",
+    "chooseDestination": "انتخاب مقصد",
+    "chooseDestinationCountry": "کشور مقصد را انتخاب کنید",
+    "chooseDestinationProvince": "استان مقصد را انتخاب کنید",
+    "chooseDestinationCity": "شهر مقصد را انتخاب کنید"
   },
   "sender": {
     "category": "دسته بندی:",
