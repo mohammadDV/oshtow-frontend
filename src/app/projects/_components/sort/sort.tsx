@@ -1,7 +1,7 @@
 import { usePagesTranslation } from "@/hooks/useTranslation";
 import { Icon } from "@/ui/icon";
 
-export const TripsSort = () => {
+export const ProjectsSort = () => {
   const t = usePagesTranslation();
 
   return (
@@ -13,19 +13,19 @@ export const TripsSort = () => {
           className="text-text"
         />
         <p className="hidden lg:block text-text font-font-medium">
-          {t("trips.sort")}
+          {t("projects.sort")}
         </p>
       </div>
       <div className="hidden lg:block h-3 w-0.5 bg-border"></div>
       <div className="flex items-center gap-3">
         <span className="text-sm font-normal bg-primary/10 lg:bg-transparent lg:p-0 px-2.5 rounded-full py-0.5 text-primary">
-          {t("trips.newest")}
+          {t("projects.newest")}
         </span>
         <span className="text-sm font-normal text-caption">
-          {t("trips.minimum")}
+          {t("projects.lightest")}
         </span>
         <span className="text-sm font-normal text-caption">
-          {t("trips.maximum")}
+          {t("projects.heaviest")}
         </span>
       </div>
     </div>

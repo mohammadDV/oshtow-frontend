@@ -1,14 +1,12 @@
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { Project } from "@/types/project.type";
-import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
-import Link from "next/link";
 
-interface MobileConsignmentCardProps {
+interface MobileSenderCardProps {
   data: Project;
 }
 
-export const MobileConsignmentCard = ({ data }: MobileConsignmentCardProps) => {
+export const MobileSenderCard = ({ data }: MobileSenderCardProps) => {
   const t = useCommonTranslation();
 
   return (

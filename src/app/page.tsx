@@ -1,9 +1,7 @@
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { getTranslations } from "next-intl/server";
 import { Benefits } from "./_components/benefits";
-import { ConsignmentCard } from "./_components/cards/consignment";
 import { PostCard } from "./_components/cards/post";
-import { TripCard } from "./_components/cards/trip";
 import { Carousel } from "./_components/carousel";
 import { CtaBanner } from "./_components/ctaBanner";
 import { Hero } from "./_components/hero";
@@ -12,6 +10,8 @@ import { AdvancedSearch } from "./_components/advancedSearch";
 import { API_URL } from "@/configs/global";
 import { apiUrls } from "@/constants/apiUrls";
 import { Project } from "@/types/project.type";
+import { SenderCard } from "./_components/cards/sender";
+import { PassengerCard } from "./_components/cards/passenger";
 
 interface FeaturedProjectsService {
   sender: Array<Project>;
@@ -43,14 +43,14 @@ export default async function HomePage() {
       </div>
       <Benefits />
       <Carousel
-        title={t("home.lastConsignments")}
+        title={t("home.lastSenders")}
         seeMoreLink="/"
-        slides={featuredProjects.sender?.map(project => <ConsignmentCard key={project.id} data={project} />)}
+        slides={featuredProjects.sender?.map(project => <SenderCard key={project.id} data={project} />)}
       />
       <Carousel
-        title={t("home.lastTrips")}
+        title={t("home.lastPassengers")}
         seeMoreLink="/"
-        slides={featuredProjects.sender?.map(project => <TripCard key={project.id} data={project} />)}
+        slides={featuredProjects.sender?.map(project => <PassengerCard key={project.id} data={project} />)}
 
       />
       <CtaBanner />

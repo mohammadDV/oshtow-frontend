@@ -28,7 +28,7 @@ export const Pagination = ({ currentPage, links }: PaginationProps) => {
     );
 
     const handlePageChange = (page: number) => {
-        router.push(`/consignments?${createQueryString('page', page.toString())}`);
+        router.push(`/projects/sender?${createQueryString('page', page.toString())}`);
     };
 
     const renderPageButton = (link: PaginationLink, index: number) => {

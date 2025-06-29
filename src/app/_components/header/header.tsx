@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl'
 export const Header = () => {
     const pathname = usePathname();
     const t = useTranslations('common');
-    
+
     const menuData = [
         {
             id: 1,
@@ -19,13 +19,13 @@ export const Header = () => {
         },
         {
             id: 2,
-            title: t('navigation.consignments'),
-            link: '/consignments'
+            title: t('navigation.senders'),
+            link: '/projects/senders'
         },
         {
             id: 3,
-            title: t('navigation.trips'),
-            link: '/trips'
+            title: t('navigation.passengers'),
+            link: '/projects/passengers'
         },
         {
             id: 4,

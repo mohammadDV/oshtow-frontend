@@ -25,7 +25,7 @@ export const ProfileDetail = () => {
                 </div>
                 <div className="flex items-center justify-between">
                     <p className="text-sm text-caption font-normal">
-                        {t("user.submittedConsignments")}
+                        {t("user.submittedSenders")}
                     </p>
                     <p className="text-sm text-text font-normal">
                         ۲ مرسوله
@@ -33,7 +33,7 @@ export const ProfileDetail = () => {
                 </div>
                 <div className="flex items-center justify-between">
                     <p className="text-sm text-caption font-normal">
-                        {t("user.submittedTrips")}
+                        {t("user.submittedPassengers")}
                     </p>
                     <p className="text-sm text-text font-normal">
                         ۱۲ سفر

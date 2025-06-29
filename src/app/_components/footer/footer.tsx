@@ -15,13 +15,13 @@ export const Footer = () => {
     },
     {
       id: 2,
-      title: t("navigation.consignments"),
-      link: "/consignments",
+      title: t("navigation.senders"),
+      link: "/projects/senders",
     },
     {
       id: 3,
-      title: t("navigation.trips"),
-      link: "/trips",
+      title: t("navigation.passengers"),
+      link: "/projects/passengers",
     },
     {
       id: 4,

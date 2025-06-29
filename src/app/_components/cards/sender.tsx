@@ -4,11 +4,11 @@ import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
 import Link from "next/link";
 
-interface ConsignmentCardProps {
+interface SenderCardProps {
   data: Project
 }
 
-export const ConsignmentCard = ({ data }: ConsignmentCardProps) => {
+export const SenderCard = ({ data }: SenderCardProps) => {
   const t = useCommonTranslation();
 
   return (
@@ -62,7 +62,7 @@ export const ConsignmentCard = ({ data }: ConsignmentCardProps) => {
           <p className="text-xs font-normal text-text">{data.weight} کیلوگرم</p>
         </div>
       </div>
-      <Link href={`/consignments/${data.id}`}>
+      <Link href={`/sender/${data.id}`}>
         <Button
           variant={"default"}
           size={"default"}

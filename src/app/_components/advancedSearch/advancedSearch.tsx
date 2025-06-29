@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Icon } from "@/ui/icon";
 import { useState } from "react";
 
-type Tabs = 'trips' | 'consignments'
+type Tabs = 'passengers' | 'senders'
 
 export const AdvancedSearch = () => {
     const t = usePagesTranslation();
@@ -13,19 +13,19 @@ export const AdvancedSearch = () => {
     const searchTabs = [
         {
             id: 1,
-            value: "trips",
+            value: "passengers",
             icon: "ion--airplane",
-            label: t("home.trips")
+            label: t("home.passengers")
         },
         {
             id: 2,
-            value: "consignments",
+            value: "senders",
             icon: "solar--bag-4-bold",
-            label: t("home.consignments")
+            label: t("home.senders")
         },
     ]
 
-    const [selectedTab, setSelectedTab] = useState<Tabs>('trips');
+    const [selectedTab, setSelectedTab] = useState<Tabs>('passengers');
 
     const selectTabHandler = (value: Tabs) => setSelectedTab(value)
 
@@ -79,7 +79,7 @@ export const AdvancedSearch = () => {
                             <Icon icon="solar--calendar-outline" sizeClass="size-8" className="text-caption" />
                             <div>
                                 <p className="text-title font-medium text-xl">
-                                    {t('home.tripDate')}
+                                    {t('home.passengerDate')}
                                 </p>
                                 <p className="text-caption mt-1.5 font-light">
                                     {t('home.dateDescription')}

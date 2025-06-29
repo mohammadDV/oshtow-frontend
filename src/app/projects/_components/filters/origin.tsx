@@ -110,7 +110,7 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
 
   const updateURL = (updates: Record<string, string | null>) => {
     const queryString = createQueryString(updates);
-    router.push(`/consignments${queryString ? `?${queryString}` : ''}`);
+    router.push(`projects/senders${queryString ? `?${queryString}` : ''}`);
   };
 
   const handleCountryChange = (value: string) => {
@@ -188,7 +188,7 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
         options={countryOptions}
         value={selectedCountry}
         onChange={handleCountryChange}
-        placeholder={loadingCountries ? tCommon("messages.loading") : tPage("consignments.chooseOriginCountry")}
+        placeholder={loadingCountries ? tCommon("messages.loading") : tPage("projects.chooseOriginCountry")}
         className="w-full"
       />
 
@@ -196,7 +196,7 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
         options={provinceOptions}
         value={selectedProvince}
         onChange={handleProvinceChange}
-        placeholder={loadingProvinces ? tCommon("messages.loading") : tPage("consignments.chooseOriginProvince")}
+        placeholder={loadingProvinces ? tCommon("messages.loading") : tPage("projects.chooseOriginProvince")}
         className="w-full"
       />
 
@@ -204,7 +204,7 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
         options={cityOptions}
         value={selectedCity}
         onChange={handleCityChange}
-        placeholder={loadingCities ? tCommon("messages.loading") : tPage("consignments.chooseOriginCity")}
+        placeholder={loadingCities ? tCommon("messages.loading") : tPage("projects.chooseOriginCity")}
         className="w-full"
       />
     </div>

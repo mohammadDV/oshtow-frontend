@@ -103,7 +103,7 @@ export const Carousel = ({
             spaceBetween: 20,
           },
         }}
-        className="consignments-swiper"
+        className="projects-swiper"
       >
         {slides.map((component) => (
           <SwiperSlide key={component.key}>{component}</SwiperSlide>

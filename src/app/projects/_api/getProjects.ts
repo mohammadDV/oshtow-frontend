@@ -1,24 +1,26 @@
 import { API_URL } from "@/configs/global";
 import { apiUrls } from "@/constants/apiUrls";
-import { ProjectSearchResponse } from "@/types/project.type";
+import { ProjectSearchResponse, ProjectType } from "@/types/project.type";
 
-interface GetConsignmentsParams {
+interface GetProjectsParams {
   page?: number;
   count?: number;
+  type: ProjectType;
   o_country_id?: string;
   o_province_id?: string;
   o_city_id?: string;
 }
 
-export async function getConsignments({
+export async function getProjects({
   page = 1,
   count = 12,
+  type,
   o_country_id,
   o_province_id,
   o_city_id
-}: GetConsignmentsParams = {}): Promise<ProjectSearchResponse> {
+}: GetProjectsParams): Promise<ProjectSearchResponse> {
   const searchParams = new URLSearchParams({
-    type: "sender",
+    type: type,
     count: count.toString(),
     page: page.toString()
   });
@@ -35,7 +37,7 @@ export async function getConsignments({
   );
 
   if (!res.ok) {
-    throw new Error('Failed to fetch consignments');
+    throw new Error('Failed to fetch Projects');
   }
 
   return res.json();

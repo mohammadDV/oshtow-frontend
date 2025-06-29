@@ -1,4 +1,4 @@
-import { ConsignmentCard } from "@/app/_components/cards/consignment";
+// import { ConsignmentCard } from "@/app/_components/cards/consignment";
 import { Carousel } from "@/app/_components/carousel";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { Button } from "@/ui/button";
@@ -219,13 +219,13 @@ export default async function SingleConsignmentPage() {
           )}
         </div>
 
-        <Carousel
+        {/* <Carousel
           desktopSlidesPerView={3.5}
           title={t("singleConsignment.sameItems")}
           slides={Array.from({ length: 6 }, (_, index) => (
             <ConsignmentCard key={index} />
           ))}
-        />
+        /> */}
       </div>
       {isMobile && (
         <div className="fixed bottom-0 left-0 right-0 bg-white z-50 py-4 border-t border-border px-5">

@@ -18,13 +18,13 @@ export const Hero = () => {
       title: t("home.heroTitle"),
       description: t("home.heroDescription"),
       sendButton: t("home.heroSendButton"),
-      submitTrip: t("home.heroSubmitTrip"),
+      submitPassenger: t("home.heroSubmitPassenger"),
     },
     {
       title: t("home.heroTitle"),
       description: t("home.heroDescription"),
       sendButton: t("home.heroSendButton"),
-      submitTrip: t("home.heroSubmitTrip"),
+      submitPassenger: t("home.heroSubmitPassenger"),
     },
   ];
 
@@ -80,7 +80,7 @@ export const Hero = () => {
                         size="default"
                         className="text-white"
                       >
-                        {slide.submitTrip}
+                        {slide.submitPassenger}
                       </Button>
                     </Link>
                   </div>

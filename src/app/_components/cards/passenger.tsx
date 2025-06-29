@@ -6,15 +6,15 @@ import Link from "next/link";
 import { Project } from "@/types/project.type";
 import { pathTypeGenerator } from "@/lib/utils";
 
-interface TripCardProps {
+interface PassengerCardProps {
   data: Project
 }
 
-export const TripCard = ({ data }: TripCardProps) => {
+export const PassengerCard = ({ data }: PassengerCardProps) => {
   const t = useCommonTranslation();
 
   return (
-    <Link href={`/trips/${data.id}`}>
+    <Link href={`/passenger/${data.id}`}>
       <div className="relative overflow-hidden transition-all cursor-pointer h-56 lg:h-[350px] rounded-2xl lg:rounded-3xl">
         {data?.vip && <div className="absolute left-2 top-2 lg:left-3 lg:top-3 size-6 lg:size-7 bg-violet-400 flex items-center rounded-full justify-center">
           <Icon icon="solar--crown-minimalistic-outline" sizeClass="size-3.5 lg:size-4" className="text-white" />

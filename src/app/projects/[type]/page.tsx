@@ -1,13 +1,18 @@
 import { getTranslations } from "next-intl/server";
-import { ConsignmentsFilters } from "./_components/filters";
-import { ConsignmentsSort } from "./_components/sort";
-import { ConsignmentsList } from "./_components/list";
-import { Pagination } from "./_components/pagination";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { Icon } from "@/ui/icon";
-import { getConsignments } from "./_api/getConsignments";
+import { getProjects } from "../_api/getProjects";
+import { ProjectsFilters } from "../_components/filters";
+import { ProjectsSort } from "../_components/sort";
+import { Pagination } from "../_components/pagination";
+import { SendersList } from "../_components/list/senders";
+import { ProjectType } from "@/types/project.type";
+import { PassengersList } from "../_components/list/passengers";
 
-interface ConsignmentsPageProps {
+interface ProjectsPageProps {
+  params: {
+    type: ProjectType;
+  };
   searchParams: {
     page?: string;
     o_country_id?: string;
@@ -16,10 +21,11 @@ interface ConsignmentsPageProps {
   };
 }
 
-export default async function ConsignmentsPage({ searchParams }: ConsignmentsPageProps) {
+export default async function ProjectsPage({ params, searchParams }: ProjectsPageProps) {
   const isMobile = await isMobileDevice();
   const t = await getTranslations("pages");
 
+  const resolvedParams = await params;
   const resolvedSearchParams = await searchParams;
 
   const page = parseInt(resolvedSearchParams?.page || "1");
@@ -27,7 +33,8 @@ export default async function ConsignmentsPage({ searchParams }: ConsignmentsPag
   const o_province_id = resolvedSearchParams?.o_province_id;
   const o_city_id = resolvedSearchParams?.o_city_id;
 
-  const consignmentsData = await getConsignments({
+  const projectsData = await getProjects({
+    type: resolvedParams.type,
     page,
     o_country_id,
     o_province_id,
@@ -38,12 +45,12 @@ export default async function ConsignmentsPage({ searchParams }: ConsignmentsPag
     <div className="flex items-start justify-between lg:gap-9 container mx-auto px-4 mt-4 lg:mt-12">
       {!isMobile && (
         <aside className="lg:w-72 bg-white rounded-3xl p-6">
-          <ConsignmentsFilters />
+          <ProjectsFilters />
         </aside>
       )}
       <main className="flex-1">
         <h1 className="text-title text-xl lg:text-2xl font-semibold mb-3 lg:mb-4">
-          {t("consignments.title")}
+          {t("projects.sendersTitle")}
         </h1>
         <div className="flex items-center flex-wrap lg:justify-between gap-2">
           {isMobile && (
@@ -54,23 +61,24 @@ export default async function ConsignmentsPage({ searchParams }: ConsignmentsPag
                 className="text-text"
               />
               <p className="text-sm text-text font-normal">
-                {t("consignments.filters")}
+                {t("projects.filters")}
               </p>
             </div>
           )}
-          <ConsignmentsSort />
+          <ProjectsSort />
           {!isMobile && (
             <p className="text-sm font-normal text-caption">
-              {consignmentsData.total} {t("consignments.founded")}
+              {projectsData.total} {t("projects.foundedSender")}
             </p>
           )}
         </div>
-        <ConsignmentsList isMobile={isMobile} data={consignmentsData.data} />
+        {resolvedParams.type === "sender" && <SendersList isMobile={isMobile} data={projectsData.data} />}
+        {resolvedParams.type === "passenger" && <PassengersList data={projectsData.data} />}
         <Pagination
-          currentPage={consignmentsData.current_page}
-          lastPage={consignmentsData.last_page}
-          links={consignmentsData.links}
-          total={consignmentsData.total}
+          currentPage={projectsData.current_page}
+          lastPage={projectsData.last_page}
+          links={projectsData.links}
+          total={projectsData.total}
         />
       </main>
     </div>
