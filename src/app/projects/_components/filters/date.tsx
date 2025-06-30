@@ -1,5 +1,6 @@
 "use client"
 
+import { usePagesTranslation } from "@/hooks/useTranslation";
 import { DateRangePicker } from "@/ui/datepicker";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -8,8 +9,8 @@ export const DateFilter = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
+    const t = usePagesTranslation();
 
-    // Initialize state from URL parameters
     const [dateRange, setDateRange] = useState<{ from: string; to?: string } | undefined>(() => {
         const send_date = searchParams.get('send_date');
         const receive_date = searchParams.get('receive_date');
@@ -23,7 +24,6 @@ export const DateFilter = () => {
         return undefined;
     });
 
-    // Update URL when date range changes
     const updateURL = useCallback((newDateRange: { from: string; to?: string } | undefined) => {
         const params = new URLSearchParams(searchParams.toString());
 
@@ -39,7 +39,6 @@ export const DateFilter = () => {
             params.delete('receive_date');
         }
 
-        // Reset to first page when filters change
         params.delete('page');
 
         const newURL = `${pathname}?${params.toString()}`;
@@ -51,7 +50,6 @@ export const DateFilter = () => {
         updateURL(newDateRange);
     };
 
-    // Sync state with URL changes (for browser back/forward)
     useEffect(() => {
         const send_date = searchParams.get('send_date');
         const receive_date = searchParams.get('receive_date');
@@ -70,7 +68,7 @@ export const DateFilter = () => {
         <DateRangePicker
             value={dateRange}
             onChange={handleDateChange}
-            placeholder="انتخاب بازه تاریخ"
+            placeholder={t("projects.chooseDateRange")}
             minDate={new Date()}
         />
     );

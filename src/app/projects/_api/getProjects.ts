@@ -1,6 +1,6 @@
 import { API_URL } from "@/configs/global";
 import { apiUrls } from "@/constants/apiUrls";
-import { ProjectSearchResponse, ProjectType } from "@/types/project.type";
+import { PathType, ProjectSearchResponse, ProjectType } from "@/types/project.type";
 
 interface GetProjectsParams {
   type: ProjectType;
@@ -14,6 +14,8 @@ interface GetProjectsParams {
   d_city_id?: string;
   send_date?: string;
   receive_date?: string;
+  categories?: string[];
+  path_type?: PathType
 }
 
 export async function getProjects({
@@ -27,7 +29,9 @@ export async function getProjects({
   d_province_id,
   d_city_id,
   send_date,
-  receive_date
+  receive_date,
+  categories,
+  path_type
 }: GetProjectsParams): Promise<ProjectSearchResponse> {
   const searchParams = new URLSearchParams({
     type: type,
@@ -43,6 +47,13 @@ export async function getProjects({
   if (d_city_id) searchParams.set("d_city_id", d_city_id);
   if (send_date) searchParams.set("send_date", send_date);
   if (receive_date) searchParams.set("receive_date", receive_date);
+  if (path_type) searchParams.set("path_type", path_type);
+
+  if (categories && categories.length > 0) {
+    categories.forEach(categoryId => {
+      searchParams.append('categories[]', categoryId);
+    });
+  }
 
   const res = await fetch(
     `${API_URL}${apiUrls.projects.search}?${searchParams.toString()}`,

@@ -10,4 +10,7 @@ export const apiUrls = {
     provinces: "/provinces",
     cities: "/cities",
   },
+  categories: {
+    active: "/active-project-categories",
+  }
 };

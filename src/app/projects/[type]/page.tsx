@@ -6,7 +6,7 @@ import { ProjectsFilters } from "../_components/filters";
 import { ProjectsSort } from "../_components/sort";
 import { Pagination } from "../_components/pagination";
 import { SendersList } from "../_components/list/senders";
-import { ProjectType } from "@/types/project.type";
+import { PathType, ProjectType } from "@/types/project.type";
 import { PassengersList } from "../_components/list/passengers";
 
 interface ProjectsPageProps {
@@ -23,6 +23,8 @@ interface ProjectsPageProps {
     d_city_id?: string;
     send_date?: string;
     receive_date?: string;
+    categories?: string | string[];
+    path_type?: PathType;
   };
 }
 
@@ -42,6 +44,14 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
   const d_city_id = resolvedSearchParams?.d_city_id;
   const send_date = resolvedSearchParams?.send_date;
   const receive_date = resolvedSearchParams?.receive_date;
+  const path_type = resolvedSearchParams?.path_type;
+
+  const categoriesParam = resolvedSearchParams?.categories;
+  const categories = Array.isArray(categoriesParam)
+    ? categoriesParam
+    : categoriesParam
+      ? [categoriesParam]
+      : undefined;
 
   const projectsData = await getProjects({
     type: resolvedParams.type,
@@ -54,6 +64,8 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
     d_city_id,
     send_date,
     receive_date,
+    categories,
+    path_type
   });
 
   return (

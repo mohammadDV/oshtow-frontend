@@ -47,7 +47,9 @@
     "chooseDestinationProvince": "استان مقصد را انتخاب کنید",
     "chooseDestinationCity": "شهر مقصد را انتخاب کنید",
     "chooseDate": "انتخاب تاریخ",
-    "chooseDateRange": "بازه زمانی را انتخاب کنید"
+    "chooseDateRange": "بازه زمانی را انتخاب کنید",
+    "category": "دسته بندی بار",
+    "pathType": "نوع بار"
   },
   "sender": {
     "category": "دسته بندی:",
