@@ -59,7 +59,6 @@ export interface Project {
   updated_at?: string;
 }
 
-
 export interface PaginationLink {
   url: string | null;
   label: string;
@@ -80,4 +79,9 @@ export interface ProjectSearchResponse {
   prev_page_url: string | null;
   to: number;
   total: number;
+}
+
+export interface SingleProjectResponse {
+  project: Project;
+  recommended: Project[];
 }

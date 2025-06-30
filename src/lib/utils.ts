@@ -28,3 +28,7 @@ export const pathTypeGenerator = (value: PathType) => {
       return;
   }
 };
+
+export const putCommas = (value: number): string => {
+  return new Intl.NumberFormat().format(Math.trunc(value));
+};

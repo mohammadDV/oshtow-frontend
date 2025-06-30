@@ -10,10 +10,10 @@ import { PathType, ProjectType } from "@/types/project.type";
 import { PassengersList } from "../_components/list/passengers";
 
 interface ProjectsPageProps {
-  params: {
+  params: Promise<{
     type: ProjectType;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     page?: string;
     o_country_id?: string;
     o_province_id?: string;
@@ -27,7 +27,7 @@ interface ProjectsPageProps {
     path_type?: PathType;
     min_weight?: string;
     max_weight?: string;
-  };
+  }>;
 }
 
 export default async function ProjectsPage({ params, searchParams }: ProjectsPageProps) {
