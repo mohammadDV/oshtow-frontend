@@ -1,6 +1,7 @@
 import { usePagesTranslation } from "@/hooks/useTranslation";
 import { OriginFilter } from "./origin";
 import { DestinationFilter } from "./destination";
+import { DateFilter } from "./date";
 
 export const ProjectsFilters = () => {
   const t = usePagesTranslation();
@@ -22,11 +23,19 @@ export const ProjectsFilters = () => {
         <h3 className="font-semibold text-title mb-3">{t("projects.chooseOrigin")}</h3>
         <OriginFilter />
       </div>
+
       <hr className="border-t border-border my-5" />
 
       <div>
         <h3 className="font-semibold text-title mb-3">{t("projects.chooseDestination")}</h3>
         <DestinationFilter />
+      </div>
+
+      <hr className="border-t border-border my-5" />
+
+      <div>
+        <h3 className="font-semibold text-title mb-3">{t("projects.chooseDate")}</h3>
+        <DateFilter />
       </div>
     </>
   );

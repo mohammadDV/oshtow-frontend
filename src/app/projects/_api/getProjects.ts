@@ -12,6 +12,8 @@ interface GetProjectsParams {
   d_country_id?: string;
   d_province_id?: string;
   d_city_id?: string;
+  send_date?: string;
+  receive_date?: string;
 }
 
 export async function getProjects({
@@ -24,6 +26,8 @@ export async function getProjects({
   d_country_id,
   d_province_id,
   d_city_id,
+  send_date,
+  receive_date
 }: GetProjectsParams): Promise<ProjectSearchResponse> {
   const searchParams = new URLSearchParams({
     type: type,
@@ -37,6 +41,8 @@ export async function getProjects({
   if (d_country_id) searchParams.set("d_country_id", d_country_id);
   if (d_province_id) searchParams.set("d_province_id", d_province_id);
   if (d_city_id) searchParams.set("d_city_id", d_city_id);
+  if (send_date) searchParams.set("send_date", send_date);
+  if (receive_date) searchParams.set("receive_date", receive_date);
 
   const res = await fetch(
     `${API_URL}${apiUrls.projects.search}?${searchParams.toString()}`,

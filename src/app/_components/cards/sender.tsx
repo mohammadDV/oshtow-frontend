@@ -40,7 +40,7 @@ export const SenderCard = ({ data }: SenderCardProps) => {
           />
         </div>
         <p className="text-text text-sm lg:text-base font-normal bg-white z-10 pr-2">
-          {data.origin.city.title}
+          {data.destination.city.title}
         </p>
         <hr className="border-t border-dashed border-hint absolute left-0 right-0 z-0" />
       </div>

@@ -21,6 +21,8 @@ interface ProjectsPageProps {
     d_country_id?: string;
     d_province_id?: string;
     d_city_id?: string;
+    send_date?: string;
+    receive_date?: string;
   };
 }
 
@@ -38,6 +40,8 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
   const d_country_id = resolvedSearchParams?.d_country_id;
   const d_province_id = resolvedSearchParams?.d_province_id;
   const d_city_id = resolvedSearchParams?.d_city_id;
+  const send_date = resolvedSearchParams?.send_date;
+  const receive_date = resolvedSearchParams?.receive_date;
 
   const projectsData = await getProjects({
     type: resolvedParams.type,
@@ -48,6 +52,8 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
     d_country_id,
     d_province_id,
     d_city_id,
+    send_date,
+    receive_date,
   });
 
   return (

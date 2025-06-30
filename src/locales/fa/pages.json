@@ -45,7 +45,9 @@
     "chooseDestination": "انتخاب مقصد",
     "chooseDestinationCountry": "کشور مقصد را انتخاب کنید",
     "chooseDestinationProvince": "استان مقصد را انتخاب کنید",
-    "chooseDestinationCity": "شهر مقصد را انتخاب کنید"
+    "chooseDestinationCity": "شهر مقصد را انتخاب کنید",
+    "chooseDate": "انتخاب تاریخ",
+    "chooseDateRange": "بازه زمانی را انتخاب کنید"
   },
   "sender": {
     "category": "دسته بندی:",
