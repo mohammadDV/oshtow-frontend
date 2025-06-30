@@ -49,7 +49,10 @@
     "chooseDate": "انتخاب تاریخ",
     "chooseDateRange": "بازه زمانی را انتخاب کنید",
     "category": "دسته بندی بار",
-    "pathType": "نوع بار"
+    "pathType": "نوع بار",
+    "weight": "وزن بار",
+    "noSenderFound": "هیچ مرسوله ای یافت نشد",
+    "noPassengerFound": "هیچ سفری یافت نشد"
   },
   "sender": {
     "category": "دسته بندی:",

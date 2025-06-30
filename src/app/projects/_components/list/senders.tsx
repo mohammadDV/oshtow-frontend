@@ -1,5 +1,6 @@
 import { MobileSenderCard } from "@/app/_components/cards/mobileSender";
 import { SenderCard } from "@/app/_components/cards/sender";
+import { usePagesTranslation } from "@/hooks/useTranslation";
 import { Project } from "@/types/project.type";
 
 interface SendersListProps {
@@ -8,10 +9,12 @@ interface SendersListProps {
 }
 
 export const SendersList = ({ isMobile, data }: SendersListProps) => {
+  const t = usePagesTranslation();
+
   if (!data || data.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-text">هیچ محموله‌ای یافت نشد</p>
+        <p className="text-text">{t("projects.noSenderFound")}</p>
       </div>
     );
   }

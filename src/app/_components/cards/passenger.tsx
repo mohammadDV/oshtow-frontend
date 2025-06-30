@@ -26,7 +26,7 @@ export const PassengerCard = ({ data }: PassengerCardProps) => {
           className="object-cover w-full h-full"
         />
         <div className="absolute bottom-0 z-20 w-full p-3.5 lg:p-5">
-          <h3 className="text-white text-xl lg:text-2xl font-semibold line-clamp-1">
+          <h3 className="text-white text-lg lg:text-2xl font-semibold line-clamp-1">
             {data.title}
           </h3>
           <div className="flex items-center justify-between mt-3 lg:mt-4 mb-2.5 lg:mb-3">

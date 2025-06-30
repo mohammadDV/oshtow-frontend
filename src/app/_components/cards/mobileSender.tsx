@@ -1,6 +1,7 @@
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { Project } from "@/types/project.type";
 import { Icon } from "@/ui/icon";
+import Link from "next/link";
 
 interface MobileSenderCardProps {
   data: Project;
@@ -10,7 +11,9 @@ export const MobileSenderCard = ({ data }: MobileSenderCardProps) => {
   const t = useCommonTranslation();
 
   return (
-    <div className="bg-white rounded-2xl p-2 flex items-center gap-2.5 relative">
+    <Link
+      href={`/sender/${data.id}`}
+      className="bg-white rounded-2xl p-2 flex items-center gap-2.5 relative">
       {data?.vip && (
         <div className="absolute left-2 top-2 size-5 bg-violet-400 flex items-center rounded-full justify-center">
           <Icon icon="solar--crown-minimalistic-outline" sizeClass="size-3" className="text-white" />
@@ -54,6 +57,6 @@ export const MobileSenderCard = ({ data }: MobileSenderCardProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

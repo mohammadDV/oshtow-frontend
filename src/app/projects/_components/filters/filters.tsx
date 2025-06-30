@@ -4,8 +4,15 @@ import { DestinationFilter } from "./destination";
 import { DateFilter } from "./date";
 import { CategoriesFilter } from "./categories";
 import { PathTypeFilter } from "./pathType";
+import { WeightRangeFilter } from "./weightRange";
+import { RemoveFilters } from "./removeFilters";
+import { ProjectType } from "@/types/project.type";
 
-export const ProjectsFilters = () => {
+interface ProjectsFiltersProps {
+  type: ProjectType
+}
+
+export const ProjectsFilters = ({ type }: ProjectsFiltersProps) => {
   const t = usePagesTranslation();
 
   return (
@@ -14,9 +21,7 @@ export const ProjectsFilters = () => {
         <p className="text-xl font-medium text-title">
           {t("projects.filters")}
         </p>
-        <span className="text-sm text-primary font-normal cursor-pointer hover:underline">
-          {t("projects.removeFilters")}
-        </span>
+        <RemoveFilters />
       </div>
       <hr className="border-t border-border my-5" />
       <div>
@@ -33,15 +38,24 @@ export const ProjectsFilters = () => {
         <h3 className="font-semibold text-title mb-3">{t("projects.chooseDate")}</h3>
         <DateFilter />
       </div>
+      {type === 'sender' && <>
+        <hr className="border-t border-border my-5" />
+        <div>
+          <h3 className="font-semibold text-title mb-3">{t("projects.category")}</h3>
+          <CategoriesFilter />
+        </div>
+      </>}
+      {type === 'passenger' && <>
+        <hr className="border-t border-border my-5" />
+        <div>
+          <h3 className="font-semibold text-title mb-3">{t("projects.pathType")}</h3>
+          <PathTypeFilter />
+        </div>
+      </>}
       <hr className="border-t border-border my-5" />
       <div>
-        <h3 className="font-semibold text-title mb-3">{t("projects.category")}</h3>
-        <CategoriesFilter />
-      </div>
-      <hr className="border-t border-border my-5" />
-      <div>
-        <h3 className="font-semibold text-title mb-3">{t("projects.pathType")}</h3>
-        <PathTypeFilter />
+        <h3 className="font-semibold text-title mb-3">{t("projects.weight")}</h3>
+        <WeightRangeFilter />
       </div>
     </>
   );

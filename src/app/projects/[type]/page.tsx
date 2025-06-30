@@ -25,6 +25,8 @@ interface ProjectsPageProps {
     receive_date?: string;
     categories?: string | string[];
     path_type?: PathType;
+    min_weight?: string;
+    max_weight?: string;
   };
 }
 
@@ -45,6 +47,8 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
   const send_date = resolvedSearchParams?.send_date;
   const receive_date = resolvedSearchParams?.receive_date;
   const path_type = resolvedSearchParams?.path_type;
+  const min_weight = resolvedSearchParams?.min_weight;
+  const max_weight = resolvedSearchParams?.max_weight;
 
   const categoriesParam = resolvedSearchParams?.categories;
   const categories = Array.isArray(categoriesParam)
@@ -65,14 +69,16 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
     send_date,
     receive_date,
     categories,
-    path_type
+    path_type,
+    min_weight,
+    max_weight
   });
 
   return (
     <div className="flex items-start justify-between lg:gap-9 container mx-auto px-4 mt-4 lg:mt-12">
       {!isMobile && (
         <aside className="lg:w-72 bg-white rounded-3xl p-6">
-          <ProjectsFilters />
+          <ProjectsFilters type={resolvedParams.type} />
         </aside>
       )}
       <main className="flex-1">

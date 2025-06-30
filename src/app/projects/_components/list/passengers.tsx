@@ -1,4 +1,5 @@
 import { PassengerCard } from "@/app/_components/cards/passenger";
+import { usePagesTranslation } from "@/hooks/useTranslation";
 import { Project } from "@/types/project.type";
 
 interface SendersListProps {
@@ -6,10 +7,12 @@ interface SendersListProps {
 }
 
 export const PassengersList = ({ data }: SendersListProps) => {
+    const t = usePagesTranslation();
+
     if (!data || data.length === 0) {
         return (
             <div className="text-center py-8">
-                <p className="text-text">هیچ سفری یافت نشد</p>
+                <p className="text-text">{t("projects.noPassengerFound")}</p>
             </div>
         );
     }

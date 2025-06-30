@@ -46,11 +46,17 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
       const countryId = searchParams.get('o_country_id');
       const provinceId = searchParams.get('o_province_id');
       const cityId = searchParams.get('o_city_id');
-
+  
+      // If no parameters exist, clear all selections
       if (!countryId && !provinceId && !cityId) {
-        return;
+          setSelectedCountry("");
+          setSelectedProvince("");
+          setSelectedCity("");
+          setProvinces([]);
+          setCities([]);
+          return;
       }
-
+  
       setIsInitializing(true);
 
       try {
