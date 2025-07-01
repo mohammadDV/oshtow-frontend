@@ -15,7 +15,7 @@ export const RemoveFilters = () => {
 
     return (
         searchParams.size > 0 && <span
-            className="text-sm text-primary font-normal cursor-pointer hover:underline transition-colors"
+            className="text-sm text-primary bg-white lg:bg-transparent px-3 py-1.5 lg:p-0 rounded-full font-normal cursor-pointer hover:underline transition-colors"
             onClick={handleClearFilters}
             role="button"
             tabIndex={0}

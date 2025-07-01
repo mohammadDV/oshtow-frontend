@@ -8,6 +8,8 @@ import { Pagination } from "../_components/pagination";
 import { SendersList } from "../_components/list/senders";
 import { PathType, ProjectType } from "@/types/project.type";
 import { PassengersList } from "../_components/list/passengers";
+import { MobileProjectsFilters } from "../_components/filters/mobileFilters";
+import { RemoveFilters } from "../_components/filters/removeFilters";
 
 interface ProjectsPageProps {
   params: Promise<{
@@ -92,20 +94,10 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
           {resolvedParams.type === "sender" && t("projects.sendersTitle")}
           {resolvedParams.type === "passenger" && t("projects.passengersTitle")}
         </h1>
-        <div className="flex items-center flex-wrap lg:justify-between gap-2">
-          {isMobile && (
-            <div className="bg-white px-2.5 py-1 rounded-full flex items-center gap-1.5 justify-center">
-              <Icon
-                icon="solar--filters-outline"
-                sizeClass="size-4"
-                className="text-text"
-              />
-              <p className="text-sm text-text font-normal">
-                {t("projects.filters")}
-              </p>
-            </div>
-          )}
+        <div className="flex items-center flex-wrap lg:justify-between gap-2 mb-6 lg:mb-0">
+          {isMobile && <MobileProjectsFilters type={resolvedParams.type} />}
           <ProjectsSort type={resolvedParams.type} />
+          {isMobile && <RemoveFilters />}
           {!isMobile && (
             <p className="text-sm font-normal text-caption">
               {projectsData.total} {' '}

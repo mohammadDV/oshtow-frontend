@@ -17,13 +17,13 @@ export const ProjectsFilters = ({ type }: ProjectsFiltersProps) => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="hidden lg:flex items-center justify-between">
         <p className="text-xl font-medium text-title">
           {t("projects.filters")}
         </p>
         <RemoveFilters />
       </div>
-      <hr className="border-t border-border my-5" />
+      <hr className="border-t border-border mb-5 lg:my-5" />
       <div>
         <h3 className="font-semibold text-title mb-3">{t("projects.chooseOrigin")}</h3>
         <OriginFilter />
