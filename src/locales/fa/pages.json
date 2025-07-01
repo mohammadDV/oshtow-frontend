@@ -64,13 +64,13 @@
     "weight": "وزن مرسوله",
     "size": "ابعاد مرسوله",
     "description": "توضیحات مرسوله",
-    "share": "اشتراک گذاری مرسوله",
-    "copyLink": "کپی لینک",
+    "shareSender": "اشتراک گذاری مرسوله",
     "submitProposalTitle": "ثبت پیشنهاد برای این مرسوله",
     "submitProposal": "ثبت پیشنهاد",
     "chat": "چت با ارسال کننده",
     "submitInfo": "برای چت با ارسال کننده یا ثبت پیشنهاد، ابتدا باید در سایت ثبت نام کنید.",
-    "sameItems": "مرسوله ها مشابه"
+    "sameItems": "مرسوله ها مشابه",
+    "hasSubmitAd": "این آگهی را ثبت کرده است."
   },
   "passenger": {
     "type": "نوع سفر:",
@@ -82,8 +82,7 @@
     "endDate": "ارسال تا تاریخ",
     "suggestPrice": "قیمت پیشنهادی (kg)",
     "description": "توضیحات سفر",
-    "share": "اشتراک گذاری سفر",
-    "copyLink": "کپی لینک",
+    "sharePassenger": "اشتراک گذاری سفر",
     "submitRequestTitle": "ثبت درخواست برای این سفر",
     "submitRequest": "ثبت درخواست",
     "chat": "چت با مسافر",

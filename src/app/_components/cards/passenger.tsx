@@ -1,10 +1,9 @@
 import { useCommonTranslation } from "@/hooks/useTranslation";
-import istanbulVertical from "@/assets/images/istanbul-vertical.png";
-import Image from "next/image";
-import { Icon } from "@/ui/icon";
-import Link from "next/link";
-import { Project } from "@/types/project.type";
 import { pathTypeGenerator } from "@/lib/utils";
+import { Project } from "@/types/project.type";
+import { Icon } from "@/ui/icon";
+import Image from "next/image";
+import Link from "next/link";
 
 interface PassengerCardProps {
   data: Project
@@ -21,8 +20,10 @@ export const PassengerCard = ({ data }: PassengerCardProps) => {
         </div>}
         <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-700"></div>
         <Image
-          src={istanbulVertical}
+          src={data?.destination_image}
           alt=""
+          width={350}
+          height={300}
           className="object-cover w-full h-full"
         />
         <div className="absolute bottom-0 z-20 w-full p-3.5 lg:p-5">
@@ -47,7 +48,7 @@ export const PassengerCard = ({ data }: PassengerCardProps) => {
                 className="text-white"
               />
               <p className="text-xs lg:text-sm text-white font-normal">
-                {data.weight} فضا
+                {data.weight} کیلوگرم فضا
               </p>
             </div>
           </div>
@@ -62,7 +63,7 @@ export const PassengerCard = ({ data }: PassengerCardProps) => {
                 سفر {pathTypeGenerator(data.path_type)}
               </p>
             </div>
-            <div className="flex items-center justify-center text-[10px] px-1.5 gap-1 py-0.5 lg:py-1 lg:text-sm lg:px-2.5 rounded-full text-white bg-primary">
+            <div className="flex items-center justify-center text-[10px] px-1 gap-1 py-0.5 lg:py-1 lg:text-sm lg:px-2.5 rounded-full text-white bg-primary">
               {t("buttons.seeMore")}
               <Icon
                 icon="solar--alt-arrow-left-outline"

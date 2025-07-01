@@ -1,14 +1,15 @@
 import { PassengerCard } from "@/app/_components/cards/passenger";
 import { Carousel } from "@/app/_components/carousel";
+import { ShareProject } from "@/app/_components/shareProject/shareProject";
+import { SubmitProjectCard } from "@/app/_components/submitProject";
 import istanbulHorizontal from "@/assets/images/istanbul-horizontal.jpg";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { pathTypeGenerator, putCommas } from "@/lib/utils";
-import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import { getPassenger } from "../_api/getPassenger";
 import Link from "next/link";
+import { getPassenger } from "../_api/getPassenger";
 
 interface PassengerPageProps {
   params: Promise<{
@@ -29,9 +30,11 @@ export default async function PassengerPage({ params }: PassengerPageProps) {
       <section className="relative mx-4 lg:mx-0 mt-4 lg:mt-0 rounded-xl lg:rounded-none lg:w-full z-10 h-32 lg:h-80 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={istanbulHorizontal}
+            src={passengerData.project?.destination_image}
             alt=""
             priority
+            width={1600}
+            height={320}
             quality={100}
             className="w-full h-full object-cover"
           />
@@ -167,83 +170,20 @@ export default async function PassengerPage({ params }: PassengerPageProps) {
             {!isMobile && (
               <div className="mt-7">
                 <h3 className="text-title font-normal text-lg mb-3">
-                  {t("passenger.share")}
+                  {t("passenger.sharePassenger")}
                 </h3>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="size-9 bg-sub/30 flex items-center justify-center rounded-full">
-                      <Icon
-                        icon="iconoir--telegram"
-                        sizeClass="size-5"
-                        className="text-primary"
-                      />
-                    </div>
-                    <div className="size-9 bg-sub/30 flex items-center justify-center rounded-full">
-                      <Icon
-                        icon="iconoir--instagram"
-                        sizeClass="size-5"
-                        className="text-primary"
-                      />
-                    </div>
-                    <div className="size-9 bg-sub/30 flex items-center justify-center rounded-full">
-                      <Icon
-                        icon="iconoir--whatsapp"
-                        sizeClass="size-5"
-                        className="text-primary"
-                      />
-                    </div>
-                    <div className="size-9 bg-sub/30 flex items-center justify-center rounded-full">
-                      <Icon
-                        icon="iconoir--facebook"
-                        sizeClass="size-5"
-                        className="text-primary"
-                      />
-                    </div>
-                    <div className="size-9 bg-sub/30 flex items-center justify-center rounded-full">
-                      <Icon
-                        icon="iconoir--linkedin"
-                        sizeClass="size-5"
-                        className="text-primary"
-                      />
-                    </div>
-                  </div>
-                  <div className="bg-gray-100 flex items-center justify-center text-gray-400 text-sm gap-2.5 py-2 px-4 rounded-full">
-                    {t("passenger.copyLink")}
-                    <Icon icon="solar--copy-outline" sizeClass="size-5" />
-                  </div>
-                </div>
+                <ShareProject />
               </div>
             )}
           </div>
 
-          {!isMobile && (
-            <div className="lg:w-1/3 rounded-3xl p-6 bg-white sticky top-4">
-              <p className="text-title font-normal text-lg mb-4">
-                {t("passenger.submitRequestTitle")}
-              </p>
-              <Button variant={"default"} size={"lg"} className="mb-3 w-full">
-                {t("passenger.submitRequest")}
-                <Icon icon="solar--pen-2-outline" sizeClass="size-5" />
-              </Button>
-              <Button variant={"ghost"} size={"lg"} className="mb-5 w-full">
-                {t("passenger.chat")}
-                <Icon
-                  icon="solar--chat-round-dots-outline"
-                  sizeClass="size-5"
-                />
-              </Button>
-              <div className="flex gap-2">
-                <Icon
-                  icon="solar--info-circle-outline"
-                  sizeClass="size-5"
-                  className="text-caption"
-                />
-                <p className="text-caption font-light text-sm">
-                  {t("passenger.submitInfo")}
-                </p>
-              </div>
-            </div>
-          )}
+          <SubmitProjectCard
+            isMobile={isMobile}
+            projectData={passengerData}
+            title={t("passenger.submitRequestTitle")}
+            submitLabel={t("passenger.submitRequest")}
+            chatLabel={t("passenger.chat")}
+            infoText={t("passenger.submitInfo")} />
         </div>
 
         <Carousel
@@ -252,21 +192,6 @@ export default async function PassengerPage({ params }: PassengerPageProps) {
           slides={passengerData?.recommended?.map(item => <PassengerCard key={item.id} data={item} />)}
         />
       </div>
-
-      {isMobile && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white z-50 py-4 border-t border-border px-5">
-          <div className="flex items-center justify-between gap-3.5">
-            <Button variant={"default"} size={"default"} className="flex-1">
-              {t("passenger.submitRequest")}
-              <Icon icon="solar--pen-2-outline" sizeClass="size-5" />
-            </Button>
-            <Button variant={"ghost"} size={"default"} className="flex-1">
-              {t("passenger.chat")}
-              <Icon icon="solar--chat-round-dots-outline" sizeClass="size-5" />
-            </Button>
-          </div>
-        </div>
-      )}
     </>
   );
 }

@@ -39,6 +39,16 @@ export interface Category {
   created_at: string | null;
 }
 
+export interface ProjectUser {
+  id: number;
+  nickname: string;
+  biography: string | null;
+  profile_photo_path: string;
+  bg_photo_path: string | null;
+  rate: number;
+  point: number | null
+}
+
 export interface Project {
   id: number;
   title: string;
@@ -46,6 +56,7 @@ export interface Project {
   path_type: PathType;
   amount: number;
   weight: number;
+  dimensions: string;
   vip: boolean;
   description: string;
   status: ProjectStatusType;
@@ -55,6 +66,7 @@ export interface Project {
   origin: Location;
   destination: Location;
   categories: Category[];
+  user: ProjectUser;
   created_at?: string;
   updated_at?: string;
 }
