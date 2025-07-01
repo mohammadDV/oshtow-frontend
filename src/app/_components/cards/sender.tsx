@@ -16,7 +16,7 @@ export const SenderCard = ({ data }: SenderCardProps) => {
       {data?.vip && <div className="absolute left-2 top-2 lg:left-3 lg:top-3 size-6 lg:size-7 bg-violet-400 flex items-center rounded-full justify-center">
         <Icon icon="solar--crown-minimalistic-outline" sizeClass="size-3.5 lg:size-4" className="text-white" />
       </div>}
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2">
         <div className="flex items-center justify-center size-10 lg:size-12 rounded-lg lg:rounded-xl bg-gradient-to-l from-light to-light/25">
           <Icon
             icon="solar--documents-bold-duotone"

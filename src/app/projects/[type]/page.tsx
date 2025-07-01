@@ -27,6 +27,8 @@ interface ProjectsPageProps {
     path_type?: PathType;
     min_weight?: string;
     max_weight?: string;
+    sort?: string;
+    column?: string;
   }>;
 }
 
@@ -49,6 +51,8 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
   const path_type = resolvedSearchParams?.path_type;
   const min_weight = resolvedSearchParams?.min_weight;
   const max_weight = resolvedSearchParams?.max_weight;
+  const sort = resolvedSearchParams?.sort;
+  const column = resolvedSearchParams?.column;
 
   const categoriesParam = resolvedSearchParams?.categories;
   const categories = Array.isArray(categoriesParam)
@@ -71,7 +75,9 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
     categories,
     path_type,
     min_weight,
-    max_weight
+    max_weight,
+    sort,
+    column
   });
 
   return (
@@ -99,7 +105,7 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
               </p>
             </div>
           )}
-          <ProjectsSort />
+          <ProjectsSort type={resolvedParams.type} />
           {!isMobile && (
             <p className="text-sm font-normal text-caption">
               {projectsData.total} {' '}

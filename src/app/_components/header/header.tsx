@@ -45,7 +45,7 @@ export const Header = () => {
     ];
 
     return (
-        <div className="bg-white w-full py-6 border-b border-border">
+        <div className="bg-white w-full py-5 border-b border-border">
             <div className="container mx-auto flex items-center justify-between px-4">
                 <Link href={'/'} className="text-3xl font-bold text-primary">
                     {t('brand.name')}

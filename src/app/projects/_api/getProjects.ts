@@ -16,8 +16,10 @@ interface GetProjectsParams {
   receive_date?: string;
   categories?: string[];
   path_type?: PathType;
-  min_weight?: string
-  max_weight?: string
+  min_weight?: string;
+  max_weight?: string;
+  sort?: string;
+  column?: string;
 }
 
 export async function getProjects({
@@ -35,7 +37,9 @@ export async function getProjects({
   categories,
   path_type,
   min_weight,
-  max_weight
+  max_weight,
+  sort,
+  column
 }: GetProjectsParams): Promise<ProjectSearchResponse> {
   const searchParams = new URLSearchParams({
     type: type,
@@ -54,6 +58,8 @@ export async function getProjects({
   if (path_type) searchParams.set("path_type", path_type);
   if (min_weight) searchParams.set("min_weight", min_weight);
   if (max_weight) searchParams.set("max_weight", max_weight);
+  if (sort) searchParams.set("sort", sort);
+  if (column) searchParams.set("column", column);
 
   if (categories && categories.length > 0) {
     categories.forEach(categoryId => {
