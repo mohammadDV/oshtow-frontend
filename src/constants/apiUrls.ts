@@ -12,5 +12,8 @@ export const apiUrls = {
   },
   categories: {
     active: "/active-project-categories",
+  },
+  user: {
+    info: '/user',
   }
 };

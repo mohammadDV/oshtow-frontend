@@ -1,3 +1,5 @@
+import { UserInfo } from "./user.type";
+
 export type ProjectType = "sender" | "passenger";
 export type PathType = "air" | "land" | "sea";
 export type ProjectStatusType = "pending" | "inprogress" | "completed";
@@ -39,16 +41,6 @@ export interface Category {
   created_at: string | null;
 }
 
-export interface ProjectUser {
-  id: number;
-  nickname: string;
-  biography: string | null;
-  profile_photo_path: string;
-  bg_photo_path: string | null;
-  rate: number;
-  point: number | null
-}
-
 export interface Project {
   id: number;
   title: string;
@@ -66,7 +58,7 @@ export interface Project {
   origin: Location;
   destination: Location;
   categories: Category[];
-  user: ProjectUser;
+  user: UserInfo;
   created_at?: string;
   updated_at?: string;
 }

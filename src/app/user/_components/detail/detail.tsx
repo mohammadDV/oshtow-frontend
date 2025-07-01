@@ -1,34 +1,43 @@
 import { usePagesTranslation } from "@/hooks/useTranslation"
+import { UserInfo } from "@/types/user.type";
 
-export const ProfileDetail = () => {
+interface ProfileDetailProps {
+    userInfo: UserInfo;
+    sendersCount: number;
+    passengersCount: number;
+}
+
+export const ProfileDetail = ({ userInfo, sendersCount, passengersCount }: ProfileDetailProps) => {
     const t = usePagesTranslation();
 
     return (
         <div className="bg-white p-5 rounded-3xl">
-            <h3 className="text-title font-semibold text-lg mb-2">
-                {t("user.aboutMe")}
-            </h3>
-            <p className="text-sm font-normal text-caption text-justify leading-6">
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-            </p>
-            <h3 className="text-title font-semibold text-lg mb-3 mt-6">
+            {userInfo?.biography && <>
+                <h3 className="text-title font-semibold text-lg mb-2">
+                    {t("user.aboutMe")}
+                </h3>
+                <p className="text-sm font-normal text-caption text-justify leading-6 mb-6">
+                    {userInfo?.biography}
+                </p>
+            </>}
+            <h3 className="text-title font-semibold text-lg mb-3">
                 {t("user.profileDetail")}
             </h3>
-            <div className="flex flex-col gap-2">
-                <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-2.5">
+                {/* <div className="flex items-center justify-between">
                     <p className="text-sm text-caption font-normal">
                         {t("user.submittedReviews")}
                     </p>
                     <p className="text-sm text-text font-normal">
                         ۱۸ نظر
                     </p>
-                </div>
+                </div> */}
                 <div className="flex items-center justify-between">
                     <p className="text-sm text-caption font-normal">
                         {t("user.submittedSenders")}
                     </p>
                     <p className="text-sm text-text font-normal">
-                        ۲ مرسوله
+                        {sendersCount} مرسوله
                     </p>
                 </div>
                 <div className="flex items-center justify-between">
@@ -36,7 +45,7 @@ export const ProfileDetail = () => {
                         {t("user.submittedPassengers")}
                     </p>
                     <p className="text-sm text-text font-normal">
-                        ۱۲ سفر
+                        {passengersCount} سفر
                     </p>
                 </div>
                 <div className="flex items-center justify-between">
@@ -44,7 +53,7 @@ export const ProfileDetail = () => {
                         {t("user.allAds")}
                     </p>
                     <p className="text-sm text-text font-normal">
-                        ۱۴ آگهی
+                        {sendersCount + passengersCount} آگهی
                     </p>
                 </div>
             </div>

@@ -92,14 +92,16 @@
   "user": {
     "submittedReviews": "نظرات ثبت شده",
     "submittedPassengers": "سفر های ثبت شده",
-    "submittedSender": "مرسوله ها ثبت شده",
+    "submittedSenders": "مرسوله ها ثبت شده",
     "lastReviews": "آخرین نظرات",
     "lastActivities": "آخرین فعالیت ها",
     "lastSenders": "آخرین مرسوله ها",
     "lastPassengers": "آخرین سفر ها",
     "aboutMe": "درباره من",
     "profileDetail": "جزییات پروفایل",
-    "allAds": "تمام آگهی ها"
+    "allAds": "تمام آگهی ها",
+    "chooseRate": "انتخاب امتیاز",
+    "noReviewFound": "هیچ نظری یافت نشد"
   },
   "contact": {
     "title": "تماس با ما",

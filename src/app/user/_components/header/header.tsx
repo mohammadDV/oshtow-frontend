@@ -1,45 +1,51 @@
-import Image from "next/image"
-import defaultUserBanner from '@/assets/images/default-user-banner.jpg';
-import { Icon } from "@/ui/icon";
 import { usePagesTranslation } from "@/hooks/useTranslation";
+import { UserInfoResponse } from "@/types/user.type";
+import { Icon } from "@/ui/icon";
 import Link from "next/link";
 
-export const ProfileHeader = () => {
+interface ProfileHeaderProps {
+    data: UserInfoResponse
+}
+
+export const ProfileHeader = ({ data }: ProfileHeaderProps) => {
     const t = usePagesTranslation();
 
     return (
         <div className="bg-white rounded-3xl">
-            <Image src={defaultUserBanner} alt="" width={1030} height={150} className="w-full rounded-t-3xl h-[80px] lg:h-36" />
+            <img src={data.user.bg_photo_path || ''}
+                alt=""
+                width={1030}
+                height={150}
+                className="w-full rounded-t-3xl h-[80px] lg:h-36 object-cover" />
             <div className="px-6 lg:px-12 flex flex-col items-center lg:flex-row lg:items-end gap-3 lg:gap-5 -mt-12">
-                <div className="size-28 lg:size-32 rounded-full border-4 border-white bg-light flex items-center justify-center">
-                    <Icon
-                        icon="solar--user-rounded-bold-duotone"
-                        sizeClass="size-20 lg:size-24"
-                        className="text-primary" />
-                </div>
+                <img src={data.user.profile_photo_path}
+                    alt=""
+                    width={128}
+                    height={128}
+                    className="size-28 lg:size-32 rounded-full border-4 border-white" />
                 <div className="flex items-center justify-between flex-1 mb-1">
                     <div>
                         <h1 className="text-xl text-title font-semibold text-center lg:text-right mb-3 lg:mb-2.5">
-                            سید بامداد لعلی
+                            {data.user.nickname}
                         </h1>
                         <div className="flex flex-col lg:flex-row items-center gap-4">
                             <div className="flex items-center gap-2">
                                 <div className="flex items-center gap-0.5">
                                     {Array.from({ length: 5 }, (_, index) => (
                                         <Icon key={index}
-                                            icon="solar--star-bold"
+                                            icon={index < data.user.rate ? "solar--star-bold" : "solar--star-outline"}
                                             sizeClass="size-4"
                                             className="text-amber-400" />
                                     ))}
                                 </div>
                                 <span className="text-text font-normal text-xs">
-                                    4.80
+                                    {data.user.rate}
                                 </span>
                             </div>
-                            <div className="w-px hidden lg:block h-5 bg-hint"></div>
+                            {/* <div className="w-px hidden lg:block h-5 bg-hint"></div>
                             <p className="text-caption font-normal">
                                 عضویت از تاریخ: ۱۲ اردیبهشت ۱۴۰۳
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                     <Icon
