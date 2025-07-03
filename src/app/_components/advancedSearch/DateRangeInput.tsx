@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { formatDateToString, formatShamsiRange } from '@/lib/dateUtils';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/ui/calendar';
 import { Icon } from '@/ui/icon';
 import { Popover, PopoverContent, PopoverTrigger } from '@/ui/popover';
-import { Calendar } from '@/ui/calendar';
-import { cn } from '@/lib/utils';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
-import { persianMonths } from '@/_mock/persianMonths';
 
 interface DateRangeInputProps {
     placeholder: string;
@@ -17,51 +17,21 @@ interface DateRangeInputProps {
     className?: string;
 }
 
-const formatToShamsi = (date: Date): string => {
-    try {
-        const shamsiDate = new Intl.DateTimeFormat('fa-IR-u-ca-persian-nu-latn', {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric'
-        }).formatToParts(date);
+export interface DateRangeInputRef {
+    focus: () => void;
+}
 
-        const day = shamsiDate.find(part => part.type === 'day')?.value;
-        const month = shamsiDate.find(part => part.type === 'month')?.value;
-
-        if (day && month) {
-            const monthIndex = parseInt(month) - 1;
-            const monthName = persianMonths[monthIndex] || month;
-            return `${day} ${monthName}`;
-        }
-
-        return date.toLocaleDateString('fa-IR');
-    } catch (error) {
-        return date.toLocaleDateString('fa-IR');
-    }
-};
-
-const formatShamsiRange = (from: Date, to?: Date): string => {
-    const fromShamsi = formatToShamsi(from);
-    if (!to) return fromShamsi;
-    const toShamsi = formatToShamsi(to);
-    return `${fromShamsi} - ${toShamsi}`;
-};
-
-const formatDateToString = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}/${month}/${day}`;
-};
-
-export const DateRangeInput = ({
-    placeholder,
-    icon,
-    description,
-    value,
-    onChange,
-    className
-}: DateRangeInputProps) => {
+export const DateRangeInput = forwardRef<DateRangeInputRef, DateRangeInputProps>((
+    {
+        placeholder,
+        icon,
+        description,
+        value,
+        onChange,
+        className
+    },
+    ref
+) => {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedRange, setSelectedRange] = useState<DateRange | undefined>(
         value ? {
@@ -101,7 +71,11 @@ export const DateRangeInput = ({
         ? formatShamsiRange(selectedRange.from, selectedRange.to)
         : placeholder;
 
-    const hasValue = selectedRange?.from;
+    useImperativeHandle(ref, () => ({
+        focus: () => {
+            setIsOpen(true);
+        }
+    }));
 
     return (
         <div className={cn('flex gap-2 cursor-pointer', className)} onClick={handleContainerClick}>
@@ -139,4 +113,6 @@ export const DateRangeInput = ({
             </div>
         </div>
     );
-};
+});
+
+DateRangeInput.displayName = 'DateRangeInput';

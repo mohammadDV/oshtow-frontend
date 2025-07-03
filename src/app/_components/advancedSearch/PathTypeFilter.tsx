@@ -1,5 +1,6 @@
 'use client';
 
+import { useCommonTranslation } from '@/hooks/useTranslation';
 import { cn } from '@/lib/utils';
 import { PathType } from '@/types/project.type';
 
@@ -9,36 +10,34 @@ interface PathTypeFilterProps {
     className?: string;
 }
 
-const pathTypeOptions = [
-    {
-        value: 'air' as PathType,
-        label: 'هوایی',
-        apiValue: 'air'
-    },
-    {
-        value: 'land' as PathType,
-        label: 'زمینی',
-        apiValue: 'land'
-    },
-    {
-        value: 'sea' as PathType,
-        label: 'دریایی',
-        apiValue: 'sea'
-    },
-];
-
 export const PathTypeFilter = ({
     value,
     onChange,
     className
 }: PathTypeFilterProps) => {
+    const t = useCommonTranslation();
+
     const handlePathTypeSelect = (pathType: PathType) => {
-        if (value === pathType) {
-            onChange?.(null);
-        } else {
-            onChange?.(pathType);
-        }
+        onChange?.(pathType);
     };
+
+    const pathTypeOptions = [
+        {
+            value: 'air' as PathType,
+            label: t("path.air"),
+            apiValue: 'air'
+        },
+        {
+            value: 'land' as PathType,
+            label: t("path.land"),
+            apiValue: 'land'
+        },
+        {
+            value: 'sea' as PathType,
+            label: t("path.sea"),
+            apiValue: 'sea'
+        },
+    ];
 
     return (
         <div className={cn('flex items-center justify-end gap-2', className)}>

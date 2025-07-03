@@ -7,10 +7,14 @@
     "passengers": "سفر ها",
     "senders": "مرسوله ها",
     "originCity": "مبدا (شهر)",
-    "originDescription": "مبدا سفر در چه شهری باشد؟",
-    "intentionCity": "مقصد (شهر)",
-    "intentionDescription": "مقصد سفر در چه شهری باشد؟",
+    "originPassengerDescription": "مبدا سفر در چه شهری باشد؟",
+    "originSenderDescription": "مبدا مرسوله در چه شهری باشد؟",
+    "destinationCity": "مقصد (شهر)",
+    "destinationPassengerDescription": "مقصد سفر در چه شهری باشد؟",
+    "destinationSenderDescription": "مقصد سفر در چه شهری باشد؟",
     "passengerDate": "تاریخ سفر",
+    "datePassengerDescription": "سفر در چه بازه زمانی باشد؟",
+    "dateSenderDescription": "مرسوله در چه بازه زمانی ارسال شود؟",
     "dateDescription": "سفر در چه بازه زمانی باشد؟",
     "reduceCostTitle": "کاهش هزینه ها در ارسال",
     "reduceCostDescription": "با پلتفرم ما، هزینه‌های اضافی ارسال را کنار بگذارید!",
@@ -23,7 +27,8 @@
     "ctaTitle": "قصد ارسال مرسوله در سریع ترین زمان رو داری؟",
     "ctaDescription": "همین حالا در کمتر از چند دقیقه ثبت نام کنید!",
     "ctaButton": "ثبت نام در اوشتو",
-    "postsTitle": "از مجله اوشتو"
+    "postsTitle": "از مجله اوشتو",
+    "searchResults": "نتایج جستجو"
   },
   "projects": {
     "sendersTitle": "جستجوی آگهی مرسوله ها",

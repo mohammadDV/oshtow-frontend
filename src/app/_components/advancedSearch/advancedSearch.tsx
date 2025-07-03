@@ -1,36 +1,55 @@
 "use client";
 
-import { usePagesTranslation } from "@/hooks/useTranslation";
+import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { cn } from "@/lib/utils";
-import { Icon } from "@/ui/icon";
-import { useEffect, useState } from "react";
 import { CityWithDetails } from "@/types/location.type";
-import { Modal } from "../modal/modal";
-import { getProjectsSearch, ProjectSearchParams } from "./searchServices";
 import {
-  ProjectSearchResponse,
-  Project,
-  ProjectType,
   PathType,
+  Project,
+  ProjectSearchResponse,
+  ProjectType,
 } from "@/types/project.type";
-import { useRouter } from "next/navigation";
 import { Button } from "@/ui/button";
+import { Icon } from "@/ui/icon";
 import { Loading } from "@/ui/loading";
 import Link from "next/link";
-import { CitySearchInput } from "./CitySearchInput";
-import { DateRangeInput } from "./DateRangeInput";
-import { PathTypeFilter } from "./PathTypeFilter";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { Modal } from "../modal/modal";
 import { CategoryFilter } from "./CategoryFilter";
-import { Combobox } from "@/ui/combobox";
+import { CitySearchInput, CitySearchInputRef } from "./CitySearchInput";
+import { DateRangeInput, DateRangeInputRef } from "./DateRangeInput";
+import { PathTypeFilter } from "./PathTypeFilter";
+import { getProjectsSearch, ProjectSearchParams } from "./searchServices";
 
 export const AdvancedSearch = () => {
-  const t = usePagesTranslation();
+  const tPages = usePagesTranslation();
+  const tCommon = useCommonTranslation();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<ProjectType>("passenger");
   const [originCity, setOriginCity] = useState<CityWithDetails | null>(null);
   const [destinationCity, setDestinationCity] = useState<CityWithDetails | null>(null);
   const [dateRange, setDateRange] = useState<{ from: string; to: string; } | null>(null);
-  const [pathType, setPathType] = useState<PathType | null>();
+  const [pathType, setPathType] = useState<PathType | null>('air');
+
+  const destinationInputRef = useRef<CitySearchInputRef>(null);
+  const dateRangeInputRef = useRef<DateRangeInputRef>(null);
+
+  useEffect(() => {
+    if (originCity && !destinationCity) {
+      setTimeout(() => {
+        destinationInputRef.current?.focus();
+      }, 100);
+    }
+  }, [originCity, destinationCity]);
+
+  useEffect(() => {
+    if (destinationCity && !dateRange) {
+      setTimeout(() => {
+        dateRangeInputRef.current?.focus();
+      }, 100);
+    }
+  }, [destinationCity, dateRange]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<Project[]>([]);
@@ -44,20 +63,20 @@ export const AdvancedSearch = () => {
       id: 1,
       value: "passenger",
       icon: "ion--airplane",
-      label: t("home.passengers"),
+      label: tPages("home.passengers"),
     },
     {
       id: 2,
       value: "sender",
       icon: "solar--bag-4-bold",
-      label: t("home.senders"),
+      label: tPages("home.senders"),
     },
   ];
 
   useEffect(() => {
     setSelectedCategory(null);
     if (selectedTab === 'sender') {
-      setPathType(undefined)
+      setPathType(null)
     } else setPathType('air')
   }, [selectedTab])
 
@@ -99,7 +118,6 @@ export const AdvancedSearch = () => {
     if (!searchParams) return;
 
     const queryParams = new URLSearchParams();
-    queryParams.append("type", searchParams.type);
     if (searchParams.o_city_id)
       queryParams.append("o_city_id", searchParams.o_city_id.toString());
     if (searchParams.d_city_id)
@@ -111,7 +129,7 @@ export const AdvancedSearch = () => {
     if (searchParams.path_type)
       queryParams.append("path_type", searchParams.path_type);
     if (searchParams.categories)
-      queryParams.append("path_type", searchParams.categories.toString());
+      queryParams.append("categories", searchParams.categories.toString());
 
     router.push(`/projects/${searchParams.type}?${queryParams.toString()}`);
     setIsModalOpen(false);
@@ -147,7 +165,7 @@ export const AdvancedSearch = () => {
                     {tab.label}
                   </span>
                   {tab.value === selectedTab && (
-                    <div className="absolute h-px lg:h-0.5 rounded-full bg-sub -bottom-3 lg:-bottom-5 left-0 right-0"></div>
+                    <div className="absolute h-px lg:h-0.5 rounded-full bg-sub -bottom-3 lg:-bottom-4.5 left-0 right-0"></div>
                   )}
                 </div>
               ))}
@@ -165,22 +183,27 @@ export const AdvancedSearch = () => {
               />
             )}
           </div>
-          <div className="h-px bg-gradient-to-l from-border to-transparent mt-2.5 lg:mt-4"></div>
-          <div className="mt-5 lg:mt-8 flex items-center justify-between">
-            <div className="flex-1 flex items-center gap-6">
+          <div className="h-px bg-gradient-to-l from-border to-transparent mt-2.5 lg:mt-3.5"></div>
+          <div className="mt-5 lg:mt-7 mb-1 flex items-center justify-between">
+            <div className="flex-1 flex items-center gap-5">
               <CitySearchInput
                 icon="solar--map-point-outline"
-                placeholder={t("home.originCity")}
-                description={t("home.originDescription")}
+                placeholder={tPages("home.originCity")}
+                description={selectedTab === "passenger"
+                  ? tPages("home.originPassengerDescription")
+                  : tPages("home.originSenderDescription")}
                 value={originCity}
                 onChange={setOriginCity}
               />
 
               <div className="hidden lg:block">
                 <CitySearchInput
+                  ref={destinationInputRef}
                   icon="solar--map-point-outline"
-                  placeholder={t("home.intentionCity")}
-                  description={t("home.intentionDescription")}
+                  placeholder={tPages("home.destinationCity")}
+                  description={selectedTab === "passenger"
+                    ? tPages("home.destinationPassengerDescription")
+                    : tPages("home.destinationSenderDescription")}
                   value={destinationCity}
                   onChange={setDestinationCity}
                 />
@@ -188,9 +211,12 @@ export const AdvancedSearch = () => {
 
               <div className="hidden lg:block">
                 <DateRangeInput
+                  ref={dateRangeInputRef}
                   icon="solar--calendar-outline"
-                  placeholder={t("home.passengerDate")}
-                  description={t("home.dateDescription")}
+                  placeholder={tPages("home.passengerDate")}
+                  description={selectedTab === "passenger"
+                    ? tPages("home.datePassengerDescription")
+                    : tPages("home.dateSenderDescription")}
                   value={dateRange}
                   onChange={setDateRange}
                 />
@@ -220,7 +246,7 @@ export const AdvancedSearch = () => {
       <Modal
         open={isModalOpen}
         onOpenChange={setIsModalOpen}
-        title={"نتایج جستجو"}
+        title={tPages("home.searchResults")}
         size="xl"
         showConfirm={false}
         showCancel={false}
@@ -266,15 +292,13 @@ export const AdvancedSearch = () => {
               </div>
               <div className="flex justify-center pt-4">
                 <Button onClick={handleShowMore} className="w-full sm:w-auto">
-                  {/* {t('common.showMore')} */}
-                  مشاهده همه نتایج
+                  {tCommon('buttons.seeAllResults')}
                 </Button>
               </div>
             </>
           ) : (
             <div className="text-center text-lg py-8 text-caption">
-              {/* {t('search.noResults')} */}
-              نتیجه ای یافت نشد!
+              {tCommon('messages.noResult')}
             </div>
           )}
         </div>

@@ -3,6 +3,18 @@ import { ApiResponse, readData } from "@/core/http-service";
 import { CitySearchParams } from "@/types/location.type";
 import { PathType, ProjectType } from "@/types/project.type";
 
+export interface ProjectSearchParams {
+  type: ProjectType;
+  page: number;
+  count: number;
+  o_city_id?: number;
+  d_city_id?: number;
+  send_date?: string;
+  receive_date?: string;
+  path_type?: PathType;
+  categories?: number;
+}
+
 export const getCitiesSearch = async (
   params: CitySearchParams
 ): Promise<ApiResponse> => {
@@ -20,18 +32,6 @@ export const getCitiesSearch = async (
 export const getActiveCategories = async (): Promise<ApiResponse> => {
   return await readData(apiUrls.categories.active);
 };
-
-export interface ProjectSearchParams {
-  type: ProjectType;
-  page: number;
-  count: number;
-  o_city_id?: number;
-  d_city_id?: number;
-  send_date?: string;
-  receive_date?: string;
-  path_type?: PathType;
-  categories?: number;
-}
 
 export const getProjectsSearch = async (
   params: ProjectSearchParams

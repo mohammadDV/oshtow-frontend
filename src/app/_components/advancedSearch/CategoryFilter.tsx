@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { Category } from '@/types/category.type';
 import { useEffect, useState } from 'react';
 import { getActiveCategories } from './searchServices';
+import { useCommonTranslation } from '@/hooks/useTranslation';
 
 interface CategoryFilterProps {
     value?: number | null;
@@ -16,6 +17,8 @@ export const CategoryFilter = ({
     onChange,
     className
 }: CategoryFilterProps) => {
+    const t = useCommonTranslation();
+
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -24,7 +27,6 @@ export const CategoryFilter = ({
             try {
                 const response = await getActiveCategories();
                 if (response.isSuccess && response.data) {
-                    // Show only first 5 categories
                     setCategories(response.data.slice(0, 5));
                 }
             } catch (error) {
@@ -38,18 +40,14 @@ export const CategoryFilter = ({
     }, []);
 
     const handleCategorySelect = (categoryId: number | null) => {
-        if (value === categoryId) {
-            onChange?.(null); // Deselect if already selected
-        } else {
-            onChange?.(categoryId);
-        }
+        onChange?.(categoryId);
     };
 
     if (loading) {
         return (
             <div className={cn('flex items-center justify-end gap-2', className)}>
                 <div className="border border-border text-title rounded-full px-3 py-1 text-sm animate-pulse">
-                    در حال بارگذاری...
+                    {t("inputs.loading")}
                 </div>
             </div>
         );
@@ -57,7 +55,6 @@ export const CategoryFilter = ({
 
     return (
         <div className={cn('flex items-center justify-end gap-2', className)}>
-            {/* "همه دسته بندی ها" option */}
             <div
                 onClick={() => handleCategorySelect(null)}
                 className={cn(
@@ -67,10 +64,9 @@ export const CategoryFilter = ({
                         : 'border-border text-title hover:border-sub hover:text-primary'
                 )}
             >
-                همه دسته بندی ها
+                {t("inputs.allCategories")}
             </div>
 
-            {/* Category options */}
             {categories.map((category) => {
                 const isSelected = value === category.id;
                 return (

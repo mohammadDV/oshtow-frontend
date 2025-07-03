@@ -4,8 +4,9 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { cn } from "@/lib/utils";
 import { CitySearchResponse, CityWithDetails } from "@/types/location.type";
 import { Icon } from "@/ui/icon";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import { getCitiesSearch } from "./searchServices";
+import { useCommonTranslation } from "@/hooks/useTranslation";
 
 interface CitySearchInputProps {
   placeholder: string;
@@ -16,14 +17,23 @@ interface CitySearchInputProps {
   className?: string;
 }
 
-export const CitySearchInput = ({
-  placeholder,
-  icon,
-  description,
-  value,
-  onChange,
-  className,
-}: CitySearchInputProps) => {
+export interface CitySearchInputRef {
+  focus: () => void;
+}
+
+export const CitySearchInput = forwardRef<CitySearchInputRef, CitySearchInputProps>((
+  {
+    placeholder,
+    icon,
+    description,
+    value,
+    onChange,
+    className,
+  },
+  ref
+) => {
+  const t = useCommonTranslation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -98,6 +108,12 @@ export const CitySearchInput = ({
     }, 200);
   };
 
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current?.focus();
+    }
+  }));
+
   return (
     <div className={cn("flex gap-2 cursor-text", className)} onClick={handleContainerClick}>
       <Icon icon={icon} sizeClass="size-7 lg:size-8" className="text-caption" />
@@ -126,7 +142,7 @@ export const CitySearchInput = ({
             <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-border rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
               {loading ? (
                 <div className="p-4 text-center text-caption">
-                  در حال جستجو...
+                  {t("inputs.loading")}
                 </div>
               ) : cities.length > 0 ? (
                 cities.map((city) => (
@@ -143,7 +159,7 @@ export const CitySearchInput = ({
                 ))
               ) : (
                 <div className="p-4 text-center text-caption">
-                  شهری یافت نشد
+                  {t("inputs.noCity")}
                 </div>
               )}
             </div>
@@ -156,4 +172,6 @@ export const CitySearchInput = ({
       </div>
     </div>
   );
-};
+});
+
+CitySearchInput.displayName = 'CitySearchInput';
