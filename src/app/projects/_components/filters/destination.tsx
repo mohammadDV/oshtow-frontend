@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import { Combobox } from "@/ui/combobox";
 import { getProvinces, getCities, getCityDetails } from "../../_api/getLocations";
-import { Country, Province, City } from "@/types/project.type";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { useFetchData } from "@/hooks/useFetchData";
 import { apiUrls } from "@/constants/apiUrls";
 import { ApiResponse } from "@/core/http-service";
+import { City, Country, Province } from "@/types/location.type";
 
 interface DestinationFilterProps {
     onFilterChange?: (filters: {

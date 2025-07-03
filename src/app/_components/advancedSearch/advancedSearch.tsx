@@ -4,11 +4,18 @@ import { usePagesTranslation } from "@/hooks/useTranslation";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/ui/icon";
 import { useState } from "react";
+import { CitySearchInput } from "./CitySearchInput";
+import { DateRangeInput } from "./DateRangeInput";
+import { CityWithDetails } from "@/types/location.type";
 
 type Tabs = 'passengers' | 'senders'
 
 export const AdvancedSearch = () => {
     const t = usePagesTranslation();
+    const [selectedTab, setSelectedTab] = useState<Tabs>('passengers');
+    const [originCity, setOriginCity] = useState<CityWithDetails | null>(null);
+    const [destinationCity, setDestinationCity] = useState<CityWithDetails | null>(null);
+    const [dateRange, setDateRange] = useState<{ from: string; to: string } | null>(null);
 
     const searchTabs = [
         {
@@ -25,9 +32,17 @@ export const AdvancedSearch = () => {
         },
     ]
 
-    const [selectedTab, setSelectedTab] = useState<Tabs>('passengers');
-
     const selectTabHandler = (value: Tabs) => setSelectedTab(value)
+
+    const handleSearch = () => {
+        // Handle search logic here
+        console.log('Search with:', {
+            tab: selectedTab,
+            origin: originCity,
+            destination: destinationCity,
+            dateRange: dateRange
+        });
+    };
 
     return (
         <div className="lg:max-w-5xl mx-auto">
@@ -52,46 +67,43 @@ export const AdvancedSearch = () => {
                 </div>
                 <div className="h-px bg-gradient-to-l from-border to-transparent mt-2.5 lg:mt-4"></div>
                 <div className="mt-5 lg:mt-8 flex items-center justify-between">
-                    <div className="flex-1 flex items-center gap-16">
-                        <div className="flex gap-2">
-                            <Icon icon="solar--map-point-outline" sizeClass="size-7 lg:size-8" className="text-caption" />
-                            <div>
-                                <p className="text-title font-medium text-lg lg:text-xl">
-                                    {t('home.originCity')}
-                                </p>
-                                <p className="text-caption lg:text-base text-sm mt-1 lg:mt-1.5 font-light">
-                                    {t('home.originDescription')}
-                                </p>
-                            </div>
+                    <div className="flex-1 flex items-center gap-4">
+                        <CitySearchInput
+                            icon="solar--map-point-outline"
+                            placeholder={t('home.originCity')}
+                            description={t('home.originDescription')}
+                            value={originCity}
+                            onChange={setOriginCity}
+                        />
+
+                        <div className="hidden lg:block">
+                            <CitySearchInput
+                                icon="solar--map-point-outline"
+                                placeholder={t('home.intentionCity')}
+                                description={t('home.intentionDescription')}
+                                value={destinationCity}
+                                onChange={setDestinationCity}
+                            />
                         </div>
-                        <div className="hidden lg:flex gap-2">
-                            <Icon icon="solar--map-point-outline" sizeClass="size-8" className="text-caption" />
-                            <div>
-                                <p className="text-title font-medium text-xl">
-                                    {t('home.intentionCity')}
-                                </p>
-                                <p className="text-caption mt-1.5 font-light">
-                                    {t('home.intentionDescription')}
-                                </p>
-                            </div>
-                        </div>
-                        <div className="hidden lg:flex gap-2">
-                            <Icon icon="solar--calendar-outline" sizeClass="size-8" className="text-caption" />
-                            <div>
-                                <p className="text-title font-medium text-xl">
-                                    {t('home.passengerDate')}
-                                </p>
-                                <p className="text-caption mt-1.5 font-light">
-                                    {t('home.dateDescription')}
-                                </p>
-                            </div>
+
+                        <div className="hidden lg:block">
+                            <DateRangeInput
+                                icon="solar--calendar-outline"
+                                placeholder={t('home.passengerDate')}
+                                description={t('home.dateDescription')}
+                                value={dateRange}
+                                onChange={setDateRange}
+                            />
                         </div>
                     </div>
-                    <div className="size-11 lg:size-16 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:opacity-90 transition-all">
+                    <div
+                        onClick={handleSearch}
+                        className="size-11 lg:size-16 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:opacity-90 transition-all"
+                    >
                         <Icon icon="solar--magnifer-outline" sizeClass="size-5 lg:size-7" className="text-white" />
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

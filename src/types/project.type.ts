@@ -1,38 +1,9 @@
+import { Location } from "./location.type";
 import { UserInfo } from "./user.type";
 
 export type ProjectType = "sender" | "passenger";
 export type PathType = "air" | "land" | "sea";
 export type ProjectStatusType = "pending" | "inprogress" | "completed";
-
-export interface Country {
-  id: number;
-  title: string;
-  image: string | null;
-  status: number;
-  created_at: string | null;
-}
-
-export interface Province {
-  id: number;
-  title: string;
-  status: number;
-  country_id: number;
-  created_at: string | null;
-}
-
-export interface City {
-  id: number;
-  title: string;
-  status: number;
-  province_id: number;
-  created_at: string | null;
-}
-
-export interface Location {
-  country: Country;
-  province: Province;
-  city: City;
-}
 
 export interface Category {
   id: number;

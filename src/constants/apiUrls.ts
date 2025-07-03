@@ -14,6 +14,6 @@ export const apiUrls = {
     active: "/active-project-categories",
   },
   user: {
-    info: '/user',
-  }
+    info: "/user",
+  },
 };
