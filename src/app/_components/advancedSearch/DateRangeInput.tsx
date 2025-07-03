@@ -6,6 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/ui/popover';
 import { Calendar } from '@/ui/calendar';
 import { cn } from '@/lib/utils';
 import type { DateRange } from 'react-day-picker';
+import { persianMonths } from '@/_mock/persianMonths';
 
 interface DateRangeInputProps {
     placeholder: string;
@@ -15,11 +16,6 @@ interface DateRangeInputProps {
     onChange?: (dateRange: { from: string; to: string } | null) => void;
     className?: string;
 }
-
-const persianMonths = [
-    'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
-    'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
-];
 
 const formatToShamsi = (date: Date): string => {
     try {
@@ -97,6 +93,10 @@ export const DateRangeInput = ({
         }
     };
 
+    const handleContainerClick = () => {
+        setIsOpen(true);
+    };
+
     const displayText = selectedRange?.from
         ? formatShamsiRange(selectedRange.from, selectedRange.to)
         : placeholder;
@@ -104,12 +104,12 @@ export const DateRangeInput = ({
     const hasValue = selectedRange?.from;
 
     return (
-        <div className={cn('flex gap-2', className)}>
+        <div className={cn('flex gap-2 cursor-pointer', className)} onClick={handleContainerClick}>
             <Icon icon={icon} sizeClass="size-7 lg:size-8" className="text-caption" />
             <div className="flex-1">
                 <Popover open={isOpen} onOpenChange={handlePopoverOpenChange}>
                     <PopoverTrigger asChild>
-                        <div className="cursor-pointer">
+                        <div>
                             <div className={cn(
                                 "text-title font-medium text-lg lg:text-xl",
                             )}>

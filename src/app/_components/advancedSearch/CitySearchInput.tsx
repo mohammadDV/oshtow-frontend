@@ -37,18 +37,13 @@ export const CitySearchInput = ({
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
-  // Load initial cities when component mounts
-  useEffect(() => {
-    loadInitialCities();
-  }, []);
-
   useEffect(() => {
     if (debouncedSearchQuery && debouncedSearchQuery.length > 0) {
       searchCities(debouncedSearchQuery);
     } else if (isOpen) {
       loadInitialCities();
     }
-  }, [debouncedSearchQuery]);
+  }, [debouncedSearchQuery, isOpen]);
 
   const loadInitialCities = async () => {
     setLoading(true);
@@ -104,13 +99,12 @@ export const CitySearchInput = ({
   };
 
   return (
-    <div className={cn("flex gap-2", className)}>
+    <div className={cn("flex gap-2 cursor-text", className)} onClick={handleContainerClick}>
       <Icon icon={icon} sizeClass="size-7 lg:size-8" className="text-caption" />
       <div className="flex-1">
         <div
           ref={containerRef}
-          className="relative cursor-text"
-          onClick={handleContainerClick}
+          className="relative"
         >
           <input
             ref={inputRef}

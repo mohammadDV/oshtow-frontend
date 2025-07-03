@@ -1,7 +1,7 @@
 import { apiUrls } from "@/constants/apiUrls";
 import { ApiResponse, readData } from "@/core/http-service";
 import { CitySearchParams } from "@/types/location.type";
-import { ProjectType } from "@/types/project.type";
+import { PathType, ProjectType } from "@/types/project.type";
 
 export const getCitiesSearch = async (
   params: CitySearchParams
@@ -17,14 +17,20 @@ export const getCitiesSearch = async (
   return await readData(url);
 };
 
+export const getActiveCategories = async (): Promise<ApiResponse> => {
+  return await readData(apiUrls.categories.active);
+};
+
 export interface ProjectSearchParams {
   type: ProjectType;
-  page?: number;
-  count?: number;
+  page: number;
+  count: number;
   o_city_id?: number;
   d_city_id?: number;
   send_date?: string;
   receive_date?: string;
+  path_type?: PathType;
+  categories?: number;
 }
 
 export const getProjectsSearch = async (
@@ -35,10 +41,16 @@ export const getProjectsSearch = async (
   searchParams.append("type", params.type);
   if (params.page) searchParams.append("page", params.page.toString());
   if (params.count) searchParams.append("count", params.count.toString());
-  if (params.o_city_id) searchParams.append("o_city_id", params.o_city_id.toString());
-  if (params.d_city_id) searchParams.append("d_city_id", params.d_city_id.toString());
+  if (params.o_city_id)
+    searchParams.append("o_city_id", params.o_city_id.toString());
+  if (params.d_city_id)
+    searchParams.append("d_city_id", params.d_city_id.toString());
   if (params.send_date) searchParams.append("send_date", params.send_date);
-  if (params.receive_date) searchParams.append("receive_date", params.receive_date);
+  if (params.receive_date)
+    searchParams.append("receive_date", params.receive_date);
+  if (params.path_type) searchParams.append("path_type", params.path_type);
+  if (params.categories)
+    searchParams.append("categories[]", params.categories.toString());
 
   const url = `${apiUrls.projects.search}?${searchParams.toString()}`;
 

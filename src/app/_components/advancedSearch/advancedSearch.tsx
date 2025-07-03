@@ -3,7 +3,7 @@
 import { usePagesTranslation } from "@/hooks/useTranslation";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/ui/icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CityWithDetails } from "@/types/location.type";
 import { Modal } from "../modal/modal";
 import { getProjectsSearch, ProjectSearchParams } from "./searchServices";
@@ -11,25 +11,27 @@ import {
   ProjectSearchResponse,
   Project,
   ProjectType,
+  PathType,
 } from "@/types/project.type";
 import { useRouter } from "next/navigation";
 import { Button } from "@/ui/button";
 import { Loading } from "@/ui/loading";
 import Link from "next/link";
-import { CitySearchInput } from "./citySearchInput";
-import { DateRangeInput } from "./dateRangeInput";
+import { CitySearchInput } from "./CitySearchInput";
+import { DateRangeInput } from "./DateRangeInput";
+import { PathTypeFilter } from "./PathTypeFilter";
+import { CategoryFilter } from "./CategoryFilter";
+import { Combobox } from "@/ui/combobox";
 
 export const AdvancedSearch = () => {
   const t = usePagesTranslation();
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<ProjectType>("passenger");
   const [originCity, setOriginCity] = useState<CityWithDetails | null>(null);
-  const [destinationCity, setDestinationCity] =
-    useState<CityWithDetails | null>(null);
-  const [dateRange, setDateRange] = useState<{
-    from: string;
-    to: string;
-  } | null>(null);
+  const [destinationCity, setDestinationCity] = useState<CityWithDetails | null>(null);
+  const [dateRange, setDateRange] = useState<{ from: string; to: string; } | null>(null);
+  const [pathType, setPathType] = useState<PathType | null>();
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +54,13 @@ export const AdvancedSearch = () => {
     },
   ];
 
+  useEffect(() => {
+    setSelectedCategory(null);
+    if (selectedTab === 'sender') {
+      setPathType(undefined)
+    } else setPathType('air')
+  }, [selectedTab])
+
   const selectTabHandler = (value: ProjectType) => setSelectedTab(value);
 
   const handleSearch = async () => {
@@ -61,19 +70,21 @@ export const AdvancedSearch = () => {
 
     setIsLoading(true);
 
-    const params: ProjectSearchParams = {
+    const searchParams: ProjectSearchParams = {
       type: selectedTab,
       page: 1,
       count: 9,
-      o_city_id: originCity.id,
-      d_city_id: destinationCity.id,
+      o_city_id: originCity?.id,
+      d_city_id: destinationCity?.id,
       send_date: dateRange?.from,
       receive_date: dateRange?.to,
+      path_type: pathType || undefined,
+      categories: selectedCategory || undefined,
     };
 
-    setSearchParams(params);
+    setSearchParams(searchParams);
 
-    const response = await getProjectsSearch(params);
+    const response = await getProjectsSearch(searchParams);
     if (response.isSuccess && response.data) {
       const projectData = response.data as ProjectSearchResponse;
       setSearchResults(projectData.data);
@@ -89,8 +100,6 @@ export const AdvancedSearch = () => {
 
     const queryParams = new URLSearchParams();
     queryParams.append("type", searchParams.type);
-    queryParams.append("page", "1");
-    queryParams.append("count", "12");
     if (searchParams.o_city_id)
       queryParams.append("o_city_id", searchParams.o_city_id.toString());
     if (searchParams.d_city_id)
@@ -99,6 +108,10 @@ export const AdvancedSearch = () => {
       queryParams.append("send_date", searchParams.send_date);
     if (searchParams.receive_date)
       queryParams.append("receive_date", searchParams.receive_date);
+    if (searchParams.path_type)
+      queryParams.append("path_type", searchParams.path_type);
+    if (searchParams.categories)
+      queryParams.append("path_type", searchParams.categories.toString());
 
     router.push(`/projects/${searchParams.type}?${queryParams.toString()}`);
     setIsModalOpen(false);
@@ -107,40 +120,54 @@ export const AdvancedSearch = () => {
   return (
     <>
       <div className="lg:max-w-5xl mx-auto">
-        <div className="bg-white rounded-2xl lg:rounded-3xl lg:py-7 lg:px-10 p-4">
-          <div className="flex items-center gap-7">
-            {searchTabs.map((tab) => (
-              <div
-                key={tab.id}
-                onClick={() => selectTabHandler(tab.value as ProjectType)}
-                className="flex items-center relative gap-2 cursor-pointer"
-              >
-                <Icon
-                  icon={tab.icon}
-                  className={cn(
-                    "size-6 transition-all",
-                    tab.value === selectedTab ? "text-primary" : "text-caption"
-                  )}
-                />
-                <span
-                  className={cn(
-                    "text-sm lg:text-base",
-                    tab.value === selectedTab
-                      ? "text-primary font-medium"
-                      : "text-caption font-normal"
-                  )}
+        <div className="bg-white rounded-2xl lg:rounded-3xl lg:py-6 lg:px-8 p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-7">
+              {searchTabs.map((tab) => (
+                <div
+                  key={tab.id}
+                  onClick={() => selectTabHandler(tab.value as ProjectType)}
+                  className="flex items-center relative gap-2 cursor-pointer"
                 >
-                  {tab.label}
-                </span>
-                {tab.value === selectedTab && (
-                  <div className="absolute h-px lg:h-0.5 rounded-full bg-sub -bottom-3 lg:-bottom-4.5 left-0 right-0"></div>
-                )}
-              </div>
-            ))}
+                  <Icon
+                    icon={tab.icon}
+                    className={cn(
+                      "size-6 transition-all",
+                      tab.value === selectedTab ? "text-primary" : "text-caption"
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "text-sm lg:text-base",
+                      tab.value === selectedTab
+                        ? "text-primary font-medium"
+                        : "text-caption font-normal"
+                    )}
+                  >
+                    {tab.label}
+                  </span>
+                  {tab.value === selectedTab && (
+                    <div className="absolute h-px lg:h-0.5 rounded-full bg-sub -bottom-3 lg:-bottom-5 left-0 right-0"></div>
+                  )}
+                </div>
+              ))}
+            </div>
+            {selectedTab === 'passenger' && (
+              <PathTypeFilter
+                value={pathType}
+                onChange={setPathType}
+              />
+            )}
+            {selectedTab === 'sender' && (
+              <CategoryFilter
+                value={selectedCategory}
+                onChange={setSelectedCategory}
+              />
+            )}
           </div>
           <div className="h-px bg-gradient-to-l from-border to-transparent mt-2.5 lg:mt-4"></div>
           <div className="mt-5 lg:mt-8 flex items-center justify-between">
-            <div className="flex-1 flex items-center gap-8">
+            <div className="flex-1 flex items-center gap-6">
               <CitySearchInput
                 icon="solar--map-point-outline"
                 placeholder={t("home.originCity")}
@@ -206,7 +233,7 @@ export const AdvancedSearch = () => {
                   <Link
                     key={project.id}
                     href={`${selectedTab}/${project.id}`}
-                    className="border-2 border-border rounded-2xl p-4"
+                    className="border-2 border-border rounded-2xl p-4 hover:border-sub transition-all"
                   >
                     <h3 className="font-semibold text-title mb-3.5">
                       {project.title}
@@ -245,7 +272,7 @@ export const AdvancedSearch = () => {
               </div>
             </>
           ) : (
-            <div className="text-center py-8 text-caption">
+            <div className="text-center text-lg py-8 text-caption">
               {/* {t('search.noResults')} */}
               نتیجه ای یافت نشد!
             </div>
