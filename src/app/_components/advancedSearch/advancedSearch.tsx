@@ -1,109 +1,257 @@
-'use client'
+"use client";
 
 import { usePagesTranslation } from "@/hooks/useTranslation";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/ui/icon";
 import { useState } from "react";
-import { CitySearchInput } from "./CitySearchInput";
-import { DateRangeInput } from "./DateRangeInput";
 import { CityWithDetails } from "@/types/location.type";
-
-type Tabs = 'passengers' | 'senders'
+import { Modal } from "../modal/modal";
+import { getProjectsSearch, ProjectSearchParams } from "./searchServices";
+import {
+  ProjectSearchResponse,
+  Project,
+  ProjectType,
+} from "@/types/project.type";
+import { useRouter } from "next/navigation";
+import { Button } from "@/ui/button";
+import { Loading } from "@/ui/loading";
+import Link from "next/link";
+import { CitySearchInput } from "./citySearchInput";
+import { DateRangeInput } from "./dateRangeInput";
 
 export const AdvancedSearch = () => {
-    const t = usePagesTranslation();
-    const [selectedTab, setSelectedTab] = useState<Tabs>('passengers');
-    const [originCity, setOriginCity] = useState<CityWithDetails | null>(null);
-    const [destinationCity, setDestinationCity] = useState<CityWithDetails | null>(null);
-    const [dateRange, setDateRange] = useState<{ from: string; to: string } | null>(null);
+  const t = usePagesTranslation();
+  const router = useRouter();
+  const [selectedTab, setSelectedTab] = useState<ProjectType>("passenger");
+  const [originCity, setOriginCity] = useState<CityWithDetails | null>(null);
+  const [destinationCity, setDestinationCity] =
+    useState<CityWithDetails | null>(null);
+  const [dateRange, setDateRange] = useState<{
+    from: string;
+    to: string;
+  } | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchParams, setSearchParams] = useState<ProjectSearchParams | null>(
+    null
+  );
 
-    const searchTabs = [
-        {
-            id: 1,
-            value: "passengers",
-            icon: "ion--airplane",
-            label: t("home.passengers")
-        },
-        {
-            id: 2,
-            value: "senders",
-            icon: "solar--bag-4-bold",
-            label: t("home.senders")
-        },
-    ]
+  const searchTabs = [
+    {
+      id: 1,
+      value: "passenger",
+      icon: "ion--airplane",
+      label: t("home.passengers"),
+    },
+    {
+      id: 2,
+      value: "sender",
+      icon: "solar--bag-4-bold",
+      label: t("home.senders"),
+    },
+  ];
 
-    const selectTabHandler = (value: Tabs) => setSelectedTab(value)
+  const selectTabHandler = (value: ProjectType) => setSelectedTab(value);
 
-    const handleSearch = () => {
-        // Handle search logic here
-        console.log('Search with:', {
-            tab: selectedTab,
-            origin: originCity,
-            destination: destinationCity,
-            dateRange: dateRange
-        });
+  const handleSearch = async () => {
+    if (!originCity || !destinationCity) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    const params: ProjectSearchParams = {
+      type: selectedTab,
+      page: 1,
+      count: 9,
+      o_city_id: originCity.id,
+      d_city_id: destinationCity.id,
+      send_date: dateRange?.from,
+      receive_date: dateRange?.to,
     };
 
-    return (
-        <div className="lg:max-w-5xl mx-auto">
-            <div className="bg-white rounded-2xl lg:rounded-3xl lg:py-7 lg:px-10 p-4">
-                <div className="flex items-center gap-7">
-                    {searchTabs.map(tab => (
-                        <div key={tab.id}
-                            onClick={() => selectTabHandler(tab.value as Tabs)}
-                            className="flex items-center relative gap-2 cursor-pointer">
-                            <Icon
-                                icon={tab.icon}
-                                className={cn('size-6 transition-all',
-                                    tab.value === selectedTab ? "text-primary" : "text-caption")} />
-                            <span
-                                className={cn("text-sm lg:text-base",
-                                    tab.value === selectedTab ? "text-primary font-medium" : "text-caption font-normal")}>
-                                {tab.label}
-                            </span>
-                            {tab.value === selectedTab && <div className="absolute h-px lg:h-0.5 rounded-full bg-sub -bottom-3 lg:-bottom-4.5 left-0 right-0"></div>}
-                        </div>
-                    ))}
-                </div>
-                <div className="h-px bg-gradient-to-l from-border to-transparent mt-2.5 lg:mt-4"></div>
-                <div className="mt-5 lg:mt-8 flex items-center justify-between">
-                    <div className="flex-1 flex items-center gap-4">
-                        <CitySearchInput
-                            icon="solar--map-point-outline"
-                            placeholder={t('home.originCity')}
-                            description={t('home.originDescription')}
-                            value={originCity}
-                            onChange={setOriginCity}
-                        />
+    setSearchParams(params);
 
-                        <div className="hidden lg:block">
-                            <CitySearchInput
-                                icon="solar--map-point-outline"
-                                placeholder={t('home.intentionCity')}
-                                description={t('home.intentionDescription')}
-                                value={destinationCity}
-                                onChange={setDestinationCity}
-                            />
-                        </div>
+    const response = await getProjectsSearch(params);
+    if (response.isSuccess && response.data) {
+      const projectData = response.data as ProjectSearchResponse;
+      setSearchResults(projectData.data);
+      setIsModalOpen(true);
+    } else {
+      console.error("Search failed:");
+    }
+    setIsLoading(false);
+  };
 
-                        <div className="hidden lg:block">
-                            <DateRangeInput
-                                icon="solar--calendar-outline"
-                                placeholder={t('home.passengerDate')}
-                                description={t('home.dateDescription')}
-                                value={dateRange}
-                                onChange={setDateRange}
-                            />
-                        </div>
-                    </div>
-                    <div
-                        onClick={handleSearch}
-                        className="size-11 lg:size-16 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:opacity-90 transition-all"
-                    >
-                        <Icon icon="solar--magnifer-outline" sizeClass="size-5 lg:size-7" className="text-white" />
-                    </div>
-                </div>
+  const handleShowMore = () => {
+    if (!searchParams) return;
+
+    const queryParams = new URLSearchParams();
+    queryParams.append("type", searchParams.type);
+    queryParams.append("page", "1");
+    queryParams.append("count", "12");
+    if (searchParams.o_city_id)
+      queryParams.append("o_city_id", searchParams.o_city_id.toString());
+    if (searchParams.d_city_id)
+      queryParams.append("d_city_id", searchParams.d_city_id.toString());
+    if (searchParams.send_date)
+      queryParams.append("send_date", searchParams.send_date);
+    if (searchParams.receive_date)
+      queryParams.append("receive_date", searchParams.receive_date);
+
+    router.push(`/projects/${searchParams.type}?${queryParams.toString()}`);
+    setIsModalOpen(false);
+  };
+
+  return (
+    <>
+      <div className="lg:max-w-5xl mx-auto">
+        <div className="bg-white rounded-2xl lg:rounded-3xl lg:py-7 lg:px-10 p-4">
+          <div className="flex items-center gap-7">
+            {searchTabs.map((tab) => (
+              <div
+                key={tab.id}
+                onClick={() => selectTabHandler(tab.value as ProjectType)}
+                className="flex items-center relative gap-2 cursor-pointer"
+              >
+                <Icon
+                  icon={tab.icon}
+                  className={cn(
+                    "size-6 transition-all",
+                    tab.value === selectedTab ? "text-primary" : "text-caption"
+                  )}
+                />
+                <span
+                  className={cn(
+                    "text-sm lg:text-base",
+                    tab.value === selectedTab
+                      ? "text-primary font-medium"
+                      : "text-caption font-normal"
+                  )}
+                >
+                  {tab.label}
+                </span>
+                {tab.value === selectedTab && (
+                  <div className="absolute h-px lg:h-0.5 rounded-full bg-sub -bottom-3 lg:-bottom-4.5 left-0 right-0"></div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="h-px bg-gradient-to-l from-border to-transparent mt-2.5 lg:mt-4"></div>
+          <div className="mt-5 lg:mt-8 flex items-center justify-between">
+            <div className="flex-1 flex items-center gap-8">
+              <CitySearchInput
+                icon="solar--map-point-outline"
+                placeholder={t("home.originCity")}
+                description={t("home.originDescription")}
+                value={originCity}
+                onChange={setOriginCity}
+              />
+
+              <div className="hidden lg:block">
+                <CitySearchInput
+                  icon="solar--map-point-outline"
+                  placeholder={t("home.intentionCity")}
+                  description={t("home.intentionDescription")}
+                  value={destinationCity}
+                  onChange={setDestinationCity}
+                />
+              </div>
+
+              <div className="hidden lg:block">
+                <DateRangeInput
+                  icon="solar--calendar-outline"
+                  placeholder={t("home.passengerDate")}
+                  description={t("home.dateDescription")}
+                  value={dateRange}
+                  onChange={setDateRange}
+                />
+              </div>
             </div>
+            <div
+              onClick={handleSearch}
+              className={cn(
+                "size-11 lg:size-16 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:opacity-90 transition-all",
+                isLoading && "opacity-70 cursor-not-allowed"
+              )}
+            >
+              {isLoading ? (
+                <Loading type="spinner" className="text-white" size="default" />
+              ) : (
+                <Icon
+                  icon="solar--magnifer-outline"
+                  sizeClass="size-5 lg:size-7"
+                  className="text-white"
+                />
+              )}
+            </div>
+          </div>
         </div>
-    );
+      </div>
+
+      <Modal
+        open={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        title={"نتایج جستجو"}
+        size="xl"
+        showConfirm={false}
+        showCancel={false}
+      >
+        <div className="space-y-4">
+          {searchResults.length > 0 ? (
+            <>
+              <div className="grid lg:grid-cols-3 gap-3">
+                {searchResults.map((project) => (
+                  <Link
+                    key={project.id}
+                    href={`${selectedTab}/${project.id}`}
+                    className="border-2 border-border rounded-2xl p-4"
+                  >
+                    <h3 className="font-semibold text-title mb-3.5">
+                      {project.title}
+                    </h3>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1">
+                        <Icon
+                          icon="solar--map-point-wave-bold-duotone"
+                          sizeClass="size-4"
+                          className="text-sub"
+                        />
+                        <p className="text-text text-xs font-normal">
+                          {project.origin.city.title} به{" "}
+                          {project.destination.city.title}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Icon
+                          icon="solar--calendar-bold-duotone"
+                          sizeClass="size-4"
+                          className="text-sub"
+                        />
+                        <p className="text-text text-xs font-normal">
+                          {project.send_date}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="flex justify-center pt-4">
+                <Button onClick={handleShowMore} className="w-full sm:w-auto">
+                  {/* {t('common.showMore')} */}
+                  مشاهده همه نتایج
+                </Button>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-8 text-caption">
+              {/* {t('search.noResults')} */}
+              نتیجه ای یافت نشد!
+            </div>
+          )}
+        </div>
+      </Modal>
+    </>
+  );
 };
