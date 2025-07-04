@@ -12,6 +12,7 @@ import { apiUrls } from "@/constants/apiUrls";
 import { Project } from "@/types/project.type";
 import { SenderCard } from "./_components/cards/sender";
 import { PassengerCard } from "./_components/cards/passenger";
+import { MobileAdvancedSearch } from "./_components/advancedSearch/mobileAdvancedSearch";
 
 interface FeaturedProjectsService {
   sender: Array<Project>;
@@ -39,7 +40,7 @@ export default async function HomePage() {
     <>
       <Hero />
       <div className="mx-4 -mt-16 lg:-mt-24 z-20 relative">
-        <AdvancedSearch />
+        {isMobile ? <MobileAdvancedSearch /> : <AdvancedSearch />}
       </div>
       <Benefits />
       <Carousel

@@ -26,14 +26,35 @@ export const AdvancedSearch = () => {
   const tPages = usePagesTranslation();
   const tCommon = useCommonTranslation();
   const router = useRouter();
+
   const [selectedTab, setSelectedTab] = useState<ProjectType>("passenger");
   const [originCity, setOriginCity] = useState<CityWithDetails | null>(null);
   const [destinationCity, setDestinationCity] = useState<CityWithDetails | null>(null);
   const [dateRange, setDateRange] = useState<{ from: string; to: string; } | null>(null);
   const [pathType, setPathType] = useState<PathType | null>('air');
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchParams, setSearchParams] = useState<ProjectSearchParams | null>(null);
 
   const destinationInputRef = useRef<CitySearchInputRef>(null);
   const dateRangeInputRef = useRef<DateRangeInputRef>(null);
+
+  const searchTabs = [
+    {
+      id: 1,
+      value: "passenger",
+      icon: "ion--airplane",
+      label: tPages("home.passengers"),
+    },
+    {
+      id: 2,
+      value: "sender",
+      icon: "solar--bag-4-bold",
+      label: tPages("home.senders"),
+    },
+  ];
 
   useEffect(() => {
     if (originCity && !destinationCity) {
@@ -50,28 +71,6 @@ export const AdvancedSearch = () => {
       }, 100);
     }
   }, [destinationCity, dateRange]);
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchResults, setSearchResults] = useState<Project[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchParams, setSearchParams] = useState<ProjectSearchParams | null>(
-    null
-  );
-
-  const searchTabs = [
-    {
-      id: 1,
-      value: "passenger",
-      icon: "ion--airplane",
-      label: tPages("home.passengers"),
-    },
-    {
-      id: 2,
-      value: "sender",
-      icon: "solar--bag-4-bold",
-      label: tPages("home.senders"),
-    },
-  ];
 
   useEffect(() => {
     setSelectedCategory(null);

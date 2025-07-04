@@ -11,7 +11,9 @@
     "seeMore": "مشاهده بیشتر",
     "loginRegister": "ورود / ثبت نام",
     "copyLink": "کپی لینک",
-    "seeAllResults": "مشاهده همه نتایج"
+    "seeAllResults": "مشاهده همه نتایج",
+    "searchAdd": "جستجوی آگهی",
+    "backToSearch": "بازگشت به جستجو"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -55,7 +57,9 @@
     "noResults": "نتیجه‌ای یافت نشد",
     "loading": "در حال بارگذاری...",
     "allCategories": "همه دسته بندی ها",
-    "noCity": "شهری یافت نشد"
+    "noCity": "شهری یافت نشد",
+    "selectPath": "انتخاب نوع سفر",
+    "selectCategory": "انتخاب دسته بنده"
   },
   "path": {
     "air": "هوایی",

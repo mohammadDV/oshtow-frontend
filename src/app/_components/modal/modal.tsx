@@ -1,25 +1,24 @@
 "use client";
 
-import * as React from "react";
-import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/ui/button";
 import {
     Dialog,
     DialogContent,
-    DialogHeader,
-    DialogFooter,
-    DialogTitle,
     DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
 } from "@/ui/dialog";
 import {
     Drawer,
     DrawerContent,
-    DrawerHeader,
-    DrawerFooter,
-    DrawerTitle,
     DrawerDescription,
+    DrawerHeader,
+    DrawerTitle
 } from "@/ui/drawer";
-import { Button } from "@/ui/button";
-import { cn } from "@/lib/utils";
+import * as React from "react";
+import { useEffect, useState } from "react";
 
 interface ModalProps {
     open: boolean;
@@ -123,7 +122,7 @@ const Modal = ({
 
             {(showConfirm || showCancel) && (
                 <div className={cn(
-                    "flex lg:flex-col-reverse gap-2 justify-between sm:flex-row sm:justify-end",
+                    "flex lg:flex-col-reverse gap-3 justify-between sm:flex-row sm:justify-end",
                     footerClassName
                 )}>
                     {showCancel && (
@@ -161,7 +160,7 @@ const Modal = ({
                         {description && <DrawerDescription className="sr-only">{description}</DrawerDescription>}
                     </DrawerHeader>
                     {content}
-                    <DrawerFooter className="p-0 mt-4" />
+                    {/* <DrawerFooter className="p-0 mt-4" /> */}
                 </DrawerContent>
             </Drawer>
         );

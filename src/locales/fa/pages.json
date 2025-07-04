@@ -28,7 +28,9 @@
     "ctaDescription": "همین حالا در کمتر از چند دقیقه ثبت نام کنید!",
     "ctaButton": "ثبت نام در اوشتو",
     "postsTitle": "از مجله اوشتو",
-    "searchResults": "نتایج جستجو"
+    "searchResults": "نتایج جستجو",
+    "searchPassenger": "جستجوی سفر",
+    "searchSender": "جستجوی مرسوله"
   },
   "projects": {
     "sendersTitle": "جستجوی آگهی مرسوله ها",
