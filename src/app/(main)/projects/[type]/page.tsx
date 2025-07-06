@@ -93,7 +93,7 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
           {resolvedParams.type === "sender" && t("projects.sendersTitle")}
           {resolvedParams.type === "passenger" && t("projects.passengersTitle")}
         </h1>
-        <div className="flex items-center flex-wrap lg:justify-between gap-2 mb-6 lg:mb-0">
+        <div className="flex items-center flex-wrap lg:justify-between gap-2 mb-4 lg:mb-0">
           {isMobile && <MobileProjectsFilters type={resolvedParams.type} />}
           <ProjectsSort type={resolvedParams.type} />
           {isMobile && <RemoveFilters />}

@@ -21,9 +21,10 @@ interface ComboboxProps {
     onChange?: (value: string) => void
     placeholder?: string;
     className?: string;
+    loading?: boolean;
 }
 
-export function Combobox({ options, value, onChange, placeholder, id, className }: ComboboxProps) {
+export function Combobox({ options, value, onChange, placeholder, id, className, loading }: ComboboxProps) {
     const [open, setOpen] = React.useState(false)
     const buttonRef = React.useRef<HTMLButtonElement>(null);
     const [width, setWidth] = React.useState<number>();
@@ -86,7 +87,7 @@ export function Combobox({ options, value, onChange, placeholder, id, className 
             <PopoverContent className="p-0" style={{ width }}>
                 <Command>
                     <CommandInput placeholder={t("inputs.search")} />
-                    <CommandEmpty>{t("inputs.noResults")}</CommandEmpty>
+                    <CommandEmpty>{loading ? t("messages.loading") : t("inputs.noResults")}</CommandEmpty>
                     <CommandGroup>
                         {options.map((option) => (
                             <CommandItem

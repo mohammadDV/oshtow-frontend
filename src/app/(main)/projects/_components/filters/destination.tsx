@@ -46,7 +46,7 @@ export const DestinationFilter = ({ onFilterChange }: DestinationFilterProps) =>
             const countryId = searchParams.get('d_country_id');
             const provinceId = searchParams.get('d_province_id');
             const cityId = searchParams.get('d_city_id');
-    
+
             // If no parameters exist, clear all selections
             if (!countryId && !provinceId && !cityId) {
                 setSelectedCountry("");
@@ -56,7 +56,7 @@ export const DestinationFilter = ({ onFilterChange }: DestinationFilterProps) =>
                 setCities([]);
                 return;
             }
-    
+
             setIsInitializing(true);
 
             try {
@@ -285,9 +285,8 @@ export const DestinationFilter = ({ onFilterChange }: DestinationFilterProps) =>
                 options={countryOptions}
                 value={selectedCountry}
                 onChange={handleCountryChange}
-                placeholder={loadingCountries
-                    ? tCommon("messages.loading")
-                    : tPage("projects.chooseDestinationCountry")}
+                loading={loadingCountries}
+                placeholder={tPage("projects.chooseDestinationCountry")}
                 className="w-full"
             />
 
@@ -295,9 +294,8 @@ export const DestinationFilter = ({ onFilterChange }: DestinationFilterProps) =>
                 options={provinceOptions}
                 value={selectedProvince}
                 onChange={handleProvinceChange}
-                placeholder={loadingProvinces
-                    ? tCommon("messages.loading")
-                    : tPage("projects.chooseDestinationProvince")}
+                loading={loadingProvinces}
+                placeholder={tPage("projects.chooseDestinationProvince")}
                 className="w-full"
             />
 
@@ -305,9 +303,8 @@ export const DestinationFilter = ({ onFilterChange }: DestinationFilterProps) =>
                 options={cityOptions}
                 value={selectedCity}
                 onChange={handleCityChange}
-                placeholder={loadingCities
-                    ? tCommon("messages.loading")
-                    : tPage("projects.chooseDestinationCity")}
+                loading={loadingCities}
+                placeholder={tPage("projects.chooseDestinationCity")}
                 className="w-full"
             />
         </div>

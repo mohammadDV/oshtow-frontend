@@ -1,7 +1,7 @@
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { Footer } from "../_components/footer";
 import { Header } from "../_components/header";
-import { MobileHeader } from "../_components/header/mobileHeader";
+import { SingleNavigation } from "./_components/singleNavigation";
 
 export default async function SinglesLayout({
     children,
@@ -12,7 +12,7 @@ export default async function SinglesLayout({
 
     return (
         <>
-            {isMobile ? <MobileHeader /> : <Header />}
+            {isMobile ? <SingleNavigation /> : <Header />}
             {children}
             <Footer />
         </>

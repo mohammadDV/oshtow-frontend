@@ -285,9 +285,8 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
         options={countryOptions}
         value={selectedCountry}
         onChange={handleCountryChange}
-        placeholder={loadingCountries
-          ? tCommon("messages.loading")
-          : tPage("projects.chooseOriginCountry")}
+        loading={loadingCountries}
+        placeholder={tPage("projects.chooseOriginCountry")}
         className="w-full"
       />
 
@@ -295,9 +294,8 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
         options={provinceOptions}
         value={selectedProvince}
         onChange={handleProvinceChange}
-        placeholder={loadingProvinces
-          ? tCommon("messages.loading")
-          : tPage("projects.chooseOriginProvince")}
+        loading={loadingProvinces}
+        placeholder={tPage("projects.chooseOriginProvince")}
         className="w-full"
       />
 
@@ -305,9 +303,8 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
         options={cityOptions}
         value={selectedCity}
         onChange={handleCityChange}
-        placeholder={loadingCities
-          ? tCommon("messages.loading")
-          : tPage("projects.chooseOriginCity")}
+        loading={loadingCities}
+        placeholder={tPage("projects.chooseOriginCity")}
         className="w-full"
       />
     </div>
