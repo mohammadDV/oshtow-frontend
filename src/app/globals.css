@@ -152,3 +152,7 @@ body {
 .hero-pagination-bullet:hover {
   background: rgba(255, 255, 255, 0.8);
 }
+
+.toaster {
+  font-family: "peydaFont" !important;
+}

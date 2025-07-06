@@ -21,6 +21,7 @@ import { CitySearchInput, CitySearchInputRef } from "./CitySearchInput";
 import { DateRangeInput, DateRangeInputRef } from "./DateRangeInput";
 import { PathTypeFilter } from "./PathTypeFilter";
 import { getProjectsSearch, ProjectSearchParams } from "./searchServices";
+import { toast } from "sonner";
 
 export const AdvancedSearch = () => {
   const tPages = usePagesTranslation();
@@ -83,6 +84,7 @@ export const AdvancedSearch = () => {
 
   const handleSearch = async () => {
     if (!originCity || !destinationCity) {
+      toast.error(tPages("home.originDestinationRequired"))
       return;
     }
 

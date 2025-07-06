@@ -30,7 +30,8 @@
     "postsTitle": "از مجله اوشتو",
     "searchResults": "نتایج جستجو",
     "searchPassenger": "جستجوی سفر",
-    "searchSender": "جستجوی مرسوله"
+    "searchSender": "جستجوی مرسوله",
+    "originDestinationRequired": "وارد کردن مبدا و مقصد الزامی می‌باشد!"
   },
   "projects": {
     "sendersTitle": "جستجوی آگهی مرسوله ها",

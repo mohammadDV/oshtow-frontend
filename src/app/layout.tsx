@@ -1,5 +1,6 @@
 import { peydaFont } from "@/constants/localFont";
 import { defaultLocale } from "@/lib/i18n";
+import { Toaster } from "@/ui/sonner";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -29,6 +30,7 @@ export default async function RootLayout({
         <NextTopLoader color="#e64eb5" />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
+          <Toaster position='bottom-right' />
         </NextIntlClientProvider>
       </body>
     </html>
