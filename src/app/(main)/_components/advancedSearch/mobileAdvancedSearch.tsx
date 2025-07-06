@@ -11,8 +11,8 @@ import { Icon } from "@/ui/icon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Modal } from "../modal/modal";
 import { getActiveCategories, getCitiesSearch, getProjectsSearch, ProjectSearchParams } from "./searchServices";
+import { Modal } from "@/app/_components/modal";
 
 export const MobileAdvancedSearch = () => {
     const tPages = usePagesTranslation();

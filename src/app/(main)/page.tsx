@@ -1,18 +1,18 @@
+import { API_URL } from "@/configs/global";
+import { apiUrls } from "@/constants/apiUrls";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
+import { Project } from "@/types/project.type";
 import { getTranslations } from "next-intl/server";
+import { PassengerCard } from "../_components/cards/passenger";
+import { PostCard } from "../_components/cards/post";
+import { SenderCard } from "../_components/cards/sender";
+import { Carousel } from "../_components/carousel";
+import { AdvancedSearch } from "./_components/advancedSearch";
+import { MobileAdvancedSearch } from "./_components/advancedSearch/mobileAdvancedSearch";
 import { Benefits } from "./_components/benefits";
-import { PostCard } from "./_components/cards/post";
-import { Carousel } from "./_components/carousel";
 import { CtaBanner } from "./_components/ctaBanner";
 import { Hero } from "./_components/hero";
 import { LastPosts } from "./_components/lastPosts";
-import { AdvancedSearch } from "./_components/advancedSearch";
-import { API_URL } from "@/configs/global";
-import { apiUrls } from "@/constants/apiUrls";
-import { Project } from "@/types/project.type";
-import { SenderCard } from "./_components/cards/sender";
-import { PassengerCard } from "./_components/cards/passenger";
-import { MobileAdvancedSearch } from "./_components/advancedSearch/mobileAdvancedSearch";
 
 interface FeaturedProjectsService {
   sender: Array<Project>;

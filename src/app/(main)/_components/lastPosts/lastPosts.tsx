@@ -1,10 +1,10 @@
+import { PostCard } from "@/app/_components/cards/post";
 import {
-    useCommonTranslation,
-    usePagesTranslation,
+  useCommonTranslation,
+  usePagesTranslation,
 } from "@/hooks/useTranslation";
 import { Icon } from "@/ui/icon";
 import Link from "next/link";
-import { PostCard } from "../cards/post";
 
 export const LastPosts = () => {
   const t = useCommonTranslation();

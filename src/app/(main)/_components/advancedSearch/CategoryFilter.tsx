@@ -18,7 +18,6 @@ export const CategoryFilter = ({
     className
 }: CategoryFilterProps) => {
     const t = useCommonTranslation();
-
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
 

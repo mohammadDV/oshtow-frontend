@@ -1,15 +1,14 @@
-import { getTranslations } from "next-intl/server";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
-import { Icon } from "@/ui/icon";
+import { PathType, ProjectType } from "@/types/project.type";
+import { getTranslations } from "next-intl/server";
 import { getProjects } from "../_api/getProjects";
 import { ProjectsFilters } from "../_components/filters";
-import { ProjectsSort } from "../_components/sort";
-import { Pagination } from "../_components/pagination";
-import { SendersList } from "../_components/list/senders";
-import { PathType, ProjectType } from "@/types/project.type";
-import { PassengersList } from "../_components/list/passengers";
 import { MobileProjectsFilters } from "../_components/filters/mobileFilters";
 import { RemoveFilters } from "../_components/filters/removeFilters";
+import { PassengersList } from "../_components/list/passengers";
+import { SendersList } from "../_components/list/senders";
+import { Pagination } from "../_components/pagination";
+import { ProjectsSort } from "../_components/sort";
 
 interface ProjectsPageProps {
   params: Promise<{

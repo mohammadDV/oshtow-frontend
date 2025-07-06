@@ -1,5 +1,6 @@
 "use client";
 
+import { Modal } from "@/app/_components/modal";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { cn } from "@/lib/utils";
 import { CityWithDetails } from "@/types/location.type";
@@ -15,7 +16,6 @@ import { Loading } from "@/ui/loading";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Modal } from "../modal/modal";
 import { CategoryFilter } from "./CategoryFilter";
 import { CitySearchInput, CitySearchInputRef } from "./CitySearchInput";
 import { DateRangeInput, DateRangeInputRef } from "./DateRangeInput";

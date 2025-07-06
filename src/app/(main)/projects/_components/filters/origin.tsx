@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import { Combobox } from "@/ui/combobox";
 import { getProvinces, getCities, getCityDetails } from "../../_api/getLocations";
-import { Country, Province, City } from "@/types/project.type";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { useFetchData } from "@/hooks/useFetchData";
 import { apiUrls } from "@/constants/apiUrls";
 import { ApiResponse } from "@/core/http-service";
+import { City, Country, Province } from "@/types/location.type";
 
 interface OriginFilterProps {
   onFilterChange?: (filters: {
@@ -46,17 +46,17 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
       const countryId = searchParams.get('o_country_id');
       const provinceId = searchParams.get('o_province_id');
       const cityId = searchParams.get('o_city_id');
-  
+
       // If no parameters exist, clear all selections
       if (!countryId && !provinceId && !cityId) {
-          setSelectedCountry("");
-          setSelectedProvince("");
-          setSelectedCity("");
-          setProvinces([]);
-          setCities([]);
-          return;
+        setSelectedCountry("");
+        setSelectedProvince("");
+        setSelectedCity("");
+        setProvinces([]);
+        setCities([]);
+        return;
       }
-  
+
       setIsInitializing(true);
 
       try {

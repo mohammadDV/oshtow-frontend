@@ -1,8 +1,5 @@
 import { PassengerCard } from "@/app/_components/cards/passenger";
 import { Carousel } from "@/app/_components/carousel";
-import { ShareProject } from "@/app/_components/shareProject/shareProject";
-import { SubmitProjectCard } from "@/app/_components/submitProject";
-import istanbulHorizontal from "@/assets/images/istanbul-horizontal.jpg";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { pathTypeGenerator, putCommas } from "@/lib/utils";
 import { Icon } from "@/ui/icon";
@@ -10,6 +7,8 @@ import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import Link from "next/link";
 import { getPassenger } from "../_api/getPassenger";
+import { ShareProject } from "../../_components/shareProject";
+import { SubmitProjectCard } from "../../_components/submitProject";
 
 interface PassengerPageProps {
   params: Promise<{
