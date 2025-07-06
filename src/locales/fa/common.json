@@ -60,7 +60,14 @@
     "allCategories": "همه دسته بندی ها",
     "noCity": "شهری یافت نشد",
     "selectPath": "انتخاب نوع سفر",
-    "selectCategory": "انتخاب دسته بنده"
+    "selectCategory": "انتخاب دسته بنده",
+    "firstName": "نام",
+    "lastName": "نام خانوادگی",
+    "nickname": "نام کاربری",
+    "email": "ایمیل",
+    "mobile": "شماره موبایل",
+    "password": "رمز عبور",
+    "passwordConfirmation": "تکرار رمز عبور"
   },
   "path": {
     "air": "هوایی",
