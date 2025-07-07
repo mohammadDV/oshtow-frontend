@@ -14,6 +14,6 @@ export const Icon: React.FC<IconProps> = ({
     onClick
 }) => {
     return (
-        <i className={cn(icon, sizeClass, className)} onClick={onClick}></i>
+        <i className={cn("block", icon, sizeClass, className)} onClick={onClick}></i>
     );
 };
