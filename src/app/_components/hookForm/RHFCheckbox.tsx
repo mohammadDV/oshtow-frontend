@@ -29,21 +29,23 @@ export const RHFCheckbox: React.FC<RHFCheckboxProps> = ({
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className={cn("flex flex-row items-center rtl:space-x-reverse", className)}>
-                    <FormControl>
-                        <Checkbox
-                            id={id}
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                            disabled={disabled}
-                            {...props}
-                        />
-                    </FormControl>
-                    {label && (
-                        <FormLabel className="font-normal cursor-pointer">
-                            {label}
-                        </FormLabel>
-                    )}
+                <FormItem className={className}>
+                    <div className="flex items-center gap-2">
+                        <FormControl>
+                            <Checkbox
+                                id={id}
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                disabled={disabled}
+                                {...props}
+                            />
+                        </FormControl>
+                        {label && (
+                            <FormLabel className="font-normal !text-text cursor-pointer">
+                                {label}
+                            </FormLabel>
+                        )}
+                    </div>
                     <FormMessage className="text-sm" />
                 </FormItem>
             )}

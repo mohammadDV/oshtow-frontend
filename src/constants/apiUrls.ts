@@ -16,4 +16,10 @@ export const apiUrls = {
   user: {
     info: "/user",
   },
+  auth: {
+    login: "/login",
+    register: "/register",
+    logout: "/logout",
+    verifyNotification: "/email/verification-notification",
+  },
 };

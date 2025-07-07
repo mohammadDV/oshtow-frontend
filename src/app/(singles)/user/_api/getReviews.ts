@@ -1,4 +1,4 @@
-import { API_URL } from "@/configs/global";
+import { getFetch } from "@/core/publicService";
 import { apiUrls } from "@/constants/apiUrls";
 import { ReviewsResponse } from "@/types/review.type";
 
@@ -25,16 +25,5 @@ export async function getReviews({
     if (query) searchParams.set("query", query);
     if (column) searchParams.set("column", column);
 
-    const res = await fetch(
-        `${API_URL}${apiUrls.user.info}/${id}/reviews?${searchParams.toString()}`,
-        {
-            cache: "no-store",
-        }
-    );
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch Projects");
-    }
-
-    return res.json();
+    return getFetch<ReviewsResponse>(`${apiUrls.user.info}/${id}/reviews?${searchParams.toString()}`);
 }

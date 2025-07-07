@@ -57,30 +57,32 @@ export const MobileAdvancedSearch = () => {
     ];
 
     const fetchCities = async () => {
-        const response = await getCitiesSearch({ query: "", count: 50, page: 1 });
-        if (response.isSuccess && response.data?.data) {
-            const cityOptions = response.data.data.map((city: CityWithDetails) => ({
-                label: `${city.title} - ${city.province.title}`,
-                value: city.id.toString()
-            }));
-            setCities(cityOptions);
-        } else {
-            console.error('Failed to fetch cities');
+        try {
+            const response = await getCitiesSearch({ query: "", count: 50, page: 1 });
+            if (response.data) {
+                const cityOptions = response.data.map((city: CityWithDetails) => ({
+                    label: `${city.title} - ${city.province.title}`,
+                    value: city.id.toString()
+                }));
+                setCities(cityOptions);
+            }
+        } catch (error) {
+            console.error('Failed to fetch cities:', error);
         }
     };
 
     useEffect(() => {
         if (selectedTab === 'sender') {
             const fetchCategories = async () => {
-                const response = await getActiveCategories();
-                if (response.isSuccess && response.data) {
-                    const categoryOptions = response.data.map((category: Category) => ({
+                try {
+                    const categories = await getActiveCategories();
+                    const categoryOptions = categories.map((category: Category) => ({
                         label: category.title,
                         value: category.id.toString()
                     }));
                     setCategories(categoryOptions);
-                } else {
-                    console.error('Failed to fetch categories');
+                } catch (error) {
+                    console.error('Failed to fetch categories:', error);
                 }
             };
             fetchCategories();
@@ -124,14 +126,13 @@ export const MobileAdvancedSearch = () => {
 
         setSearchParams(searchParams);
 
-        const response = await getProjectsSearch(searchParams);
-        if (response.isSuccess && response.data) {
-            const projectData = response.data as ProjectSearchResponse;
-            setSearchResults(projectData.data);
+        try {
+            const response = await getProjectsSearch(searchParams);
+            setSearchResults(response.data);
             setIsSearchModalOpen(false);
             setIsResultsModalOpen(true);
-        } else {
-            console.error("Search failed:");
+        } catch (error) {
+            console.error("Search failed:", error);
         }
         setIsLoading(false);
     };

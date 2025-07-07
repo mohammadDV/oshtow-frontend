@@ -104,13 +104,12 @@ export const AdvancedSearch = () => {
 
     setSearchParams(searchParams);
 
-    const response = await getProjectsSearch(searchParams);
-    if (response.isSuccess && response.data) {
-      const projectData = response.data as ProjectSearchResponse;
-      setSearchResults(projectData.data);
+    try {
+      const response = await getProjectsSearch(searchParams);
+      setSearchResults(response.data);
       setIsModalOpen(true);
-    } else {
-      console.error("Search failed:");
+    } catch (error) {
+      console.error("Search failed:", error);
     }
     setIsLoading(false);
   };

@@ -57,11 +57,11 @@ export const CitySearchInput = forwardRef<CitySearchInputRef, CitySearchInputPro
 
   const loadInitialCities = async () => {
     setLoading(true);
-    const response = await getCitiesSearch({ count: 6, page: 1 });
-    if (response.isSuccess) {
-      const data = response.data as CitySearchResponse;
+    try {
+      const data = await getCitiesSearch({ count: 6, page: 1 });
       setCities(data.data);
-    } else {
+    } catch (error) {
+      console.error('Failed to load initial cities:', error);
       setCities([]);
     }
     setLoading(false);
@@ -69,11 +69,11 @@ export const CitySearchInput = forwardRef<CitySearchInputRef, CitySearchInputPro
 
   const searchCities = async (query: string) => {
     setLoading(true);
-    const response = await getCitiesSearch({ query, count: 6, page: 1 });
-    if (response.isSuccess) {
-      const data = response.data as CitySearchResponse;
+    try {
+      const data = await getCitiesSearch({ query, count: 6, page: 1 });
       setCities(data.data);
-    } else {
+    } catch (error) {
+      console.error('Failed to search cities:', error);
       setCities([]);
     }
     setLoading(false);

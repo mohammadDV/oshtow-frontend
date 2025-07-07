@@ -1,14 +1,14 @@
 import { apiUrls } from "@/constants/apiUrls";
-import { ApiResponse, readData } from "@/core/http-service";
+import { getFetch } from "@/core/publicService";
 
-export const getProvinces = async (countryId: number): Promise<ApiResponse> => {
-  return await readData(`${apiUrls.locations.provinces}/${countryId}`);
+export const getProvinces = async (countryId: number) => {
+  return await getFetch(`${apiUrls.locations.provinces}/${countryId}`);
 }
 
-export const getCities = async (provinceId: number): Promise<ApiResponse> => {
-  return await readData(`${apiUrls.locations.cities}/${provinceId}`);
+export const getCities = async (provinceId: number) => {
+  return await getFetch(`${apiUrls.locations.cities}/${provinceId}`);
 }
 
-export const getCityDetails = async (cityId: number): Promise<ApiResponse> => {
-  return await readData(`${apiUrls.locations.cities}/${cityId}/details`);
+export const getCityDetails = async (cityId: number) => {
+  return await getFetch(`${apiUrls.locations.cities}/${cityId}/details`);
 }

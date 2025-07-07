@@ -1,4 +1,3 @@
-import { API_URL } from "@/configs/global";
 import { apiUrls } from "@/constants/apiUrls";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { Project } from "@/types/project.type";
@@ -13,20 +12,17 @@ import { Benefits } from "./_components/benefits";
 import { CtaBanner } from "./_components/ctaBanner";
 import { Hero } from "./_components/hero";
 import { LastPosts } from "./_components/lastPosts";
+import { getFetch } from "@/core/publicService";
 
 interface FeaturedProjectsService {
-  sender: Array<Project>;
-  passenger: Array<Project>;
+  data: {
+    sender: Array<Project>;
+    passenger: Array<Project>;
+  }
 }
 
 async function getFeaturedProjects(): Promise<FeaturedProjectsService> {
-  const res = await fetch(
-    `${API_URL}${apiUrls.projects.featured}`,
-    {
-      cache: 'no-store',
-    }
-  ).then((res) => res.json());
-  return res.data;
+  return await getFetch<FeaturedProjectsService>(apiUrls.projects.featured);
 }
 
 export default async function HomePage() {
@@ -46,12 +42,12 @@ export default async function HomePage() {
       <Carousel
         title={t("home.lastSenders")}
         seeMoreLink="/"
-        slides={featuredProjects.sender?.map(project => <SenderCard key={project.id} data={project} />)}
+        slides={featuredProjects.data?.sender?.map(project => <SenderCard key={project.id} data={project} />)}
       />
       <Carousel
         title={t("home.lastPassengers")}
         seeMoreLink="/"
-        slides={featuredProjects.sender?.map(project => <PassengerCard key={project.id} data={project} />)}
+        slides={featuredProjects.data?.sender?.map(project => <PassengerCard key={project.id} data={project} />)}
 
       />
       <CtaBanner />

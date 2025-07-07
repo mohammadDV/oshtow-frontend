@@ -26,7 +26,7 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
   const tPage = usePagesTranslation();
   const tCommon = useCommonTranslation();
 
-  const { response: countriesResponse, loading: loadingCountries } = useFetchData<ApiResponse>(apiUrls.locations.countries);
+  const { response: countriesResponse, loading: loadingCountries } = useFetchData<Country[]>(apiUrls.locations.countries);
 
   const [provinces, setProvinces] = useState<Province[]>([]);
   const [cities, setCities] = useState<City[]>([]);
@@ -38,7 +38,7 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
   const [loadingCities, setLoadingCities] = useState(false);
   const [isInitializing, setIsInitializing] = useState(false);
 
-  const countries: Country[] = countriesResponse?.isSuccess ? countriesResponse.data : [];
+  const countries: Country[] = countriesResponse || [];
 
   // Initialize from URL parameters with proper dependency handling
   useEffect(() => {
@@ -62,50 +62,70 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
       try {
         if (cityId && !provinceId && !countryId) {
           // Only city ID provided - fetch city details to get province and country
-          const cityResponse = await getCityDetails(parseInt(cityId));
-          if (cityResponse.isSuccess && cityResponse.data.length > 0) {
-            const cityData = cityResponse.data[0];
-            const countryIdFromCity = cityData.province.country.id.toString();
-            const provinceIdFromCity = cityData.province.id.toString();
+          try {
+            const cityResponse = await getCityDetails(parseInt(cityId));
+            if (cityResponse && cityResponse.length > 0) {
+              const cityData = cityResponse[0];
+              const countryIdFromCity = cityData.province.country.id.toString();
+              const provinceIdFromCity = cityData.province.id.toString();
 
-            setSelectedCountry(countryIdFromCity);
-            setSelectedProvince(provinceIdFromCity);
-            setSelectedCity(cityId);
+              setSelectedCountry(countryIdFromCity);
+              setSelectedProvince(provinceIdFromCity);
+              setSelectedCity(cityId);
 
-            // Load provinces for the country
-            const provincesResponse = await getProvinces(cityData.province.country.id);
-            if (provincesResponse.isSuccess) {
-              setProvinces(provincesResponse.data);
+              // Load provinces for the country
+              try {
+                const provincesResponse = await getProvinces(cityData.province.country.id);
+                setProvinces(provincesResponse || []);
+              } catch (error) {
+                console.error('Error fetching provinces:', error);
+                setProvinces([]);
+              }
+
+              // Load cities for the province
+              try {
+                const citiesResponse = await getCities(cityData.province.id);
+                setCities(citiesResponse || []);
+              } catch (error) {
+                console.error('Error fetching cities:', error);
+                setCities([]);
+              }
             }
-
-            // Load cities for the province
-            const citiesResponse = await getCities(cityData.province.id);
-            if (citiesResponse.isSuccess) {
-              setCities(citiesResponse.data);
-            }
+          } catch (error) {
+            console.error('Error fetching city details:', error);
           }
         } else if (provinceId && !countryId) {
           // Only province ID provided - need to find country
-          // We can get this by fetching cities and getting the first city's details
-          const citiesResponse = await getCities(parseInt(provinceId));
-          if (citiesResponse.isSuccess && citiesResponse.data.length > 0) {
-            const firstCityId = citiesResponse.data[0].id;
-            const cityDetailsResponse = await getCityDetails(firstCityId);
-            if (cityDetailsResponse.isSuccess && cityDetailsResponse.data.length > 0) {
-              const countryIdFromProvince = cityDetailsResponse.data[0].province.country.id.toString();
+          try {
+            const citiesResponse = await getCities(parseInt(provinceId));
+            if (citiesResponse && citiesResponse.length > 0) {
+              const firstCityId = citiesResponse[0].id;
+              try {
+                const cityDetailsResponse = await getCityDetails(firstCityId);
+                if (cityDetailsResponse && cityDetailsResponse.length > 0) {
+                  const countryIdFromProvince = cityDetailsResponse[0].province.country.id.toString();
 
-              setSelectedCountry(countryIdFromProvince);
-              setSelectedProvince(provinceId);
-              if (cityId) setSelectedCity(cityId);
+                  setSelectedCountry(countryIdFromProvince);
+                  setSelectedProvince(provinceId);
+                  if (cityId) setSelectedCity(cityId);
 
-              // Load provinces for the country
-              const provincesResponse = await getProvinces(cityDetailsResponse.data[0].province.country.id);
-              if (provincesResponse.isSuccess) {
-                setProvinces(provincesResponse.data);
+                  // Load provinces for the country
+                  try {
+                    const provincesResponse = await getProvinces(cityDetailsResponse[0].province.country.id);
+                    setProvinces(provincesResponse || []);
+                  } catch (error) {
+                    console.error('Error fetching provinces:', error);
+                    setProvinces([]);
+                  }
+
+                  setCities(citiesResponse);
+                }
+              } catch (error) {
+                console.error('Error fetching city details:', error);
               }
-
-              setCities(citiesResponse.data);
             }
+          } catch (error) {
+            console.error('Error fetching cities:', error);
           }
         } else {
           // Normal case - country provided or all provided
@@ -113,9 +133,12 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
             setSelectedCountry(countryId);
 
             // Load provinces
-            const provincesResponse = await getProvinces(parseInt(countryId));
-            if (provincesResponse.isSuccess) {
-              setProvinces(provincesResponse.data);
+            try {
+              const provincesResponse = await getProvinces(parseInt(countryId));
+              setProvinces(provincesResponse || []);
+            } catch (error) {
+              console.error('Error fetching provinces:', error);
+              setProvinces([]);
             }
           }
 
@@ -123,9 +146,12 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
             setSelectedProvince(provinceId);
 
             // Load cities
-            const citiesResponse = await getCities(parseInt(provinceId));
-            if (citiesResponse.isSuccess) {
-              setCities(citiesResponse.data);
+            try {
+              const citiesResponse = await getCities(parseInt(provinceId));
+              setCities(citiesResponse || []);
+            } catch (error) {
+              console.error('Error fetching cities:', error);
+              setCities([]);
             }
           }
 
@@ -149,11 +175,11 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
     if (selectedCountry && !isInitializing) {
       const fetchProvinces = async () => {
         setLoadingProvinces(true);
-        const response = await getProvinces(parseInt(selectedCountry));
-        if (response.isSuccess) {
-          setProvinces(response.data);
-        } else {
-          console.error('Error fetching provinces:', response);
+        try {
+          const response = await getProvinces(parseInt(selectedCountry));
+          setProvinces(response || []);
+        } catch (error) {
+          console.error('Error fetching provinces:', error);
           setProvinces([]);
         }
         setLoadingProvinces(false);
@@ -171,11 +197,11 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
     if (selectedProvince && !isInitializing) {
       const fetchCities = async () => {
         setLoadingCities(true);
-        const response = await getCities(parseInt(selectedProvince));
-        if (response.isSuccess) {
-          setCities(response.data);
-        } else {
-          console.error('Error fetching cities:', response);
+        try {
+          const response = await getCities(parseInt(selectedProvince));
+          setCities(response || []);
+        } catch (error) {
+          console.error('Error fetching cities:', error);
           setCities([]);
         }
         setLoadingCities(false);

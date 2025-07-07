@@ -1,4 +1,4 @@
-import { API_URL } from "@/configs/global";
+import { getFetch } from "@/core/publicService";
 import { apiUrls } from "@/constants/apiUrls";
 import { UserInfoResponse } from "@/types/user.type";
 
@@ -9,13 +9,5 @@ interface GetUserParams {
 export async function getUser({
     id,
 }: GetUserParams): Promise<UserInfoResponse> {
-    const res = await fetch(`${API_URL}${apiUrls.user.info}/${id}`, {
-        cache: "no-store",
-    });
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch Projects");
-    }
-
-    return res.json();
+    return getFetch<UserInfoResponse>(`${apiUrls.user.info}/${id}`);
 }

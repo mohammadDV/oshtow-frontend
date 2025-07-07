@@ -1,5 +1,5 @@
-import { API_URL } from "@/configs/global";
 import { apiUrls } from "@/constants/apiUrls";
+import { getFetch } from "@/core/publicService";
 import { PathType, ProjectSearchResponse, ProjectType } from "@/types/project.type";
 
 interface GetProjectsParams {
@@ -67,16 +67,7 @@ export async function getProjects({
     });
   }
 
-  const res = await fetch(
-    `${API_URL}${apiUrls.projects.search}?${searchParams.toString()}`,
-    {
-      cache: "no-store",
-    }
+  return getFetch<ProjectSearchResponse>(
+    `${apiUrls.projects.search}?${searchParams.toString()}`
   );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch Projects");
-  }
-
-  return res.json();
 }

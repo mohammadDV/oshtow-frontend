@@ -23,11 +23,11 @@ export const CategoryFilter = ({
 
     useEffect(() => {
         const fetchCategories = async () => {
-            const response = await getActiveCategories();
-            if (response.isSuccess && response.data) {
-                setCategories(response.data.slice(0, 5));
-            } else {
-                console.error('Failed to fetch categories:');
+            try {
+                const categories = await getActiveCategories();
+                setCategories(categories.slice(0, 5));
+            } catch (error) {
+                console.error('Failed to fetch categories:', error);
             }
             setLoading(false);
         };

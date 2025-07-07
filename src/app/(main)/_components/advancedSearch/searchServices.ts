@@ -1,7 +1,8 @@
 import { apiUrls } from "@/constants/apiUrls";
-import { ApiResponse, readData } from "@/core/http-service";
-import { CitySearchParams } from "@/types/location.type";
-import { PathType, ProjectType } from "@/types/project.type";
+import { getFetch } from "@/core/publicService";
+import { CitySearchParams, CitySearchResponse } from "@/types/location.type";
+import { PathType, ProjectSearchResponse, ProjectType } from "@/types/project.type";
+import { Category } from "@/types/category.type";
 
 export interface ProjectSearchParams {
   type: ProjectType;
@@ -17,7 +18,7 @@ export interface ProjectSearchParams {
 
 export const getCitiesSearch = async (
   params: CitySearchParams
-): Promise<ApiResponse> => {
+): Promise<CitySearchResponse> => {
   const searchParams = new URLSearchParams();
 
   if (params.query) searchParams.append("query", params.query);
@@ -26,16 +27,16 @@ export const getCitiesSearch = async (
 
   const url = `${apiUrls.locations.cities}?${searchParams.toString()}`;
 
-  return await readData(url);
+  return await getFetch<CitySearchResponse>(url);
 };
 
-export const getActiveCategories = async (): Promise<ApiResponse> => {
-  return await readData(apiUrls.categories.active);
+export const getActiveCategories = async (): Promise<Category[]> => {
+  return await getFetch<Category[]>(apiUrls.categories.active);
 };
 
 export const getProjectsSearch = async (
   params: ProjectSearchParams
-): Promise<ApiResponse> => {
+): Promise<ProjectSearchResponse> => {
   const searchParams = new URLSearchParams();
 
   searchParams.append("type", params.type);
@@ -54,5 +55,5 @@ export const getProjectsSearch = async (
 
   const url = `${apiUrls.projects.search}?${searchParams.toString()}`;
 
-  return await readData(url);
+  return await getFetch<ProjectSearchResponse>(url);
 };

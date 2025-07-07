@@ -1,19 +1,18 @@
 "use client"
 
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { Checkbox } from "@/ui/checkbox";
-import { useFetchData } from "@/hooks/useFetchData";
 import { apiUrls } from "@/constants/apiUrls";
-import { Category } from "@/types/category.type";
-import { ApiResponse } from "@/core/http-service";
+import { useFetchData } from "@/hooks/useFetchData";
+import { Country } from "@/types/location.type";
+import { Checkbox } from "@/ui/checkbox";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 
 export const CategoriesFilter = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const pathname = usePathname();
 
-    const { response: categories, loading } = useFetchData<ApiResponse>(apiUrls.categories.active);
+    const { response: categories, loading } = useFetchData<Country[]>(apiUrls.categories.active);
 
     const [selectedCategories, setSelectedCategories] = useState<number[]>(() => {
         const categoryParams = searchParams.getAll('categories');
@@ -72,7 +71,7 @@ export const CategoriesFilter = () => {
 
     return (
         <div className="space-y-3 max-h-40 overflow-auto">
-            {categories?.data?.map((category: Category) => (
+            {categories?.map((category) => (
                 <div key={category.id} className="flex items-center">
                     <Checkbox
                         id={`category-${category.id}`}

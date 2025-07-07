@@ -1,39 +1,44 @@
 "use client"
 
-import { z } from "zod";
-import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
-import { regex } from "@/constants/regex";
-import { useState } from "react";
-import { useZodForm } from "@/hooks/useZodForm";
-import { FormProvider } from "react-hook-form";
+import { RHFCheckbox } from "@/app/_components/hookForm/RHFCheckbox";
 import { RHFInput } from "@/app/_components/hookForm/RHFInput";
 import { RHFPasswordInput } from "@/app/_components/hookForm/RHFPasswordInput";
-import { RHFCheckbox } from "@/app/_components/hookForm/RHFCheckbox";
+import { regex } from "@/constants/regex";
+import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
+import { useZodForm } from "@/hooks/useZodForm";
 import { Button } from "@/ui/button";
+import Link from "next/link";
+import { useState } from "react";
+import { FormProvider } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { registerServiceHandler } from "../_api/registerService";
 
 export const RegisterForm = () => {
     const tPage = usePagesTranslation();
     const tCommon = useCommonTranslation();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const registerSchema = z.object({
-        first_name: z.string({ required_error: "وارد کردن نام الزامی است" })
-            .min(2, "نام باید حداقل 3 کاراکتر باشد"),
-        last_name: z.string({ required_error: "وارد کردن نام خانوادگی الزامی است" })
-            .min(2, "نام خانوادگی باید حداقل 3 کاراکتر باشد"),
-        nickname: z.string({ required_error: "وارد کردن نام کاربری الزامی است" })
-            .min(2, "نام کاربری باید حداقل 3 کاراکتر باشد"),
-        email: z.string({ required_error: "وارد کردن ایمیل الزامی است" })
-            .email("ایمیل نامعتبر است"),
-        mobile: z.string({ required_error: "وارد کردن شماره موبایل الزامی است" })
-            .regex(regex.phone, "شماره موبایل معتبر نیست"),
-        password: z.string({ required_error: "وارد کردن رمز عبور الزامی است" }),
-        password_confirmation: z.string({ required_error: "وارد کردن تکرار رمز عبور الزامی است" }),
-        privacy_policy: z.boolean(),
+        first_name: z.string().min(1, tCommon("validation.required.firstName")),
+        last_name: z.string().min(1, tCommon("validation.required.lastName")),
+        nickname: z.string().min(1, tCommon("validation.required.nickname")),
+        email: z.string({ required_error: tCommon("validation.required.email") })
+            .email(tCommon("validation.invalid.email")),
+        mobile: z.string({ required_error: tCommon("validation.required.mobile") })
+            .regex(regex.phone, tCommon("validation.invalid.mobile")),
+        password: z.string({ required_error: tCommon("validation.required.password") })
+            .min(8, tCommon("validation.invalid.passwordLength")),
+        password_confirmation: z.string({ required_error: tCommon("validation.required.passwordConfirmation") }),
+        privacy_policy: z.boolean().refine(val => val === true, {
+            message: tCommon("validation.required.privacyPolicy")
+        }),
+    }).refine(data => data.password === data.password_confirmation, {
+        message: tCommon("validation.invalid.passwordMatch"),
+        path: ["password_confirmation"]
     });
 
     type RegisterFormData = z.infer<typeof registerSchema>;
-
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const form = useZodForm(registerSchema, {
         defaultValues: {
@@ -49,9 +54,19 @@ export const RegisterForm = () => {
     });
 
     const onSubmit = async (data: RegisterFormData) => {
-        setIsLoading(true);
-        console.log(data);
-        setIsLoading(false);
+        try {
+            setIsLoading(true);
+            const res = await registerServiceHandler(data);
+            if (res.status === 1) {
+                toast.success(tPage("auth.registerSuccess"));
+            } else {
+                toast.error(res.message || "");
+            }
+        } catch (error) {
+            toast.error("");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -98,19 +113,17 @@ export const RegisterForm = () => {
                             placeholder={tCommon("inputs.passwordConfirmation")}
                         />
                     </div>
-                    <div className="flex items-center gap-1.5">
-                        <RHFCheckbox id="privacy_policy" name="privacy_policy" />
-                        <label
-                            htmlFor={"privacy_policy"}
-                            className="text-sm font-normal text-text"
-                        >
-                            قوانین و شرایط استفاده از اوشتو را خوانده و آن را می‌پذیرم.
-                        </label>
+                    <div className="flex items-start gap-1.5">
+                        <RHFCheckbox id="privacy_policy" name="privacy_policy" label={tPage("auth.iHaveRead")} />
+                        <Link href="/privacy-policy" className="text-primary text-sm">
+                            {tPage("auth.seePrivacy")}
+                        </Link>
                     </div>
                     <Button
                         size={"default"}
                         variant={"default"}
-                        className="w-full mt-3"
+                        className="w-full mt-2.5"
+                        isLoading={isLoading}
                         type="submit">
                         {tPage("auth.register")}
                     </Button>
