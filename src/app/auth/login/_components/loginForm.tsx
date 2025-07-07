@@ -1,30 +1,35 @@
 "use client"
 
-import { z } from "zod";
-import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
-import { regex } from "@/constants/regex";
-import { useState } from "react";
-import { useZodForm } from "@/hooks/useZodForm";
-import { FormProvider } from "react-hook-form";
 import { RHFInput } from "@/app/_components/hookForm/RHFInput";
 import { RHFPasswordInput } from "@/app/_components/hookForm/RHFPasswordInput";
-import { RHFCheckbox } from "@/app/_components/hookForm/RHFCheckbox";
+import { StatusCode } from "@/constants/enums";
+import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
+import { useZodForm } from "@/hooks/useZodForm";
 import { Button } from "@/ui/button";
 import Link from "next/link";
+import { useActionState, useEffect, useTransition } from "react";
+import { FormProvider } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import { loginAction, LoginService } from "../_api/loginAction";
 
 export const LoginForm = () => {
     const tPage = usePagesTranslation();
     const tCommon = useCommonTranslation();
+    const [isPending, startTransition] = useTransition();
+    const [formState, formAction] = useActionState<LoginService | null, FormData>(
+        loginAction,
+        null
+    );
 
     const loginSchema = z.object({
-        email: z.string({ required_error: "وارد کردن ایمیل الزامی است" })
-            .email("ایمیل نامعتبر است"),
-        password: z.string({ required_error: "وارد کردن رمز عبور الزامی است" }),
+        email: z.string({ required_error: tCommon("validation.required.email") })
+            .email(tCommon("validation.invalid.email")),
+        password: z.string({ required_error: tCommon("validation.required.password") })
+            .min(8, tCommon("validation.invalid.passwordLength")),
     });
 
     type LoginFormData = z.infer<typeof loginSchema>;
-
-    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const form = useZodForm(loginSchema, {
         defaultValues: {
@@ -33,10 +38,35 @@ export const LoginForm = () => {
         }
     });
 
+    useEffect(() => {
+        if (!!formState && formState.status === StatusCode.Failed) {
+            toast.error(formState?.message || tPage("auth.loginFailed"));
+
+            if (formState.errors) {
+                Object.entries(formState.errors).forEach(([fieldName, fieldErrors]) => {
+                    if (fieldErrors && fieldErrors.length > 0) {
+                        form.setError(fieldName as keyof LoginFormData, {
+                            type: "server",
+                            message: fieldErrors[0]
+                        });
+                    }
+                });
+            }
+        } else if (!!formState && formState.status === StatusCode.Success) {
+            window.location.href = "/profile";
+        }
+    }, [formState, form]);
+
     const onSubmit = async (data: LoginFormData) => {
-        setIsLoading(true);
-        console.log(data);
-        setIsLoading(false);
+        form.clearErrors();
+
+        const formData = new FormData();
+        formData.append("email", data.email);
+        formData.append("password", data.password);
+
+        startTransition(async () => {
+            await formAction(formData);
+        });
     };
 
     return (
@@ -65,6 +95,7 @@ export const LoginForm = () => {
                     <Button
                         size={"default"}
                         variant={"default"}
+                        isLoading={isPending}
                         className="w-full mt-3"
                         type="submit">
                         {tPage("auth.login")}

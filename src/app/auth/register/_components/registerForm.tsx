@@ -3,21 +3,26 @@
 import { RHFCheckbox } from "@/app/_components/hookForm/RHFCheckbox";
 import { RHFInput } from "@/app/_components/hookForm/RHFInput";
 import { RHFPasswordInput } from "@/app/_components/hookForm/RHFPasswordInput";
+import { StatusCode } from "@/constants/enums";
 import { regex } from "@/constants/regex";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { useZodForm } from "@/hooks/useZodForm";
 import { Button } from "@/ui/button";
 import Link from "next/link";
-import { useState } from "react";
+import { useActionState, useEffect, useTransition } from "react";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { registerServiceHandler } from "../_api/registerService";
+import { registerAction, RegisterService } from "../_api/registerAction";
 
 export const RegisterForm = () => {
     const tPage = usePagesTranslation();
     const tCommon = useCommonTranslation();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isPending, startTransition] = useTransition();
+    const [formState, formAction] = useActionState<RegisterService | null, FormData>(
+        registerAction,
+        null
+    );
 
     const registerSchema = z.object({
         first_name: z.string().min(1, tCommon("validation.required.firstName")),
@@ -53,20 +58,41 @@ export const RegisterForm = () => {
         }
     });
 
-    const onSubmit = async (data: RegisterFormData) => {
-        try {
-            setIsLoading(true);
-            const res = await registerServiceHandler(data);
-            if (res.status === 1) {
-                toast.success(tPage("auth.registerSuccess"));
-            } else {
-                toast.error(res.message || "");
+    useEffect(() => {
+        if (!!formState && formState.status === StatusCode.Failed) {
+            toast.error(!!formState?.errors ? tPage("auth.registerError") : tPage("auth.registerFailed"));
+
+            if (formState.errors) {
+                Object.entries(formState.errors).forEach(([fieldName, fieldErrors]) => {
+                    if (fieldErrors && fieldErrors.length > 0) {
+                        form.setError(fieldName as keyof RegisterFormData, {
+                            type: "server",
+                            message: fieldErrors[0]
+                        });
+                    }
+                });
             }
-        } catch (error) {
-            toast.error("");
-        } finally {
-            setIsLoading(false);
+        } else if (!!formState && formState.status === StatusCode.Success) {
+            window.location.href = "/auth/email-verification";
         }
+    }, [formState, form]);
+
+    const onSubmit = async (data: RegisterFormData) => {
+        form.clearErrors();
+
+        const formData = new FormData();
+        formData.append("first_name", data.first_name);
+        formData.append("last_name", data.last_name);
+        formData.append("nickname", data.nickname);
+        formData.append("email", data.email);
+        formData.append("mobile", data.mobile);
+        formData.append("password", data.password);
+        formData.append("password_confirmation", data.password_confirmation);
+        formData.append("privacy_policy", data.privacy_policy.toString());
+
+        startTransition(async () => {
+            await formAction(formData);
+        });
     };
 
     return (
@@ -123,7 +149,7 @@ export const RegisterForm = () => {
                         size={"default"}
                         variant={"default"}
                         className="w-full mt-2.5"
-                        isLoading={isLoading}
+                        isLoading={isPending}
                         type="submit">
                         {tPage("auth.register")}
                     </Button>
