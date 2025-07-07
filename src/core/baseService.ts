@@ -33,7 +33,7 @@ const baseFetchAuth = async <T = any>(
     const cookieStore = await cookies();
     const token = cookieStore.get('token');
     if (token?.value) {
-        baseHeaders['Authorization'] = `Bearer ${token.value}`;
+        baseHeaders['Authorization'] = `Bearer ${decodeURIComponent(token.value)}`;
     }
 
     const requestBody = body && !isFormData ? JSON.stringify(body) : body;
@@ -52,7 +52,7 @@ const getFetchAuth = async <T = any>(url: string): Promise<T> => {
     const res = await baseFetchAuth<T>(url, {
         method: 'GET'
     });
-    
+
     if (res) {
         return res;
     } else {

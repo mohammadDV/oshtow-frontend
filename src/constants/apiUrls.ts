@@ -21,5 +21,6 @@ export const apiUrls = {
     register: "/register",
     logout: "/logout",
     verifyNotification: "/email/verification-notification",
+    checkVerification: "/profile/check-verification",
   },
 };
