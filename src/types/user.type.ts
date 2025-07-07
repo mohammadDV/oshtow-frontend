@@ -17,3 +17,9 @@ export interface UserInfoResponse {
     sender_projects_count: number;
     passenger_projects_count: number;
 }
+
+export interface VerificationService {
+    verify_email: boolean;
+    verify_access: boolean;
+    user: UserInfo;
+}
