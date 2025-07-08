@@ -1,4 +1,5 @@
 import { apiUrls } from "@/constants/apiUrls";
+import { getFetch } from "@/core/publicService";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { Project } from "@/types/project.type";
 import { getTranslations } from "next-intl/server";
@@ -12,7 +13,6 @@ import { Benefits } from "./_components/benefits";
 import { CtaBanner } from "./_components/ctaBanner";
 import { Hero } from "./_components/hero";
 import { LastPosts } from "./_components/lastPosts";
-import { getFetch } from "@/core/publicService";
 
 interface FeaturedProjectsService {
   data: {

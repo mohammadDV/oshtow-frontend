@@ -10,16 +10,16 @@ export interface UserInfo {
     point: number | null
 }
 
+export interface UserData {
+    verify_email: boolean;
+    verify_access: boolean;
+    user: UserInfo;
+}
+
 export interface UserInfoResponse {
     user: UserInfo;
     sender_projects: Project[];
     passenger_projects: Project[];
     sender_projects_count: number;
     passenger_projects_count: number;
-}
-
-export interface VerificationService {
-    verify_email: boolean;
-    verify_access: boolean;
-    user: UserInfo;
 }

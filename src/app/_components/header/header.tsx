@@ -1,15 +1,20 @@
 'use client'
 
-import { cn } from "@/lib/utils"
+import { useCommonTranslation } from "@/hooks/useTranslation"
+import { cn, isEmpty } from "@/lib/utils"
+import { UserData } from "@/types/user.type"
 import { Button } from "@/ui/button"
 import { Icon } from "@/ui/icon"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useTranslations } from 'next-intl'
 
-export const Header = () => {
+interface HeaderProps {
+    userData?: UserData | null;
+}
+
+export const Header = ({ userData }: HeaderProps) => {
     const pathname = usePathname();
-    const t = useTranslations('common');
+    const t = useCommonTranslation();
 
     const menuData = [
         {
@@ -50,7 +55,7 @@ export const Header = () => {
                 <Link href={'/'} className="text-3xl font-bold text-primary">
                     {t('brand.name')}
                 </Link>
-                <ul className="flex items-center justify-center gap-8">
+                <ul className="flex items-center justify-center gap-8 mr-4">
                     {menuData.map(item => (
                         <li key={item.id} className={cn("hover:text-primary transition-all", item.link === pathname ? "text-primary" : "text-title")}>
                             <Link href={item.link}>
@@ -59,10 +64,27 @@ export const Header = () => {
                         </li>)
                     )}
                 </ul>
-                <Button variant='default'>
-                    <Icon icon="solar--user-outline" sizeClass="size-5" />
-                    {t('buttons.loginRegister')}
-                </Button>
+                {(!!userData && !isEmpty(userData))
+                    ? <Link href={'/profile'}>
+                        <Button variant='outline'>
+                            <Icon icon="solar--user-outline" sizeClass="size-5" />
+                            {t('buttons.myAccount')}
+                        </Button>
+                    </Link>
+                    : <div className="flex items-center justify-end gap-2">
+                        <Link href={'/auth/login'}>
+                            <Button variant='link'>
+                                <Icon icon="solar--login-2-outline" sizeClass="size-5" />
+                                {t('buttons.login')}
+                            </Button>
+                        </Link>
+                        <Link href={'/auth/register'}>
+                            <Button variant='default'>
+                                <Icon icon="solar--user-outline" sizeClass="size-5" />
+                                {t('buttons.register')}
+                            </Button>
+                        </Link>
+                    </div>}
             </div>
         </div>
     )

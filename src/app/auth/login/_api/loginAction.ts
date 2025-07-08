@@ -11,6 +11,8 @@ export interface LoginService {
     message?: string;
     errors?: { [key: string]: string[] };
     token?: string;
+    verify_email?: boolean;
+    verify_access?: boolean;
     user?: UserInfo;
 }
 
@@ -28,6 +30,17 @@ export const loginAction = async (_state: any, formData: FormData): Promise<any>
                 name: 'token',
                 value: res.token as string,
                 httpOnly: true,
+                path: '/',
+                maxAge: 60 * 60 * 24 * 7,
+            });
+            cookieStore.set({
+                name: 'userData',
+                value: JSON.stringify({
+                    verify_email: res?.verify_email,
+                    verify_access: res?.verify_access,
+                    user: res?.user,
+                }),
+                httpOnly: false,
                 path: '/',
                 maxAge: 60 * 60 * 24 * 7,
             });

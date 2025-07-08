@@ -1,15 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Combobox } from "@/ui/combobox";
-import { getProvinces, getCities, getCityDetails } from "../../_api/getLocations";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
-import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
-import { useFetchData } from "@/hooks/useFetchData";
 import { apiUrls } from "@/constants/apiUrls";
-import { ApiResponse } from "@/core/http-service";
+import { useFetchData } from "@/hooks/useFetchData";
+import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { City, Country, Province } from "@/types/location.type";
+import { Combobox } from "@/ui/combobox";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { getCities, getCityDetails, getProvinces } from "../../_api/getLocations";
 
 interface OriginFilterProps {
   onFilterChange?: (filters: {

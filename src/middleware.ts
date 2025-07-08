@@ -12,11 +12,17 @@ export function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/auth/login" ||
     request.nextUrl.pathname === "/auth/register";
 
+  const isVerificationPath = request.nextUrl.pathname === "/auth/email-verification";
+
   const token = request.cookies.get("token")?.value;
   const userData = request.cookies.get("userData")?.value;
 
   if (isAuthPath && token) {
     return NextResponse.redirect(new URL("/profile", request.url));
+  }
+
+  if (isVerificationPath && !token) {
+    return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
   if (isProfilePath) {
@@ -38,6 +44,11 @@ export function middleware(request: NextRequest) {
             new URL("/auth/email-verification", request.url)
           );
         }
+        if (!parsedUserData?.verify_email) {
+          return NextResponse.redirect(
+            new URL("/auth/email-verification", request.url)
+          );
+        }
       } catch (error) {
         return NextResponse.redirect(
           new URL("/auth/email-verification", request.url)
@@ -48,6 +59,7 @@ export function middleware(request: NextRequest) {
 
   const response = NextResponse.next();
   response.headers.set("x-device", isMobile ? "mobile" : "desktop");
+  response.headers.set("userData", userData || "");
   return response;
 }
 

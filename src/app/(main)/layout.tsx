@@ -1,8 +1,9 @@
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
-import { MobileHeader } from "../_components/header/mobileHeader";
-import { Header } from "../_components/header";
-import { Footer } from "../_components/footer";
+import { getUserData } from "@/lib/getUserDataFromHeaders";
 import { BottomNavigation } from "../_components/bottomNavigation";
+import { Footer } from "../_components/footer";
+import { Header } from "../_components/header";
+import { MobileHeader } from "../_components/header/mobileHeader";
 
 export default async function MainLayout({
     children,
@@ -10,10 +11,11 @@ export default async function MainLayout({
     children: React.ReactNode;
 }) {
     const isMobile = await isMobileDevice();
+    const userData = await getUserData();
 
     return (
         <>
-            {isMobile ? <MobileHeader /> : <Header />}
+            {isMobile ? <MobileHeader /> : <Header userData={userData} />}
             {children}
             <Footer />
             {isMobile && <BottomNavigation />}
