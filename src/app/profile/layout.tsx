@@ -5,21 +5,43 @@ import { Header } from "../_components/header";
 import { MobileHeader } from "../_components/header/mobileHeader";
 import { getUserData } from "@/lib/getUserDataFromHeaders";
 import { ProfileSidebar } from "./_components/sidebar";
+import { Icon } from "@/ui/icon";
+import { getTranslations } from "next-intl/server";
+import Link from "next/link";
+import { Button } from "@/ui/button";
 
 export default async function ProfileLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const t = await getTranslations("pages");
   const isMobile = await isMobileDevice();
   const userData = await getUserData();
 
   return (
     <>
       {isMobile ? <MobileHeader /> : <Header userData={userData} />}
-      <div className="lg:mt-10 flex justify-between mx-auto gap-8 container px-4">
+      {!userData.verify_access && (
+        <div className="flex lg:hidden items-center px-4 py-3.5 rounded-2xl bg-border justify-between mt-5 mx-4">
+          <div className="flex items-center gap-2">
+            <Icon icon="solar--notes-line-duotone" sizeClass="size-6" className="text-primary" />
+            <span className="text-title text-lg font-medium">
+              {t("profile.authTitle")}
+            </span>
+          </div>
+          <Link href={'/profile/settings/auth'}>
+            <Button variant={"outline"} size={"sm"} className="border-primary border text-primary">
+              {t("profile.completeAuth")}
+            </Button>
+          </Link>
+        </div>
+      )}
+      <div className="mt-5 lg:mt-10 md:flex justify-between mx-auto gap-8 container px-4">
         <ProfileSidebar userData={userData} />
-        {children}
+        <div className="flex-1">
+          {children}
+        </div>
       </div>
       <Footer />
       {isMobile && <BottomNavigation />}

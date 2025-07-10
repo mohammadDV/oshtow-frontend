@@ -60,7 +60,7 @@ export const ProfileMenu = ({ items, depth = 0 }: ProfileMenuProps) => {
               >
                 <div
                   className={cn(
-                    "flex items-center justify-between text-caption",
+                    "flex items-center justify-between",
                     active ? "text-primary" : "text-caption"
                   )}
                 >
@@ -82,7 +82,7 @@ export const ProfileMenu = ({ items, depth = 0 }: ProfileMenuProps) => {
               <Link
                 href={item.link!}
                 className={cn(
-                  "flex items-center relative justify-between py-2.5 rounded-lg transition text-caption",
+                  "flex items-center relative justify-between py-2.5 rounded-lg transition",
                   active ? "text-primary" : "text-caption"
                 )}
               >
