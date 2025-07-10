@@ -171,5 +171,8 @@
     "activePlan": "پلن فعال شما",
     "requestsCount": "تعداد پیشنهاد ها",
     "adsCount": "تعداد آگهی ها"
+  },
+  "changePassword": {
+    "title": "تغییر رمز عبور"
   }
 }

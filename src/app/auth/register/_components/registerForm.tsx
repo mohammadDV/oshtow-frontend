@@ -102,7 +102,7 @@ export const RegisterForm = () => {
             </h1>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="mt-5 flex flex-col gap-4">
-                    <div className="flex :flex-row items-start justify-between gap-4 md:gap-3">
+                    <div className="flex items-start justify-between gap-4 md:gap-3">
                         <RHFInput
                             name="first_name"
                             placeholder={tCommon("inputs.firstName")}
