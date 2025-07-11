@@ -7,7 +7,7 @@ export default async function ChangePasswordPage() {
     return (
         <div className="bg-white rounded-3xl p-6 pb-12">
             <h1 className="text-title font-medium text-lg">
-                {t("changePassword.title")}
+                {t("profile.changePassword.title")}
             </h1>
             <ChangePasswordForm />
         </div>

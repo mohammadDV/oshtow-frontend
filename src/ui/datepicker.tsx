@@ -86,7 +86,7 @@ export function DatePicker({
     const displayValue = dateValue ? formatToShamsi(dateValue) : ""
 
     const clearSelection = () => {
-        onChange?.(undefined)
+        onChange?.("")
     }
 
     return (

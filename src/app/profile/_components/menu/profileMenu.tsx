@@ -54,10 +54,13 @@ export const ProfileMenu = ({ items, depth = 0 }: ProfileMenuProps) => {
               <div
                 onClick={() => toggleMenu(item.label)}
                 className={cn(
-                  "py-2.5 rounded-lg transition cursor-pointer",
+                  "py-2.5 rounded-lg transition cursor-pointer relative",
                   active ? "text-primary" : "text-caption"
                 )}
               >
+                {active && (
+                  <div className="w-0.5 bg-primary rounded-full h-6 absolute -right-6"></div>
+                )}
                 <div
                   className={cn(
                     "flex items-center justify-between",

@@ -23,4 +23,9 @@ export const apiUrls = {
     verifyNotification: "/email/verification-notification",
     checkVerification: "/profile/check-verification",
   },
+  files: {
+    image: "/upload-image",
+    video: "/upload-video",
+    file: "/upload-file",
+  }
 };

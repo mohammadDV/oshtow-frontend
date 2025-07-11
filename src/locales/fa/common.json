@@ -40,10 +40,12 @@
     "success": "عملیات با موفقیت انجام شد",
     "noData": "داده‌ای یافت نشد",
     "copied": "کپی شد!",
-    "noResult": "نتیجه‌ای یافت نشد"
+    "noResult": "نتیجه‌ای یافت نشد",
+    "uploading": "در حال آپلود..."
   },
   "validation": {
     "required": {
+      "thisField": "وارد کردن این فیلد الزامی است",
       "firstName": "وارد کردن نام الزامی است",
       "lastName": "وارد کردن نام خانوادگی الزامی است",
       "nickname": "وارد کردن نام کاربری الزامی است",
@@ -54,8 +56,11 @@
       "privacyPolicy": "پذیرش قوانین و شرایط الزامی است"
     },
     "invalid": {
-      "email": "ایمیل نامعتبر است",
+      "fileError": "خطا در آپلود فایل",
+      "email": "ایمیل معتبر نیست",
       "mobile": "شماره موبایل معتبر نیست",
+      "postalCode": "کد پستی معتبر نیست",
+      "nationalCode": "کد ملی معتبر نیست",
       "passwordLength": "رمز عبور باید حداقل 8 کاراکتر باشد",
       "passwordMatch": "تکرار رمز عبور با رمز عبور مطابقت ندارد"
     }
@@ -87,7 +92,19 @@
     "email": "ایمیل",
     "mobile": "شماره موبایل",
     "password": "رمز عبور",
-    "passwordConfirmation": "تکرار رمز عبور"
+    "passwordConfirmation": "تکرار رمز عبور",
+    "fullname": "نام و نام خانوادگی",
+    "nationalCode": "کد ملی",
+    "country": "کشور",
+    "birthday": "تاریخ تولد",
+    "postalCode": "کد پستی",
+    "address": "آدرس",
+    "imageNationalCodeFront": "تصویر کارت ملی از رو",
+    "imageNationalCodeBack": "تصویر کارت ملی از پشت",
+    "video": "ویدیو",
+    "selectImage": "انتخاب تصویر",
+    "selectVideo": "انتخاب ویدیو",
+    "selectFile": "انتخاب فایل"
   },
   "path": {
     "air": "هوایی",
