@@ -8,6 +8,7 @@ import {
 } from "lucide-react"
 import { DayPicker } from "react-day-picker/persian"
 import { DayButton, getDefaultClassNames } from "react-day-picker"
+import { persianMonths } from "@/_mock/persianMonths"
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/ui/button"
@@ -37,8 +38,25 @@ function Calendar({
       )}
       captionLayout={captionLayout}
       formatters={{
-        formatMonthDropdown: (date) =>
-          date.toLocaleString("default", { month: "short" }),
+        formatMonthDropdown: (date) => {
+          // Convert to Persian calendar and get the month index
+          try {
+            const shamsiDate = new Intl.DateTimeFormat("fa-IR-u-ca-persian-nu-latn", {
+              month: "numeric",
+            }).formatToParts(date);
+            
+            const monthPart = shamsiDate.find((part) => part.type === "month");
+            if (monthPart) {
+              const monthIndex = parseInt(monthPart.value) - 1;
+              return persianMonths[monthIndex] || monthPart.value;
+            }
+          } catch (error) {
+            console.error('Error formatting Persian month:', error);
+          }
+          
+          // Fallback to default formatting
+          return date.toLocaleString("default", { month: "short" });
+        },
         ...formatters,
       }}
       classNames={{

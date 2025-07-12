@@ -37,8 +37,8 @@ export default async function ProfileLayout({
           </Link>
         </div>
       )}
-      <div className="mt-5 lg:mt-10 md:flex justify-between mx-auto gap-8 container px-4">
-        <ProfileSidebar userData={userData} />
+      <div className="mt-4 lg:mt-10 md:flex justify-between mx-auto gap-8 container px-4">
+        {!isMobile && <ProfileSidebar userData={userData} />}
         <div className="flex-1">
           {children}
         </div>

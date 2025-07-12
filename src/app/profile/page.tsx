@@ -4,8 +4,12 @@ import { Icon } from "@/ui/icon";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { ProfileStatistics } from "./_components/statistics/profileStatistics";
+import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
+import { ProfileMenu } from "./_components/menu/profileMenu";
+import { userProfileMenu } from "@/_mock/profileMenuData";
 
 export default async function ProfilePage() {
+    const isMobile = await isMobileDevice();
     const t = await getTranslations("pages");
     const userData = await getUserData();
 
@@ -28,6 +32,35 @@ export default async function ProfilePage() {
                         </Button>
                     </Link>
                 </div>
+            )}
+            {isMobile && (
+                <>
+                    <div className="flex items-center justify-between bg-white p-4 rounded-2xl mb-4">
+                        <div className="flex items-center gap-3">
+                            <img
+                                src={userData?.user.profile_photo_path}
+                                alt=""
+                                width={70}
+                                height={70}
+                                className="size-16 rounded-full mx-auto"
+                            />
+                            <div className="flex flex-col gap-2.5">
+                                <p className="text-sm font-normal text-text">
+                                    {t("profile.welcomeUser")}
+                                </p>
+                                <p className="text-sm font-normal text-primary">
+                                    {userData?.user.nickname}
+                                </p>
+                            </div>
+                        </div>
+                        <Icon icon="solar--alt-arrow-left-outline" sizeClass="size-5" className="text-caption" />
+                    </div>
+                    <div className="lg:w-2xs bg-white rounded-2xl lg:rounded-3xl overflow-hidden pb-4">
+                        <div className="mt-4 lg:mt-6 px-6">
+                            <ProfileMenu items={userProfileMenu} />
+                        </div>
+                    </div>
+                </>
             )}
             <ProfileStatistics />
         </div>

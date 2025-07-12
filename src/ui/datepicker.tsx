@@ -128,6 +128,7 @@ export function DatePicker({
             <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                     mode="single"
+                    captionLayout="dropdown"
                     selected={dateValue}
                     onSelect={handleSelect}
                     disabled={[
