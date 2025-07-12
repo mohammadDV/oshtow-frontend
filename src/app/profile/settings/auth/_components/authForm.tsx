@@ -125,16 +125,6 @@ export const AuthForm = () => {
     }, [savedFormData, form]);
 
     useEffect(() => {
-        const subscription = form.watch((value) => {
-            if (form.formState.isDirty) {
-                setSavedFormData(value);
-            }
-        });
-        return () => subscription.unsubscribe();
-    }, [form, setSavedFormData]);
-
-    useEffect(() => {
-        console.log(formState)
         if (!!formState && formState.status === StatusCode.Failed) {
             toast.error(!!formState?.errors
                 ? tCommon("messages.errorFields")
@@ -219,7 +209,6 @@ export const AuthForm = () => {
     };
 
     const onSubmit = async (data: any) => {
-        console.log(data)
         if (step === "first") {
             await handleNextStep();
             return;

@@ -11,8 +11,8 @@ export const ChangePasswordForm = () => {
     const t = useCommonTranslation();
 
     const changePasswordSchema = z.object({
-        current_password: z.string({ required_error: t("validation.required.email") })
-            .email(t("validation.invalid.email")),
+        current_password: z.string({ required_error: t("validation.required.password") })
+            .min(8, t("validation.invalid.passwordLength")),
         new_password: z.string({ required_error: t("validation.required.password") })
             .min(8, t("validation.invalid.passwordLength")),
         confirm_new_password: z.string({ required_error: t("validation.required.password") })
@@ -41,18 +41,18 @@ export const ChangePasswordForm = () => {
                         <div className="lg:w-1/2 pl-2.5">
                             <RHFPasswordInput
                                 name="current_password"
-                                placeholder={t("inputs.password")}
+                                placeholder={t("inputs.currentPassword")}
                             />
                         </div>
                     </div>
                     <div className="flex items-start justify-between gap-5">
                         <RHFPasswordInput
                             name="new_password"
-                            placeholder={t("inputs.password")}
+                            placeholder={t("inputs.newPassword")}
                         />
                         <RHFPasswordInput
                             name="confirm_new_password"
-                            placeholder={t("inputs.password")}
+                            placeholder={t("inputs.confirmNewPassword")}
                         />
                     </div>
                     <div className="flex justify-end mt-6">
@@ -60,7 +60,7 @@ export const ChangePasswordForm = () => {
                             type="submit"
                             variant={"default"}
                             size={"default"}>
-                            ثبت تغییرات
+                            {t("buttons.saveChanges")}
                         </Button>
                     </div>
                 </form>

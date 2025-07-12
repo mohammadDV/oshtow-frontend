@@ -18,7 +18,8 @@
     "backToSearch": "بازگشت به جستجو",
     "nextStep": "مرحله بعدی",
     "prevStep": "مرحله قبلی",
-    "sendInformation": "ارسال اطلاعات"
+    "sendInformation": "ارسال اطلاعات",
+    "saveChanges": "ثبت تغییرات"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -97,6 +98,9 @@
     "mobile": "شماره موبایل",
     "password": "رمز عبور",
     "passwordConfirmation": "تکرار رمز عبور",
+    "currentPassword": "رمز عبور فعلی",
+    "newPassword": "رمز عبور جدید",
+    "confirmNewPassword": "تکرار رمز عبور جدید",
     "fullname": "نام و نام خانوادگی",
     "nationalCode": "کد ملی",
     "country": "کشور",
