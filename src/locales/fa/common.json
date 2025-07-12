@@ -46,7 +46,8 @@
     "copied": "کپی شد!",
     "noResult": "نتیجه‌ای یافت نشد",
     "uploading": "در حال آپلود...",
-    "errorFields": "اطلاعات واردشده معتبر نیست! لطفاً دوباره بررسی کنید."
+    "errorFields": "اطلاعات واردشده معتبر نیست! لطفاً دوباره بررسی کنید.",
+    "updated": "بروزرسانی با موفقیت انجام شد"
   },
   "validation": {
     "required": {
@@ -104,6 +105,10 @@
     "fullname": "نام و نام خانوادگی",
     "nationalCode": "کد ملی",
     "country": "کشور",
+    "province": "استان",
+    "profileBanner": "بنر پروفایل",
+    "biography": "درباره من",
+    "city": "شهر",
     "birthday": "تاریخ تولد",
     "postalCode": "کد پستی",
     "address": "آدرس",

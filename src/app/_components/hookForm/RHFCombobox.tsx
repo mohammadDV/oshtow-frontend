@@ -11,11 +11,12 @@ export type OptionTypes = {
 }
 
 interface RHFComboboxProps {
-    name: string
-    options: OptionTypes[]
-    label?: string
-    placeholder?: string
-    className?: string
+    name: string;
+    options: OptionTypes[];
+    label?: string;
+    placeholder?: string;
+    className?: string;
+    loading?: boolean;
 }
 
 export const RHFCombobox: React.FC<RHFComboboxProps> = ({
@@ -24,6 +25,7 @@ export const RHFCombobox: React.FC<RHFComboboxProps> = ({
     label,
     placeholder = "انتخاب کنید",
     className,
+    loading
 }) => {
     const { control } = useFormContext()
 
@@ -39,6 +41,7 @@ export const RHFCombobox: React.FC<RHFComboboxProps> = ({
                             options={options}
                             value={field.value}
                             onChange={field.onChange}
+                            loading={loading}
                             placeholder={placeholder}
                             className={className}
                         />

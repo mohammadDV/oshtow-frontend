@@ -37,15 +37,15 @@ export const ChangePasswordForm = () => {
         <div className="mt-10 lg:max-w-2xl mx-auto">
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
-                    <div className="flex items-start justify-between gap-5 mb-5">
-                        <div className="lg:w-1/2 pl-2.5">
+                    <div className="md:flex items-start justify-between gap-5 mb-5">
+                        <div className="md:w-1/2 md:pl-2.5">
                             <RHFPasswordInput
                                 name="current_password"
                                 placeholder={t("inputs.currentPassword")}
                             />
                         </div>
                     </div>
-                    <div className="flex items-start justify-between gap-5">
+                    <div className="flex flex-col md:flex-row items-start justify-between gap-4 md:gap-5">
                         <RHFPasswordInput
                             name="new_password"
                             placeholder={t("inputs.newPassword")}
@@ -59,6 +59,7 @@ export const ChangePasswordForm = () => {
                         <Button
                             type="submit"
                             variant={"default"}
+                            className="flex-1 md:flex-initial"
                             size={"default"}>
                             {t("buttons.saveChanges")}
                         </Button>

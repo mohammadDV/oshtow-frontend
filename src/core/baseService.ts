@@ -4,7 +4,7 @@ import { API_URL } from "@/configs/global";
 import { cookies } from "next/headers";
 
 interface FetchOptions {
-  method?: "GET" | "POST" | "PUT" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   body?: any;
   headers?: Record<string, string>;
   isFormData?: boolean;
@@ -74,6 +74,13 @@ const putFetchAuth = async <T = any>(url: string, body: any): Promise<T> => {
   });
 };
 
+const patchFetchAuth = async <T = any>(url: string, body: any): Promise<T> => {
+  return baseFetchAuth<T>(url, {
+    method: "PATCH",
+    body,
+  });
+};
+
 const deleteFetchAuth = async <T = any>(url: string): Promise<T> => {
   return baseFetchAuth<T>(url, {
     method: "DELETE",
@@ -107,6 +114,7 @@ export {
   getFetchAuth,
   postFetchAuth,
   putFetchAuth,
+  patchFetchAuth,
   deleteFetchAuth,
   postFormDataAuth,
   putFormDataAuth,

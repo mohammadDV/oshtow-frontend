@@ -125,6 +125,15 @@ export const AuthForm = () => {
     }, [savedFormData, form]);
 
     useEffect(() => {
+        const subscription = form.watch((value) => {
+            if (form.formState.isDirty) {
+                setSavedFormData(value);
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, [form, setSavedFormData]);
+
+    useEffect(() => {
         if (!!formState && formState.status === StatusCode.Failed) {
             toast.error(!!formState?.errors
                 ? tCommon("messages.errorFields")
@@ -142,23 +151,10 @@ export const AuthForm = () => {
             }
         } else if (!!formState && formState.status === StatusCode.Success) {
             toast.success(formState?.message || tCommon("messages.success"));
-            setCompletedSteps((prev: any) => [...prev, "second"]);
+            setCompletedSteps([...completedSteps, "second"]);
             setSavedFormData({});
         }
     }, [formState, form]);
-
-    useEffect(() => {
-        const subscription = form.watch((value, { name }) => {
-            if (name && form.formState.errors[name]) {
-                form.clearErrors(name);
-            }
-
-            if (form.formState.isDirty) {
-                setSavedFormData(value);
-            }
-        });
-        return () => subscription.unsubscribe();
-    }, [form, setSavedFormData]);
 
     const validateFirstStep = async () => {
         const firstStepFields = [
@@ -241,7 +237,7 @@ export const AuthForm = () => {
 
     const renderFirstStep = () => (
         <div className="flex flex-col gap-5">
-            <div className="flex flex-col md:flex-row items-start justify-between gap-4 md:gap-5">
+            <div className="flex items-start justify-between gap-5">
                 <RHFInput
                     name="fullname"
                     placeholder={tCommon("inputs.fullname")}
@@ -251,7 +247,7 @@ export const AuthForm = () => {
                     placeholder={tCommon("inputs.nationalCode")}
                 />
             </div>
-            <div className="flex flex-col md:flex-row items-start justify-between gap-4 md:gap-5">
+            <div className="flex items-start justify-between gap-5">
                 <RHFInput
                     name="mobile"
                     placeholder={tCommon("inputs.mobile")}
@@ -261,7 +257,7 @@ export const AuthForm = () => {
                     placeholder={tCommon("inputs.email")}
                 />
             </div>
-            <div className="flex flex-col md:flex-row items-start justify-between gap-4 md:gap-5">
+            <div className="flex items-start justify-between gap-5">
                 <RHFDatePicker
                     name="birthday"
                     placeholder={tCommon("inputs.birthday")}
@@ -272,7 +268,7 @@ export const AuthForm = () => {
                     placeholder={tCommon("inputs.country")}
                 />
             </div>
-            <div className="flex flex-col md:flex-row items-start justify-between gap-4 md:gap-5 lg:w-1/2 md:pl-2.5">
+            <div className="flex items-start justify-between gap-5 lg:w-1/2 pl-2.5">
                 <RHFInput
                     name="postal_code"
                     placeholder={tCommon("inputs.postalCode")}
@@ -289,7 +285,7 @@ export const AuthForm = () => {
 
     const renderSecondStep = () => (
         <div className="flex flex-col gap-5">
-            <div className="flex flex-col md:flex-row items-start justify-between gap-4 md:gap-5">
+            <div className="flex items-start justify-between gap-5">
                 <RHFUpload
                     uploadType="image"
                     name="image_national_code_front"
@@ -315,8 +311,8 @@ export const AuthForm = () => {
     );
 
     return (
-        <div className="mt-4 lg:mt-8 lg:max-w-2xl mx-auto">
-            <div className="hidden lg:flex items-center justify-between gap-5 mb-7">
+        <div className="mt-8 lg:max-w-2xl mx-auto">
+            <div className="flex items-center justify-between gap-5 mb-7">
                 {stepsData.map((stepData, index) => (
                     <div
                         key={stepData.value}
@@ -342,59 +338,25 @@ export const AuthForm = () => {
                     </div>
                 ))}
             </div>
-            <div
-                className={cn("flex lg:hidden p-3 bg-light rounded-xl flex-1 items-center gap-2 mb-6",
-                    step === "first" && "border border-sub"
-                )}>
-                <div className={cn("size-10 rounded-full flex text-white items-center justify-center",
-                    completedSteps.includes(step) ? "bg-teal-400" : "bg-primary"
-                )}>
-                    {completedSteps.includes(step) ? "✓" : step === "first" ? 1 : 2}
-                </div>
-                <div>
-                    <div>
-                        <span className={cn("inline-block ml-1",
-                            completedSteps.includes(step) ? "text-teal-400" :
-                                step === "first" ? "text-primary font-semibold" : "text-caption")}>
-                            {stepsData[0].title}
-                        </span>
-                        <span className="font-normal text-xs text-caption inline-block">
-                            {stepsData[0].content}
-                        </span>
-                    </div>
-                    <div>
-                        <span className={cn("inline-block ml-1 mt-1",
-                            completedSteps.includes(step) ? "text-teal-400" :
-                                step === "second" ? "text-primary font-semibold" : "text-caption")}>
-                            {stepsData[1].title}
-                        </span>
-                        <span className="font-normal text-xs text-caption inline-block">
-                            {stepsData[1].content}
-                        </span>
-                    </div>
-                </div>
-            </div>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     {step === "first" ? renderFirstStep() : renderSecondStep()}
 
-                    <div className="flex justify-between mt-6 gap-3">
+                    <div className="flex justify-between mt-6">
                         {step === "second" && (
                             <Button
                                 type="button"
                                 variant="outline"
-                                className="md:flex-initial flex-1"
                                 onClick={handlePrevStep}
                             >
                                 {tCommon("buttons.prevStep")}
                             </Button>
                         )}
-                        <div className="md:flex hidden flex-1" />
+                        <div className="flex-1" />
                         <Button
                             type="submit"
                             variant="default"
                             size="default"
-                            className="md:flex-initial flex-1"
                             isLoading={isPending}
                         >
                             {step === "first" ? tCommon("buttons.nextStep") : tCommon("buttons.sendInformation")}

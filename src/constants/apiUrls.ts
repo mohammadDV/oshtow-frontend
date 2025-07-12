@@ -15,6 +15,7 @@ export const apiUrls = {
   },
   user: {
     info: "/user",
+    profile: "/profile/users",
   },
   auth: {
     login: "/login",
@@ -27,5 +28,8 @@ export const apiUrls = {
     image: "/upload-image",
     video: "/upload-video",
     file: "/upload-file",
+  },
+  identity: {
+    records: "/profile/identity-records"
   }
 };

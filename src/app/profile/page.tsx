@@ -16,7 +16,7 @@ export default async function ProfilePage() {
     return (
         <div>
             {!userData.verify_access && (
-                <div className="hidden lg:flex items-center px-4 py-3.5 rounded-2xl bg-border justify-between">
+                <div className="hidden lg:flex mb-5 items-center px-4 py-3.5 rounded-2xl bg-border justify-between">
                     <div className="flex items-center gap-2">
                         <Icon icon="solar--notes-line-duotone" sizeClass="size-6" className="text-primary" />
                         <span className="text-title text-lg font-medium">

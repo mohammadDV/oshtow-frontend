@@ -1,5 +1,6 @@
 "use server"
 
+import { apiUrls } from "@/constants/apiUrls";
 import { postFetchAuth } from "@/core/baseService";
 
 export interface IdentityService {
@@ -20,9 +21,9 @@ export const identityAction = async (_state: any, formData: FormData): Promise<I
     const image_national_code_front = formData.get("image_national_code_front");
     const image_national_code_back = formData.get("image_national_code_back");
     const video = formData.get("video");
-    
+
     try {
-        const res = await postFetchAuth<IdentityService>("/profile/identity-records", {
+        const res = await postFetchAuth<IdentityService>(apiUrls.identity.records, {
             fullname,
             national_code,
             mobile,
