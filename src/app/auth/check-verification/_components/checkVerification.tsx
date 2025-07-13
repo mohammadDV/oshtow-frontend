@@ -12,7 +12,7 @@ import { StatusCode } from "@/constants/enums";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
-export default function EmailVerification() {
+export default function CheckVerification() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const tPage = usePagesTranslation();

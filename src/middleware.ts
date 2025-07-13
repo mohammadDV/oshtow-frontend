@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/auth/login" ||
     request.nextUrl.pathname === "/auth/register";
 
-  const isVerificationPath = request.nextUrl.pathname === "/auth/email-verification";
+  const isVerificationPath = request.nextUrl.pathname === "/auth/check-verification";
 
   const token = request.cookies.get("token")?.value;
   const userData = request.cookies.get("userData")?.value;
@@ -32,7 +32,7 @@ export function middleware(request: NextRequest) {
 
     if (token && !userData) {
       return NextResponse.redirect(
-        new URL("/auth/email-verification", request.url)
+        new URL("/auth/check-verification", request.url)
       );
     }
 
@@ -41,17 +41,17 @@ export function middleware(request: NextRequest) {
         const parsedUserData = JSON.parse(userData);
         if (typeof parsedUserData !== "object" || parsedUserData === null) {
           return NextResponse.redirect(
-            new URL("/auth/email-verification", request.url)
+            new URL("/auth/check-verification", request.url)
           );
         }
         if (!parsedUserData?.verify_email) {
           return NextResponse.redirect(
-            new URL("/auth/email-verification", request.url)
+            new URL("/auth/check-verification", request.url)
           );
         }
       } catch (error) {
         return NextResponse.redirect(
-          new URL("/auth/email-verification", request.url)
+          new URL("/auth/check-verification", request.url)
         );
       }
     }

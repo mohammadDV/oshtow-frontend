@@ -73,7 +73,7 @@ export const RegisterForm = () => {
                 });
             }
         } else if (!!formState && formState.status === StatusCode.Success) {
-            window.location.href = "/auth/email-verification";
+            window.location.href = "/auth/check-verification";
         }
     }, [formState, form]);
 

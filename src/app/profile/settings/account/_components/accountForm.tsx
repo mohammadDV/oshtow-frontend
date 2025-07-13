@@ -171,7 +171,7 @@ export const AccountForm = ({ accountData }: AccountFormProps) => {
             }
         } else if (!!formState && formState.status === StatusCode.Success) {
             toast.success(formState?.message || t("messages.updated"));
-            router.push("/auth/email-verification?backUrl=/profile/settings/account");
+            router.push("/auth/check-verification?backUrl=/profile/settings/account");
         }
     }, [formState, form]);
 
