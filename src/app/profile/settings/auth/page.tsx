@@ -22,6 +22,7 @@ export default async function AuthPage() {
                 <li className="text-sm text-caption font-normal">{t("profile.auth.firstRule")}</li>
                 <li className="text-sm text-caption my-1 font-normal">{t("profile.auth.secondRule")}</li>
                 <li className="text-sm text-caption font-normal">{t("profile.auth.thirdRule")}</li>
+                <li className="text-sm text-caption mt-1 font-normal">{t("profile.auth.forthRule")}</li>
             </ol>
             <div className="relative">
                 <AuthForm identifyInfo={identifyInfo} />

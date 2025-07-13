@@ -20,7 +20,8 @@
     "prevStep": "مرحله قبلی",
     "sendInformation&Payment": "ارسال اطلاعات و پرداخت وجه",
     "saveChanges": "ثبت تغییرات",
-    "yes": "بله"
+    "yes": "بله",
+    "returnToProfile": "بازگشت به پروفایل"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
