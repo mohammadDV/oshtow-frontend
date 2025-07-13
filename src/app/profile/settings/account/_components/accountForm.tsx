@@ -50,7 +50,7 @@ export const AccountForm = () => {
         province_id: z.string().min(1, t("validation.required.thisField")),
         city_id: z.string().min(1, t("validation.required.thisField")),
         address: z.string().min(1, t("validation.required.thisField")),
-        biography: z.string().min(1, t("validation.required.thisField")),
+        biography: z.string().optional(),
         profile_photo_path: z.string().optional(),
         bg_photo_path: z.string().optional(),
     });
@@ -169,7 +169,7 @@ export const AccountForm = () => {
         formData.append("province_id", data.province_id);
         formData.append("city_id", data.city_id);
         formData.append("address", data.address);
-        formData.append("biography", data.biography);
+        formData.append("biography", data.biography || "");
         formData.append("profile_photo_path", data.profile_photo_path || "");
         formData.append("bg_photo_path", data.bg_photo_path || "");
 

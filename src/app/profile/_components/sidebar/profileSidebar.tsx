@@ -4,6 +4,7 @@ import { userProfileMenu } from "@/_mock/profileMenuData";
 import { usePagesTranslation } from "@/hooks/useTranslation";
 import { UserData } from "@/types/user.type";
 import { ProfileMenu } from "../menu/profileMenu";
+import { LogoutButton } from "../logoutButton/logoutButton";
 
 interface ProfileSidebarProps {
   userData?: UserData | null;
@@ -41,6 +42,7 @@ export const ProfileSidebar = ({ userData }: ProfileSidebarProps) => {
       </div>
       <div className="mt-4 lg:mt-6 px-6">
         <ProfileMenu items={userProfileMenu} />
+        <LogoutButton />
       </div>
     </div>
   );

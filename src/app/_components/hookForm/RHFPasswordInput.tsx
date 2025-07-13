@@ -29,25 +29,25 @@ export const RHFPasswordInput: React.FC<RHFPasswordInputProps> = ({
             render={({ field }) => (
                 <FormItem className="gap-1.5 w-full">
                     {label && <FormLabel>{label}</FormLabel>}
-                    <FormControl>
-                        <div className="relative">
+                    <div className="relative">
+                        <FormControl>
                             <Input
                                 {...field}
                                 {...props}
                                 className={className}
                                 type={showPassword ? "text" : "password"}
                             />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(prev => !prev)}
-                                className="absolute flex items-center justify-center left-3 bottom-1/2 translate-y-1/2 cursor-pointer"
-                            >
-                                <Icon icon={showPassword ? 'solar--eye-closed-line-duotone' : 'solar--eye-line-duotone'}
-                                    className="text-text"
-                                    sizeClass="size-5" />
-                            </button>
-                        </div>
-                    </FormControl>
+                        </FormControl>
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(prev => !prev)}
+                            className="absolute flex items-center justify-center left-3 bottom-1/2 translate-y-1/2 cursor-pointer"
+                        >
+                            <Icon icon={showPassword ? 'solar--eye-closed-line-duotone' : 'solar--eye-line-duotone'}
+                                className="text-text"
+                                sizeClass="size-5" />
+                        </button>
+                    </div>
                     <FormMessage className="text-sm" />
                 </FormItem>
             )}

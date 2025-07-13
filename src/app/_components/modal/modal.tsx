@@ -107,7 +107,7 @@ const Modal = ({
                         </h2>
                     )}
                     {description && (
-                        <p className="text-sm text-caption">
+                        <p className="text-text mb-2">
                             {description}
                         </p>
                     )}
@@ -122,7 +122,7 @@ const Modal = ({
 
             {(showConfirm || showCancel) && (
                 <div className={cn(
-                    "flex lg:flex-col-reverse gap-3 justify-between sm:flex-row sm:justify-end",
+                    "flex gap-3 justify-between sm:flex-row sm:justify-end",
                     footerClassName
                 )}>
                     {showCancel && (
@@ -130,7 +130,7 @@ const Modal = ({
                             variant={cancelVariant}
                             onClick={handleCancel}
                             disabled={loading}
-                            className="flex-1 sm:w-auto"
+                            className="flex-1 sm:flex-initial"
                         >
                             {cancelText}
                         </Button>
@@ -141,7 +141,7 @@ const Modal = ({
                             onClick={handleConfirm}
                             disabled={disabled}
                             isLoading={loading}
-                            className="flex-1 sm:w-auto"
+                            className="flex-1 sm:flex-initial"
                         >
                             {confirmText}
                         </Button>

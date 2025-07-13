@@ -59,7 +59,7 @@ export const ProfileStatistics = () => {
 
     return (
         <>
-            <div className="mb-5 lg:mb-8 flex overflow-auto lg:grid lg:grid-cols-3 gap-5">
+            <div className="mb-4 lg:mb-8 flex overflow-auto lg:grid lg:grid-cols-3 gap-5 mt-4 md:mt-0">
                 {myStatsData.map(stat => (
                     <div key={stat.id} className="bg-white p-2.5 lg:pl-3 lg:p-3 pl-6 rounded-2xl lg:rounded-[20px] flex items-center flex-1 min-w-max gap-4">
                         <div className={cn("size-16 lg:size-[70px] rounded-xl lg:rounded-2xl flex items-center justify-center", stat.bgColor)}>

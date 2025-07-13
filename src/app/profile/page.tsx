@@ -7,6 +7,7 @@ import { ProfileStatistics } from "./_components/statistics/profileStatistics";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { ProfileMenu } from "./_components/menu/profileMenu";
 import { userProfileMenu } from "@/_mock/profileMenuData";
+import { LogoutButton } from "./_components/logoutButton/logoutButton";
 
 export default async function ProfilePage() {
     const isMobile = await isMobileDevice();
@@ -58,6 +59,7 @@ export default async function ProfilePage() {
                     <div className="lg:w-2xs bg-white rounded-2xl lg:rounded-3xl overflow-hidden pb-4">
                         <div className="mt-4 lg:mt-6 px-6">
                             <ProfileMenu items={userProfileMenu} />
+                            <LogoutButton />
                         </div>
                     </div>
                 </>

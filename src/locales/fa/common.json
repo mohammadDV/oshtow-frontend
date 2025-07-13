@@ -1,7 +1,7 @@
 {
   "buttons": {
     "submit": "ارسال",
-    "cancel": "لغو",
+    "cancel": "انصراف",
     "save": "ذخیره",
     "edit": "ویرایش",
     "delete": "حذف",
@@ -19,7 +19,8 @@
     "nextStep": "مرحله بعدی",
     "prevStep": "مرحله قبلی",
     "sendInformation": "ارسال اطلاعات",
-    "saveChanges": "ثبت تغییرات"
+    "saveChanges": "ثبت تغییرات",
+    "yes": "بله"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
