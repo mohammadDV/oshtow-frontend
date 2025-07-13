@@ -3,13 +3,13 @@
 import { apiUrls } from "@/constants/apiUrls";
 import { postFetchAuth } from "@/core/baseService";
 
-export interface IdentityService {
+export interface IdentityResponse {
     status: number;
     message?: string;
     errors?: { [key: string]: string[] };
 }
 
-export const identityAction = async (_state: any, formData: FormData): Promise<IdentityService> => {
+export const identityAction = async (_state: any, formData: FormData): Promise<IdentityResponse> => {
     const fullname = formData.get("fullname");
     const national_code = formData.get("national_code");
     const mobile = formData.get("mobile");
@@ -23,7 +23,7 @@ export const identityAction = async (_state: any, formData: FormData): Promise<I
     const video = formData.get("video");
 
     try {
-        const res = await postFetchAuth<IdentityService>(apiUrls.identity.records, {
+        const res = await postFetchAuth<IdentityResponse>(apiUrls.identity.records, {
             fullname,
             national_code,
             mobile,

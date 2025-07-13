@@ -31,6 +31,7 @@ export const apiUrls = {
     file: "/upload-file",
   },
   identity: {
-    records: "/profile/identity-records"
+    records: "/profile/identity-records",
+    recordsInfo: "/profile/identity-records-info"
   }
 };

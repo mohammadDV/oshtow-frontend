@@ -6,6 +6,7 @@ import { RHFInput } from "@/app/_components/hookForm/RHFInput";
 import { RHFTextarea } from "@/app/_components/hookForm/RHFTextarea";
 import { RHFUpload } from "@/app/_components/hookForm/RHFUpload";
 import { apiUrls } from "@/constants/apiUrls";
+import { StatusCode } from "@/constants/enums";
 import { regex } from "@/constants/regex";
 import { useFetchData } from "@/hooks/useFetchData";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
@@ -13,22 +14,23 @@ import { useZodForm } from "@/hooks/useZodForm";
 import { cn } from "@/lib/utils";
 import { Country } from "@/types/location.type";
 import { Button } from "@/ui/button";
-import { useState, useEffect, useActionState, useTransition } from "react";
+import { useActionState, useEffect, useState, useTransition } from "react";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { identityAction, IdentityService } from "../_api/identityAction";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { StatusCode } from "@/constants/enums";
+import { IdentifyInfoResponse } from "../_api/getIdentifyInfo";
+import { identityAction, IdentityResponse } from "../_api/identityAction";
 
-export const AuthForm = () => {
+interface AuthFormProps {
+    identifyInfo?: IdentifyInfoResponse;
+}
+
+export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
     const tCommon = useCommonTranslation();
     const tPage = usePagesTranslation();
     const [step, setStep] = useState<"first" | "second">("first");
     const [isPending, startTransition] = useTransition();
-    const [completedSteps, setCompletedSteps] = useLocalStorage("auth-form-completed-steps", []);
-    const [savedFormData, setSavedFormData] = useLocalStorage("auth-form-data", {});
-    const [formState, formAction] = useActionState<IdentityService | null, FormData>(
+    const [formState, formAction] = useActionState<IdentityResponse | null, FormData>(
         identityAction,
         null
     );
@@ -85,53 +87,19 @@ export const AuthForm = () => {
     const formSchema = firstStepSchema.merge(secondStepSchema);
     const form = useZodForm(formSchema, {
         defaultValues: {
-            fullname: '',
-            national_code: '',
-            mobile: '',
-            email: '',
-            birthday: '',
-            country: '',
-            postal_code: '',
-            address: '',
-            image_national_code_front: '',
-            image_national_code_back: '',
-            video: '',
+            fullname: identifyInfo?.fullname || '',
+            national_code: identifyInfo?.national_code || '',
+            mobile: identifyInfo?.mobile || '',
+            email: identifyInfo?.email || '',
+            birthday: identifyInfo?.birthday || '',
+            country: identifyInfo?.country || '',
+            postal_code: identifyInfo?.postal_code || '',
+            address: identifyInfo?.address || '',
+            image_national_code_front: identifyInfo?.image_national_code_front || '',
+            image_national_code_back: identifyInfo?.image_national_code_back || '',
+            video: identifyInfo?.video || '',
         },
     });
-
-    useEffect(() => {
-        if (savedFormData && Object.keys(savedFormData).length > 0) {
-            form.reset({
-                fullname: savedFormData.fullname || '',
-                national_code: savedFormData.national_code || '',
-                mobile: savedFormData.mobile || '',
-                email: savedFormData.email || '',
-                birthday: savedFormData.birthday || '',
-                country: savedFormData.country || '',
-                postal_code: savedFormData.postal_code || '',
-                address: savedFormData.address || '',
-                image_national_code_front: savedFormData.image_national_code_front || '',
-                image_national_code_back: savedFormData.image_national_code_back || '',
-                video: savedFormData.video || '',
-            }, {
-                keepErrors: true,
-                keepDirty: true,
-                keepIsSubmitted: false,
-                keepTouched: false,
-                keepIsValid: false,
-                keepSubmitCount: false
-            });
-        }
-    }, [savedFormData, form]);
-
-    useEffect(() => {
-        const subscription = form.watch((value) => {
-            if (form.formState.isDirty) {
-                setSavedFormData(value);
-            }
-        });
-        return () => subscription.unsubscribe();
-    }, [form, setSavedFormData]);
 
     useEffect(() => {
         if (!!formState && formState.status === StatusCode.Failed) {
@@ -151,8 +119,6 @@ export const AuthForm = () => {
             }
         } else if (!!formState && formState.status === StatusCode.Success) {
             toast.success(formState?.message || tCommon("messages.success"));
-            setCompletedSteps([...completedSteps, "second"]);
-            setSavedFormData({});
         }
     }, [formState, form]);
 
@@ -192,12 +158,7 @@ export const AuthForm = () => {
 
     const handleNextStep = async () => {
         const isValid = await validateFirstStep();
-        if (isValid) {
-            setStep("second");
-            if (!completedSteps.includes("first")) {
-                setCompletedSteps([...completedSteps, "first"]);
-            }
-        }
+        if (isValid) setStep("second");
     };
 
     const handlePrevStep = () => {
@@ -320,15 +281,13 @@ export const AuthForm = () => {
                             stepData.value === step && "border border-sub"
                         )}>
                         <div className={cn("size-6 rounded-full flex items-center justify-center",
-                            completedSteps.includes(stepData.value) ? "bg-teal-400 text-white" :
-                                stepData.value === step ? "bg-primary text-white" : "bg-white text-caption"
+                            stepData.value === step ? "bg-primary text-white" : "bg-white text-caption"
                         )}>
-                            {completedSteps.includes(stepData.value) ? "✓" : index + 1}
+                            {index + 1}
                         </div>
                         <div>
                             <span className={cn("font-medium inline-block ml-1",
-                                completedSteps.includes(stepData.value) ? "text-teal-400" :
-                                    stepData.value === step ? "text-primary" : "text-caption")}>
+                                stepData.value === step ? "text-primary" : "text-caption")}>
                                 {stepData.title}
                             </span>
                             <span className="font-normal text-sm text-caption inline-block">
@@ -359,7 +318,7 @@ export const AuthForm = () => {
                             size="default"
                             isLoading={isPending}
                         >
-                            {step === "first" ? tCommon("buttons.nextStep") : tCommon("buttons.sendInformation")}
+                            {step === "first" ? tCommon("buttons.nextStep") : tCommon("buttons.sendInformation&Payment")}
                         </Button>
                     </div>
                 </form>
