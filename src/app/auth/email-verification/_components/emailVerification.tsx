@@ -25,13 +25,15 @@ export default function EmailVerification() {
         null
     );
 
+    const backUrl = searchParams.get("backUrl")
+
     useEffect(() => {
         const checkVerification = async () => {
             setIsLoading(true);
             try {
                 const res = await checkVerificationAction();
                 if (res?.verify_email) {
-                    router.replace(searchParams.get("backUrl") || "/profile")
+                    router.replace(backUrl || "/profile")
                 } else setIsLoading(false);
             } catch (error) {
                 console.error('Verification check failed:', error);

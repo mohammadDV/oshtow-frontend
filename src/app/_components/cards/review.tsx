@@ -9,7 +9,7 @@ interface ReviewCardProps {
 export const ReviewCard = ({ data }: ReviewCardProps) => {
     return (
         <div className='bg-white lg:rounded-3xl rounded-2xl p-3.5 lg:p-5 flex gap-3.5 lg:gap-4'>
-            <img src={data.user?.profile_photo_path}
+            <img src={data.user?.profile_photo_path!}
                 alt=""
                 width={48}
                 height={48}

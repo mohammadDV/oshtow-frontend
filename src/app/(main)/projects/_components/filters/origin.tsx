@@ -2,7 +2,7 @@
 
 import { apiUrls } from "@/constants/apiUrls";
 import { useFetchData } from "@/hooks/useFetchData";
-import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
+import { usePagesTranslation } from "@/hooks/useTranslation";
 import { City, Country, Province } from "@/types/location.type";
 import { Combobox } from "@/ui/combobox";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -22,7 +22,6 @@ export const OriginFilter = ({ onFilterChange }: OriginFilterProps) => {
   const searchParams = useSearchParams();
   const params = useParams();
   const tPage = usePagesTranslation();
-  const tCommon = useCommonTranslation();
 
   const { response: countriesResponse, loading: loadingCountries } = useFetchData<Country[]>(apiUrls.locations.countries);
 

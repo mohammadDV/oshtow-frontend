@@ -19,7 +19,7 @@ export const ProfileSidebar = ({ userData }: ProfileSidebarProps) => {
       <div>
         <div className="w-full h-28 bg-border rounded-b-full"></div>
         <img
-          src={userData?.user?.profile_photo_path as string}
+          src={userData?.user?.profile_photo_path!}
           alt=""
           width={98}
           height={98}

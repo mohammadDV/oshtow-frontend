@@ -39,7 +39,7 @@ export default async function ProfilePage() {
                     <div className="flex items-center justify-between bg-white p-4 rounded-2xl mb-4">
                         <div className="flex items-center gap-3">
                             <img
-                                src={userData?.user.profile_photo_path}
+                                src={userData?.user?.profile_photo_path!}
                                 alt=""
                                 width={70}
                                 height={70}

@@ -252,10 +252,10 @@ export const AdvancedSearch = () => {
         showCancel={false}
       >
         <div className="space-y-4">
-          {searchResults.length > 0 ? (
+          {searchResults?.length > 0 ? (
             <>
               <div className="grid lg:grid-cols-3 gap-3">
-                {searchResults.map((project) => (
+                {searchResults?.map((project) => (
                   <Link
                     key={project.id}
                     href={`${selectedTab}/${project.id}`}

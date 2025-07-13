@@ -166,7 +166,7 @@ export default async function SenderPage({ params }: SenderPageProps) {
                 href={`/user/${senderData.project.user.id}`}
                 className="flex items-center gap-1.5 mt-4">
                 <img
-                  src={senderData.project.user.profile_photo_path}
+                  src={senderData.project.user.profile_photo_path!}
                   alt=""
                   width={40}
                   height={40}
