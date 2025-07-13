@@ -1,7 +1,7 @@
 "use client"
 
 import { useActionState, useEffect, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { checkVerificationAction } from "../_api/verificationAction";
 import Link from "next/link";
 import { Icon } from "@/ui/icon";
@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 export default function EmailVerification() {
+    const searchParams = useSearchParams();
     const router = useRouter();
     const tPage = usePagesTranslation();
     const tCommon = useCommonTranslation();
@@ -30,7 +31,7 @@ export default function EmailVerification() {
             try {
                 const res = await checkVerificationAction();
                 if (res?.verify_email) {
-                    router.replace("/profile")
+                    router.replace(searchParams.get("backUrl") || "/profile")
                 } else setIsLoading(false);
             } catch (error) {
                 console.error('Verification check failed:', error);

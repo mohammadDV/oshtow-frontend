@@ -19,8 +19,17 @@ import { toast } from "sonner";
 import z from "zod";
 import { getProvinces, getCities } from "../_api/getLocations";
 import { accountAction, AccountService } from "../_api/accountAction";
+import { useGetUser } from "@/hooks/useGetUser";
+import { UserAccountResponse, UserData } from "@/types/user.type";
+import { useRouter } from "next/navigation";
 
-export const AccountForm = () => {
+interface AccountFormProps {
+    accountData: UserAccountResponse;
+}
+
+export const AccountForm = ({ accountData }: AccountFormProps) => {
+    const router = useRouter();
+    const { userData } = useGetUser<UserData>();
     const t = useCommonTranslation();
     const [isPending, startTransition] = useTransition();
     const [formState, formAction] = useActionState<AccountService | null, FormData>(
@@ -59,17 +68,17 @@ export const AccountForm = () => {
 
     const form = useZodForm(accountSchema, {
         defaultValues: {
-            first_name: '',
-            last_name: '',
-            nickname: '',
-            mobile: '',
-            country_id: '',
-            province_id: '',
-            city_id: '',
-            address: '',
-            biography: '',
-            profile_photo_path: '',
-            bg_photo_path: '',
+            first_name: accountData?.first_name || '',
+            last_name: accountData?.last_name || '',
+            nickname: accountData?.nickname || '',
+            mobile: accountData?.mobile || '',
+            country_id: accountData?.country_id.toString() || '',
+            province_id: accountData?.province_id.toString() || '',
+            city_id: accountData?.city_id.toString() || '',
+            address: accountData?.address || '',
+            biography: accountData?.biography || '',
+            profile_photo_path: accountData?.profile_photo_path || '',
+            bg_photo_path: accountData?.bg_photo_path || ''
         }
     });
 
@@ -97,6 +106,10 @@ export const AccountForm = () => {
             getProvinces(parseInt(watchedCountryId))
                 .then((response) => {
                     setProvinces(response || []);
+                    // Restore default province value after options are loaded
+                    if (accountData?.province_id && response?.some((p: any) => p.id === accountData.province_id)) {
+                        form.setValue("province_id", accountData.province_id.toString());
+                    }
                 })
                 .catch((error) => {
                     console.error("Error fetching provinces:", error);
@@ -111,7 +124,7 @@ export const AccountForm = () => {
             form.setValue("province_id", "");
             form.setValue("city_id", "");
         }
-    }, [watchedCountryId, form]);
+    }, [watchedCountryId, form, accountData?.province_id]);
 
     useEffect(() => {
         if (watchedProvinceId) {
@@ -122,6 +135,10 @@ export const AccountForm = () => {
             getCities(parseInt(watchedProvinceId))
                 .then((response) => {
                     setCities(response || []);
+                    // Restore default city value after options are loaded
+                    if (accountData?.city_id && response?.some((c: any) => c.id === accountData.city_id)) {
+                        form.setValue("city_id", accountData.city_id.toString());
+                    }
                 })
                 .catch((error) => {
                     console.error("Error fetching cities:", error);
@@ -134,7 +151,7 @@ export const AccountForm = () => {
             setCities([]);
             form.setValue("city_id", "");
         }
-    }, [watchedProvinceId, form]);
+    }, [watchedProvinceId, form, accountData?.city_id]);
 
     useEffect(() => {
         if (!!formState && formState.status === StatusCode.Failed) {
@@ -154,11 +171,11 @@ export const AccountForm = () => {
             }
         } else if (!!formState && formState.status === StatusCode.Success) {
             toast.success(formState?.message || t("messages.updated"));
+            router.push("/auth/email-verification?backUrl=/profile/settings/account");
         }
     }, [formState, form]);
 
     const onSubmit = async (data: AccountFormData) => {
-        form.clearErrors();
 
         const formData = new FormData();
         formData.append("first_name", data.first_name);
@@ -172,6 +189,7 @@ export const AccountForm = () => {
         formData.append("biography", data.biography || "");
         formData.append("profile_photo_path", data.profile_photo_path || "");
         formData.append("bg_photo_path", data.bg_photo_path || "");
+        formData.append("id", userData?.user.id.toString() || "");
 
         startTransition(async () => {
             await formAction(formData);

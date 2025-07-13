@@ -25,5 +25,5 @@ export async function getReviews({
     if (query) searchParams.set("query", query);
     if (column) searchParams.set("column", column);
 
-    return getFetch<ReviewsResponse>(`${apiUrls.user.info}/${id}/reviews?${searchParams.toString()}`);
+    return getFetch<ReviewsResponse>(`${apiUrls.user.single}/${id}/reviews?${searchParams.toString()}`);
 }

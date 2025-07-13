@@ -4,15 +4,17 @@ export interface UserInfo {
     id: number;
     nickname: string;
     biography: string | null;
-    profile_photo_path: string;
+    profile_photo_path: string | null;
     bg_photo_path: string | null;
     rate: number;
     point: number | null
 }
 
 export interface UserData {
+    is_admin: boolean;
     verify_email: boolean;
     verify_access: boolean;
+    status_approval: false | 'pending' | 'paid' | 'completed'
     user: UserInfo;
 }
 
@@ -22,4 +24,22 @@ export interface UserInfoResponse {
     passenger_projects: Project[];
     sender_projects_count: number;
     passenger_projects_count: number;
+}
+
+export interface UserAccountResponse {
+    id: number,
+    first_name: string,
+    last_name: string,
+    email: string,
+    nickname: string,
+    address: string,
+    country_id: number,
+    province_id: number,
+    city_id: number,
+    mobile: string,
+    biography: string | null,
+    profile_photo_path: string | null,
+    bg_photo_path: string | null,
+    rate: number,
+    point: number
 }

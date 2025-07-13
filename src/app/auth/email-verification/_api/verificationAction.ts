@@ -2,18 +2,12 @@
 
 import { apiUrls } from "@/constants/apiUrls";
 import { getFetchAuth } from "@/core/baseService";
-import { UserInfo } from "@/types/user.type";
+import { UserData } from "@/types/user.type";
 import { cookies } from "next/headers";
-
-export interface VerificationService {
-  verify_email: boolean;
-  verify_access: boolean;
-  user: UserInfo;
-}
 
 export const checkVerificationAction = async (): Promise<any> => {
   try {
-    const res = await getFetchAuth<VerificationService>(
+    const res = await getFetchAuth<UserData>(
       apiUrls.auth.checkVerification
     );
     const cookieStore = await cookies();

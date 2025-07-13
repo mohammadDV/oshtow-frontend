@@ -59,7 +59,7 @@ export function middleware(request: NextRequest) {
 
   const response = NextResponse.next();
   response.headers.set("x-device", isMobile ? "mobile" : "desktop");
-  response.headers.set("userData", userData || "");
+  response.headers.set("userData", encodeURIComponent(userData || "") || "");
   return response;
 }
 

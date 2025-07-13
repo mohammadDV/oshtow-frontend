@@ -22,8 +22,10 @@ export const accountAction = async (_state: any, formData: FormData): Promise<Ac
     const profile_photo_path = formData.get("profile_photo_path");
     const bg_photo_path = formData.get("bg_photo_path");
 
+    const id = formData.get("id");
+
     try {
-        const res = await patchFetchAuth<AccountService>(apiUrls.user.profile, {
+        const res = await patchFetchAuth<AccountService>(`${apiUrls.user.profile}/${id}`, {
             first_name,
             last_name,
             nickname,
@@ -34,7 +36,8 @@ export const accountAction = async (_state: any, formData: FormData): Promise<Ac
             address,
             biography,
             profile_photo_path,
-            bg_photo_path
+            bg_photo_path,
+            status: 1
         });
         return res;
     } catch (error) {

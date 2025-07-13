@@ -19,11 +19,11 @@ export const ProfileSidebar = ({ userData }: ProfileSidebarProps) => {
       <div>
         <div className="w-full h-28 bg-border rounded-b-full"></div>
         <img
-          src={userData?.user.profile_photo_path}
+          src={userData?.user?.profile_photo_path as string}
           alt=""
           width={98}
           height={98}
-          className="size-20 rounded-full mx-auto -mt-14"
+          className="size-20 bg-white rounded-full mx-auto -mt-12"
         />
         <p className="mt-3 text-center text-sm font-normal text-text">
           {t("profile.welcomeUser")}
