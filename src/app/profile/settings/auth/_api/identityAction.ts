@@ -7,6 +7,7 @@ export interface IdentityResponse {
     status: number;
     message?: string;
     errors?: { [key: string]: string[] };
+    url?: string;
 }
 
 export const identityAction = async (_state: any, formData: FormData): Promise<IdentityResponse> => {
