@@ -53,20 +53,20 @@ export const withdrawRequestsColumns = (): ColumnDef<WithdrawRequest>[] => {
                 );
             },
         },
-        // {
-        //     accessorKey: "card",
-        //     header: t("columns.cardNumber"),
-        //     cell: ({ getValue }) => (
-        //         <span className="font-normal text-sm">{getValue() as string}</span>
-        //     ),
-        // },
-        // {
-        //     accessorKey: "sheba",
-        //     header: t("columns.shebaNumber"),
-        //     cell: ({ getValue }) => (
-        //         <span className="font-normal text-sm">{getValue() as string}</span>
-        //     ),
-        // },
+        {
+            accessorKey: "card",
+            header: t("columns.cardNumber"),
+            cell: ({ getValue }) => (
+                <span className="font-normal text-sm">{getValue() as string}</span>
+            ),
+        },
+        {
+            accessorKey: "sheba",
+            header: t("columns.shebaNumber"),
+            cell: ({ getValue }) => (
+                <span className="font-normal text-sm">{getValue() as string}</span>
+            ),
+        },
         {
             accessorKey: "status",
             header: t("columns.status"),

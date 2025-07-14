@@ -80,7 +80,7 @@ export const WalletHistory = ({ transactionsData, withdrawRequestsData, activeTa
 
     return (
         <div className="mt-5 lg:mt-8">
-            <div className="flex items-center mr-7">
+            <div className="flex items-center mr-4 lg:mr-7">
                 <button
                     onClick={() => handleTabChange('transactions')}
                     className={cn("font-normal cursor-pointer rounded-t-xl px-4 py-2.5",
@@ -146,7 +146,7 @@ export const WalletHistory = ({ transactionsData, withdrawRequestsData, activeTa
                                 loading={false}
                             />}
 
-                        <div className="flex items-center justify-between mt-6">
+                        <div className="flex flex-col md:flex-row items-center gap-4 justify-between mt-6">
                             <div className="text-sm text-caption">
                                 {tCommon("pagination.page")} {currentData.current_page} {tCommon("pagination.of")} {currentData.last_page}
                             </div>

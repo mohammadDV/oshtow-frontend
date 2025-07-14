@@ -15,7 +15,7 @@ export const ProfileSidebar = ({ userData }: ProfileSidebarProps) => {
   const t = usePagesTranslation();
 
   return (
-    <div className="lg:w-2xs bg-white rounded-2xl lg:rounded-3xl overflow-hidden pb-4">
+    <div className="lg:w-2xs bg-white rounded-2xl lg:shrink-0 lg:rounded-3xl overflow-hidden pb-4">
       <div>
         <div className="w-full h-28 bg-border rounded-b-full"></div>
         <img
