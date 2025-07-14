@@ -198,7 +198,8 @@
       "walletCredit": "موجودی کیف پول",
       "topup": "افزایش موجودی",
       "withdraw": "برداشت موجودی",
-      "transfer": "انتقال موجودی"
+      "transfer": "انتقال موجودی",
+      "transactionsHistory": "تاریخچه تراکنش‌ها"
     }
   },
   "paymentResult": {

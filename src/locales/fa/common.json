@@ -135,11 +135,41 @@
     "enterShebaNumber": "شماره شبای خود را وارد نمایید.",
     "description": "توضیحات",
     "customerNumber": "شماره کاربری حساب مقصد",
-    "enterCustomerNumber": "شماره کاربری حساب مقصد را وارد نمایید"
+    "enterCustomerNumber": "شماره کاربری حساب مقصد را وارد نمایید",
+    "allTypes": "همه انواع",
+    "allStatus": "همه وضعیت ها"
   },
   "path": {
     "air": "هوایی",
     "land": "زمینی",
     "sea": "دریایی"
+  },
+  "transactionTypes": {
+    "deposit": "واریز",
+    "withdrawal": "برداشت",
+    "refund": "بازگشت وجه",
+    "transfer": "انتقال",
+    "purchase": "خرید"
+  },
+  "transactionStatus": {
+    "pending": "در انتظار",
+    "completed": "تکمیل شده",
+    "failed": "ناموفق"
+  },
+  "pagination": {
+    "page": "صفحه:",
+    "of": "از"
+  },
+  "columns": {
+    "row": "ردیف",
+    "trackingNumber": "شماره مرجع",
+    "transactionType": "نوع تراکنش",
+    "amount": "مبلغ",
+    "status": "وضعیت",
+    "date": "تاریخ",
+    "description": "توضیحات"
+  },
+  "unit": {
+    "toman": "تومان"
   }
 }

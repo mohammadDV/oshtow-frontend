@@ -1,15 +1,41 @@
-import { getTranslations } from "next-intl/server"
+import { getTranslations } from "next-intl/server";
 import { TopUpButton } from "./_components/topUpButton";
 import { WithdrawButton } from "./_components/withdrawButton";
 import { TransferButton } from "./_components/transferButton";
+import { getUserData } from "@/lib/getUserDataFromHeaders";
+import { WalletHistory } from "./_components/walletHistory";
+import { getWalletTransactions } from "./_api/getWalletTransactions";
+import { TransactionStatus, TransactionType } from "@/types/wallet.type";
 
-export default async function WalletPage() {
+interface WalletPageProps {
+    searchParams: Promise<{
+        page?: string;
+        type?: TransactionType;
+        status?: TransactionStatus;
+    }>;
+}
+
+export default async function WalletPage({ searchParams }: WalletPageProps) {
     const tPages = await getTranslations("pages");
     const tCommon = await getTranslations("common");
+    const userData = await getUserData();
+    const resolvedSearchParams = await searchParams;
+
+    const page = parseInt(resolvedSearchParams?.page || "1");
+    const type = resolvedSearchParams?.type;
+    const status = resolvedSearchParams?.status;
+
+    const transactionsData = await getWalletTransactions({
+        id: userData.user.id.toString(),
+        page,
+        type,
+        status,
+        count: 10
+    });
 
     return (
-        <div>
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-7">
+        <div className="lg:max-w-5xl">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-5 lg:gap-7">
                 <div className="w-full lg:w-1/3 bg-[url(/images/card-bg.jpg)] shadow-[0px_4px_36px_4px_#FF7ED580] bg-cover h-44 bg-center bg-no-repeat rounded-3xl p-7 relative">
                     <p className="text-border font-normal mb-2">
                         {tPages("profile.wallet.walletCredit")}
@@ -27,6 +53,7 @@ export default async function WalletPage() {
                     <TransferButton />
                 </div>
             </div>
+            <WalletHistory data={transactionsData} />
         </div>
     )
 }

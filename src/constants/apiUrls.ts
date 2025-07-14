@@ -37,7 +37,8 @@ export const apiUrls = {
   wallet: {
     all: "/profile/wallets",
     topUp: "/profile/wallet/top-up",
-    transfer: "/profile/wallet/transfer"
+    transfer: "/profile/wallet/transfer",
+    transactions: "/profile/wallet-transaction"
   },
   withdraw: {
     all: "/profile/withdraws",
