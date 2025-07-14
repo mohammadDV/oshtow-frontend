@@ -199,7 +199,8 @@
       "topup": "افزایش موجودی",
       "withdraw": "برداشت موجودی",
       "transfer": "انتقال موجودی",
-      "transactionsHistory": "تاریخچه تراکنش‌ها"
+      "transactionsHistory": "تاریخچه تراکنش‌ها",
+      "withdrawRequestsHistory": "تاریخچه درخواست‌های برداشت"
     }
   },
   "paymentResult": {

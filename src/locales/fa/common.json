@@ -160,14 +160,26 @@
     "page": "صفحه:",
     "of": "از"
   },
+  "tabs": {
+    "transactions": "تراکنش ها",
+    "withdrawRequests": "درخواست ها"
+  },
+  "withdrawStatus": {
+    "pending": "در انتظار",
+    "completed": "تکمیل شده",
+    "reject": "رد شده"
+  },
   "columns": {
     "row": "ردیف",
-    "trackingNumber": "شماره مرجع",
+    "trackingNumber": "شماره پیگیری",
     "transactionType": "نوع تراکنش",
     "amount": "مبلغ",
     "status": "وضعیت",
     "date": "تاریخ",
-    "description": "توضیحات"
+    "description": "توضیحات",
+    "cardNumber": "شماره کارت",
+    "shebaNumber": "شماره شبا",
+    "reason": "دلیل"
   },
   "unit": {
     "toman": "تومان"

@@ -5,13 +5,15 @@ import { TransferButton } from "./_components/transferButton";
 import { getUserData } from "@/lib/getUserDataFromHeaders";
 import { WalletHistory } from "./_components/walletHistory";
 import { getWalletTransactions } from "./_api/getWalletTransactions";
-import { TransactionStatus, TransactionType } from "@/types/wallet.type";
+import { getWithdrawRequests } from "./_api/getWithdrawRequests";
+import { TransactionStatus, TransactionType, WithdrawStatus } from "@/types/wallet.type";
 
 interface WalletPageProps {
     searchParams: Promise<{
         page?: string;
         type?: TransactionType;
-        status?: TransactionStatus;
+        status?: TransactionStatus | WithdrawStatus;
+        tab?: 'transactions' | 'withdraws';
     }>;
 }
 
@@ -22,16 +24,31 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
     const resolvedSearchParams = await searchParams;
 
     const page = parseInt(resolvedSearchParams?.page || "1");
-    const type = resolvedSearchParams?.type;
-    const status = resolvedSearchParams?.status;
+    const tab = resolvedSearchParams?.tab || 'transactions';
 
-    const transactionsData = await getWalletTransactions({
-        id: userData.user.id.toString(),
-        page,
-        type,
-        status,
-        count: 10
-    });
+    let transactionsData = null;
+    let withdrawRequestsData = null;
+
+    if (tab === 'transactions') {
+        const type = resolvedSearchParams?.type as TransactionType;
+        const status = resolvedSearchParams?.status as TransactionStatus;
+
+        transactionsData = await getWalletTransactions({
+            id: userData.user.id.toString(),
+            page,
+            type,
+            status,
+            count: 10
+        });
+    } else if (tab === 'withdraws') {
+        const status = resolvedSearchParams?.status as WithdrawStatus;
+
+        withdrawRequestsData = await getWithdrawRequests({
+            page,
+            status,
+            count: 10
+        });
+    }
 
     return (
         <div className="lg:max-w-5xl">
@@ -53,7 +70,11 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
                     <TransferButton />
                 </div>
             </div>
-            <WalletHistory data={transactionsData} />
+            <WalletHistory
+                transactionsData={transactionsData}
+                withdrawRequestsData={withdrawRequestsData}
+                activeTab={tab}
+            />
         </div>
     )
 }
