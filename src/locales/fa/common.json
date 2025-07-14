@@ -20,8 +20,10 @@
     "prevStep": "مرحله قبلی",
     "sendInformation&Payment": "ارسال اطلاعات و پرداخت وجه",
     "saveChanges": "ثبت تغییرات",
+    "submitRequest": "ثبت درخواست",
     "yes": "بله",
-    "returnToProfile": "بازگشت به پروفایل"
+    "returnToProfile": "بازگشت به پروفایل",
+    "payment": "پرداخت وجه"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -71,11 +73,15 @@
       "postalCode": "کد پستی معتبر نیست",
       "nationalCode": "کد ملی معتبر نیست",
       "passwordLength": "رمز عبور باید حداقل 8 کاراکتر باشد",
-      "passwordMatch": "تکرار رمز عبور با رمز عبور مطابقت ندارد"
+      "passwordMatch": "تکرار رمز عبور با رمز عبور مطابقت ندارد",
+      "amount": "مبلغ وارد شده معتبر نمیباشد",
+      "cardNumber": "شماره کارت معتبر نیست",
+      "shebaNumber": "شماره شبا معتبر نیست"
     }
   },
   "brand": {
-    "name": "اوشتو (لوگو)"
+    "name": "اوشتو (لوگو)",
+    "domain": "Oshtow.org"
   },
   "footer": {
     "aboutSite": "درباره سایت اوشتو",
@@ -120,7 +126,16 @@
     "video": "ویدیو",
     "selectImage": "انتخاب تصویر",
     "selectVideo": "انتخاب ویدیو",
-    "selectFile": "انتخاب فایل"
+    "selectFile": "انتخاب فایل",
+    "amount": "مبلغ (تومان)",
+    "enterAmount": "مبلغ مورد نظر را وارد نمایید",
+    "cardNumber": "شماره کارت",
+    "enterCardNumber": "شماره کارت خود را وارد نمایید",
+    "shebaNumber": "شماره شبا",
+    "enterShebaNumber": "شماره شبای خود را وارد نمایید.",
+    "description": "توضیحات",
+    "customerNumber": "شماره کاربری حساب مقصد",
+    "enterCustomerNumber": "شماره کاربری حساب مقصد را وارد نمایید"
   },
   "path": {
     "air": "هوایی",

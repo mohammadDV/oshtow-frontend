@@ -193,6 +193,12 @@
     },
     "account": {
       "title": "ویرایش اطلاعات حساب کاربری"
+    },
+    "wallet": {
+      "walletCredit": "موجودی کیف پول",
+      "topup": "افزایش موجودی",
+      "withdraw": "برداشت موجودی",
+      "transfer": "انتقال موجودی"
     }
   },
   "paymentResult": {
