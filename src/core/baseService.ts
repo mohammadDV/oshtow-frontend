@@ -2,6 +2,7 @@
 
 import { API_URL } from "@/configs/global";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 interface FetchOptions {
   method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
@@ -44,6 +45,10 @@ const baseFetchAuth = async <T = any>(
     headers: baseHeaders,
     ...(requestBody && { body: requestBody }),
   });
+
+  if (res.status === 401) {
+    redirect('/auth/logout');
+  }
 
   return await res.json();
 };
@@ -110,12 +115,6 @@ const putFormDataAuth = async <T = any>(
 };
 
 export {
-  baseFetchAuth,
-  getFetchAuth,
-  postFetchAuth,
-  putFetchAuth,
-  patchFetchAuth,
-  deleteFetchAuth,
-  postFormDataAuth,
-  putFormDataAuth,
+  baseFetchAuth, deleteFetchAuth, getFetchAuth, patchFetchAuth, postFetchAuth, postFormDataAuth, putFetchAuth, putFormDataAuth
 };
+
