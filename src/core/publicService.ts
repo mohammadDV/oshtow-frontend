@@ -35,7 +35,6 @@ const baseFetchPublic = async <T = any>(
         headers: baseHeaders,
         ...(requestBody && { body: requestBody })
     });
-
     return await res.json();
 };
 

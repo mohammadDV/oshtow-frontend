@@ -50,5 +50,8 @@ export const apiUrls = {
   },
   subscription: {
     profile: "/profile/subscribe"
+  },
+  payment: {
+    result: "/payment/result"
   }
 };

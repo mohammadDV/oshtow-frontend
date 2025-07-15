@@ -227,7 +227,8 @@
   },
   "paymentResult": {
     "successPayment": "پرداخت موفق",
-    "faildPayment": "پرداخت ناموفق",
+    "failedPayment": "پرداخت ناموفق",
+    "referenceCode": "کد مرجع",
     "trackingCode": "کد پیگیری",
     "paymentDate": "تاریخ پرداخت",
     "time": "زمان",
