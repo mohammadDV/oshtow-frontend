@@ -43,6 +43,12 @@ export const apiUrls = {
   },
   withdraw: {
     all: "/profile/withdraws",
-    
+  },
+  plans: {
+    all: "/plans",
+    active: "/active-plans"
+  },
+  subscription: {
+    profile: "/profile/subscribe"
   }
 };

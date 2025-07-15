@@ -23,7 +23,8 @@
     "submitRequest": "ثبت درخواست",
     "yes": "بله",
     "returnToProfile": "بازگشت به پروفایل",
-    "payment": "پرداخت وجه"
+    "payment": "پرداخت وجه",
+    "buyPlan": "خرید اشتراک"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",

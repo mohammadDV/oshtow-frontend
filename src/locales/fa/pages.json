@@ -201,6 +201,28 @@
       "transfer": "انتقال موجودی",
       "transactionsHistory": "تاریخچه تراکنش‌ها",
       "withdrawRequestsHistory": "تاریخچه درخواست‌های برداشت"
+    },
+    "plans": {
+      "title": "پلن ها و تعرفه ها",
+      "description": "برای ثبت آگهی و یا ارسال درخواست، باید یکی از پلن های زیر را خریداری نمایید.",
+      "monthly": "ماهانه",
+      "yearly": "سالانه",
+      "features": "ویژگی های این پلن: ",
+      "monthlyPlanCredit": "30 روز اعتبار فعالیت در سایت",
+      "yearlyPlanCredit": "1 سال اعتبار فعالیت در سایت",
+      "adsInMonth": "آگهی در ماه",
+      "claimInMonth": "درخواست در ماه",
+      "adsInYear": "آگهی در سال",
+      "claimInYear": "درخواست در سال",
+      "buyPlan": "خرید پلن",
+      "purchaseDate": "تاریخ خرید",
+      "expireDate": "تاریخ انقضا",
+      "payableAmount": "مبلغ قابل پرداخت",
+      "paymentMethod": "روش پرداخت",
+      "walletPayment": "پرداخت با کیف پول",
+      "walletBalance": "موجودی",
+      "chargeWallet": "شارژ کیف پول",
+      "directPayment": "درگاه پرداخت مستقیم"
     }
   },
   "paymentResult": {
