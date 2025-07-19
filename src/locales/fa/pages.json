@@ -223,6 +223,10 @@
       "walletBalance": "موجودی",
       "chargeWallet": "شارژ کیف پول",
       "directPayment": "درگاه پرداخت مستقیم"
+    },
+    "projects": {
+      "passengersTitle": "مدیریت سفر های من",
+      "sendersTitle": "مدیریت مرسوله های من"
     }
   },
   "paymentResult": {

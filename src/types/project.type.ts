@@ -3,7 +3,7 @@ import { UserInfo } from "./user.type";
 
 export type ProjectType = "sender" | "passenger";
 export type PathType = "air" | "land" | "sea";
-export type ProjectStatusType = "pending" | "inprogress" | "completed";
+export type ProjectStatusType = "pending" | "in_progress" | "completed" | "canceled" | "reject" | "failed";
 
 export interface Category {
   id: number;

@@ -24,7 +24,8 @@
     "yes": "بله",
     "returnToProfile": "بازگشت به پروفایل",
     "payment": "پرداخت وجه",
-    "buyPlan": "خرید اشتراک"
+    "buyPlan": "خرید اشتراک",
+    "addNewAd": "ثبت آگهی جدید"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -169,6 +170,15 @@
     "pending": "در انتظار",
     "completed": "تکمیل شده",
     "reject": "رد شده"
+  },
+  "projectStatus": {
+    "all": "همه وضعیت ها",
+    "pending": "در انتظار",
+    "in_progress": "در حال انجام",
+    "canceled": "لغو شده",
+    "completed": "تکمیل شده",
+    "reject": "رد شده",
+    "failed": "ناموفق"
   },
   "columns": {
     "row": "ردیف",
