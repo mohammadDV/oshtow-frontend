@@ -25,7 +25,10 @@
     "returnToProfile": "بازگشت به پروفایل",
     "payment": "پرداخت وجه",
     "buyPlan": "خرید اشتراک",
-    "addNewAd": "ثبت آگهی جدید"
+    "addNewAd": "ثبت آگهی جدید",
+    "manageRequests": "مدیریت درخواست ها",
+    "seeOnSite": "مشاهده در سایت",
+    "deactivate": "غیر فعال"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -190,7 +193,8 @@
     "description": "توضیحات",
     "cardNumber": "شماره کارت",
     "shebaNumber": "شماره شبا",
-    "reason": "دلیل"
+    "reason": "دلیل",
+    "releaseAt": "منتشر شده در تاریخ"
   },
   "unit": {
     "toman": "تومان"

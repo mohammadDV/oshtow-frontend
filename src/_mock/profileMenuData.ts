@@ -6,16 +6,16 @@ export const userProfileMenu: MenuItem[] = [
         label: "سفر ها",
         icon: "solar--earth-outline",
         children: [
-            { label: "ثبت سفر جدید", icon: "solar--reply-2-outline", link: "/profile/passengers/create" },
-            { label: "مدیریت سفر ها", icon: "solar--reply-2-outline", link: "/profile/passengers" },
+            { label: "ثبت سفر جدید", icon: "solar--reply-2-outline", link: "/profile/projects/passenger/create" },
+            { label: "مدیریت سفر ها", icon: "solar--reply-2-outline", link: "/profile/projects/passenger" },
         ],
     },
     {
         label: "مرسوله ها",
         icon: "solar--box-outline",
         children: [
-            { label: "ثبت مرسوله جدید", icon: "solar--reply-2-outline", link: "/profile/senders/create" },
-            { label: "مدیریت مرسوله ها", icon: "solar--reply-2-outline", link: "/profile/senders" },
+            { label: "ثبت مرسوله جدید", icon: "solar--reply-2-outline", link: "/profile/projects/sender/create" },
+            { label: "مدیریت مرسوله ها", icon: "solar--reply-2-outline", link: "/profile/projects/sender" },
         ],
     },
     { label: "مدیریت درخواست ها", icon: "solar--pen-2-outline", link: "/profile/requests" },
