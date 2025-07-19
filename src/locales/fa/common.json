@@ -26,6 +26,7 @@
     "payment": "پرداخت وجه",
     "buyPlan": "خرید اشتراک",
     "addNewAd": "ثبت آگهی جدید",
+    "submitAd": "ثبت آگهی",
     "manageRequests": "مدیریت درخواست ها",
     "seeOnSite": "مشاهده در سایت",
     "deactivate": "غیر فعال"
@@ -142,7 +143,19 @@
     "customerNumber": "شماره کاربری حساب مقصد",
     "enterCustomerNumber": "شماره کاربری حساب مقصد را وارد نمایید",
     "allTypes": "همه انواع",
-    "allStatus": "همه وضعیت ها"
+    "allStatus": "همه وضعیت ها",
+    "adTitle": "عنوان آگهی",
+    "adDescription": "توضیحات آگهی",
+    "ticketImage": "تصویر بلیط (اختیاری)",
+    "originCountry": "کشور مبدا",
+    "originProvince": "استان مبدا",
+    "originCity": "شهر مبدا",
+    "destinationCountry": "کشور مقصد",
+    "destinationProvince": "استان مقصد",
+    "destinationCity": "شهر مقصد",
+    "pathType": "نوع سفر",
+    "emptySize": "فضای خالی",
+    "suggestAmount": "قیمت پیشنهادی به ازای هر Kg"
   },
   "path": {
     "air": "هوایی",

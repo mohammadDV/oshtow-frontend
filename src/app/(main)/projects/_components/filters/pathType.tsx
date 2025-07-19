@@ -3,26 +3,7 @@
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { Checkbox } from "@/ui/checkbox";
-
-interface PathTypeOption {
-    value: string;
-    label: string;
-}
-
-const pathTypeOptions: PathTypeOption[] = [
-    {
-        value: "air",
-        label: "هوایی"
-    },
-    {
-        value: "land",
-        label: "زمینی"
-    },
-    {
-        value: "sea",
-        label: "دریایی"
-    }
-];
+import { pathTypeOptions } from "@/_mock/pathOptions";
 
 export const PathTypeFilter = () => {
     const searchParams = useSearchParams();

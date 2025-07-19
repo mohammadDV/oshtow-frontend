@@ -17,11 +17,11 @@ import { useActionState, useEffect, useState, useTransition } from "react";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { getProvinces, getCities } from "../_api/getLocations";
 import { accountAction, AccountService } from "../_api/accountAction";
 import { useGetUser } from "@/hooks/useGetUser";
 import { UserAccountResponse, UserData } from "@/types/user.type";
 import { useRouter } from "next/navigation";
+import { getCities, getProvinces } from "@/app/(main)/projects/_api/getLocations";
 
 interface AccountFormProps {
     accountData: UserAccountResponse;

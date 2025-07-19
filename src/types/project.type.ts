@@ -60,3 +60,8 @@ export interface SingleProjectResponse {
   project: Project;
   recommended: Project[];
 }
+
+export interface PathTypeOption {
+  value: string;
+  label: string;
+}
