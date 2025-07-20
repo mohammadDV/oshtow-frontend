@@ -30,7 +30,8 @@
     "editAd": "ویرایش آگهی",
     "manageRequests": "مدیریت درخواست ها",
     "seeOnSite": "مشاهده در سایت",
-    "deactivate": "غیر فعال"
+    "deactivate": "غیر فعال",
+    "signIn": "وارد شوید"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -59,7 +60,8 @@
     "uploading": "در حال آپلود...",
     "errorFields": "اطلاعات واردشده معتبر نیست! لطفاً دوباره بررسی کنید.",
     "updated": "بروزرسانی با موفقیت انجام شد",
-    "redirectingToGateway": "در حال انتقال به درگاه پرداخت..."
+    "redirectingToGateway": "در حال انتقال به درگاه پرداخت...",
+    "hasSubmitRequest": "درخواست شما قبلا ثبت شده"
   },
   "validation": {
     "required": {
@@ -71,7 +73,8 @@
       "mobile": "وارد کردن شماره موبایل الزامی است",
       "password": "وارد کردن رمز عبور الزامی است",
       "passwordConfirmation": "وارد کردن تکرار رمز عبور الزامی است",
-      "privacyPolicy": "پذیرش قوانین و شرایط الزامی است"
+      "privacyPolicy": "پذیرش قوانین و شرایط الزامی است",
+      "address": "وارد کردن آدرس الزامی است"
     },
     "invalid": {
       "fileError": "خطا در آپلود فایل",
@@ -162,7 +165,9 @@
     "sendDate": "ارسال از تاریخ",
     "receiveDate": "ارسال تا تاریخ",
     "weight": "وزن مرسوله (kg)",
-    "dimensions": "ابعاد مرسوله"
+    "dimensions": "ابعاد مرسوله",
+    "addressType": "انتخای نوع آدرس",
+    "image": "تصویر"
   },
   "path": {
     "air": "هوایی",
@@ -220,5 +225,9 @@
   "unit": {
     "toman": "تومان",
     "kg": "کیلوگرم"
+  },
+  "address": {
+    "me": "آدرس من",
+    "other": "آدرس دیگر"
   }
 }

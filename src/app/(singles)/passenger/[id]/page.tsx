@@ -9,6 +9,7 @@ import Link from "next/link";
 import { getPassenger } from "../_api/getPassenger";
 import { ShareProject } from "../../_components/shareProject";
 import { SubmitProjectCard } from "../../_components/submitProject";
+import { getCheckRequest } from "../../_api/getCheckRequest";
 
 interface PassengerPageProps {
   params: Promise<{
@@ -23,6 +24,7 @@ export default async function PassengerPage({ params }: PassengerPageProps) {
   const resolvedParams = await params;
 
   const passengerData = await getPassenger({ id: resolvedParams.id });
+  const checkRequestData = await getCheckRequest({ id: resolvedParams.id });
 
   return (
     <>
@@ -182,7 +184,9 @@ export default async function PassengerPage({ params }: PassengerPageProps) {
             title={t("passenger.submitRequestTitle")}
             submitLabel={t("passenger.submitRequest")}
             chatLabel={t("passenger.chat")}
-            infoText={t("passenger.submitInfo")} />
+            infoText={t("passenger.submitInfo")}
+            showRequestButton={checkRequestData.request_enable}
+            showChatButton={checkRequestData.chat_enable} />
         </div>
 
         <Carousel

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { getSender } from "../_api/getSender";
 import { ShareProject } from "../../_components/shareProject";
 import { SubmitProjectCard } from "../../_components/submitProject";
+import { getCheckRequest } from "../../_api/getCheckRequest";
 
 interface SenderPageProps {
   params: Promise<{
@@ -21,6 +22,7 @@ export default async function SenderPage({ params }: SenderPageProps) {
   const resolvedParams = await params;
 
   const senderData = await getSender({ id: resolvedParams.id });
+  const checkRequestData = await getCheckRequest({ id: resolvedParams.id });
 
   return (
     <>
@@ -189,7 +191,9 @@ export default async function SenderPage({ params }: SenderPageProps) {
             title={t("sender.submitProposalTitle")}
             submitLabel={t("sender.submitProposal")}
             chatLabel={t("sender.chat")}
-            infoText={t("sender.submitInfo")} />
+            infoText={t("sender.submitInfo")}
+            showRequestButton={checkRequestData.request_enable}
+            showChatButton={checkRequestData.chat_enable} />
         </div>
 
         <Carousel

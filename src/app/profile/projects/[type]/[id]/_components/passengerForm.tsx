@@ -388,7 +388,7 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
                                 />
                                 <RHFInput
                                     name="amount"
-                                    label={tCommon("inputs.suggestAmountPerKG")}
+                                    label={tCommon("inputs.suggestAmount")}
                                     type="number"
                                 />
                             </div>

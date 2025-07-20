@@ -53,5 +53,8 @@ export const apiUrls = {
   },
   payment: {
     result: "/payment/result"
+  },
+  claims: {
+    all: "/claims"
   }
 };

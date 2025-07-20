@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export function useGetUser<T>() {
     const [userData, setUserData] = useState<T | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const checkVerification = async () => {
@@ -13,7 +14,8 @@ export function useGetUser<T>() {
         };
 
         checkVerification();
+        setIsLoading(false);
     }, []);
 
-    return { userData };
+    return { userData, isLoading };
 }
