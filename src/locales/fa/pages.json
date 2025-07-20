@@ -229,9 +229,12 @@
       "sendersTitle": "مدیریت مرسوله های من",
       "addNewPassengerAd": "افزودن آگهی سفر جدید",
       "editPassengerAd": "ویرایش آگهی سفر",
+      "addNewSenderAd": "افزودن آگهی مرسوله جدید",
+      "editSenderAd": "ویرایش آگهی مرسوله",
       "originInfo": "مشخصات مبدا",
       "destinationInfo": "مشخصات مقصد",
-      "passengerInfo": "مشخصات سفر"
+      "passengerInfo": "مشخصات سفر",
+      "senderInfo": "مشخصات مرسوله"
     }
   },
   "paymentResult": {

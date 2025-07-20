@@ -25,7 +25,7 @@ export const RHFInput: React.FC<RHFInputProps> = ({
             name={name}
             render={({ field }) => (
                 <FormItem className="gap-1.5 w-full">
-                    {label && <FormLabel className="text-text mb-1.5">{label}</FormLabel>}
+                    {label && <FormLabel className="text-text mb-1">{label}</FormLabel>}
                     <FormControl>
                         <Input
                             {...field}

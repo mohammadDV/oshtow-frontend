@@ -1,6 +1,6 @@
 "use client"
 
-import { pathTypeOptions } from "@/_mock/pathOptions";
+import { getActiveCategories } from "@/app/(main)/_components/advancedSearch/searchServices";
 import { getCities, getProvinces } from "@/app/(main)/projects/_api/getLocations";
 import { RHFCombobox } from "@/app/_components/hookForm/RHFCombobox";
 import { RHFDatePicker } from "@/app/_components/hookForm/RHFDatePicker";
@@ -20,20 +20,20 @@ import { useActionState, useEffect, useState, useTransition } from "react";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { createPassengerAction, editPassengerAction, PassengerService } from "../_api/passengerAction";
+import { createSenderAction, editSenderAction, SenderService } from "../_api/senderAction";
 
-interface PassengerForm {
+interface SenderForm {
     projectData?: ProjectEditResponse;
     id: string;
 }
 
-export const PassengerForm = ({ projectData, id }: PassengerForm) => {
+export const SenderForm = ({ projectData, id }: SenderForm) => {
     const router = useRouter();
     const tCommon = useCommonTranslation();
     const tPages = usePagesTranslation();
     const [isPending, startTransition] = useTransition();
-    const [formState, formAction] = useActionState<PassengerService | null, FormData>(
-        id === "create" ? createPassengerAction : editPassengerAction,
+    const [formState, formAction] = useActionState<SenderService | null, FormData>(
+        id === "create" ? createSenderAction : editSenderAction,
         null
     );
 
@@ -41,10 +41,12 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
     const [oCities, setOCities] = useState<any[]>([]);
     const [dProvinces, setDProvinces] = useState<any[]>([]);
     const [dCities, setDCities] = useState<any[]>([]);
+    const [categories, setCategories] = useState<any[]>([]);
     const [loadingOProvinces, setLoadingOProvinces] = useState(false);
     const [loadingOCities, setLoadingOCities] = useState(false);
     const [loadingDProvinces, setLoadingDProvinces] = useState(false);
     const [loadingDCities, setLoadingDCities] = useState(false);
+    const [loadingCategories, setLoadingCategories] = useState(false);
 
     const { response: countriesResponse } = useFetchData<Country[]>(apiUrls.locations.countries);
 
@@ -53,7 +55,7 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
         value: country.id.toString(),
     })) || [];
 
-    const passengerSchema = z.object({
+    const senderSchema = z.object({
         title: z.string().min(1, tCommon("validation.required.thisField")),
         description: z.string().min(1, tCommon("validation.required.thisField")),
         address: z.string().min(1, tCommon("validation.required.thisField")),
@@ -64,8 +66,10 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
         d_country_id: z.string().min(1, tCommon("validation.required.thisField")),
         d_province_id: z.string().min(1, tCommon("validation.required.thisField")),
         d_city_id: z.string().min(1, tCommon("validation.required.thisField")),
-        path_type: z.string().min(1, tCommon("validation.required.thisField")),
+        categories: z.string().min(1, tCommon("validation.required.thisField")),
         send_date: z.string().min(1, tCommon("validation.required.thisField")),
+        receive_date: z.string().min(1, tCommon("validation.required.thisField")),
+        dimensions: z.string().min(1, tCommon("validation.required.thisField")),
         weight: z.string({
             required_error: tCommon("validation.required.thisField")
         })
@@ -82,24 +86,26 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
             }),
     });
 
-    type PassengerFormData = z.infer<typeof passengerSchema>;
+    type SenderFormData = z.infer<typeof senderSchema>;
 
-    const form = useZodForm(passengerSchema, {
+    const form = useZodForm(senderSchema, {
         defaultValues: {
             title: projectData?.title || '',
             description: projectData?.description || '',
             address: projectData?.address || '',
             image: projectData?.image || '',
-            o_country_id: projectData?.o_country_id.toString() || '',
-            o_province_id: projectData?.o_province_id.toString() || '',
-            o_city_id: projectData?.o_city_id.toString() || '',
-            d_country_id: projectData?.d_country_id.toString() || '',
-            d_province_id: projectData?.d_province_id.toString() || '',
-            d_city_id: projectData?.d_city_id.toString() || '',
-            path_type: projectData?.path_type || '',
+            o_country_id: projectData?.o_country_id?.toString() || '',
+            o_province_id: projectData?.o_province_id?.toString() || '',
+            o_city_id: projectData?.o_city_id?.toString() || '',
+            d_country_id: projectData?.d_country_id?.toString() || '',
+            d_province_id: projectData?.d_province_id?.toString() || '',
+            d_city_id: projectData?.d_city_id?.toString() || '',
+            categories: projectData?.categories?.[0]?.id?.toString() || '',
             send_date: projectData?.send_date || '',
-            weight: projectData?.weight.toString() || '',
-            amount: projectData?.amount.toString() || ''
+            receive_date: projectData?.receive_date || '',
+            weight: projectData?.weight?.toString() || '',
+            amount: projectData?.amount.toString() || '',
+            dimensions: projectData?.dimensions || ''
         }
     });
 
@@ -127,6 +133,28 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
         label: city.title,
         value: city.id.toString(),
     })) || [];
+
+    const categoryOptions = categories?.map(category => ({
+        label: category.title,
+        value: category.id.toString(),
+    })) || [];
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            setLoadingCategories(true);
+            try {
+                const response = await getActiveCategories();
+                setCategories(response || []);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+                setCategories([]);
+            } finally {
+                setLoadingCategories(false);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     useEffect(() => {
         const fetchOriginProvinces = async () => {
@@ -159,7 +187,7 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
         };
 
         fetchOriginProvinces();
-    }, [watchedOCountryId, form]);
+    }, [watchedOCountryId, form, projectData?.o_province_id]);
 
     useEffect(() => {
         const fetchOriginCities = async () => {
@@ -188,7 +216,7 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
         };
 
         fetchOriginCities();
-    }, [watchedOProvinceId, form]);
+    }, [watchedOProvinceId, form, projectData?.o_city_id]);
 
     useEffect(() => {
         const fetchDestinationProvinces = async () => {
@@ -221,7 +249,7 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
         };
 
         fetchDestinationProvinces();
-    }, [watchedDCountryId, form]);
+    }, [watchedDCountryId, form, projectData?.d_province_id]);
 
     useEffect(() => {
         const fetchDestinationCities = async () => {
@@ -250,27 +278,27 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
         };
 
         fetchDestinationCities();
-    }, [watchedDProvinceId, form]);
+    }, [watchedDProvinceId, form, projectData?.d_city_id]);
 
     useEffect(() => {
         if (formState) {
             if (formState.status === StatusCode.Success) {
                 toast.success(formState?.message || tCommon("messages.success"));
-                router.push("/profile/projects/passenger");
+                router.push("/profile/projects/sender");
             } else {
                 toast.error(formState?.message || tCommon("messages.error"));
                 if (formState.errors) {
                     Object.entries(formState.errors).forEach(([field, messages]) => {
-                        form.setError(field as keyof PassengerFormData, {
+                        form.setError(field as keyof SenderFormData, {
                             message: messages[0]
                         });
                     });
                 }
             }
         }
-    }, [formState, form, router]);
+    }, [formState, form, router, tCommon]);
 
-    const onSubmit = async (data: PassengerFormData) => {
+    const onSubmit = async (data: SenderFormData) => {
         startTransition(async () => {
             const formData = new FormData();
             Object.entries(data).forEach(([key, value]) => {
@@ -291,8 +319,8 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
                         <div className="bg-white p-5 rounded-2xl lg:rounded-3xl">
                             <h1 className="text-title text-lg font-medium mb-5">
                                 {id === "create"
-                                    ? tPages("profile.projects.addNewPassengerAd")
-                                    : tPages("profile.projects.editPassengerAd")}
+                                    ? tPages("profile.projects.addNewSenderAd")
+                                    : tPages("profile.projects.editSenderAd")}
                             </h1>
                             <div className="flex flex-col gap-6">
                                 <RHFInput
@@ -369,27 +397,37 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
                     <div className="lg:w-1/3">
                         <div className="bg-white p-5 rounded-2xl lg:rounded-3xl sticky">
                             <h1 className="text-title font-medium mb-5">
-                                {tPages("profile.projects.passengerInfo")}
+                                {tPages("profile.projects.senderInfo")}
                             </h1>
                             <div className="flex flex-col gap-6">
                                 <RHFCombobox
-                                    name="path_type"
-                                    label={tCommon("inputs.pathType")}
-                                    options={pathTypeOptions}
+                                    name="categories"
+                                    label={tCommon("inputs.selectCategory")}
+                                    options={categoryOptions}
+                                    loading={loadingCategories}
                                 />
                                 <RHFDatePicker
                                     name="send_date"
-                                    label={tCommon("inputs.selectDate")}
+                                    label={tCommon("inputs.sendDate")}
+                                />
+                                <RHFDatePicker
+                                    name="receive_date"
+                                    label={tCommon("inputs.receiveDate")}
                                 />
                                 <RHFInput
                                     name="weight"
-                                    label={tCommon("inputs.emptySize")}
+                                    label={tCommon("inputs.weight")}
                                     type="number"
                                 />
                                 <RHFInput
                                     name="amount"
-                                    label={tCommon("inputs.suggestAmountPerKG")}
+                                    label={tCommon("inputs.suggestAmount")}
                                     type="number"
+                                />
+                                <RHFInput
+                                    name="dimensions"
+                                    label={tCommon("inputs.dimensions")}
+                                    type="text"
                                 />
                             </div>
                             <Button

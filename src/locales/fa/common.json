@@ -82,6 +82,7 @@
       "passwordLength": "رمز عبور باید حداقل 8 کاراکتر باشد",
       "passwordMatch": "تکرار رمز عبور با رمز عبور مطابقت ندارد",
       "amount": "مبلغ وارد شده معتبر نمیباشد",
+      "weight": "وزن وارد شده معتبر نمیباشد",
       "cardNumber": "شماره کارت معتبر نیست",
       "shebaNumber": "شماره شبا معتبر نیست"
     }
@@ -107,7 +108,7 @@
     "allCategories": "همه دسته بندی ها",
     "noCity": "شهری یافت نشد",
     "selectPath": "انتخاب نوع سفر",
-    "selectCategory": "انتخاب دسته بنده",
+    "selectCategory": "انتخاب دسته بندی",
     "firstName": "نام",
     "lastName": "نام خانوادگی",
     "nickname": "نام کاربری",
@@ -156,7 +157,12 @@
     "destinationCity": "شهر مقصد",
     "pathType": "نوع سفر",
     "emptySize": "فضای خالی (kg)",
-    "suggestAmount": "قیمت پیشنهادی به ازای هر Kg (تومان)"
+    "suggestAmountPerKG": "قیمت پیشنهادی به ازای هر Kg (تومان)",
+    "suggestAmount": "مبلغ پیشنهادی (تومان)",
+    "sendDate": "ارسال از تاریخ",
+    "receiveDate": "ارسال تا تاریخ",
+    "weight": "وزن مرسوله (kg)",
+    "dimensions": "ابعاد مرسوله"
   },
   "path": {
     "air": "هوایی",
@@ -212,6 +218,7 @@
     "releaseAt": "منتشر شده در تاریخ"
   },
   "unit": {
-    "toman": "تومان"
+    "toman": "تومان",
+    "kg": "کیلوگرم"
   }
 }

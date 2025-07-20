@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 import { Project, ProjectType } from "@/types/project.type";
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface ProfileProjectCardProps {
     data: Project;
@@ -77,21 +78,31 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
                         <div className="flex flex-col gap-1">
                             <button
                                 onClick={handleEdit}
-                                className="flex items-center gap-2 px-3 py-2 text-sm text-title hover:bg-gray-100 rounded-md transition-colors w-full text-right"
+                                className={cn("flex items-center gap-2 px-3 py-2 text-sm text-title hover:bg-gray-100 rounded-md transition-colors w-full text-right",
+                                    data.status === "pending" || data.status === "reject"
+                                        ? ""
+                                        : "pointer-events-none opacity-40"
+                                )}
                             >
                                 <Icon icon="solar--pen-2-outline" sizeClass="size-5" className="text-sub" />
                                 {t("buttons.edit")}
                             </button>
                             <button
                                 onClick={handleDeactivate}
-                                className="flex items-center gap-2 px-3 py-2 text-sm text-title hover:bg-gray-100 rounded-md transition-colors w-full text-right"
+                                className={cn("flex items-center gap-2 px-3 py-2 text-sm text-title hover:bg-gray-100 rounded-md transition-colors w-full text-right",
+                                    data.status === "approved" ? "" : "pointer-events-none opacity-40"
+                                )}
                             >
                                 <Icon icon="solar--close-circle-outline" sizeClass="size-5" className="text-sub" />
                                 {t("buttons.deactivate")}
                             </button>
                             <button
                                 onClick={handleViewOnSite}
-                                className="flex items-center gap-2 px-3 py-2 text-sm text-title hover:bg-gray-100 rounded-md transition-colors w-full text-right"
+                                className={cn("flex items-center gap-2 px-3 py-2 text-sm text-title hover:bg-gray-100 rounded-md transition-colors w-full text-right",
+                                    data.status === "approved" || data.status === "in_progress" || data.status === "completed"
+                                        ? ""
+                                        : "pointer-events-none opacity-40"
+                                )}
                             >
                                 <Icon icon="solar--eye-outline" sizeClass="size-5" className="text-sub" />
                                 {t("buttons.seeOnSite")}
@@ -128,7 +139,7 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
                         className="text-sub"
                     />
                     <span className="text-text font-normal text-sm">
-                        {data.weight} کیلوگرم
+                        {data.weight} {t("unit.kg")}
                     </span>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -138,7 +149,7 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
                         className="text-sub"
                     />
                     <span className="text-text font-normal text-sm">
-                        {data.amount.toLocaleString()} تومان (Kg)
+                        {data.amount.toLocaleString()} {t("unit.toman")} {type === "passenger" && "(Kg)"}
                     </span>
                 </div>
             </div>
@@ -152,7 +163,10 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
                         {t(`projectStatus.${data.status}`)}
                     </Badge>
                 </div>
-                <Button variant={"ghost"} size={"sm"}>
+                <Button
+                    variant={"ghost"}
+                    size={"sm"}
+                    disabled={data.status !== "approved" && data.status !== "in_progress"}>
                     {t("buttons.manageRequests")}
                 </Button>
             </div>

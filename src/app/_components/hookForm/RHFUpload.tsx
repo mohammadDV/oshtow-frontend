@@ -134,7 +134,7 @@ export const RHFUpload: React.FC<RHFUploadProps> = ({
             name={name}
             render={({ field, fieldState }) => (
                 <FormItem className="gap-1.5 w-full">
-                    {label && <FormLabel>{label}</FormLabel>}
+                    {label && <FormLabel className="text-text mb-1">{label}</FormLabel>}
                     <FormControl>
                         <div className="relative">
                             <div className={cn(
@@ -145,7 +145,7 @@ export const RHFUpload: React.FC<RHFUploadProps> = ({
                                 <label
                                     htmlFor={`${name}-input`}
                                     className={cn(
-                                        "flex-1 flex text-caption items-center gap-2 truncate cursor-pointer transition",
+                                        "flex-1 flex text-text mb-1 items-center gap-2 truncate cursor-pointer transition",
                                         isUploading ? "cursor-not-allowed" : "",
                                         className
                                     )}

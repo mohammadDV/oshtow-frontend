@@ -1,6 +1,7 @@
 import { ProjectType } from "@/types/project.type";
 import { PassengerForm } from "./_components/passengerForm";
 import { getProjectEdit } from "./_api/getProjectEdit";
+import { SenderForm } from "./_components/senderForm";
 
 interface CreateEditProjectsPageProps {
     params: Promise<{
@@ -19,7 +20,8 @@ export default async function CreateEditProjectsPage({ params }: CreateEditProje
 
     return (
         <>
-            <PassengerForm projectData={projectData} id={resolvedParams.id} />
+            {resolvedParams.type === "passenger" && <PassengerForm projectData={projectData} id={resolvedParams.id} />}
+            {resolvedParams.type === "sender" && <SenderForm projectData={projectData} id={resolvedParams.id} />}
         </>
     )
 }

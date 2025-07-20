@@ -1,8 +1,10 @@
+import { Pagination } from "@/app/_components/pagination/pagination";
 import { ProjectStatusType, ProjectType } from "@/types/project.type";
+import { Icon } from "@/ui/icon";
 import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 import { getProfileProjects } from "../_api/getProfileProjects";
 import { ProfileProjectsList } from "../_components/list/projectsList";
-import { Pagination } from "@/app/_components/pagination/pagination";
 
 interface ProfileProjectsPageProps {
     params: Promise<{
@@ -32,10 +34,15 @@ export default async function ProfileProjectsPage({ params, searchParams }: Prof
 
     return (
         <div>
-            <h1 className="text-title text-2xl font-medium">
-                {resolvedParams.type === "sender" && t("profile.projects.sendersTitle")}
-                {resolvedParams.type === "passenger" && t("profile.projects.passengersTitle")}
-            </h1>
+            <div className="flex items-center justify-between">
+                <h1 className="text-title text-xl lg:text-2xl font-medium">
+                    {resolvedParams.type === "sender" && t("profile.projects.sendersTitle")}
+                    {resolvedParams.type === "passenger" && t("profile.projects.passengersTitle")}
+                </h1>
+                <Link href={`/profile/projects/${resolvedParams.type}/create`}>
+                    <Icon icon="solar--add-square-bold" sizeClass="size-10" className="block lg:hidden text-primary" />
+                </Link>
+            </div>
             <ProfileProjectsList
                 type={resolvedParams.type}
                 projects={projectsData.data}

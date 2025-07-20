@@ -25,7 +25,7 @@ export const RHFTextarea: React.FC<RHFTextareaProps> = ({
             name={name}
             render={({ field }) => (
                 <FormItem className="gap-1.5 w-full">
-                    {label && <FormLabel>{label}</FormLabel>}
+                    {label && <FormLabel className="text-text mb-1">{label}</FormLabel>}
                     <FormControl>
                         <Textarea
                             {...field}
