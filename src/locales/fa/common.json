@@ -27,6 +27,7 @@
     "buyPlan": "خرید اشتراک",
     "addNewAd": "ثبت آگهی جدید",
     "submitAd": "ثبت آگهی",
+    "editAd": "ویرایش آگهی",
     "manageRequests": "مدیریت درخواست ها",
     "seeOnSite": "مشاهده در سایت",
     "deactivate": "غیر فعال"
@@ -154,8 +155,8 @@
     "destinationProvince": "استان مقصد",
     "destinationCity": "شهر مقصد",
     "pathType": "نوع سفر",
-    "emptySize": "فضای خالی",
-    "suggestAmount": "قیمت پیشنهادی به ازای هر Kg"
+    "emptySize": "فضای خالی (kg)",
+    "suggestAmount": "قیمت پیشنهادی به ازای هر Kg (تومان)"
   },
   "path": {
     "air": "هوایی",
@@ -190,6 +191,7 @@
   "projectStatus": {
     "all": "همه وضعیت ها",
     "pending": "در انتظار",
+    "approved": "تایید شده",
     "in_progress": "در حال انجام",
     "canceled": "لغو شده",
     "completed": "تکمیل شده",

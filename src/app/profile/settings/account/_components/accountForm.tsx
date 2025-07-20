@@ -96,61 +96,63 @@ export const AccountForm = ({ accountData }: AccountFormProps) => {
     })) || [];
 
     useEffect(() => {
-        if (watchedCountryId) {
-            setLoadingProvinces(true);
-            setProvinces([]);
-            setCities([]);
-            form.setValue("province_id", "");
-            form.setValue("city_id", "");
+        const fetchProvinces = async () => {
+            if (watchedCountryId) {
+                setLoadingProvinces(true);
+                setProvinces([]);
+                setCities([]);
+                form.setValue("province_id", "");
+                form.setValue("city_id", "");
 
-            getProvinces(parseInt(watchedCountryId))
-                .then((response) => {
+                try {
+                    const response = await getProvinces(parseInt(watchedCountryId));
                     setProvinces(response || []);
-                    // Restore default province value after options are loaded
                     if (accountData?.province_id && response?.some((p: any) => p.id === accountData.province_id)) {
                         form.setValue("province_id", accountData.province_id.toString());
                     }
-                })
-                .catch((error) => {
+                } catch (error) {
                     console.error("Error fetching provinces:", error);
                     setProvinces([]);
-                })
-                .finally(() => {
+                } finally {
                     setLoadingProvinces(false);
-                });
-        } else {
-            setProvinces([]);
-            setCities([]);
-            form.setValue("province_id", "");
-            form.setValue("city_id", "");
-        }
+                }
+            } else {
+                setProvinces([]);
+                setCities([]);
+                form.setValue("province_id", "");
+                form.setValue("city_id", "");
+            }
+        };
+
+        fetchProvinces();
     }, [watchedCountryId, form, accountData?.province_id]);
 
     useEffect(() => {
-        if (watchedProvinceId) {
-            setLoadingCities(true);
-            setCities([]);
-            form.setValue("city_id", "");
+        const fetchCities = async () => {
+            if (watchedProvinceId) {
+                setLoadingCities(true);
+                setCities([]);
+                form.setValue("city_id", "");
 
-            getCities(parseInt(watchedProvinceId))
-                .then((response) => {
+                try {
+                    const response = await getCities(parseInt(watchedProvinceId));
                     setCities(response || []);
-                    // Restore default city value after options are loaded
                     if (accountData?.city_id && response?.some((c: any) => c.id === accountData.city_id)) {
                         form.setValue("city_id", accountData.city_id.toString());
                     }
-                })
-                .catch((error) => {
+                } catch (error) {
                     console.error("Error fetching cities:", error);
                     setCities([]);
-                })
-                .finally(() => {
+                } finally {
                     setLoadingCities(false);
-                });
-        } else {
-            setCities([]);
-            form.setValue("city_id", "");
-        }
+                }
+            } else {
+                setCities([]);
+                form.setValue("city_id", "");
+            }
+        };
+
+        fetchCities();
     }, [watchedProvinceId, form, accountData?.city_id]);
 
     useEffect(() => {

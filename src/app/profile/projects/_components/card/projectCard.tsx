@@ -20,10 +20,10 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
     const getStatusBadgeVariant = (status: string) => {
         switch (status) {
             case "pending":
-                return "secondary";
             case "in_progress":
-                return "default";
+                return "secondary";
             case "completed":
+            case "approved":
                 return "default";
             case "canceled":
             case "failed":

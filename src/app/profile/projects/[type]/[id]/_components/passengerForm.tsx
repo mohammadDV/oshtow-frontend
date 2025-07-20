@@ -1,6 +1,7 @@
 "use client"
 
 import { pathTypeOptions } from "@/_mock/pathOptions";
+import { getCities, getProvinces } from "@/app/(main)/projects/_api/getLocations";
 import { RHFCombobox } from "@/app/_components/hookForm/RHFCombobox";
 import { RHFDatePicker } from "@/app/_components/hookForm/RHFDatePicker";
 import { RHFInput } from "@/app/_components/hookForm/RHFInput";
@@ -12,22 +13,27 @@ import { useFetchData } from "@/hooks/useFetchData";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { useZodForm } from "@/hooks/useZodForm";
 import { Country } from "@/types/location.type";
+import { ProjectEditResponse } from "@/types/project.type";
 import { Button } from "@/ui/button";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState, useTransition } from "react";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { passengerAction, PassengerService } from "../_api/passengerAction";
-import { getCities, getProvinces } from "@/app/(main)/projects/_api/getLocations";
+import { createPassengerAction, editPassengerAction, PassengerService } from "../_api/passengerAction";
 
-export const PassengerForm = () => {
+interface PassengerForm {
+    projectData?: ProjectEditResponse;
+    id: string;
+}
+
+export const PassengerForm = ({ projectData, id }: PassengerForm) => {
     const router = useRouter();
     const tCommon = useCommonTranslation();
     const tPages = usePagesTranslation();
     const [isPending, startTransition] = useTransition();
     const [formState, formAction] = useActionState<PassengerService | null, FormData>(
-        passengerAction,
+        id === "create" ? createPassengerAction : editPassengerAction,
         null
     );
 
@@ -80,20 +86,20 @@ export const PassengerForm = () => {
 
     const form = useZodForm(passengerSchema, {
         defaultValues: {
-            title: '',
-            description: '',
-            address: '',
-            image: '',
-            o_country_id: '',
-            o_province_id: '',
-            o_city_id: '',
-            d_country_id: '',
-            d_province_id: '',
-            d_city_id: '',
-            path_type: '',
-            send_date: '',
-            weight: '',
-            amount: ''
+            title: projectData?.title || '',
+            description: projectData?.description || '',
+            address: projectData?.address || '',
+            image: projectData?.image || '',
+            o_country_id: projectData?.o_country_id.toString() || '',
+            o_province_id: projectData?.o_province_id.toString() || '',
+            o_city_id: projectData?.o_city_id.toString() || '',
+            d_country_id: projectData?.d_country_id.toString() || '',
+            d_province_id: projectData?.d_province_id.toString() || '',
+            d_city_id: projectData?.d_city_id.toString() || '',
+            path_type: projectData?.path_type || '',
+            send_date: projectData?.send_date || '',
+            weight: projectData?.weight.toString() || '',
+            amount: projectData?.amount.toString() || ''
         }
     });
 
@@ -123,113 +129,136 @@ export const PassengerForm = () => {
     })) || [];
 
     useEffect(() => {
-        if (watchedOCountryId) {
-            setLoadingOProvinces(true);
-            setOProvinces([]);
-            setOCities([]);
-            form.setValue("o_province_id", "");
-            form.setValue("o_city_id", "");
+        const fetchOriginProvinces = async () => {
+            if (watchedOCountryId) {
+                setLoadingOProvinces(true);
+                setOProvinces([]);
+                setOCities([]);
+                form.setValue("o_province_id", "");
+                form.setValue("o_city_id", "");
 
-            getProvinces(parseInt(watchedOCountryId))
-                .then((response) => {
+                try {
+                    const response = await getProvinces(parseInt(watchedOCountryId));
                     setOProvinces(response || []);
-                })
-                .catch((error) => {
+
+                    if (projectData?.o_province_id && response?.some((p: any) => p.id === projectData.o_province_id)) {
+                        form.setValue("o_province_id", projectData.o_province_id.toString());
+                    }
+                } catch (error) {
                     console.error("Error fetching origin provinces:", error);
                     setOProvinces([]);
-                })
-                .finally(() => {
+                } finally {
                     setLoadingOProvinces(false);
-                });
-        } else {
-            setOProvinces([]);
-            setOCities([]);
-            form.setValue("o_province_id", "");
-            form.setValue("o_city_id", "");
-        }
+                }
+            } else {
+                setOProvinces([]);
+                setOCities([]);
+                form.setValue("o_province_id", "");
+                form.setValue("o_city_id", "");
+            }
+        };
+
+        fetchOriginProvinces();
     }, [watchedOCountryId, form]);
 
     useEffect(() => {
-        if (watchedOProvinceId) {
-            setLoadingOCities(true);
-            setOCities([]);
-            form.setValue("o_city_id", "");
+        const fetchOriginCities = async () => {
+            if (watchedOProvinceId) {
+                setLoadingOCities(true);
+                setOCities([]);
+                form.setValue("o_city_id", "");
 
-            getCities(parseInt(watchedOProvinceId))
-                .then((response) => {
+                try {
+                    const response = await getCities(parseInt(watchedOProvinceId));
                     setOCities(response || []);
-                })
-                .catch((error) => {
+
+                    if (projectData?.o_city_id && response?.some((c: any) => c.id === projectData.o_city_id)) {
+                        form.setValue("o_city_id", projectData.o_city_id.toString());
+                    }
+                } catch (error) {
                     console.error("Error fetching origin cities:", error);
                     setOCities([]);
-                })
-                .finally(() => {
+                } finally {
                     setLoadingOCities(false);
-                });
-        } else {
-            setOCities([]);
-            form.setValue("o_city_id", "");
-        }
+                }
+            } else {
+                setOCities([]);
+                form.setValue("o_city_id", "");
+            }
+        };
+
+        fetchOriginCities();
     }, [watchedOProvinceId, form]);
 
     useEffect(() => {
-        if (watchedDCountryId) {
-            setLoadingDProvinces(true);
-            setDProvinces([]);
-            setDCities([]);
-            form.setValue("d_province_id", "");
-            form.setValue("d_city_id", "");
+        const fetchDestinationProvinces = async () => {
+            if (watchedDCountryId) {
+                setLoadingDProvinces(true);
+                setDProvinces([]);
+                setDCities([]);
+                form.setValue("d_province_id", "");
+                form.setValue("d_city_id", "");
 
-            getProvinces(parseInt(watchedDCountryId))
-                .then((response) => {
+                try {
+                    const response = await getProvinces(parseInt(watchedDCountryId));
                     setDProvinces(response || []);
-                })
-                .catch((error) => {
+
+                    if (projectData?.d_province_id && response?.some((p: any) => p.id === projectData.d_province_id)) {
+                        form.setValue("d_province_id", projectData.d_province_id.toString());
+                    }
+                } catch (error) {
                     console.error("Error fetching destination provinces:", error);
                     setDProvinces([]);
-                })
-                .finally(() => {
+                } finally {
                     setLoadingDProvinces(false);
-                });
-        } else {
-            setDProvinces([]);
-            setDCities([]);
-            form.setValue("d_province_id", "");
-            form.setValue("d_city_id", "");
-        }
+                }
+            } else {
+                setDProvinces([]);
+                setDCities([]);
+                form.setValue("d_province_id", "");
+                form.setValue("d_city_id", "");
+            }
+        };
+
+        fetchDestinationProvinces();
     }, [watchedDCountryId, form]);
 
     useEffect(() => {
-        if (watchedDProvinceId) {
-            setLoadingDCities(true);
-            setDCities([]);
-            form.setValue("d_city_id", "");
+        const fetchDestinationCities = async () => {
+            if (watchedDProvinceId) {
+                setLoadingDCities(true);
+                setDCities([]);
+                form.setValue("d_city_id", "");
 
-            getCities(parseInt(watchedDProvinceId))
-                .then((response) => {
+                try {
+                    const response = await getCities(parseInt(watchedDProvinceId));
                     setDCities(response || []);
-                })
-                .catch((error) => {
+
+                    if (projectData?.d_city_id && response?.some((c: any) => c.id === projectData.d_city_id)) {
+                        form.setValue("d_city_id", projectData.d_city_id.toString());
+                    }
+                } catch (error) {
                     console.error("Error fetching destination cities:", error);
                     setDCities([]);
-                })
-                .finally(() => {
+                } finally {
                     setLoadingDCities(false);
-                });
-        } else {
-            setDCities([]);
-            form.setValue("d_city_id", "");
-        }
+                }
+            } else {
+                setDCities([]);
+                form.setValue("d_city_id", "");
+            }
+        };
+
+        fetchDestinationCities();
     }, [watchedDProvinceId, form]);
 
     useEffect(() => {
         if (formState) {
-            console.log(formState)
             if (formState.status === StatusCode.Success) {
-                toast.success(formState.message || "آگهی با موفقیت ثبت شد");
-                // router.push("/profile/projects/passenger");
+                toast.success(formState?.message || tCommon("messages.success"));
+                router.push("/profile/projects/passenger");
             } else {
-                toast.error(formState.message || "خطا در ثبت آگهی");
+                toast.error(formState?.message || tCommon("messages.error"));
                 if (formState.errors) {
                     Object.entries(formState.errors).forEach(([field, messages]) => {
                         form.setError(field as keyof PassengerFormData, {
@@ -249,6 +278,7 @@ export const PassengerForm = () => {
                     formData.append(key, value.toString());
                 }
             });
+            formData.append("id", id);
             formAction(formData);
         });
     };
@@ -260,7 +290,9 @@ export const PassengerForm = () => {
                     <div className="lg:w-2/3">
                         <div className="bg-white p-5 rounded-2xl lg:rounded-3xl">
                             <h1 className="text-title text-lg font-medium mb-5">
-                                افزودن آگهی سفر جدید
+                                {id === "create"
+                                    ? tPages("profile.projects.addNewPassengerAd")
+                                    : tPages("profile.projects.editPassengerAd")}
                             </h1>
                             <div className="flex flex-col gap-5">
                                 <RHFInput
@@ -286,7 +318,7 @@ export const PassengerForm = () => {
                         <div className="grid lg:grid-cols-2 gap-5 mt-5">
                             <div className="bg-white p-5 rounded-2xl lg:rounded-3xl">
                                 <h1 className="text-title font-medium mb-5">
-                                    مشخصات مبدا
+                                    {tPages("profile.projects.originInfo")}
                                 </h1>
                                 <div className="flex flex-col gap-5">
                                     <RHFCombobox
@@ -310,7 +342,7 @@ export const PassengerForm = () => {
                             </div>
                             <div className="bg-white p-5 rounded-2xl lg:rounded-3xl">
                                 <h1 className="text-title font-medium mb-5">
-                                    مشخصات مقصد
+                                    {tPages("profile.projects.destinationInfo")}
                                 </h1>
                                 <div className="flex flex-col gap-5">
                                     <RHFCombobox
@@ -337,7 +369,7 @@ export const PassengerForm = () => {
                     <div className="lg:w-1/3">
                         <div className="bg-white p-5 rounded-2xl lg:rounded-3xl sticky">
                             <h1 className="text-title font-medium mb-5">
-                                مشخصات سفر
+                                {tPages("profile.projects.passengerInfo")}
                             </h1>
                             <div className="flex flex-col gap-5">
                                 <RHFCombobox
@@ -365,7 +397,7 @@ export const PassengerForm = () => {
                                 className="w-full mt-6"
                                 isLoading={isPending}
                             >
-                                {tCommon("buttons.submitAd")}
+                                {id === "create" ? tCommon("buttons.submitAd") : tCommon("buttons.editAd")}
                             </Button>
                         </div>
                     </div>

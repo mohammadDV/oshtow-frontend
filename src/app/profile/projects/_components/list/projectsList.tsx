@@ -51,6 +51,10 @@ export const ProfileProjectsList = ({ type, projects, selectedStatus }: ProfileP
             label: t("projectStatus.pending")
         },
         {
+            value: "approved" as ProjectStatusType,
+            label: t("projectStatus.approved")
+        },
+        {
             value: "in_progress" as ProjectStatusType,
             label: t("projectStatus.in_progress")
         },

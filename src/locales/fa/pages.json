@@ -226,7 +226,12 @@
     },
     "projects": {
       "passengersTitle": "مدیریت سفر های من",
-      "sendersTitle": "مدیریت مرسوله های من"
+      "sendersTitle": "مدیریت مرسوله های من",
+      "addNewPassengerAd": "افزودن آگهی سفر جدید",
+      "editPassengerAd": "ویرایش آگهی سفر",
+      "originInfo": "مشخصات مبدا",
+      "destinationInfo": "مشخصات مقصد",
+      "passengerInfo": "مشخصات سفر"
     }
   },
   "paymentResult": {
