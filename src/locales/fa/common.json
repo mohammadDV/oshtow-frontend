@@ -209,6 +209,11 @@
     "reject": "رد شده",
     "failed": "ناموفق"
   },
+  "projectTypes": {
+    "all": "همه آگهی ها",
+    "sender": "مرسوله ها",
+    "passenger": "سفر ها"
+  },
   "columns": {
     "row": "ردیف",
     "trackingNumber": "شماره پیگیری",

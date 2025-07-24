@@ -1,9 +1,17 @@
+import { Claim } from "./claim.type";
 import { City, Country, Location, Province } from "./location.type";
 import { UserInfo } from "./user.type";
 
 export type ProjectType = "sender" | "passenger";
 export type PathType = "air" | "land" | "sea";
-export type ProjectStatusType = "pending" | "in_progress" | "completed" | "canceled" | "reject" | "failed" | "approved";
+export type ProjectStatusType =
+  | "pending"
+  | "in_progress"
+  | "completed"
+  | "canceled"
+  | "reject"
+  | "failed"
+  | "approved";
 
 export interface Category {
   id: number;
@@ -32,6 +40,8 @@ export interface Project {
   destination: Location;
   categories: Category[];
   user: UserInfo;
+  claimsLimit?: Claim[];
+  claims_count?: number;
   created_at?: string;
   updated_at?: string;
 }
@@ -98,8 +108,8 @@ export interface ProjectEditResponse {
   user: UserInfo;
   o_country: Country;
   o_province: Province;
-  o_city: City
+  o_city: City;
   d_country: Country;
   d_province: Province;
-  d_city: City
+  d_city: City;
 }

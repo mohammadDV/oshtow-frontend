@@ -236,6 +236,11 @@
       "destinationInfo": "مشخصات مقصد",
       "passengerInfo": "مشخصات سفر",
       "senderInfo": "مشخصات مرسوله"
+    },
+    "requests": {
+      "receivedTitle": "مدیریت درخواست های دریافت شده",
+      "requestSent": "درخواست ارسال شده",
+      "projectStatus": "وضعیت پروژه"
     }
   },
   "paymentResult": {
