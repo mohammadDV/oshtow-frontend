@@ -167,7 +167,7 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
                     variant={"ghost"}
                     size={"sm"}
                     disabled={data.status !== "approved" && data.status !== "in_progress"}>
-                    {t("buttons.manageRequests")}
+                    {t("buttons.managePassenger")}
                 </Button>
             </div>
         </div>

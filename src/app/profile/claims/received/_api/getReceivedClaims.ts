@@ -2,17 +2,17 @@ import { apiUrls } from "@/constants/apiUrls";
 import { getFetchAuth } from "@/core/baseService";
 import { ProjectSearchResponse, ProjectType } from "@/types/project.type";
 
-interface GetReceivedRequestsParams {
+interface GetReceivedProjectsClaimsParams {
   type?: ProjectType;
   page?: number;
   count?: number;
 }
 
-export async function getReceivedRequests({
+export async function getReceivedProjectsClaims({
   type,
   page = 1,
   count = 6,
-}: GetReceivedRequestsParams): Promise<ProjectSearchResponse> {
+}: GetReceivedProjectsClaimsParams): Promise<ProjectSearchResponse> {
   const params = new URLSearchParams({
     page: page.toString(),
     count: count.toString(),

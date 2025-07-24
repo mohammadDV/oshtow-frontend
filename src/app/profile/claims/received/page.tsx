@@ -1,24 +1,24 @@
 import { ProjectType } from "@/types/project.type";
 import { getTranslations } from "next-intl/server";
-import { getReceivedRequests } from "./_api/getReceivedRequests";
 import { Pagination } from "@/app/_components/pagination";
-import { ReceivedRequestsList } from "./_components/list";
+import { ReceivedClaimsList } from "./_components/list";
+import { getReceivedProjectsClaims } from "./_api/getReceivedClaims";
 
-interface ReceivedRequestsPageProps {
+interface ReceivedClaimsPageProps {
     searchParams: Promise<{
         page?: string;
         type?: ProjectType;
     }>;
 }
 
-export default async function ReceivedRequestsPage({ searchParams }: ReceivedRequestsPageProps) {
+export default async function ReceivedClaimsPage({ searchParams }: ReceivedClaimsPageProps) {
     const t = await getTranslations("pages");
 
     const resolvedSearchParams = await searchParams;
     const page = parseInt(resolvedSearchParams?.page || "1");
     const type = resolvedSearchParams?.type;
 
-    const requestsData = await getReceivedRequests({
+    const claimsData = await getReceivedProjectsClaims({
         type,
         page,
         count: 6
@@ -27,19 +27,19 @@ export default async function ReceivedRequestsPage({ searchParams }: ReceivedReq
     return (
         <div>
             <h1 className="text-title text-xl lg:text-2xl font-medium">
-                {t("profile.requests.receivedTitle")}
+                {t("profile.claims.receivedTitle")}
             </h1>
-            <ReceivedRequestsList
-                data={requestsData.data}
+            <ReceivedClaimsList
+                data={claimsData.data}
                 selectedType={type}
             />
-            {requestsData?.total > 6 && (
+            {claimsData?.total > 6 && (
                 <div className="mt-8">
                     <Pagination
-                        currentPage={requestsData.current_page}
-                        lastPage={requestsData.last_page}
-                        links={requestsData.links}
-                        total={requestsData.total}
+                        currentPage={claimsData.current_page}
+                        lastPage={claimsData.last_page}
+                        links={claimsData.links}
+                        total={claimsData.total}
                         routeUrl="/profile/projects"
                     />
                 </div>

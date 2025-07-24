@@ -15,7 +15,7 @@ const buttonVariants = cva(
         default:
           "bg-gradient-to-l from-primary to-primary-light text-primary-foreground hover:opacity-90",
         outline:
-          "border-2 border-border bg-transparent hover:border-sub/35 text-title",
+          "border-2 border-border bg-transparent hover:border-sub/50 text-title",
         ghost:
           "text-primary dark:hover:bg-sub/30 bg-sub/20",
         link:

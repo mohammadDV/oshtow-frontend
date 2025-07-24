@@ -22,8 +22,8 @@ export const userProfileMenu: MenuItem[] = [
         label: "مدیریت درخواست ها",
         icon: "solar--pen-2-outline",
         children: [
-            { label: "درخواست های دریافت شده", icon: "solar--reply-2-outline", link: "/profile/requests/received" },
-            { label: "درخواست های ارسال شده", icon: "solar--reply-2-outline", link: "/profile/requests/sent" },
+            { label: "درخواست های دریافت شده", icon: "solar--reply-2-outline", link: "/profile/claims/received" },
+            { label: "درخواست های ارسال شده", icon: "solar--reply-2-outline", link: "/profile/claims/sent" },
         ] 
     },
     { label: "کیف پول", icon: "solar--wallet-linear", link: "/profile/wallet" },

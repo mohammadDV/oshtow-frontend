@@ -32,29 +32,30 @@ export const apiUrls = {
   },
   identity: {
     records: "/profile/identity-records",
-    recordsInfo: "/profile/identity-records-info"
+    recordsInfo: "/profile/identity-records-info",
   },
   wallet: {
     all: "/profile/wallet",
     topUp: "/profile/wallet/top-up",
     transfer: "/profile/wallet/transfer",
     transactions: "/profile/wallet-transaction",
-    withdraws: "/profile/withdraws"
+    withdraws: "/profile/withdraws",
   },
   withdraw: {
     all: "/profile/withdraws",
   },
   plans: {
     all: "/plans",
-    active: "/active-plans"
+    active: "/active-plans",
   },
   subscription: {
-    profile: "/profile/subscribe"
+    profile: "/profile/subscribe",
   },
   payment: {
-    result: "/payment/result"
+    result: "/payment/result",
   },
   claims: {
-    all: "/claims"
-  }
+    all: "/claims",
+    user: "/claims/user",
+  },
 };

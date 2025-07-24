@@ -5,14 +5,14 @@ import { cn } from "@/lib/utils";
 import { Project, ProjectType } from "@/types/project.type";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import { ReceivedRequestCard } from "../card";
+import { ProjectClaimsCard } from "../card";
 
-interface ReceivedRequestsListProps {
+interface ReceivedClaimsListProps {
     data: Project[];
     selectedType?: ProjectType;
 }
 
-export const ReceivedRequestsList = ({ data, selectedType }: ReceivedRequestsListProps) => {
+export const ReceivedClaimsList = ({ data, selectedType }: ReceivedClaimsListProps) => {
     const t = useCommonTranslation();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -35,10 +35,10 @@ export const ReceivedRequestsList = ({ data, selectedType }: ReceivedRequestsLis
 
     const handleStatusSelect = (type?: ProjectType) => {
         const queryString = createQueryString('type', type || '');
-        router.push(`/profile/requests/received?${queryString}`);
+        router.push(`/profile/claims/received?${queryString}`);
     };
 
-    const requestTypes = [
+    const claimTypes = [
         {
             value: undefined,
             label: t("projectTypes.all")
@@ -56,7 +56,7 @@ export const ReceivedRequestsList = ({ data, selectedType }: ReceivedRequestsLis
     return (
         <div className="mt-3">
             <div className='flex items-center w-max py-1 lg:py-0 lg:justify-end gap-2 overflow-auto'>
-                {requestTypes.map((option) => {
+                {claimTypes.map((option) => {
                     const isSelected = selectedType === option.value;
                     return (
                         <div
@@ -77,7 +77,7 @@ export const ReceivedRequestsList = ({ data, selectedType }: ReceivedRequestsLis
             <div className="flex flex-col gap-4 mt-6">
                 {data?.length > 0 ? (
                     data.map((item) => (
-                        <ReceivedRequestCard key={item.id} data={item} />
+                        <ProjectClaimsCard key={item.id} data={item} />
                     ))
                 ) : (
                     <div className="text-center py-8 text-text">

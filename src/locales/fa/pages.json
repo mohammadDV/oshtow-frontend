@@ -237,9 +237,9 @@
       "passengerInfo": "مشخصات سفر",
       "senderInfo": "مشخصات مرسوله"
     },
-    "requests": {
+    "claims": {
       "receivedTitle": "مدیریت درخواست های دریافت شده",
-      "requestSent": "درخواست ارسال شده",
+      "claimSent": "درخواست ارسال شده",
       "projectStatus": "وضعیت پروژه"
     }
   },

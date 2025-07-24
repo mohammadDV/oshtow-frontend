@@ -42,6 +42,7 @@ export interface Project {
   user: UserInfo;
   claimsLimit?: Claim[];
   claims_count?: number;
+  claimSelected?: Claim[];
   created_at?: string;
   updated_at?: string;
 }
