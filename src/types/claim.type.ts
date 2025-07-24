@@ -1,4 +1,4 @@
-import { PaginationLink, Project } from "./project.type";
+import { PaginationLink, Project, ProjectType } from "./project.type";
 import { UserInfo } from "./user.type";
 
 export type AddressType = "other" | "me";
@@ -47,4 +47,11 @@ export interface ClaimsResponse {
   prev_page_url: string | null;
   to: number;
   total: number;
+}
+
+export interface ClaimStatusResponse {
+  type: ProjectType;
+  sponsor: boolean;
+  status: ClaimStatus;
+  confirmed_code: string;
 }

@@ -31,7 +31,7 @@ export const SentClaimCard = ({ data }: SentClaimCardProps) => {
                     className="text-caption"
                 />
                 <div className="flex flex-col w-full lg:items-start gap-2.5">
-                    <h3 className="text-lg font-semibold text-title">
+                    <h3 className="text-lg font-medium text-title">
                         {data.project.title}
                     </h3>
                     <p className="text-sm text-text font-normal">
@@ -71,7 +71,7 @@ export const SentClaimCard = ({ data }: SentClaimCardProps) => {
                 </div>
             </div>
             <div className="flex mt-6 lg:mt-0 lg:flex-col gap-2 w-full lg:w-auto">
-                <Link href={`/profile/claims/claim/${data.id}`}
+                <Link href={`/profile/claims/process?claimId=${data.id}`}
                     className={cn("w-full lg:w-auto",
                         data.status === "pending" || data.status === "canceled" ? "pointer-events-none opacity-50" : ""
                     )}>

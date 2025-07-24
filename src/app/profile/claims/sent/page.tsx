@@ -13,7 +13,7 @@ interface SentClaimsPageProps {
 }
 
 export default async function SentClaimsPage({ searchParams }: SentClaimsPageProps) {
-    const userData = await getUserData()
+    const userData = await getUserData();
     const t = await getTranslations("pages");
 
     const resolvedSearchParams = await searchParams;

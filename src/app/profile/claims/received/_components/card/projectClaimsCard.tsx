@@ -31,7 +31,7 @@ export const ProjectClaimsCard = ({ data }: ProjectClaimsCardProps) => {
                     className="text-caption"
                 />
                 <div className="flex lg:flex-col w-full lg:items-start gap-2.5">
-                    <h3 className="text-lg font-semibold text-title">
+                    <h3 className="text-lg font-medium text-title">
                         {data.title}
                     </h3>
                     {!isEmpty(data?.categories) && <Badge variant={"primary"} className="mr-auto lg:mr-0">
@@ -70,7 +70,7 @@ export const ProjectClaimsCard = ({ data }: ProjectClaimsCardProps) => {
                 </div>
             </div>
             <div className="flex mt-6 lg:mt-0 lg:flex-col gap-2 w-full lg:w-auto">
-                <Link href={`/profile/claims/claim/${data.id}`}
+                <Link href={`/profile/claims/process?projectId=${data.id}${!isEmpty(data.claimSelected) ? "&claimId=" + data.claimSelected?.[0].id : ''}`}
                     className={cn("w-full lg:w-auto",
                         data.status === "approved" || data.status === "in_progress" || data.status === "completed" ? "" : "pointer-events-none opacity-50"
                     )}>

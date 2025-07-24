@@ -57,5 +57,6 @@ export const apiUrls = {
   claims: {
     all: "/claims",
     user: "/claims/user",
+    project: "/claims/project"
   },
 };
