@@ -96,7 +96,7 @@ export function DatePicker({
                     id={id}
                     variant="outline"
                     className={cn(
-                        "w-full justify-between h-11 border border-border text-sm px-3 font-normal",
+                        "w-full justify-between h-11.5 border border-border text-sm px-3 font-normal",
                         !value && "text-caption",
                         disabled && "opacity-50 cursor-not-allowed",
                         className
@@ -186,7 +186,7 @@ export function DateRangePicker({
                     id={id}
                     variant="outline"
                     className={cn(
-                        "w-full justify-between h-11 border border-border text-sm px-3 font-normal",
+                        "w-full justify-between h-11.5 border border-border text-sm px-3 font-normal",
                         !displayValue && "text-caption",
                         disabled && "opacity-50 cursor-not-allowed",
                         className

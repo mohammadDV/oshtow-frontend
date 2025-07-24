@@ -68,7 +68,7 @@ export function Combobox({ options, value, onChange, placeholder, id, className,
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className={cn("w-full justify-between h-11 border border-border text-sm px-3", className)}
+                    className={cn("w-full justify-between h-11.5 border border-border text-sm px-3", className)}
                 >
                     {selected ? selected.label : <span className="text-caption">{placeholder}</span>}
                     <div className="flex items-center gap-1.5">

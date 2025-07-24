@@ -138,7 +138,7 @@ export const RHFUpload: React.FC<RHFUploadProps> = ({
                     <FormControl>
                         <div className="relative">
                             <div className={cn(
-                                "flex text-title border border-border h-11 w-full min-w-0 rounded-lg items-center justify-between px-3 py-2.5 text-sm",
+                                "flex text-title border border-border h-11.5 w-full min-w-0 rounded-lg items-center justify-between px-3 py-2.5 text-sm",
                                 fieldState.error || uploadError ? "border-destructive/50" : "",
                                 "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive/50"
                             )}>

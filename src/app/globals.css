@@ -119,6 +119,10 @@ body {
   }
 }
 
+.h-11\.5 {
+  height: 46px;
+}
+
 .loading {
   background-color: currentColor;
   mask-size: 100%;

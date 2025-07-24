@@ -26,8 +26,8 @@ const buttonVariants = cva(
           "bg-success text-white shadow-xs hover:bg-success/90 focus-visible:ring-success/20 dark:focus-visible:ring-success/40",
       },
       size: {
-        default: "px-5 py-2.5 has-[>svg]:px-3",
-        sm: "rounded-md text-sm py-2 gap-1.5 px-4 has-[>svg]:px-2.5",
+        default: "px-5 py-[11px] has-[>svg]:px-3",
+        sm: "rounded-md text-sm py-2.5 gap-1.5 px-4 has-[>svg]:px-2.5",
         lg: "text-lg rounded-[10px] py-3 px-6 has-[>svg]:px-4",
         icon: "size-9",
       },

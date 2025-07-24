@@ -40,7 +40,7 @@ export const ReceivedRequestCard = ({ data }: ReceivedRequestCardProps) => {
                 </div>
             </div>
             <div className="flex flex-col gap-3">
-                {!isEmpty(data?.claimsLimit) && <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale">
+                {!isEmpty(data?.claimsLimit) && <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2">
                     {data?.claimsLimit?.map(claim => (
                         <Avatar key={claim.id}>
                             <AvatarImage src={claim.user.profile_photo_path!} alt={claim.user.nickname} />
