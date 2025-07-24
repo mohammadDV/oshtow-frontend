@@ -240,7 +240,9 @@
     "claims": {
       "receivedTitle": "مدیریت درخواست های دریافت شده",
       "claimSent": "درخواست ارسال شده",
-      "projectStatus": "وضعیت پروژه"
+      "projectStatus": "وضعیت پروژه",
+      "sentTitle": "مدیریت درخواست های ارسال شده",
+      "adPublisher": "ناشر این آگهی"
     }
   },
   "paymentResult": {

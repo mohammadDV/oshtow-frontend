@@ -209,6 +209,15 @@
     "reject": "رد شده",
     "failed": "ناموفق"
   },
+  "claimStatus": {
+    "all": "همه وضعیت ها",
+    "pending": "در انتظار",
+    "approved": "تایید شده",
+    "in_progress": "در حال انجام",
+    "paid": "پرداخت شده",
+    "delivered": "تحویل داده شده",
+    "canceled": "لغو شده"
+  },
   "projectTypes": {
     "all": "همه آگهی ها",
     "sender": "مرسوله ها",

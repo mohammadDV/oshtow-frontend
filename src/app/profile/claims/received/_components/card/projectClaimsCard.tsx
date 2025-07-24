@@ -87,6 +87,6 @@ export const ProjectClaimsCard = ({ data }: ProjectClaimsCardProps) => {
                     </Button>
                 </Link>
             </div>
-        </div >
+        </div>
     )
 }

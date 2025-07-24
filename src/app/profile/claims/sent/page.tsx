@@ -30,7 +30,7 @@ export default async function SentClaimsPage({ searchParams }: SentClaimsPagePro
     return (
         <div>
             <h1 className="text-title text-xl lg:text-2xl font-medium">
-                {t("profile.claims.receivedTitle")}
+                {t("profile.claims.sentTitle")}
             </h1>
             <SentClaimsList
                 data={claimsData.data}
