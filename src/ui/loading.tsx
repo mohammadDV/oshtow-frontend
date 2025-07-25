@@ -38,7 +38,7 @@ export const Loading: React.FC<LoadingProps> = ({
         "loading pointer-events-none w-6 aspect-square inline-block",
         className || '',
         variant ? variantClasses[variant] : '',
-        sizeClasses[size],
+        sizeClasses[size || "default"],
         typeClasses[type]
     );
     return <span className={classes}></span>;

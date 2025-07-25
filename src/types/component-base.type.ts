@@ -3,7 +3,7 @@ import { Variant } from "./variant.type";
 
 export type ComponentBase = {
   variant?: Variant;
-  size?: Size;
+  size?: Size | null;
   isDisabled?: boolean;
   className?: string;
 };

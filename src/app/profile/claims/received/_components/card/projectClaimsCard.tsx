@@ -15,11 +15,12 @@ export const ProjectClaimsCard = ({ data }: ProjectClaimsCardProps) => {
     const tPages = usePagesTranslation();
     const tCommon = useCommonTranslation();
 
-    const projectStatusIndex: any = {
+    const claimStatusIndex: any = {
         pending: 1,
         approved: 2,
         in_progress: 3,
-        completed: 4
+        paid: 4,
+        delivered: 5
     }
 
     return (
@@ -59,11 +60,11 @@ export const ProjectClaimsCard = ({ data }: ProjectClaimsCardProps) => {
                     </p>
                     <div className="flex flex-col gap-2.5 items-start">
                         <p className="text-sm text-title font-medium">
-                            {tCommon(`projectStatus.${data.status}`)}
+                            {tCommon(`claimStatus.${data.claimSelected?.[0]?.status || "pending"}`)}
                         </p>
                         <div className="flex items-center gap-0.5">
-                            {Array.from({ length: 4 }, (_, index) => (
-                                <div key={index} className={cn("w-5 h-1", (projectStatusIndex[data.status] || 0) > index ? "bg-success" : "bg-border")}></div>
+                            {Array.from({ length: 5 }, (_, index) => (
+                                <div key={index} className={cn("w-5 h-1", (claimStatusIndex[data.claimSelected?.[0]?.status || 1] || 1) > index ? "bg-success" : "bg-border")}></div>
                             ))}
                         </div>
                     </div>

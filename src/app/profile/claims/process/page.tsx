@@ -1,6 +1,9 @@
+import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { getClaimsPerProject } from "./_api/getClaimsPerProject";
 import { getClaimStatus } from "./_api/getClaimStatus";
 import { ClaimStepper } from "./_components/stepper";
+import { Pagination } from "@/app/_components/pagination";
+import { ClaimsList } from "./_components/list";
 
 interface ClaimProcessProps {
     searchParams: Promise<{
@@ -11,6 +14,8 @@ interface ClaimProcessProps {
 }
 
 export default async function ClaimProcessPage({ searchParams }: ClaimProcessProps) {
+    const isMobile = await isMobileDevice();
+
     const resolvedSearchParams = await searchParams;
     let claimsData;
     let claimStatus;
@@ -26,9 +31,29 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
     }
 
     return (
-        <div className="flex items-start gap-6">
-            <div className="lg:w-1/3">
-                <ClaimStepper currentStep="paid"/>
+        <div className="flex flex-col lg:flex-row items-start gap-6">
+            <div className="w-full lg:w-2xs">
+                <ClaimStepper
+                    currentStep={!resolvedSearchParams?.claimId ? "pending" : claimStatus?.status || "pending"}
+                    isMobile={isMobile} />
+            </div>
+            <div className="flex-1">
+                {(!resolvedSearchParams?.claimId && claimsData) && (
+                    <div>
+                        <ClaimsList claimsData={claimsData.data} />
+                        {claimsData?.total > 8 && (
+                            <div className="mt-8">
+                                <Pagination
+                                    currentPage={claimsData.current_page}
+                                    lastPage={claimsData.last_page}
+                                    links={claimsData.links}
+                                    total={claimsData.total}
+                                    routeUrl="/profile/projects"
+                                />
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     )

@@ -32,7 +32,12 @@
     "seeOnSite": "مشاهده در سایت",
     "deactivate": "غیر فعال",
     "signIn": "وارد شوید",
-    "chatWithPassenger": "چت با مسافر"
+    "chatWithPassenger": "چت با مسافر",
+    "chatWithUser": "چت با کاربر",
+    "seeProfile": "مشاهده پروفایل",
+    "showMore": "مشاهد بیشتر",
+    "showLess": "مشاهده کمتر",
+    "selectUser": "انتخاب کاربر"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",

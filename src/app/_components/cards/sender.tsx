@@ -59,7 +59,7 @@ export const SenderCard = ({ data }: SenderCardProps) => {
             sizeClass="size-5"
             className="text-sub"
           />
-          <p className="text-xs font-normal text-text">{data.weight} کیلوگرم</p>
+          <p className="text-xs font-normal text-text">{data.weight} {t("unit.kg")}</p>
         </div>
       </div>
       <Link href={`/sender/${data.id}`}>
