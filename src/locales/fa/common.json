@@ -31,7 +31,8 @@
     "managePassenger": "مدیریت سفر",
     "seeOnSite": "مشاهده در سایت",
     "deactivate": "غیر فعال",
-    "signIn": "وارد شوید"
+    "signIn": "وارد شوید",
+    "chatWithPassenger": "چت با مسافر"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -61,7 +62,8 @@
     "errorFields": "اطلاعات واردشده معتبر نیست! لطفاً دوباره بررسی کنید.",
     "updated": "بروزرسانی با موفقیت انجام شد",
     "redirectingToGateway": "در حال انتقال به درگاه پرداخت...",
-    "hasSubmitRequest": "درخواست شما قبلا ثبت شده"
+    "hasSubmitRequest": "درخواست شما قبلا ثبت شده",
+    "needGuid": "نیاز به راهنمایی دارید؟"
   },
   "validation": {
     "required": {

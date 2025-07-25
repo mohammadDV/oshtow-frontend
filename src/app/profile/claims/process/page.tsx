@@ -1,5 +1,6 @@
 import { getClaimsPerProject } from "./_api/getClaimsPerProject";
 import { getClaimStatus } from "./_api/getClaimStatus";
+import { ClaimStepper } from "./_components/stepper";
 
 interface ClaimProcessProps {
     searchParams: Promise<{
@@ -14,17 +15,21 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
     let claimsData;
     let claimStatus;
 
-    if (resolvedSearchParams?.projectId && !resolvedSearchParams?.claimId) {
+    if (resolvedSearchParams?.claimId) {
+        claimStatus = await getClaimStatus({ id: resolvedSearchParams.claimId })
+    } else if (resolvedSearchParams?.projectId) {
         claimsData = await getClaimsPerProject({
             id: resolvedSearchParams.projectId,
             page: parseInt(resolvedSearchParams?.page || "1"),
             count: 8
         })
-    } else if (resolvedSearchParams?.claimId) {
-        claimStatus = await getClaimStatus({ id: resolvedSearchParams.claimId })
     }
 
     return (
-        <></>
+        <div className="flex items-start gap-6">
+            <div className="lg:w-1/3">
+                <ClaimStepper currentStep="paid"/>
+            </div>
+        </div>
     )
 }
