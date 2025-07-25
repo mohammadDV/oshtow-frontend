@@ -4,6 +4,8 @@ import { getClaimStatus } from "./_api/getClaimStatus";
 import { ClaimStepper } from "./_components/stepper";
 import { Pagination } from "@/app/_components/pagination";
 import { ClaimsList } from "./_components/list";
+import { getTheClaim } from "./_api/getTheClaim";
+import { SecurePayment } from "./_components/securePayment";
 
 interface ClaimProcessProps {
     searchParams: Promise<{
@@ -18,10 +20,12 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
 
     const resolvedSearchParams = await searchParams;
     let claimsData;
+    let claimData;
     let claimStatus;
 
     if (resolvedSearchParams?.claimId) {
-        claimStatus = await getClaimStatus({ id: resolvedSearchParams.claimId })
+        claimStatus = await getClaimStatus({ id: resolvedSearchParams.claimId });
+        claimData = await getTheClaim({ id: resolvedSearchParams.claimId });
     } else if (resolvedSearchParams?.projectId) {
         claimsData = await getClaimsPerProject({
             id: resolvedSearchParams.projectId,
@@ -53,6 +57,9 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
                             </div>
                         )}
                     </div>
+                )}
+                {claimStatus?.status === "approved" && (
+                    <SecurePayment claimData={claimData} claimStatus={claimStatus} />
                 )}
             </div>
         </div>

@@ -17,8 +17,8 @@ export const SentClaimCard = ({ data }: SentClaimCardProps) => {
     const claimStatusIndex: any = {
         pending: 1,
         approved: 2,
-        in_progress: 3,
-        paid: 4,
+        paid: 3,
+        in_progress: 4,
         delivered: 5
     }
 
