@@ -40,7 +40,8 @@
     "selectUser": "انتخاب کاربر",
     "submitInformation": "ارسال اطلاعات",
     "copyCode": "کپی کد",
-    "submitCode": "ثبت کد"
+    "submitCode": "ثبت کد",
+    "submitReview": "ثبت نظر"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -180,7 +181,9 @@
     "addressType": "انتخای نوع آدرس",
     "image": "تصویر",
     "receivedItem": "تصویر مرسوله دریافت شده",
-    "deliveryCode": "کد تحویل"
+    "deliveryCode": "کد تحویل",
+    "yourRate": "امتیاز شما",
+    "yourComment": "نظر شما"
   },
   "path": {
     "air": "هوایی",

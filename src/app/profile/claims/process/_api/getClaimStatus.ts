@@ -9,7 +9,6 @@ interface getClaimStatusParams {
 export async function getClaimStatus({
   id,
 }: getClaimStatusParams): Promise<ClaimStatusResponse> {
-
   return await getFetchAuth<ClaimStatusResponse>(
     `${apiUrls.claims.all}/${id}/status`
   );

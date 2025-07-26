@@ -5,28 +5,38 @@ import { StatusCode } from "@/constants/enums";
 import { postFetchAuth } from "@/core/baseService";
 import { getTranslations } from "next-intl/server";
 
-export interface PayClaimResponse {
+export interface CreateReviewResponse {
   status: number;
   message: string;
-  url?: string;
+  data?: {
+    id: number;
+    owner_id: number;
+    claim_id: number;
+    user_id: number;
+    comment: string;
+    rate: string;
+    status: number;
+    created_at?: string;
+    updated_at?: string;
+  };
 }
 
-export const payClaimAction = async (
+export const createReviewAction = async (
   _state: any,
   formData: FormData
-): Promise<PayClaimResponse> => {
+): Promise<CreateReviewResponse> => {
   const t = await getTranslations("common");
 
   const claimId = formData.get("claimId");
-  const amount = formData.get("amount");
-  const paymentMethod = formData.get("payment_method");
+  const rate = formData.get("rate");
+  const comment = formData.get("comment");
 
   try {
-    const res = await postFetchAuth<PayClaimResponse>(
-      `${apiUrls.claims.all}/${claimId}/paid`,
+    const res = await postFetchAuth<CreateReviewResponse>(
+      `${apiUrls.reviews.profile}/${claimId}`,
       {
-        amount: amount,
-        payment_method: paymentMethod,
+        rate,
+        comment,
       }
     );
     return res;

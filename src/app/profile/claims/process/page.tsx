@@ -8,6 +8,8 @@ import { getTheClaim } from "./_api/getTheClaim";
 import { SecurePayment } from "./_components/securePayment";
 import { ConfirmReceive } from "./_components/confirmReceive";
 import { ConfirmDelivery } from "./_components/confirmDelivery";
+import { DeliveredClaim } from "./_components/deliveredClaim";
+import { getClaimReviews } from "./_api/getClaimReviews";
 
 interface ClaimProcessProps {
     searchParams: Promise<{
@@ -24,10 +26,14 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
     let claimsData;
     let claimData;
     let claimStatus;
+    let reviewsData;
 
     if (resolvedSearchParams?.claimId) {
         claimStatus = await getClaimStatus({ id: resolvedSearchParams.claimId });
         claimData = await getTheClaim({ id: resolvedSearchParams.claimId });
+        if (claimStatus.status === "delivered") {
+            reviewsData = await getClaimReviews({ id: resolvedSearchParams.claimId })
+        }
     } else if (resolvedSearchParams?.projectId) {
         claimsData = await getClaimsPerProject({
             id: resolvedSearchParams.projectId,
@@ -68,6 +74,9 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
                 )}
                 {claimStatus?.status === "in_progress" && (
                     <ConfirmDelivery claimData={claimData} claimStatus={claimStatus} />
+                )}
+                {claimStatus?.status === "delivered" && (
+                    <DeliveredClaim claimData={claimData} claimStatus={claimStatus} reviewsData={reviewsData} />
                 )}
             </div>
         </div>
