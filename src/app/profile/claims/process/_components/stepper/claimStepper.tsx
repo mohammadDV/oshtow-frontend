@@ -103,7 +103,7 @@ export const ClaimStepper = ({ currentStep, isMobile }: ClaimStepperProps) => {
           <p className="text-sm text-caption font-normal">
             {isDelivered
               ? tPages("profile.claims.deliveredMessage")
-              : `${tCommon("buttons.nextStep")}: ${stepsData?.[currentIndex + 1]?.title || ''}`
+              : stepsData?.[currentIndex + 1]?.title && `${tCommon("buttons.nextStep")}: ${stepsData?.[currentIndex + 1]?.title || ''}`
             }
           </p>
         </div>

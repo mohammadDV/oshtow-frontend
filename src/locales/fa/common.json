@@ -37,7 +37,10 @@
     "seeProfile": "مشاهده پروفایل",
     "showMore": "مشاهد بیشتر",
     "showLess": "مشاهده کمتر",
-    "selectUser": "انتخاب کاربر"
+    "selectUser": "انتخاب کاربر",
+    "submitInformation": "ارسال اطلاعات",
+    "copyCode": "کپی کد",
+    "submitCode": "ثبت کد"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -68,7 +71,8 @@
     "updated": "بروزرسانی با موفقیت انجام شد",
     "redirectingToGateway": "در حال انتقال به درگاه پرداخت...",
     "hasSubmitRequest": "درخواست شما قبلا ثبت شده",
-    "needGuid": "نیاز به راهنمایی دارید؟"
+    "needGuid": "نیاز به راهنمایی دارید؟",
+    "codeCopied": "کد با موفقیت کپی شد!"
   },
   "validation": {
     "required": {
@@ -174,7 +178,9 @@
     "weight": "وزن مرسوله (kg)",
     "dimensions": "ابعاد مرسوله",
     "addressType": "انتخای نوع آدرس",
-    "image": "تصویر"
+    "image": "تصویر",
+    "receivedItem": "تصویر مرسوله دریافت شده",
+    "deliveryCode": "کد تحویل"
   },
   "path": {
     "air": "هوایی",

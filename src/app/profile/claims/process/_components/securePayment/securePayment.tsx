@@ -34,7 +34,7 @@ export const SecurePayment = ({ claimData, claimStatus }: SecurePaymentProps) =>
 
     useEffect(() => {
         if (!!formState && formState.status === StatusCode.Failed) {
-            toast.error(formState?.message || tPages("messages.error"));
+            toast.error(formState?.message || tCommon("messages.error"));
         } else if (!!formState && formState.status === StatusCode.Success) {
             if (formState.url) {
                 toast.info(tCommon("messages.redirectingToGateway"));

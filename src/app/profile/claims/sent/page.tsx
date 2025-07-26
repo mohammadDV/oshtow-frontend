@@ -43,7 +43,7 @@ export default async function SentClaimsPage({ searchParams }: SentClaimsPagePro
                         lastPage={claimsData.last_page}
                         links={claimsData.links}
                         total={claimsData.total}
-                        routeUrl="/profile/projects"
+                        routeUrl="/profile/claims/sent"
                     />
                 </div>
             )}

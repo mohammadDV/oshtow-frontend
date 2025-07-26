@@ -40,7 +40,7 @@ export default async function ReceivedClaimsPage({ searchParams }: ReceivedClaim
                         lastPage={claimsData.last_page}
                         links={claimsData.links}
                         total={claimsData.total}
-                        routeUrl="/profile/projects"
+                        routeUrl={`/profile/claims/received`}
                     />
                 </div>
             )}

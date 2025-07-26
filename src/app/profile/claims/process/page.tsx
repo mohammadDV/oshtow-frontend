@@ -6,6 +6,8 @@ import { Pagination } from "@/app/_components/pagination";
 import { ClaimsList } from "./_components/list";
 import { getTheClaim } from "./_api/getTheClaim";
 import { SecurePayment } from "./_components/securePayment";
+import { ConfirmReceive } from "./_components/confirmReceive";
+import { ConfirmDelivery } from "./_components/confirmDelivery";
 
 interface ClaimProcessProps {
     searchParams: Promise<{
@@ -52,7 +54,7 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
                                     lastPage={claimsData.last_page}
                                     links={claimsData.links}
                                     total={claimsData.total}
-                                    routeUrl="/profile/projects"
+                                    routeUrl={`/profile/claims/process?projectId=${resolvedSearchParams.projectId}`}
                                 />
                             </div>
                         )}
@@ -60,6 +62,12 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
                 )}
                 {claimStatus?.status === "approved" && (
                     <SecurePayment claimData={claimData} claimStatus={claimStatus} />
+                )}
+                {claimStatus?.status === "paid" && (
+                    <ConfirmReceive claimData={claimData} claimStatus={claimStatus} />
+                )}
+                {claimStatus?.status === "in_progress" && (
+                    <ConfirmDelivery claimData={claimData} claimStatus={claimStatus} />
                 )}
             </div>
         </div>

@@ -53,5 +53,6 @@ export interface ClaimStatusResponse {
   type: ProjectType;
   sponsor: boolean;
   status: ClaimStatus;
-  confirmed_code: string;
+  delivery_code: string;
+  show_review_form: boolean;
 }

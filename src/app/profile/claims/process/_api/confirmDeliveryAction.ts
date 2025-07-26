@@ -3,25 +3,24 @@
 import { apiUrls } from "@/constants/apiUrls";
 import { StatusCode } from "@/constants/enums";
 import { postFetchAuth } from "@/core/baseService";
+import { FullClaim } from "@/types/claim.type";
 import { getTranslations } from "next-intl/server";
 
-export interface PayClaimResponse {
+export interface ConfirmDeliveryResponse {
     status: number;
     message: string;
-    url?: string;
+    data?: FullClaim;
 }
 
-export const payClaimAction = async (_state: any, formData: FormData): Promise<PayClaimResponse> => {
+export const confirmDeliveryAction = async (_state: any, formData: FormData): Promise<ConfirmDeliveryResponse> => {
     const t = await getTranslations("common");
 
     const claimId = formData.get("claimId");
-    const amount = formData.get("amount");
-    const paymentMethod = formData.get("payment_method");
+    const confirmationCode = formData.get("confirmation_code");
 
     try {
-        const res = await postFetchAuth<PayClaimResponse>(`${apiUrls.claims.all}/${claimId}/paid`, {
-            amount: amount,
-            payment_method: paymentMethod
+        const res = await postFetchAuth<ConfirmDeliveryResponse>(`${apiUrls.claims.all}/${claimId}/delivered`, {
+            confirmation_code: confirmationCode,
         });
         return res;
     } catch (error) {

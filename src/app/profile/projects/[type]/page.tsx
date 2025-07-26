@@ -55,7 +55,7 @@ export default async function ProfileProjectsPage({ params, searchParams }: Prof
                         lastPage={projectsData.last_page}
                         links={projectsData.links}
                         total={projectsData.total}
-                        routeUrl="/profile/projects"
+                        routeUrl={`/profile/projects/${resolvedParams}`}
                     />
                 </div>
             )}
