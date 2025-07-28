@@ -1,4 +1,9 @@
 export enum StatusCode {
-    Failed,
-    Success
+  Failed,
+  Success,
+}
+
+export enum ReadType {
+  Unread,
+  Read,
 }

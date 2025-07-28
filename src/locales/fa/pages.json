@@ -272,6 +272,9 @@
       "confirmDeliverySender": "در صورتی که تحویل مرسوله انجام شده است، کد زیر را برای مسافر ارسال کنید تا در سیستم ثبت شود.",
       "deliveredDescription": "این سفر با موفقیت به پایان رسیده است.",
       "yourReview": "نظر شما"
+    },
+    "notifications": {
+      "title": "اطلاعیه های من"
     }
   },
   "paymentResult": {

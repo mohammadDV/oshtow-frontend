@@ -63,4 +63,8 @@ export const apiUrls = {
   reviews: {
     profile: "/profile/reviews",
   },
+  notifications: {
+    all: "/profile/notifications",
+    unread: "/profile/notifications-unread",
+  },
 };

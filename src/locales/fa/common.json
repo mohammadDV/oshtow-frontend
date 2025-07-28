@@ -9,6 +9,7 @@
     "next": "بعدی",
     "previous": "قبلی",
     "seeMore": "مشاهده بیشتر",
+    "seeAll": "مشاهده همه",
     "register": "ثبت نام",
     "login": "ورود",
     "myAccount": "حساب کاربری من",
@@ -58,7 +59,8 @@
     "submitAd": "ثبت آگهی",
     "profile": "پروفایل",
     "others": "سایر",
-    "share": "اشتراک گذاری"
+    "share": "اشتراک گذاری",
+    "notifications": "اطلاعیه ها"
   },
   "messages": {
     "loading": "در حال بارگذاری...",
@@ -73,7 +75,8 @@
     "redirectingToGateway": "در حال انتقال به درگاه پرداخت...",
     "hasSubmitRequest": "درخواست شما قبلا ثبت شده",
     "needGuid": "نیاز به راهنمایی دارید؟",
-    "codeCopied": "کد با موفقیت کپی شد!"
+    "codeCopied": "کد با موفقیت کپی شد!",
+    "noNotifications": "اطلاعیه ای یافت نشد!"
   },
   "validation": {
     "required": {

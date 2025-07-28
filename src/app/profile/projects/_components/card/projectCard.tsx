@@ -8,6 +8,7 @@ import { Project, ProjectType } from "@/types/project.type";
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { createdDateConvertor } from "@/lib/dateUtils";
 
 interface ProfileProjectCardProps {
     data: Project;
@@ -21,8 +22,8 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
     const getStatusBadgeVariant = (status: string) => {
         switch (status) {
             case "pending":
-            case "in_progress":
                 return "secondary";
+            case "in_progress":
             case "completed":
             case "approved":
                 return "default";
@@ -157,7 +158,7 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
             <div className="flex items-center justify-between flex-wrap gap-3">
                 <div className="flex items-center justify-between w-full lg:w-fit">
                     <div className="text-sm text-text font-normal">
-                        {t("columns.releaseAt")}: {new Date(data.created_at || '').toLocaleDateString('fa-IR')}
+                        {t("columns.releaseAt")}: {createdDateConvertor(data.created_at || "")}
                     </div>
                     <Badge variant={getStatusBadgeVariant(data.status)} className="block lg:hidden">
                         {t(`projectStatus.${data.status}`)}

@@ -1,3 +1,4 @@
+import { NotificationsModalType } from "@/types/notifications.type";
 import { PathType } from "@/types/project.type";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -31,4 +32,20 @@ export const pathTypeGenerator = (value: PathType) => {
 
 export const putCommas = (value: number): string => {
   return new Intl.NumberFormat().format(Math.trunc(value));
+};
+
+export const notificationLinkGenerator = (
+  type: NotificationsModalType,
+  id: number
+) => {
+  switch (type) {
+    case "claim":
+      return `/profile/claims/process?claimId=${id}`;
+    case "passenger":
+      return `/profile/projects/passenger`;
+    case "sender":
+      return `/profile/projects/sender`;
+    default:
+      return `/profile/notifications`;
+  }
 };
