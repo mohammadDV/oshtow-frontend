@@ -187,7 +187,8 @@
     "receivedItem": "تصویر مرسوله دریافت شده",
     "deliveryCode": "کد تحویل",
     "yourRate": "امتیاز شما",
-    "yourComment": "نظر شما"
+    "yourComment": "نظر شما",
+    "searchUser": "جست و جوی کاربر..."
   },
   "path": {
     "air": "هوایی",

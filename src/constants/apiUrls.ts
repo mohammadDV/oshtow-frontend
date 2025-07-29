@@ -68,4 +68,8 @@ export const apiUrls = {
     unread: "/profile/notifications-unread",
     readAll: "/profile/notifications-read-all"
   },
+  chat: {
+    all: "/profile/chats",
+    info: "/profile/chats/info"
+  }
 };

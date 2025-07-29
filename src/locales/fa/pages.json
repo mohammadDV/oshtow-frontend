@@ -275,6 +275,9 @@
     },
     "notifications": {
       "title": "اطلاعیه های من"
+    },
+    "chat": {
+      "title": "پیام های شخصی من"
     }
   },
   "paymentResult": {

@@ -1,0 +1,183 @@
+"use client";
+
+import { useState, useRef, useEffect, useTransition, useActionState } from "react";
+import { Icon } from "@/ui/icon";
+import { Button } from "@/ui/button";
+import { useZodForm } from "@/hooks/useZodForm";
+import { z } from "zod";
+import { toast } from "sonner";
+import { sendMessageAction } from "../_api/sendMessageAction";
+import { StatusCode } from "@/constants/enums";
+
+const messageSchema = z.object({
+    message: z.string().optional(),
+    file: z.instanceof(File).optional(),
+}).refine(
+    (data) => data.message || data.file,
+    {
+        message: "Either message or file is required",
+        path: ["message"],
+    }
+);
+
+interface MessageInputProps {
+    otherUserId: number;
+    onMessageSent?: () => void;
+}
+
+export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) => {
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const formRef = useRef<HTMLFormElement>(null);
+    const [isPending, startTransition] = useTransition();
+
+    const [formState, formAction] = useActionState(
+        sendMessageAction.bind(null, otherUserId),
+        null
+    );
+
+    const {
+        register,
+        reset,
+        watch,
+        setValue,
+        handleSubmit
+    } = useZodForm(messageSchema);
+
+    const messageValue = watch("message");
+    const isDisabled = !messageValue?.trim() && !selectedFile;
+
+    useEffect(() => {
+        if (!!formState && formState.status === StatusCode.Failed) {
+            toast.error(formState?.message || "خطا در ارسال پیام");
+        } else if (!!formState && formState.status === StatusCode.Success) {
+            reset();
+            setSelectedFile(null);
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
+            if (formRef.current) {
+                formRef.current.reset();
+            }
+
+            onMessageSent?.();
+
+            toast.success("پیام با موفقیت ارسال شد");
+        }
+    }, [formState, reset, onMessageSent]);
+
+    const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setSelectedFile(file);
+            setValue("file", file);
+        }
+    };
+
+    const removeFile = () => {
+        setSelectedFile(null);
+        setValue("file", undefined);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
+    };
+
+    const onSubmit = (data: any) => {
+        if (isDisabled || isPending) return;
+
+        const formData = new FormData();
+
+        if (messageValue?.trim()) {
+            formData.append("message", messageValue.trim());
+        }
+
+        if (selectedFile) {
+            formData.append("file", selectedFile);
+        }
+
+        startTransition(async () => {
+            await formAction(formData);
+        });
+    };
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+            {/* File Preview */}
+            {selectedFile && (
+                <div className="bg-gray-50 rounded-lg p-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <Icon
+                            icon="solar--document-outline"
+                            sizeClass="size-4"
+                            className="text-primary"
+                        />
+                        <span className="text-sm text-title truncate max-w-[200px]">
+                            {selectedFile.name}
+                        </span>
+                        <span className="text-xs text-caption">
+                            ({(selectedFile.size / 1024 / 1024).toFixed(2)} MB)
+                        </span>
+                    </div>
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={removeFile}
+                        className="h-auto p-1 text-red-500 hover:text-red-700"
+                    >
+                        <Icon icon="solar--close-circle-outline" sizeClass="size-4" />
+                    </Button>
+                </div>
+            )}
+
+            {/* Message Input */}
+            <div className="bg-white rounded-full border border-border flex items-center justify-between px-5 py-3.5">
+                <input
+                    {...register("message")}
+                    placeholder="پیام خود را بنویسید..."
+                    type="text"
+                    className="outline-none flex-1"
+                />
+
+                {/* Hidden file input */}
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    onChange={handleFileSelect}
+                    className="hidden"
+                    accept="image/*,video/*,.pdf,.doc,.docx,.txt"
+                />
+
+                <div className="flex items-center justify-end gap-4">
+                    {/* File attachment button */}
+                    <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="text-caption cursor-pointer hover:text-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <Icon
+                            icon="solar--paperclip-linear"
+                            sizeClass="size-5"
+                        />
+                    </button>
+
+                    {/* Send button */}
+                    <button
+                        type="submit"
+                        disabled={isDisabled}
+                        className={`transition-colors ${isDisabled
+                            ? "text-caption cursor-not-allowed"
+                            : "text-primary cursor-pointer hover:text-primary/80"
+                            }`}
+                    >
+                        <Icon
+                            icon={isPending ? "solar--loading-outline" : "solar--plain-outline"}
+                            sizeClass="size-5"
+                            className={`-rotate-90 ${isPending ? "animate-spin" : ""}`}
+                        />
+                    </button>
+                </div>
+            </div>
+        </form>
+    );
+};

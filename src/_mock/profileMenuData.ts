@@ -29,7 +29,7 @@ export const userProfileMenu: MenuItem[] = [
     { label: "کیف پول", icon: "solar--wallet-linear", link: "/profile/wallet" },
     { label: "پلن ها و تعرفه ها", icon: "solar--tag-price-outline", link: "/profile/plans" },
     { label: "اطلاعیه ها", icon: "solar--bell-outline", link: "/profile/notifications" },
-    { label: "پیام های شخصی", icon: "solar--letter-outline", link: "/profile/messages" },
+    { label: "پیام های شخصی", icon: "solar--letter-outline", link: "/profile/chat" },
     { label: "پشتیبانی", icon: "solar--headphones-round-outline", link: "/profile/support" },
     {
         label: "تنظیمات",
