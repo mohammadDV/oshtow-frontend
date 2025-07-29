@@ -66,5 +66,6 @@ export const apiUrls = {
   notifications: {
     all: "/profile/notifications",
     unread: "/profile/notifications-unread",
+    readAll: "/profile/notifications-read-all"
   },
 };

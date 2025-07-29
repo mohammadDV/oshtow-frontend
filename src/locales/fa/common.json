@@ -42,7 +42,8 @@
     "submitInformation": "ارسال اطلاعات",
     "copyCode": "کپی کد",
     "submitCode": "ثبت کد",
-    "submitReview": "ثبت نظر"
+    "submitReview": "ثبت نظر",
+    "readAll": "خواندن همه"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -60,7 +61,7 @@
     "profile": "پروفایل",
     "others": "سایر",
     "share": "اشتراک گذاری",
-    "notifications": "اطلاعیه ها"
+    "newNotifications": "اطلاعیه های جدید"
   },
   "messages": {
     "loading": "در حال بارگذاری...",

@@ -1,16 +1,19 @@
 'use client'
 
+import { StatusCode } from "@/constants/enums"
 import { useCommonTranslation } from "@/hooks/useTranslation"
-import { cn, isEmpty, notificationLinkGenerator } from "@/lib/utils"
+import { createdDateConvertor } from "@/lib/dateUtils"
+import { isEmpty, notificationLinkGenerator } from "@/lib/utils"
+import { Notification } from "@/types/notifications.type"
 import { UserData } from "@/types/user.type"
+import { Button } from "@/ui/button"
 import { Icon } from "@/ui/icon"
+import { Loading } from "@/ui/loading"
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getUnreadNotifications } from "./getUnreadNotifications"
-import { StatusCode } from "@/constants/enums"
-import { createdDateConvertor } from "@/lib/dateUtils"
-import { Notification } from "@/types/notifications.type"
+import { readAllNotifications } from "./readAllNotifications"
 
 interface NotificationIconProps {
     userData?: UserData | null;
@@ -19,6 +22,7 @@ interface NotificationIconProps {
 export const NotificationIcon = ({ userData }: NotificationIconProps) => {
     const t = useCommonTranslation();
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isLoadingReadAll, setIsLoadingReadAll] = useState<boolean>(false);
     const [notificationsData, setNotificationsData] = useState<Notification[]>();
     const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
 
@@ -40,7 +44,19 @@ export const NotificationIcon = ({ userData }: NotificationIconProps) => {
         (!!userData && !isEmpty(userData)) && unreadNotificationsService();
     }, [userData]);
 
-    // Don't render if user is not authenticated
+    const readAllHandler = async () => {
+        setIsLoadingReadAll(true);
+        try {
+            const res = await readAllNotifications();
+            if (res.status === StatusCode.Success)
+                setNotificationsData(undefined);
+        } catch (error) {
+            t("messages.error")
+        } finally {
+            setIsLoadingReadAll(false);
+        }
+    }
+
     if (!userData || isEmpty(userData)) {
         return null;
     }
@@ -59,24 +75,17 @@ export const NotificationIcon = ({ userData }: NotificationIconProps) => {
                 </div>
             </PopoverTrigger>
             <PopoverContent className="w-80 p-0" align="end">
-                <div className="p-4 border-b border-border">
+                <div className="p-3 border-b border-border">
                     <div className="flex items-center justify-between">
                         <h3 className="text-title font-medium">
-                            {t('navigation.notifications')}
+                            {t('navigation.newNotifications')}
                         </h3>
-                        <Link
-                            href="/profile/notifications"
-                            className="text-primary text-sm hover:underline"
-                            onClick={() => setIsPopoverOpen(false)}
-                        >
-                            {t('buttons.seeAll')}
-                        </Link>
                     </div>
                 </div>
                 <div className="max-h-96 overflow-y-auto">
                     {isLoading ? (
                         <div className="p-4 text-center">
-                            <Icon icon="solar--loading-outline" sizeClass="size-6" className="text-hint animate-spin mx-auto" />
+                            <Loading type="spinner" variant="primary" />
                         </div>
                     ) : notificationsData && notificationsData.length > 0 ? (
                         <div className="divide-y divide-border">
@@ -113,6 +122,32 @@ export const NotificationIcon = ({ userData }: NotificationIconProps) => {
                             </p>
                         </div>
                     )}
+                </div>
+                <div className="p-1 border-t border-border">
+                    <div className="flex items-center justify-between">
+                        <Link
+                            href="/profile/notifications"
+                        >
+                            <Button
+                                variant={"default"}
+                                size={"sm"}
+                                className="py-2 mr-1"
+                                onClick={() => setIsPopoverOpen(false)}>
+                                {t('buttons.seeAll')}
+                            </Button>
+                        </Link>
+                        <Button
+                            variant={"link"}
+                            size={"sm"}
+                            onClick={readAllHandler}
+                            disabled={isEmpty(notificationsData)}
+                            isLoading={isLoadingReadAll}>
+                            <Icon
+                                icon="solar--check-read-outline"
+                                sizeClass="size-6" />
+                            {t('buttons.readAll')}
+                        </Button>
+                    </div>
                 </div>
             </PopoverContent>
         </Popover>
