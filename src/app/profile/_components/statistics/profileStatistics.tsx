@@ -1,57 +1,68 @@
-import { usePagesTranslation } from "@/hooks/useTranslation"
+import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation"
 import { cn } from "@/lib/utils";
 import { Icon } from "@/ui/icon";
 import { Progress } from "@/ui/progress";
+import { DashboardInfoService } from "../../_api/getDashboadInfo";
+import { SubscriptionActivityCountService } from "../../_api/getSubscriptionActivityCount";
+import { SubscriptionType } from "@/constants/enums";
+import Link from "next/link";
+import { Button } from "@/ui/button";
 
-export const ProfileStatistics = () => {
-    const t = usePagesTranslation();
+interface ProfileStatisticsProps {
+    dashboardInfo: DashboardInfoService;
+    subscriptionActivityCount: SubscriptionActivityCountService
+}
+
+export const ProfileStatistics = ({ dashboardInfo, subscriptionActivityCount }: ProfileStatisticsProps) => {
+    const tPages = usePagesTranslation();
+    const tCommon = useCommonTranslation();
 
     const myStatsData = [
         {
             id: 1,
-            title: t("profile.mySenders"),
+            title: tPages("profile.mySenders"),
             icon: "solar--box-outline",
-            counts: "۱۸ مرسوله",
+            counts: `${dashboardInfo.senders} مرسوله`,
             bgColor: "bg-fuchsia-50",
             color: "text-fuchsia-400"
         },
         {
             id: 2,
-            title: t("profile.myPassengers"),
+            title: tPages("profile.myPassengers"),
             icon: "solar--earth-outline",
-            counts: "۱۸ سفر",
+            counts: `${dashboardInfo.passengers} سفر`,
             bgColor: "bg-sky-50",
             color: "text-sky-400"
         },
         {
             id: 3,
-            title: t("profile.myRequests"),
+            title: tPages("profile.myRequests"),
             icon: "solar--pen-2-outline",
-            counts: "۱۸ درخواست",
+            counts: `${dashboardInfo.receive_claims} درخواست`,
             bgColor: "bg-pink-50",
             color: "text-pink-400"
         },
         {
             id: 4,
-            title: t("profile.mySuggests"),
+            title: tPages("profile.mySuggests"),
             icon: "solar--pen-2-outline",
-            counts: "۱۸ پیشنهاد",
+            counts: `${dashboardInfo.claims} پیشنهاد`,
             bgColor: "bg-rose-50",
             color: "text-rose-400"
         },
         {
             id: 5,
-            title: t("profile.myMessages"),
+            title: tPages("profile.myMessages"),
             icon: "solar--letter-outline",
-            counts: "۱۸ پیام",
+            counts: `${dashboardInfo.messages} پیام`,
             bgColor: "bg-teal-50",
             color: "text-teal-400"
         },
         {
             id: 6,
-            title: t("profile.mySupports"),
+            title: tPages("profile.mySupports"),
             icon: "solar--headphones-round-outline",
-            counts: "۱۸ درخواست",
+            counts: `${dashboardInfo.tickets} تیکت`,
             bgColor: "bg-orange-50",
             color: "text-orange-400"
         },
@@ -76,46 +87,75 @@ export const ProfileStatistics = () => {
                     </div>
                 ))}
             </div>
-            <div className="bg-white lg:px-5 lg:py-4.5 p-4 rounded-2xl lg:rounded-3xl flex flex-col gap-4 lg:flex-row items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                    <Icon icon="solar--tag-price-outline" sizeClass="size-6" className="text-caption lg:block hidden" />
-                    <p className="text-title text-lg font-medium">
-                        {t("profile.activePlan")}
-                    </p>
-                    <div className="w-px h-4 bg-border"></div>
-                    <p className="text-sm font-normal text-text">
-                        پلن الماس
-                    </p>
-                    <div className="w-px h-4 bg-border"></div>
-                    <p className="text-sm font-normal text-text">
-                        ۱۸ روز باقی مانده
-                    </p>
-                </div>
-                <div className="flex items-center justify-end gap-3 lg:gap-5">
-                    <div className="p-3 lg:p-3.5 rounded-2xl border border-border">
-                        <div className="flex items-center justify-between gap-2 mb-3">
-                            <p className="text-text font-normal text-sm">
-                                {t("profile.requestsCount")}
+            {subscriptionActivityCount.original.subscription.has_active_subscription === SubscriptionType.Active
+                ? (
+                    <div className="bg-white lg:px-5 lg:py-4.5 p-4 rounded-2xl lg:rounded-3xl flex flex-col gap-4 lg:flex-row items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                            <Icon icon="solar--tag-price-outline" sizeClass="size-6" className="text-caption lg:block hidden" />
+                            <p className="text-title text-lg font-medium">
+                                {tPages("profile.activePlan")}
                             </p>
-                            <p className="text-text font-normal text-sm">
-                                ۵۰/۱۰
+                            {/* <div className="w-px h-4 bg-border"></div>
+                            <p className="text-sm font-normal text-text">
+                                پلن الماس
+                            </p> */}
+                            <div className="w-px h-4 bg-border"></div>
+                            <p className="text-sm font-normal text-text">
+                                {subscriptionActivityCount.original.subscription.message}
                             </p>
                         </div>
-                        <Progress value={20} className="w-full lg:w-40" />
+                        <div className="flex items-center justify-end gap-3 lg:gap-5">
+                            <div className="p-3 lg:p-3.5 rounded-2xl border border-border">
+                                <div className="flex items-center justify-between gap-2 mb-3">
+                                    <p className="text-text font-normal text-sm">
+                                        {tPages("profile.requestsCount")}
+                                    </p>
+                                    <p className="text-text font-normal text-sm">
+                                        {subscriptionActivityCount.original.claim_count}/{subscriptionActivityCount.original.claims}
+                                    </p>
+                                </div>
+                                <Progress
+                                    value={(subscriptionActivityCount.original.claim_count / subscriptionActivityCount.original.claims) * 100}
+                                    className="w-full lg:w-40"
+                                />
+                            </div>
+                            <div className="p-3 lg:p-3.5 rounded-2xl border border-border">
+                                <div className="flex items-center justify-between gap-2 mb-3">
+                                    <p className="text-text font-normal text-sm">
+                                        {tPages("profile.adsCount")}
+                                    </p>
+                                    <p className="text-text font-normal text-sm">
+                                        {subscriptionActivityCount.original.project_count}/{subscriptionActivityCount.original.projects}
+                                    </p>
+                                </div>
+                                <Progress
+                                    value={(subscriptionActivityCount.original.project_count / subscriptionActivityCount.original.projects) * 100}
+                                    className="w-full lg:w-40"
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className="p-3 lg:p-3.5 rounded-2xl border border-border">
-                        <div className="flex items-center justify-between gap-2 mb-3">
-                            <p className="text-text font-normal text-sm">
-                                {t("profile.adsCount")}
+                )
+                : (
+                    <div className="bg-white lg:px-5 lg:py-4.5 p-4 rounded-2xl lg:rounded-3xl flex flex-col gap-4 lg:flex-row lg:items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                            <Icon icon="solar--tag-price-outline" sizeClass="size-6" className="text-caption lg:block hidden" />
+                            <p className="text-title text-lg font-medium">
+                                {tPages("profile.activePlan")}
                             </p>
-                            <p className="text-text font-normal text-sm">
-                                ۵۰/۱۰
+                            <div className="w-px h-4 bg-border"></div>
+                            <p className="text-sm font-normal text-text">
+                                {subscriptionActivityCount.original.subscription.message}
                             </p>
                         </div>
-                        <Progress value={20} className="w-full lg:w-40" />
+                        <Link href={"/profile/plans"}>
+                            <Button variant={"outline"} size={"sm"} className="w-full">
+                                {tCommon("buttons.buyPlan")}
+                            </Button>
+                        </Link>
                     </div>
-                </div>
-            </div>
+                )}
+
         </>
     )
 }

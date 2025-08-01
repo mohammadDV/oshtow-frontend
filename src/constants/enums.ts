@@ -7,3 +7,8 @@ export enum ReadType {
   Unread,
   Read,
 }
+
+export enum SubscriptionType {
+  NotActive,
+  Active,
+}

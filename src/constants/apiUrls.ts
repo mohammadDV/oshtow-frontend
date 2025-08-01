@@ -17,6 +17,7 @@ export const apiUrls = {
     single: "/user",
     info: "/user-info",
     profile: "/profile/users",
+    dashboardInfo: "/profile/dashboard-info"
   },
   auth: {
     login: "/login",
@@ -50,6 +51,7 @@ export const apiUrls = {
   },
   subscription: {
     profile: "/profile/subscribe",
+    activityCount: "/profile/activity-count"
   },
   payment: {
     result: "/payment/result",

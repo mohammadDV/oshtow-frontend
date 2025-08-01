@@ -8,11 +8,16 @@ import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { ProfileMenu } from "./_components/menu/profileMenu";
 import { userProfileMenu } from "@/_mock/profileMenuData";
 import { LogoutButton } from "./_components/logoutButton/logoutButton";
+import { getDashboardInfo } from "./_api/getDashboadInfo";
+import { getSubscriptionActivityCount } from "./_api/getSubscriptionActivityCount";
 
 export default async function ProfilePage() {
     const isMobile = await isMobileDevice();
     const t = await getTranslations("pages");
     const userData = await getUserData();
+
+    const dashboardInfo = await getDashboardInfo();
+    const subscriptionActivityCount = await getSubscriptionActivityCount();
 
     return (
         <div>
@@ -64,7 +69,7 @@ export default async function ProfilePage() {
                     </div>
                 </>
             )}
-            <ProfileStatistics />
+            <ProfileStatistics dashboardInfo={dashboardInfo} subscriptionActivityCount={subscriptionActivityCount} />
         </div>
     )
 }
