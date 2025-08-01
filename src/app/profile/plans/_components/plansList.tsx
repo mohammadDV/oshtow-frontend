@@ -13,12 +13,14 @@ import Link from 'next/link'
 import { useActionState, useEffect, useState, useTransition } from 'react'
 import { toast } from 'sonner'
 import { subscriptionAction, SubscriptionResponse } from '../_api/subscriptionAction'
+import { WalletService } from '../../_api/getWallet'
 
 interface PlansListProps {
-    plansData: Plan[]
+    plansData: Plan[];
+    walletData: WalletService;
 }
 
-export const PlansList = ({ plansData }: PlansListProps) => {
+export const PlansList = ({ plansData, walletData }: PlansListProps) => {
     const tPages = usePagesTranslation();
     const tCommon = useCommonTranslation();
 
@@ -200,14 +202,15 @@ export const PlansList = ({ plansData }: PlansListProps) => {
                             {tPages("profile.plans.paymentMethod")}
                         </p>
                         <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
-                            <div className='flex items-center gap-1'>
+                            <div className='flex items-center gap-1.5'>
                                 <RadioGroupItem value="wallet" id="wallet" />
                                 <label htmlFor="wallet" className='text-sm text-text font-normal cursor-pointer flex-1'>
-                                    {tPages("profile.plans.walletPayment")} ({tPages("profile.plans.walletBalance")}: 0 {tCommon("unit.toman")}) -
+                                    {tPages("profile.plans.walletPayment")} ({tPages("profile.plans.walletBalance")}:
+                                    {putCommas(walletData?.data?.available_balance)} {' '} {tCommon("unit.toman")}) -
                                     <Link href={"/profile/wallet"} className='text-primary mr-1'>{tPages("profile.plans.chargeWallet")}</Link>
                                 </label>
                             </div>
-                            <div className='flex items-center gap-1'>
+                            <div className='flex items-center gap-1.5'>
                                 <RadioGroupItem value="bank" id="bank" />
                                 <label htmlFor="bank" className='text-sm text-text font-normal cursor-pointer'>
                                     {tPages("profile.plans.directPayment")}

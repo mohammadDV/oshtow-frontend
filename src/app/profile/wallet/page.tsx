@@ -7,6 +7,8 @@ import { WalletHistory } from "./_components/walletHistory";
 import { getWalletTransactions } from "./_api/getWalletTransactions";
 import { getWithdrawRequests } from "./_api/getWithdrawRequests";
 import { TransactionStatus, TransactionType, WithdrawStatus } from "@/types/wallet.type";
+import { getWallet } from "../_api/getWallet";
+import { putCommas } from "@/lib/utils";
 
 interface WalletPageProps {
     searchParams: Promise<{
@@ -22,6 +24,8 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
     const tCommon = await getTranslations("common");
     const userData = await getUserData();
     const resolvedSearchParams = await searchParams;
+
+    const walletData = await getWallet();
 
     const page = parseInt(resolvedSearchParams?.page || "1");
     const tab = resolvedSearchParams?.tab || 'transactions';
@@ -58,7 +62,7 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
                         {tPages("profile.wallet.walletCredit")}
                     </p>
                     <p className="text-2xl font-medium text-white">
-                        4,200,000 تومان
+                        {putCommas(walletData?.data?.available_balance)} {' '} {tCommon("unit.toman")}
                     </p>
                     <span className="text-white/30 font-normal absolute left-6 bottom-5">
                         {tCommon("brand.domain")}

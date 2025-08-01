@@ -13,13 +13,15 @@ import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { payClaimAction, PayClaimResponse } from '../../_api/payClaimAction';
+import { WalletService } from '@/app/profile/_api/getWallet';
 
 interface SecurePaymentProps {
     claimStatus: ClaimStatusResponse;
     claimData?: FullClaim;
+    walletData: WalletService;
 }
 
-export const SecurePayment = ({ claimData, claimStatus }: SecurePaymentProps) => {
+export const SecurePayment = ({ claimData, claimStatus, walletData }: SecurePaymentProps) => {
     const router = useRouter();
     const tPages = usePagesTranslation();
     const tCommon = useCommonTranslation();
@@ -118,14 +120,15 @@ export const SecurePayment = ({ claimData, claimStatus }: SecurePaymentProps) =>
                             {tPages("profile.plans.paymentMethod")}
                         </p>
                         <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
-                            <div className='flex items-center gap-1'>
+                            <div className='flex items-center gap-1.5'>
                                 <RadioGroupItem value="wallet" id="wallet" />
                                 <label htmlFor="wallet" className='text-sm text-text font-normal cursor-pointer flex-1'>
-                                    {tPages("profile.plans.walletPayment")} ({tPages("profile.plans.walletBalance")}: 0 {tCommon("unit.toman")}) -
+                                    {tPages("profile.plans.walletPayment")} ({tPages("profile.plans.walletBalance")}:
+                                    {putCommas(walletData?.data?.available_balance)} {' '} {tCommon("unit.toman")}) -
                                     <Link href={"/profile/wallet"} className='text-primary mr-1'>{tPages("profile.plans.chargeWallet")}</Link>
                                 </label>
                             </div>
-                            <div className='flex items-center gap-1'>
+                            <div className='flex items-center gap-1.5'>
                                 <RadioGroupItem value="bank" id="bank" />
                                 <label htmlFor="bank" className='text-sm text-text font-normal cursor-pointer'>
                                     {tPages("profile.plans.directPayment")}

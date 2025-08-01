@@ -10,6 +10,7 @@ import { ConfirmReceive } from "./_components/confirmReceive";
 import { ConfirmDelivery } from "./_components/confirmDelivery";
 import { DeliveredClaim } from "./_components/deliveredClaim";
 import { getClaimReviews } from "./_api/getClaimReviews";
+import { getWallet } from "../../_api/getWallet";
 
 interface ClaimProcessProps {
     searchParams: Promise<{
@@ -21,8 +22,9 @@ interface ClaimProcessProps {
 
 export default async function ClaimProcessPage({ searchParams }: ClaimProcessProps) {
     const isMobile = await isMobileDevice();
-
     const resolvedSearchParams = await searchParams;
+
+    const walletData = await getWallet();
     let claimsData;
     let claimData;
     let claimStatus;
@@ -67,7 +69,7 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
                     </div>
                 )}
                 {claimStatus?.status === "approved" && (
-                    <SecurePayment claimData={claimData} claimStatus={claimStatus} />
+                    <SecurePayment claimData={claimData} claimStatus={claimStatus} walletData={walletData} />
                 )}
                 {claimStatus?.status === "paid" && (
                     <ConfirmReceive claimData={claimData} claimStatus={claimStatus} />

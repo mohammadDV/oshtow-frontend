@@ -1,10 +1,13 @@
 import { getTranslations } from "next-intl/server"
 import { getActivePlans } from "./_api/getActivePlans";
 import { PlansList } from "./_components/plansList";
+import { getWallet } from "../_api/getWallet";
 
 export default async function PlansPage() {
-    const t = await getTranslations("pages")
+    const t = await getTranslations("pages");
+
     const activePlans = await getActivePlans();
+    const walletData = await getWallet();
 
     return (
         <div>
@@ -14,7 +17,7 @@ export default async function PlansPage() {
             <p className="text-center font-normal text-caption mt-3">
                 {t("profile.plans.description")}
             </p>
-            <PlansList plansData={activePlans} />
+            <PlansList plansData={activePlans} walletData={walletData} />
         </div>
     )
 }

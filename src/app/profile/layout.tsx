@@ -1,14 +1,15 @@
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
+import { getUserData } from "@/lib/getUserDataFromHeaders";
+import { Button } from "@/ui/button";
+import { Icon } from "@/ui/icon";
+import { getTranslations } from "next-intl/server";
+import Link from "next/link";
 import { BottomNavigation } from "../_components/bottomNavigation";
 import { Footer } from "../_components/footer";
 import { Header } from "../_components/header";
 import { MobileHeader } from "../_components/header/mobileHeader";
-import { getUserData } from "@/lib/getUserDataFromHeaders";
+import { getWallet } from "./_api/getWallet";
 import { ProfileSidebar } from "./_components/sidebar";
-import { Icon } from "@/ui/icon";
-import { getTranslations } from "next-intl/server";
-import Link from "next/link";
-import { Button } from "@/ui/button";
 
 export default async function ProfileLayout({
   children,
@@ -18,6 +19,7 @@ export default async function ProfileLayout({
   const t = await getTranslations("pages");
   const isMobile = await isMobileDevice();
   const userData = await getUserData();
+  const walletData = await getWallet();
 
   return (
     <>
@@ -38,7 +40,7 @@ export default async function ProfileLayout({
         </div>
       )}
       <div className="mt-5 lg:mt-10 md:flex justify-between mx-auto gap-8 container px-4">
-        {!isMobile && <ProfileSidebar userData={userData} />}
+        {!isMobile && <ProfileSidebar userData={userData} walletData={walletData} />}
         <div className="flex-1 lg:overflow-auto">
           {children}
         </div>

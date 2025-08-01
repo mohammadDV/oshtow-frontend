@@ -1,18 +1,22 @@
 "use client";
 
 import { userProfileMenu } from "@/_mock/profileMenuData";
-import { usePagesTranslation } from "@/hooks/useTranslation";
+import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { UserData } from "@/types/user.type";
-import { ProfileMenu } from "../menu/profileMenu";
 import { LogoutButton } from "../logoutButton/logoutButton";
+import { ProfileMenu } from "../menu/profileMenu";
+import { putCommas } from "@/lib/utils";
+import { WalletService } from "../../_api/getWallet";
 
 interface ProfileSidebarProps {
   userData?: UserData | null;
   isMobile?: boolean;
+  walletData: WalletService
 }
 
-export const ProfileSidebar = ({ userData }: ProfileSidebarProps) => {
-  const t = usePagesTranslation();
+export const ProfileSidebar = ({ userData, walletData }: ProfileSidebarProps) => {
+  const tPages = usePagesTranslation();
+  const tCommon = useCommonTranslation();
 
   return (
     <div className="lg:w-2xs bg-white rounded-2xl lg:shrink-0 lg:rounded-3xl overflow-hidden pb-4">
@@ -26,17 +30,17 @@ export const ProfileSidebar = ({ userData }: ProfileSidebarProps) => {
           className="size-20 bg-white rounded-full mx-auto -mt-12"
         />
         <p className="mt-3 text-center text-sm font-normal text-text">
-          {t("profile.welcomeUser")}
+          {tPages("profile.welcomeUser")}
         </p>
         <p className="mt-2 text-center text-sm font-normal text-primary">
           {userData?.user.nickname}
         </p>
         <div className=" mx-6 border border-border rounded-xl px-4 py-3 mt-3">
           <span className="text-text inline-block ml-0.5 font-normal text-sm">
-            {t("profile.walletCredit")}:
+            {tPages("profile.walletCredit")}:
           </span>
           <span className="text-primary inline-block ml-0.5 font-normal text-sm">
-            20000 تومان
+            {putCommas(walletData?.data?.available_balance)} {' '} {tCommon("unit.toman")}
           </span>
         </div>
       </div>
