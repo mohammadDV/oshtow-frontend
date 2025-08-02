@@ -36,7 +36,7 @@ export default async function ChatPage({ searchParams }: ChatPageProps) {
                 <h1 className="text-title text-xl lg:text-2xl font-medium">
                     {t("profile.chat.title")}
                 </h1>
-                <div className="p-6 rounded-2xl lg:rounded-3xl bg-white mt-5 flex justify-between gap-6 lg:h-[70vh]">
+                <div className="p-4 rounded-2xl lg:rounded-3xl bg-white mt-5 flex flex-col justify-between gap-2 max-h-[70vh]">
                     {(resolvedParams.chatId && chatInfo && otherUser && chatMessages)
                         ? (
                             <CurrentChat
@@ -73,7 +73,7 @@ export default async function ChatPage({ searchParams }: ChatPageProps) {
                             : (
                                 <div className="flex items-center justify-center h-full text-gray-500">
                                     <p>
-                                        برای شروع گفت و گو یک کاربر را انتخاب کنید
+                                        {t("profile.chat.chooseChatToStart")}
                                     </p>
                                 </div>
                             )}

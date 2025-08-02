@@ -43,7 +43,8 @@
     "copyCode": "کپی کد",
     "submitCode": "ثبت کد",
     "submitReview": "ثبت نظر",
-    "readAll": "خواندن همه"
+    "readAll": "خواندن همه",
+    "downloadFile": "دانلود فایل"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -188,7 +189,8 @@
     "deliveryCode": "کد تحویل",
     "yourRate": "امتیاز شما",
     "yourComment": "نظر شما",
-    "searchUser": "جست و جوی کاربر..."
+    "searchUser": "جست و جوی کاربر...",
+    "writeMessage": "پیام خود را بنویسید..."
   },
   "path": {
     "air": "هوایی",

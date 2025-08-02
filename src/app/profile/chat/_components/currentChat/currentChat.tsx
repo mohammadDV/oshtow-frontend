@@ -3,18 +3,23 @@ import { ChatInfo, ChatsMessagesResponse } from "@/types/chat.type";
 import { UserData, UserInfo } from "@/types/user.type";
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar"
 import { ChatMessages } from "./chatMessages";
+import Link from "next/link";
+import { Icon } from "@/ui/icon";
 
 interface CurrentChatProps {
     otherUser: UserInfo;
     chatMessages: ChatsMessagesResponse;
     chatInfo: ChatInfo;
-    userData: UserData
+    userData: UserData;
 }
 
 export const CurrentChat = ({ chatInfo, chatMessages, otherUser, userData }: CurrentChatProps) => {
     return (
         <>
             <div className="flex items-center gap-3">
+                <Link href={"/profile/chat"} className="lg:hidden">
+                    <Icon icon="solar--alt-arrow-right-outline" sizeClass="size-6" className="text-caption" />
+                </Link>
                 <Avatar className="size-11">
                     <AvatarImage src={otherUser.profile_photo_path!} alt={otherUser.nickname} />
                     <AvatarFallback>{otherUser.nickname}</AvatarFallback>
@@ -29,8 +34,10 @@ export const CurrentChat = ({ chatInfo, chatMessages, otherUser, userData }: Cur
                 </div>
             </div>
             <ChatMessages
+                key={chatInfo.id}
+                chatId={chatInfo.id.toString()}
                 otherUserId={otherUser.id}
-                data={chatMessages?.data}
+                initialData={chatMessages}
                 userData={userData}
             />
         </>

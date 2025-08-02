@@ -277,7 +277,11 @@
       "title": "اطلاعیه های من"
     },
     "chat": {
-      "title": "پیام های شخصی من"
+      "title": "پیام های شخصی من",
+      "chooseChatToStart": "برای شروع گفت و گو یک کاربر را انتخاب کنید",
+      "loadingPrevMessages": "در حال بارگذاری پیام‌های قبلی...",
+      "loadPrevMessages": "بارگذاری پیام‌های قبلی",
+      "noMessageSent": "هنوز پیامی ارسال نشده است"
     }
   },
   "paymentResult": {

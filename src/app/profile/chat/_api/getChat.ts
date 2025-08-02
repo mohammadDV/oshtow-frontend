@@ -12,7 +12,7 @@ interface GetChatParams {
 export const getChat = async ({
     id,
     page = 1,
-    count = 100,
+    count = 15,
 }: GetChatParams): Promise<ChatsMessagesResponse> => {
     const params = new URLSearchParams({
         page: page.toString(),

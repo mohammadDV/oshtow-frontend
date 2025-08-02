@@ -11,6 +11,7 @@ export interface ChatInfo {
     messages_count: number;
     user: UserInfo;
     target: UserInfo;
+    last_message: ChatMessage;
     created_at: string;
     updated_at: string;
 }

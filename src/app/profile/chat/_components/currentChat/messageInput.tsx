@@ -8,13 +8,20 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { StatusCode } from "@/constants/enums";
 import { sendMessageAction } from "../../_api/sendMessageAction";
+import { ChatMessage } from "@/types/chat.type";
+import { UserData } from "@/types/user.type";
+import { cn } from "@/lib/utils";
+import { useCommonTranslation } from "@/hooks/useTranslation";
 
 interface MessageInputProps {
     otherUserId: number;
-    onMessageSent?: () => void;
+    onMessageSent?: (newMessage?: ChatMessage) => void;
+    userData: UserData;
+    chatId: string;
 }
 
-export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) => {
+export const MessageInput = ({ otherUserId, onMessageSent, chatId, userData }: MessageInputProps) => {
+    const t = useCommonTranslation();
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
@@ -48,7 +55,7 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
 
     useEffect(() => {
         if (!!formState && formState.status === StatusCode.Failed) {
-            toast.error(formState?.message || "خطا در ارسال پیام");
+            toast.error(formState?.message || t("messages.error"));
         } else if (!!formState && formState.status === StatusCode.Success) {
             form.reset();
             setSelectedFile(null);
@@ -59,11 +66,21 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
                 formRef.current.reset();
             }
 
-            onMessageSent?.();
+            const optimisticMessage: ChatMessage = {
+                id: Date.now(),
+                chat_id: parseFloat(chatId),
+                user_id: userData.user.id,
+                status: "pending",
+                message: messageValue?.trim() || "",
+                remover_id: null,
+                file: selectedFile ? URL.createObjectURL(selectedFile) : null,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+            };
 
-            toast.success("پیام با موفقیت ارسال شد");
+            onMessageSent?.(optimisticMessage);
         }
-    }, [formState, onMessageSent]);
+    }, [formState]);
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -131,9 +148,9 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
             <div className="bg-white rounded-full border border-border flex items-center justify-between px-5 py-3.5">
                 <input
                     {...form.register("message")}
-                    placeholder="پیام خود را بنویسید..."
+                    placeholder={t("inputs.writeMessage")}
                     type="text"
-                    className="outline-none flex-1"
+                    className="outline-none flex-1 text-title"
                 />
 
                 <input
@@ -159,19 +176,22 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
                     <button
                         type="submit"
                         disabled={isDisabled}
-                        className={`transition-colors ${isDisabled
-                            ? "text-caption cursor-not-allowed"
-                            : "text-primary cursor-pointer hover:text-primary/80"
-                            }`}
+                        className={cn("transition-colors",
+                            isDisabled
+                                ? "text-caption cursor-not-allowed"
+                                : "text-primary cursor-pointer hover:text-primary/80"
+                        )}
                     >
                         <Icon
-                            icon={isPending ? "solar--loading-outline" : "solar--plain-outline"}
+                            icon={"solar--plain-outline"}
+                            className={cn("-rotate-90",
+                                isPending ? "animate-pulse opacity-70" : ""
+                            )}
                             sizeClass="size-5"
-                            className={`-rotate-90 ${isPending ? "animate-spin" : ""}`}
                         />
                     </button>
                 </div>
             </div>
         </form>
     );
-};
+}
