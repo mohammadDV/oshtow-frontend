@@ -1,24 +1,17 @@
-import { getChatInfo } from "../_api/getChatInfo";
-import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar";
-import { createdDateConvertor } from "@/lib/dateUtils";
-import { ChatMessages } from "../_components/chatMessages";
-import { getChat } from "../_api/getChat";
-import { getUserData } from "@/lib/getUserDataFromHeaders";
+import { createdDateConvertor } from "@/lib/dateUtils"
+import { ChatInfo, ChatsMessagesResponse } from "@/types/chat.type";
+import { UserData, UserInfo } from "@/types/user.type";
+import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar"
+import { ChatMessages } from "./chatMessages";
 
-interface ChatPageParams {
-    params: Promise<{
-        chatId: string
-    }>
+interface CurrentChatProps {
+    otherUser: UserInfo;
+    chatMessages: ChatsMessagesResponse;
+    chatInfo: ChatInfo;
+    userData: UserData
 }
 
-export default async function ChatPage({ params }: ChatPageParams) {
-    const userData = await getUserData();
-
-    const resolvedParams = await params;
-    const chatInfo = await getChatInfo({ id: resolvedParams.chatId });
-    const chatMessages = await getChat({ id: resolvedParams.chatId });
-    const otherUser = chatInfo.user.id === userData.user.id ? chatInfo.target : chatInfo.user;
-
+export const CurrentChat = ({ chatInfo, chatMessages, otherUser, userData }: CurrentChatProps) => {
     return (
         <>
             <div className="flex items-center gap-3">

@@ -32,7 +32,7 @@ export const InboxList = ({ userData, chatsData }: InboxListProps) => {
                     return (
                         <Link
                             key={chat.id}
-                            href={`/profile/chat/${chat.id}`}
+                            href={`/profile/chat?chatId=${chat.id}`}
                             className="flex items-center gap-3 group">
                             <Avatar className="size-12">
                                 <AvatarImage src={otherUser.profile_photo_path!} alt={otherUser.nickname} />

@@ -6,19 +6,8 @@ import { Button } from "@/ui/button";
 import { useZodForm } from "@/hooks/useZodForm";
 import { z } from "zod";
 import { toast } from "sonner";
-import { sendMessageAction } from "../_api/sendMessageAction";
 import { StatusCode } from "@/constants/enums";
-
-const messageSchema = z.object({
-    message: z.string().optional(),
-    file: z.instanceof(File).optional(),
-}).refine(
-    (data) => data.message || data.file,
-    {
-        message: "Either message or file is required",
-        path: ["message"],
-    }
-);
+import { sendMessageAction } from "../../_api/sendMessageAction";
 
 interface MessageInputProps {
     otherUserId: number;
@@ -31,27 +20,37 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
     const formRef = useRef<HTMLFormElement>(null);
     const [isPending, startTransition] = useTransition();
 
+    const messageSchema = z.object({
+        message: z.string().optional(),
+        file: z.instanceof(File).optional(),
+    }).refine(
+        (data) => data.message || data.file,
+        {
+            message: "Either message or file is required",
+            path: ["message"],
+        }
+    );
+
     const [formState, formAction] = useActionState(
         sendMessageAction.bind(null, otherUserId),
         null
     );
 
-    const {
-        register,
-        reset,
-        watch,
-        setValue,
-        handleSubmit
-    } = useZodForm(messageSchema);
+    const form = useZodForm(messageSchema, {
+        defaultValues: {
+            message: "",
+            file: undefined
+        }
+    });
 
-    const messageValue = watch("message");
+    const messageValue = form.watch("message");
     const isDisabled = !messageValue?.trim() && !selectedFile;
 
     useEffect(() => {
         if (!!formState && formState.status === StatusCode.Failed) {
             toast.error(formState?.message || "خطا در ارسال پیام");
         } else if (!!formState && formState.status === StatusCode.Success) {
-            reset();
+            form.reset();
             setSelectedFile(null);
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
@@ -64,19 +63,19 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
 
             toast.success("پیام با موفقیت ارسال شد");
         }
-    }, [formState, reset, onMessageSent]);
+    }, [formState, onMessageSent]);
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
             setSelectedFile(file);
-            setValue("file", file);
+            form.setValue("file", file);
         }
     };
 
     const removeFile = () => {
         setSelectedFile(null);
-        setValue("file", undefined);
+        form.setValue("file", undefined);
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
         }
@@ -101,8 +100,7 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-            {/* File Preview */}
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
             {selectedFile && (
                 <div className="bg-gray-50 rounded-lg p-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -130,16 +128,14 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
                 </div>
             )}
 
-            {/* Message Input */}
             <div className="bg-white rounded-full border border-border flex items-center justify-between px-5 py-3.5">
                 <input
-                    {...register("message")}
+                    {...form.register("message")}
                     placeholder="پیام خود را بنویسید..."
                     type="text"
                     className="outline-none flex-1"
                 />
 
-                {/* Hidden file input */}
                 <input
                     ref={fileInputRef}
                     type="file"
@@ -149,7 +145,6 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
                 />
 
                 <div className="flex items-center justify-end gap-4">
-                    {/* File attachment button */}
                     <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
@@ -161,7 +156,6 @@ export const MessageInput = ({ otherUserId, onMessageSent }: MessageInputProps) 
                         />
                     </button>
 
-                    {/* Send button */}
                     <button
                         type="submit"
                         disabled={isDisabled}
