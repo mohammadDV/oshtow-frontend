@@ -73,5 +73,8 @@ export const apiUrls = {
   chat: {
     all: "/profile/chats",
     info: "/profile/chats/info"
+  },
+  ticket: {
+    all: "/profile/tickets"
   }
 };

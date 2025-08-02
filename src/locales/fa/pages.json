@@ -282,6 +282,9 @@
       "loadingPrevMessages": "در حال بارگذاری پیام‌های قبلی...",
       "loadPrevMessages": "بارگذاری پیام‌های قبلی",
       "noMessageSent": "هنوز پیامی ارسال نشده است"
+    },
+    "support": {
+      "title": "تیکت های پشتیبانی"
     }
   },
   "paymentResult": {

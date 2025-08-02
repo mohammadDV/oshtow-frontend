@@ -44,7 +44,9 @@
     "submitCode": "ثبت کد",
     "submitReview": "ثبت نظر",
     "readAll": "خواندن همه",
-    "downloadFile": "دانلود فایل"
+    "downloadFile": "دانلود فایل",
+    "addSupportTicket": "ایجاد درخواست پشتیبانی",
+    "watch": "مشاهده"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -241,6 +243,10 @@
     "delivered": "تحویل داده شده",
     "canceled": "لغو شده"
   },
+  "ticketStatus": {
+    "all": "همه وضعیت ها",
+    "active": "فعال"
+  },
   "projectTypes": {
     "all": "همه آگهی ها",
     "sender": "مرسوله ها",
@@ -257,7 +263,10 @@
     "cardNumber": "شماره کارت",
     "shebaNumber": "شماره شبا",
     "reason": "دلیل",
-    "releaseAt": "منتشر شده در تاریخ"
+    "releaseAt": "منتشر شده در تاریخ",
+    "message": "پیام",
+    "subject": "موضوع",
+    "operation": "عملیات"
   },
   "unit": {
     "toman": "تومان",
