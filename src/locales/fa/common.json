@@ -47,7 +47,8 @@
     "downloadFile": "دانلود فایل",
     "addSupportTicket": "ایجاد درخواست پشتیبانی",
     "watch": "مشاهده",
-    "sendTicket": "ارسال تیکت"
+    "sendTicket": "ارسال تیکت",
+    "sendMessage": "ارسال پیام"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -251,7 +252,8 @@
   },
   "ticketStatus": {
     "all": "همه وضعیت ها",
-    "active": "فعال"
+    "active": "فعال",
+    "closed": "بسته شده"
   },
   "projectTypes": {
     "all": "همه آگهی ها",

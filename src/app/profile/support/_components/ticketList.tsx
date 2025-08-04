@@ -47,6 +47,14 @@ export const TicketList = ({ ticketsData, selectedStatus }: TicketListProps) => 
             value: undefined,
             label: t("ticketStatus.all")
         },
+        {
+            value: "active" as TicketStatusType,
+            label: t("ticketStatus.active")
+        },
+        {
+            value: "closed" as TicketStatusType,
+            label: t("ticketStatus.closed")
+        },
     ]
 
     return (
@@ -71,7 +79,7 @@ export const TicketList = ({ ticketsData, selectedStatus }: TicketListProps) => 
                         );
                     })}
                 </div>
-                <AddTicketButton/>
+                <AddTicketButton />
             </div>
             <div className="bg-white p-6 rounded-3xl mt-5">
                 <DataTable

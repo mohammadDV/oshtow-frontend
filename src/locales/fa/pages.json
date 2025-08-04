@@ -284,7 +284,9 @@
       "noMessageSent": "هنوز پیامی ارسال نشده است"
     },
     "support": {
-      "title": "تیکت های پشتیبانی"
+      "title": "تیکت های پشتیبانی",
+      "ticketTo": "تیکت به",
+      "yourAnswer": "پاسخ شما"
     }
   },
   "paymentResult": {

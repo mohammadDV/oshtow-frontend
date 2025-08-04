@@ -10,6 +10,7 @@ import { MessageInput } from "./messageInput";
 import { getChat } from "../../_api/getChat";
 import { toast } from "sonner";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
+import Link from "next/link";
 
 interface ChatMessagesProps {
     otherUserId: number;
@@ -105,16 +106,6 @@ export const ChatMessages = ({ initialData, userData, otherUserId, chatId }: Cha
         }
     }, [handleScroll]);
 
-    const handleFileDownload = (fileUrl: string, fileName?: string) => {
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = fileName || 'file';
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-
     return (
         <div className="mt-3 bg-light rounded-2xl lg:rounded-3xl p-4 flex flex-col flex-1 overflow-auto">
             <div ref={messagesContainerRef} className="h-full overflow-y-auto flex flex-col gap-4 p-2">
@@ -165,23 +156,20 @@ export const ChatMessages = ({ initialData, userData, otherUserId, chatId }: Cha
                                             )}
 
                                             {message.file && (
-                                                <div className="mt-2">
-                                                    <button
-                                                        onClick={() => handleFileDownload(message.file!)}
-                                                        className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-                                                    >
+                                                <div className="mt-3">
+                                                    <Link
+                                                        href={message.file}
+                                                        target="_blank"
+                                                        className="flex items-center gap-1.5">
                                                         <Icon
-                                                            icon="solar--download-linear"
+                                                            icon="solar--paperclip-linear"
                                                             sizeClass="size-4"
-                                                            className={isMyMessage ? "text-white/80" : "text-caption"}
+                                                            className="text-primary"
                                                         />
-                                                        <span className={cn(
-                                                            "text-xs underline",
-                                                            isMyMessage ? "text-white/80" : "text-caption"
-                                                        )}>
+                                                        <span className="underline text-sm text-primary">
                                                             {tCommon("buttons.downloadFile")}
                                                         </span>
-                                                    </button>
+                                                    </Link>
                                                 </div>
                                             )}
                                         </div>

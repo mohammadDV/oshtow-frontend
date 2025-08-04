@@ -145,7 +145,7 @@ export const RHFUpload: React.FC<RHFUploadProps> = ({
                                 <label
                                     htmlFor={`${name}-input`}
                                     className={cn(
-                                        "flex-1 flex text-text mb-1 items-center gap-2 truncate cursor-pointer transition",
+                                        "flex-1 flex text-text items-center gap-2 truncate cursor-pointer transition",
                                         isUploading ? "cursor-not-allowed" : "",
                                         className
                                     )}

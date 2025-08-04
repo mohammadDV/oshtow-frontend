@@ -9,6 +9,8 @@ const getStatusVariant = (status: string) => {
   switch (status) {
     case "active":
       return "default";
+    case "closed":
+      return "destructive";
     default:
       return "outline";
   }
@@ -20,6 +22,7 @@ export const ticketsColumns = (): ColumnDef<Ticket>[] => {
   const getStatusLabel = (status: string) => {
     const statusLabels = {
       active: t("ticketStatus.active"),
+      closed: t("ticketStatus.closed"),
     };
     return statusLabels[status as keyof typeof statusLabels] || status;
   };
