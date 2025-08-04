@@ -11,6 +11,17 @@ export interface TicketSubject {
     updated_at: string;
 }
 
+export interface TicketMessage {
+    id: number;
+    ticket_id: number;
+    user_id: number;
+    status: string;
+    message: string;
+    file: string | null;
+    created_at: string; 
+    updated_at: string;
+}
+
 export interface Ticket {
     id: number;
     user_id: number;
@@ -19,6 +30,7 @@ export interface Ticket {
     created_at: string;
     updated_at: string;
     subject: TicketSubject;
+    message: TicketMessage;
 }
 
 export interface TicketsResponse {

@@ -1,0 +1,26 @@
+import { apiUrls } from "@/constants/apiUrls";
+import { postFetchAuth } from "@/core/baseService";
+
+export interface CreateTicketResponse {
+    status: number;
+    message?: string;
+    errors?: { [key: string]: string[] };
+    data?: any;
+}
+
+export const createTicketAction = async (_state: any, formData: FormData): Promise<CreateTicketResponse> => {
+    const message = formData.get("message");
+    const subject_id = formData.get("subject_id");
+    const file = formData.get("file");
+
+    try {
+        const res = await postFetchAuth<CreateTicketResponse>(apiUrls.ticket.all, {
+            message,
+            subject_id,
+            file
+        });
+        return res;
+    } catch (error) {
+        throw new Error(`مشکل در ارسال درخواست پشتیبانی`);
+    }
+};

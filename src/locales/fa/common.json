@@ -46,7 +46,8 @@
     "readAll": "خواندن همه",
     "downloadFile": "دانلود فایل",
     "addSupportTicket": "ایجاد درخواست پشتیبانی",
-    "watch": "مشاهده"
+    "watch": "مشاهده",
+    "sendTicket": "ارسال تیکت"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -192,7 +193,12 @@
     "yourRate": "امتیاز شما",
     "yourComment": "نظر شما",
     "searchUser": "جست و جوی کاربر...",
-    "writeMessage": "پیام خود را بنویسید..."
+    "writeMessage": "پیام خود را بنویسید...",
+    "ticketMessage": "پیام درخواست",
+    "ticketSubject": "موضوع درخواست",
+    "ticketFile": "فایل ضمیمه (اختیاری)",
+    "enterTicketMessage": "پیام خود را وارد کنید",
+    "selectTicketSubject": "موضوع درخواست را انتخاب کنید"
   },
   "path": {
     "air": "هوایی",

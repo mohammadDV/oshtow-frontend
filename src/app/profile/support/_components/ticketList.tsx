@@ -9,6 +9,7 @@ import { Button } from "@/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { ticketsColumns } from "./ticketsColumns";
+import { AddTicketButton } from "./addTicketButton";
 
 export interface TicketListProps {
     ticketsData: TicketsResponse;
@@ -70,9 +71,7 @@ export const TicketList = ({ ticketsData, selectedStatus }: TicketListProps) => 
                         );
                     })}
                 </div>
-                <Button variant={"default"} className="lg:block hidden">
-                    {t("buttons.addSupportTicket")}
-                </Button>
+                <AddTicketButton/>
             </div>
             <div className="bg-white p-6 rounded-3xl mt-5">
                 <DataTable
@@ -83,7 +82,7 @@ export const TicketList = ({ ticketsData, selectedStatus }: TicketListProps) => 
                     <div className="text-sm text-caption">
                         {t("pagination.page")} {ticketsData.current_page} {t("pagination.of")} {ticketsData.last_page}
                     </div>
-                    {ticketsData.links && (
+                    {(ticketsData.links && ticketsData?.total > 10) && (
                         <div className="-mt-8">
                             <Pagination
                                 currentPage={ticketsData.current_page}
