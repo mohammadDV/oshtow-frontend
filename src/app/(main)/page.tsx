@@ -13,6 +13,7 @@ import { Benefits } from "./_components/benefits";
 import { CtaBanner } from "./_components/ctaBanner";
 import { Hero } from "./_components/hero";
 import { LastPosts } from "./_components/lastPosts";
+import { PostsResponse } from "@/types/post.tye";
 
 interface FeaturedProjectsService {
   data: {
@@ -25,12 +26,16 @@ async function getFeaturedProjects(): Promise<FeaturedProjectsService> {
   return await getFetch<FeaturedProjectsService>(apiUrls.projects.featured);
 }
 
+async function getPosts(): Promise<PostsResponse> {
+  return await getFetch<PostsResponse>(apiUrls.post.all);
+}
+
 export default async function HomePage() {
   const isMobile = await isMobileDevice();
   const t = await getTranslations("pages");
-  const featuredProjectsData = getFeaturedProjects() || {};
 
-  const [featuredProjects] = await Promise.all([featuredProjectsData]);
+  const featuredProjectsData = await getFeaturedProjects();
+  const postsData = await getPosts();
 
   return (
     <>
@@ -42,12 +47,12 @@ export default async function HomePage() {
       <Carousel
         title={t("home.lastSenders")}
         seeMoreLink="/"
-        slides={featuredProjects.data?.sender?.map(project => <SenderCard key={project.id} data={project} />)}
+        slides={featuredProjectsData?.data?.sender?.map(project => <SenderCard key={project.id} data={project} />)}
       />
       <Carousel
         title={t("home.lastPassengers")}
         seeMoreLink="/"
-        slides={featuredProjects.data?.sender?.map(project => <PassengerCard key={project.id} data={project} />)}
+        slides={featuredProjectsData?.data?.sender?.map(project => <PassengerCard key={project.id} data={project} />)}
 
       />
       <CtaBanner />
@@ -55,12 +60,10 @@ export default async function HomePage() {
         <Carousel
           title={t("home.postsTitle")}
           seeMoreLink="/"
-          slides={Array.from({ length: 4 }, (_, index) => (
-            <PostCard key={index} heightClass="h-64" showAuthor />
-          ))}
+          slides={postsData.data?.map(post => <PostCard key={post.id} data={post} heightClass="h-64" showAuthor />)}
         />
       ) : (
-        <LastPosts />
+        <LastPosts postsData={postsData?.data} />
       )}
     </>
   );

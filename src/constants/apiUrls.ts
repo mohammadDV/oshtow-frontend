@@ -17,7 +17,7 @@ export const apiUrls = {
     single: "/user",
     info: "/user-info",
     profile: "/profile/users",
-    dashboardInfo: "/profile/dashboard-info"
+    dashboardInfo: "/profile/dashboard-info",
   },
   auth: {
     login: "/login",
@@ -51,7 +51,7 @@ export const apiUrls = {
   },
   subscription: {
     profile: "/profile/subscribe",
-    activityCount: "/profile/activity-count"
+    activityCount: "/profile/activity-count",
   },
   payment: {
     result: "/payment/result",
@@ -68,14 +68,17 @@ export const apiUrls = {
   notifications: {
     all: "/profile/notifications",
     unread: "/profile/notifications-unread",
-    readAll: "/profile/notifications-read-all"
+    readAll: "/profile/notifications-read-all",
   },
   chat: {
     all: "/profile/chats",
-    info: "/profile/chats/info"
+    info: "/profile/chats/info",
   },
   ticket: {
     all: "/profile/tickets",
-    subjects: "/active-subjects"
-  }
+    subjects: "/active-subjects",
+  },
+  post: {
+    all: "/posts",
+  },
 };

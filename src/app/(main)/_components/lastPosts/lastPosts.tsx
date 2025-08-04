@@ -3,10 +3,15 @@ import {
   useCommonTranslation,
   usePagesTranslation,
 } from "@/hooks/useTranslation";
+import { Post } from "@/types/post.tye";
 import { Icon } from "@/ui/icon";
 import Link from "next/link";
 
-export const LastPosts = () => {
+interface LastPostsProps {
+  postsData: Post[];
+}
+
+export const LastPosts = ({ postsData }: LastPostsProps) => {
   const t = useCommonTranslation();
   const tPage = usePagesTranslation();
 
@@ -33,12 +38,12 @@ export const LastPosts = () => {
         </div>
       </div>
       <div className="grid lg:grid-cols-3 gap-5">
-        <PostCard heightClass="h-96" showAuthor />
+        {postsData?.[0] && <PostCard data={postsData[0]} heightClass="h-96" showAuthor />}
         <div className="flex flex-col gap-5">
-          <PostCard heightClass="h-[182px]" />
-          <PostCard heightClass="h-[182px]" />
+          {postsData?.[1] && <PostCard data={postsData[1]} heightClass="h-[182px]" />}
+          {postsData?.[2] && <PostCard data={postsData[2]} heightClass="h-[182px]" />}
         </div>
-        <PostCard heightClass="h-96" showAuthor />
+        {postsData?.[3] && <PostCard data={postsData[3]} heightClass="h-96" showAuthor />}
       </div>
     </section>
   );
