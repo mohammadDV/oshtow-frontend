@@ -80,5 +80,6 @@ export const apiUrls = {
   },
   post: {
     all: "/posts",
+    single: "/post",
   },
 };
