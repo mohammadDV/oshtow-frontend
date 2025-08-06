@@ -1,40 +1,37 @@
 "use client"
 
 import { RHFInput } from "@/app/_components/hookForm/RHFInput";
-import { RHFPasswordInput } from "@/app/_components/hookForm/RHFPasswordInput";
 import { StatusCode } from "@/constants/enums";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { useZodForm } from "@/hooks/useZodForm";
 import { Button } from "@/ui/button";
-import Link from "next/link";
-import { useActionState, useEffect, useTransition } from "react";
+import { Icon } from "@/ui/icon";
+import { useActionState, useEffect, useState, useTransition } from "react";
 import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { loginAction, LoginService } from "../_api/loginAction";
+import { forgotPasswordAction, ForgotPasswordService } from "../_api/forgotPasswordAction";
 
-export const LoginForm = () => {
+export const ForgotPasswordForm = () => {
     const tPage = usePagesTranslation();
     const tCommon = useCommonTranslation();
     const [isPending, startTransition] = useTransition();
-    const [formState, formAction] = useActionState<LoginService | null, FormData>(
-        loginAction,
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [formState, formAction] = useActionState<ForgotPasswordService | null, FormData>(
+        forgotPasswordAction,
         null
     );
 
-    const loginSchema = z.object({
+    const forgotPasswordSchema = z.object({
         email: z.string({ required_error: tCommon("validation.required.email") })
             .email(tCommon("validation.invalid.email")),
-        password: z.string({ required_error: tCommon("validation.required.password") })
-            .min(1, tCommon("validation.required.password")),
     });
 
-    type LoginFormData = z.infer<typeof loginSchema>;
+    type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
-    const form = useZodForm(loginSchema, {
+    const form = useZodForm(forgotPasswordSchema, {
         defaultValues: {
             email: '',
-            password: '',
         }
     });
 
@@ -45,7 +42,7 @@ export const LoginForm = () => {
             if (formState.errors) {
                 Object.entries(formState.errors).forEach(([fieldName, fieldErrors]) => {
                     if (fieldErrors && fieldErrors.length > 0) {
-                        form.setError(fieldName as keyof LoginFormData, {
+                        form.setError(fieldName as keyof ForgotPasswordFormData, {
                             type: "server",
                             message: fieldErrors[0]
                         });
@@ -53,26 +50,43 @@ export const LoginForm = () => {
                 });
             }
         } else if (!!formState && formState.status === StatusCode.Success) {
-            window.location.href = "/profile";
+            setIsSuccess(true);
         }
     }, [formState, form]);
 
-    const onSubmit = async (data: LoginFormData) => {
+    const onSubmit = async (data: ForgotPasswordFormData) => {
         form.clearErrors();
 
         const formData = new FormData();
         formData.append("email", data.email);
-        formData.append("password", data.password);
 
         startTransition(async () => {
             await formAction(formData);
         });
     };
 
+    if (isSuccess) {
+        return (
+            <div className="lg:px-9 lg:mt-8 text-center mb-8">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                        <Icon icon="solar--check-circle-bold" sizeClass="size-8" className="text-green-600" />
+                    </div>
+                    <h1 className="text-title text-lg md:text-xl font-medium">
+                        {tPage("auth.resetLinkSent")}
+                    </h1>
+                    <p className="text-caption text-sm max-w-md">
+                        {tPage("auth.resetLinkSentDescription")}
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="lg:px-9 lg:mt-8">
             <h1 className="text-title text-lg md:text-xl font-medium">
-                {tPage("auth.loginTitle")}
+                {tPage("auth.forgotPasswordTitle")}
             </h1>
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="mt-5 flex flex-col gap-4">
@@ -81,24 +95,13 @@ export const LoginForm = () => {
                         placeholder={tCommon("inputs.email")}
                         type="email"
                     />
-                    <RHFPasswordInput
-                        name="password"
-                        placeholder={tCommon("inputs.password")}
-                    />
-                    <div className="flex items-center gap-0.5 mt-1">
-                        <p className="text-sm font-normal text-caption">{tPage("auth.forgotPassword")}</p>
-                        <Link href={'/auth/forgot-password'}
-                            className="text-sm font-normal text-primary">
-                            {tPage("auth.forgotPasswordTitle")}
-                        </Link>
-                    </div>
                     <Button
                         size={"default"}
                         variant={"default"}
                         isLoading={isPending}
                         className="w-full mt-3"
                         type="submit">
-                        {tPage("auth.login")}
+                        {tPage("auth.sendResetLink")}
                     </Button>
                 </form>
             </FormProvider>
