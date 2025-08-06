@@ -5,7 +5,7 @@ import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslatio
 import { UserData } from "@/types/user.type";
 import { LogoutButton } from "../logoutButton/logoutButton";
 import { ProfileMenu } from "../menu/profileMenu";
-import { putCommas } from "@/lib/utils";
+import { createFileUrl, putCommas } from "@/lib/utils";
 import { WalletService } from "../../_api/getWallet";
 
 interface ProfileSidebarProps {
@@ -23,7 +23,10 @@ export const ProfileSidebar = ({ userData, walletData }: ProfileSidebarProps) =>
       <div>
         <div className="w-full h-28 bg-border rounded-b-full"></div>
         <img
-          src={userData?.user?.profile_photo_path!}
+          src={userData?.user?.profile_photo_path
+            ? createFileUrl(userData?.user?.profile_photo_path)
+            : undefined
+          }
           alt=""
           width={98}
           height={98}

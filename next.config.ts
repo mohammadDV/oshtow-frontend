@@ -23,6 +23,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'varzeshpod-prod.s3.ir-thr-at1.arvanstorage.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

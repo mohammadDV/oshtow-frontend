@@ -10,6 +10,7 @@ import { userProfileMenu } from "@/_mock/profileMenuData";
 import { LogoutButton } from "./_components/logoutButton/logoutButton";
 import { getDashboardInfo } from "./_api/getDashboadInfo";
 import { getSubscriptionActivityCount } from "./_api/getSubscriptionActivityCount";
+import { createFileUrl } from "@/lib/utils";
 
 export default async function ProfilePage() {
     const isMobile = await isMobileDevice();
@@ -44,7 +45,10 @@ export default async function ProfilePage() {
                     <div className="flex items-center justify-between bg-white p-4 rounded-2xl mb-4">
                         <div className="flex items-center gap-3">
                             <img
-                                src={userData?.user?.profile_photo_path!}
+                                src={userData?.user?.profile_photo_path
+                                    ? createFileUrl(userData?.user?.profile_photo_path)
+                                    : undefined
+                                }
                                 alt=""
                                 width={70}
                                 height={70}

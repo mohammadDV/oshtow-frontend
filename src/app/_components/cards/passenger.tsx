@@ -1,5 +1,5 @@
 import { useCommonTranslation } from "@/hooks/useTranslation";
-import { pathTypeGenerator } from "@/lib/utils";
+import { createFileUrl, pathTypeGenerator } from "@/lib/utils";
 import { Project } from "@/types/project.type";
 import { Icon } from "@/ui/icon";
 import Image from "next/image";
@@ -20,7 +20,7 @@ export const PassengerCard = ({ data }: PassengerCardProps) => {
         </div>}
         <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-700"></div>
         <Image
-          src={data?.destination_image}
+          src={createFileUrl(data?.destination_image)}
           alt=""
           width={350}
           height={300}

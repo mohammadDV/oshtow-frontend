@@ -1,5 +1,5 @@
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
-import { cn, isEmpty } from "@/lib/utils";
+import { cn, createFileUrl, isEmpty } from "@/lib/utils";
 import { Project } from "@/types/project.type";
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar";
 import { Badge } from "@/ui/badge";
@@ -45,7 +45,10 @@ export const ProjectClaimsCard = ({ data }: ProjectClaimsCardProps) => {
                     {!isEmpty(data?.claimsLimit) && <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2">
                         {data?.claimsLimit?.map(claim => (
                             <Avatar key={claim.id}>
-                                <AvatarImage src={claim.user.profile_photo_path!} alt={claim.user.nickname} />
+                                <AvatarImage
+                                    src={claim.user.profile_photo_path ? createFileUrl(claim.user.profile_photo_path) : undefined}
+                                    alt={claim.user.nickname}
+                                />
                                 <AvatarFallback>{claim.user.nickname}</AvatarFallback>
                             </Avatar>
                         ))}

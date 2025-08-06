@@ -1,7 +1,7 @@
 import { PassengerCard } from "@/app/_components/cards/passenger";
 import { Carousel } from "@/app/_components/carousel";
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
-import { pathTypeGenerator, putCommas } from "@/lib/utils";
+import { createFileUrl, pathTypeGenerator, putCommas } from "@/lib/utils";
 import { Icon } from "@/ui/icon";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
@@ -31,7 +31,7 @@ export default async function PassengerPage({ params }: PassengerPageProps) {
       <section className="relative mx-4 lg:mx-0 mt-4 lg:mt-0 rounded-xl lg:rounded-none lg:w-full z-10 h-32 lg:h-80 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={passengerData.project?.destination_image}
+            src={createFileUrl(passengerData.project?.destination_image)}
             alt=""
             priority
             width={1600}

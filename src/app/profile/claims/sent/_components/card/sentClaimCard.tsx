@@ -1,5 +1,5 @@
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
-import { cn, putCommas } from "@/lib/utils";
+import { cn, createFileUrl, putCommas } from "@/lib/utils";
 import { FullClaim } from "@/types/claim.type";
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar";
 import { Button } from "@/ui/button";
@@ -41,18 +41,23 @@ export const SentClaimCard = ({ data }: SentClaimCardProps) => {
             </div>
             <div className="flex justify-between items-center lg:gap-24 w-full lg:w-auto mt-6 lg:mt-0">
                 <div className="flex items-center gap-3">
-                     <Avatar className="size-12">
-                         <AvatarImage src={data.project.user.profile_photo_path!} alt={data.project.user.nickname} />
-                         <AvatarFallback>{data.project.user.nickname}</AvatarFallback>
-                     </Avatar>
-                     <div className="flex flex-col gap-1.5 lg:gap-2">
-                         <p className="text-sm text-primary font-normal">
+                    <Avatar className="size-12">
+                        <AvatarImage
+                            src={data.project.user.profile_photo_path
+                                ? createFileUrl(data.project.user.profile_photo_path)
+                                : undefined}
+                            alt={data.project.user.nickname}
+                        />
+                        <AvatarFallback>{data.project.user.nickname}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col gap-1.5 lg:gap-2">
+                        <p className="text-sm text-primary font-normal">
                             {data.project.user.nickname}
-                         </p>
-                         <p className="text-xs text-text font-normal">
+                        </p>
+                        <p className="text-xs text-text font-normal">
                             {tPages("profile.claims.adPublisher")}
-                         </p>
-                     </div>
+                        </p>
+                    </div>
                 </div>
                 <div className="flex flex-col gap-1.5">
                     <p className="text-xs font-normal text-caption">

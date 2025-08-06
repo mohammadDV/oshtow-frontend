@@ -2,7 +2,7 @@
 
 import { ShowMore } from "@/app/_components/showMore";
 import { useCommonTranslation } from "@/hooks/useTranslation";
-import { putCommas } from "@/lib/utils";
+import { createFileUrl, putCommas } from "@/lib/utils";
 import { FullClaim } from "@/types/claim.type"
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar";
 import { Button } from "@/ui/button";
@@ -45,14 +45,24 @@ export const ClaimCard = ({ data }: ClaimCardProps) => {
         <div className="p-5 rounded-2xl lg:rounded-3xl bg-white">
             <div className="flex justify-between gap-3">
                 <Avatar className="size-12 lg:block hidden">
-                    <AvatarImage src={data.user.profile_photo_path!} alt={data.user.nickname} />
+                    <AvatarImage
+                        src={data.user.profile_photo_path
+                            ? createFileUrl(data.user.profile_photo_path)
+                            : undefined}
+                        alt={data.user.nickname}
+                    />
                     <AvatarFallback>{data.user.nickname}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
                     <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
                             <Avatar className="size-12 block lg:hidden">
-                                <AvatarImage src={data.user.profile_photo_path!} alt={data.user.nickname} />
+                                <AvatarImage
+                                    src={data.user.profile_photo_path
+                                        ? createFileUrl(data.user.profile_photo_path)
+                                        : undefined}
+                                    alt={data.user.nickname}
+                                />
                                 <AvatarFallback>{data.user.nickname}</AvatarFallback>
                             </Avatar>
                             <div className="flex flex-col gap-1">

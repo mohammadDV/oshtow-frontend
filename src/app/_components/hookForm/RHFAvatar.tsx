@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from "@/lib/utils";
+import { cn, createFileUrl } from "@/lib/utils";
 import { useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./form";
@@ -75,7 +75,7 @@ export const RHFAvatar: React.FC<RHFAvatarProps> = ({
                         <div className={cn("flex items-center gap-5", className)}>
                             <div className="relative">
                                 <img
-                                    src={field.value || defaultValue || null}
+                                    src={(field.value && createFileUrl(field.value)) || (defaultValue && createFileUrl(defaultValue)) || null}
                                     width={78}
                                     height={78}
                                     className="size-20 rounded-full object-cover bg-light"

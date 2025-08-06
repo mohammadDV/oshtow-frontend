@@ -1,6 +1,5 @@
 import Image from "next/image";
-import tehranImg from "@/assets/images/tehran.jpg";
-import { cn } from "@/lib/utils";
+import { cn, createFileUrl } from "@/lib/utils";
 import { Post } from "@/types/post.tye";
 import Link from "next/link";
 
@@ -20,7 +19,7 @@ export const PostCard = ({ heightClass, showAuthor, data }: PostCardProps) => {
       )}
     >
       <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-700"></div>
-      <Image src={data.image} alt="" width={512} height={512} className="object-cover w-full h-full" />
+      <Image src={createFileUrl(data.image)} alt="" width={512} height={512} className="object-cover w-full h-full" />
       <div className="absolute bottom-0 z-20 w-full p-4 lg:p-6">
         <span className="bg-primary text-white text-xs  px-3 py-1 rounded-full">
           اخبار و مقالات

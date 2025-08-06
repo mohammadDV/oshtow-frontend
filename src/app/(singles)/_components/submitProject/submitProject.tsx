@@ -2,7 +2,7 @@
 
 import { useGetUser } from "@/hooks/useGetUser";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation"
-import { isEmpty } from "@/lib/utils";
+import { createFileUrl, isEmpty } from "@/lib/utils";
 import { SingleProjectResponse } from "@/types/project.type";
 import { Button } from "@/ui/button"
 import { Icon } from "@/ui/icon"
@@ -122,7 +122,9 @@ export const SubmitProjectCard = ({
                 <hr className="border-t border-border my-4 lg:my-4" />
                 <Link href={`/user/${projectData.project.user.id}`} className="flex items-center gap-1.5">
                     <img
-                        src={projectData?.project?.user?.profile_photo_path!}
+                        src={projectData?.project?.user?.profile_photo_path
+                            ? createFileUrl(projectData?.project?.user?.profile_photo_path)
+                            : undefined}
                         alt=""
                         width={42}
                         height={42}

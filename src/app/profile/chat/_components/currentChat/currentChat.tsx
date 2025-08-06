@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar"
 import { ChatMessages } from "./chatMessages";
 import Link from "next/link";
 import { Icon } from "@/ui/icon";
+import { createFileUrl } from "@/lib/utils";
 
 interface CurrentChatProps {
     otherUser: UserInfo;
@@ -21,7 +22,7 @@ export const CurrentChat = ({ chatInfo, chatMessages, otherUser, userData }: Cur
                     <Icon icon="solar--alt-arrow-right-outline" sizeClass="size-6" className="text-caption" />
                 </Link>
                 <Avatar className="size-11">
-                    <AvatarImage src={otherUser.profile_photo_path!} alt={otherUser.nickname} />
+                    <AvatarImage src={otherUser.profile_photo_path ? createFileUrl(otherUser.profile_photo_path) : undefined} alt={otherUser.nickname} />
                     <AvatarFallback>{otherUser.nickname}</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col gap-1">

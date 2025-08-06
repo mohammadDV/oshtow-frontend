@@ -1,7 +1,7 @@
 "use client"
 
 import { formatToShamsi } from "@/lib/dateUtils";
-import { cn } from "@/lib/utils";
+import { cn, createFileUrl } from "@/lib/utils";
 import { UserData } from "@/types/user.type";
 import { Icon } from "@/ui/icon";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
@@ -54,7 +54,7 @@ export const TicketMessages = ({ ticketData, userData }: TicketMessagesProps) =>
                                             {message.file && (
                                                 <div className="mt-3">
                                                     <Link
-                                                        href={message.file}
+                                                        href={createFileUrl(message.file)}
                                                         target="_blank"
                                                         className="flex items-center gap-1.5">
                                                         <Icon

@@ -1,3 +1,4 @@
+import { FILE_URL } from "@/configs/global";
 import { NotificationsModalType } from "@/types/notifications.type";
 import { PathType } from "@/types/project.type";
 import { clsx, type ClassValue } from "clsx";
@@ -33,6 +34,8 @@ export const pathTypeGenerator = (value: PathType) => {
 export const putCommas = (value: number): string => {
   return new Intl.NumberFormat().format(Math.trunc(value));
 };
+
+export const createFileUrl = (url: string) => `${FILE_URL}/${url}`;
 
 export const notificationLinkGenerator = (
   type: NotificationsModalType,

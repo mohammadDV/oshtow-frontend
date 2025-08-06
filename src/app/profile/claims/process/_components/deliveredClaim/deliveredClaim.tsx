@@ -16,6 +16,7 @@ import { StatusCode } from "@/constants/enums";
 import { toast } from "sonner";
 import { Review } from "@/types/review.type";
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar";
+import { createFileUrl } from "@/lib/utils";
 
 interface DeliveredClaimProps {
     claimStatus: ClaimStatusResponse;
@@ -114,7 +115,9 @@ export const DeliveredClaim = ({ claimStatus, claimData, reviewsData }: Delivere
                     className="bg-white p-5 rounded-2xl lg:rounded-3xl mt-4">
                     <div className="flex items-center gap-3">
                         <Avatar className="size-12">
-                            <AvatarImage src={review.user.profile_photo_path!} alt={review.user.nickname} />
+                            <AvatarImage
+                                src={review.user.profile_photo_path ? createFileUrl(review.user.profile_photo_path) : undefined}
+                                alt={review.user.nickname} />
                             <AvatarFallback>{review.user.nickname}</AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col gap-1">

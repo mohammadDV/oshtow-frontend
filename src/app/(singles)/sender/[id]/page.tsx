@@ -8,6 +8,7 @@ import { getSender } from "../_api/getSender";
 import { ShareProject } from "../../_components/shareProject";
 import { SubmitProjectCard } from "../../_components/submitProject";
 import { getCheckRequest } from "../../_api/getCheckRequest";
+import { createFileUrl } from "@/lib/utils";
 
 interface SenderPageProps {
   params: Promise<{
@@ -168,7 +169,10 @@ export default async function SenderPage({ params }: SenderPageProps) {
                 href={`/user/${senderData.project.user.id}`}
                 className="flex items-center gap-1.5 mt-4">
                 <img
-                  src={senderData.project.user.profile_photo_path!}
+                  src={senderData.project.user.profile_photo_path
+                    ? createFileUrl(senderData.project.user.profile_photo_path)
+                    : undefined
+                  }
                   alt=""
                   width={40}
                   height={40}

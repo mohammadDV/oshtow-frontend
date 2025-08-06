@@ -1,4 +1,5 @@
 import { usePagesTranslation } from "@/hooks/useTranslation";
+import { createFileUrl } from "@/lib/utils";
 import { UserInfoResponse } from "@/types/user.type";
 import { Icon } from "@/ui/icon";
 import Link from "next/link";
@@ -12,13 +13,18 @@ export const ProfileHeader = ({ data }: ProfileHeaderProps) => {
 
     return (
         <div className="bg-white rounded-3xl">
-            <img src={data.user?.bg_photo_path!}
+            <img
+                src={data.user?.bg_photo_path ? createFileUrl(data.user?.bg_photo_path) : undefined}
                 alt=""
                 width={1030}
                 height={150}
                 className="w-full rounded-t-3xl h-[80px] lg:h-36 object-cover" />
             <div className="px-6 lg:px-12 flex flex-col items-center lg:flex-row lg:items-end gap-3 lg:gap-5 -mt-12">
-                <img src={data?.user?.profile_photo_path!}
+                <img
+                    src={data?.user?.profile_photo_path
+                        ? createFileUrl(data?.user?.profile_photo_path)
+                        : undefined
+                    }
                     alt=""
                     width={128}
                     height={128}

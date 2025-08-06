@@ -2,6 +2,7 @@
 
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { createdDateConvertor } from "@/lib/dateUtils";
+import { createFileUrl } from "@/lib/utils";
 import { ChatInfo } from "@/types/chat.type";
 import { UserData } from "@/types/user.type"
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar";
@@ -33,9 +34,9 @@ export const InboxList = ({ userData, chatsData }: InboxListProps) => {
     return (
         <div className="flex flex-col gap-6">
             <div className="relative">
-                <Input 
-                    type="text" 
-                    placeholder={t("inputs.searchUser")} 
+                <Input
+                    type="text"
+                    placeholder={t("inputs.searchUser")}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -54,7 +55,12 @@ export const InboxList = ({ userData, chatsData }: InboxListProps) => {
                                 href={`/profile/chat?chatId=${chat.id}`}
                                 className="flex items-center gap-3 group">
                                 <Avatar className="size-12">
-                                    <AvatarImage src={otherUser.profile_photo_path!} alt={otherUser.nickname} />
+                                    <AvatarImage
+                                        src={otherUser.profile_photo_path
+                                            ? createFileUrl(otherUser.profile_photo_path)
+                                            : undefined}
+                                        alt={otherUser.nickname}
+                                    />
                                     <AvatarFallback>{otherUser.nickname}</AvatarFallback>
                                 </Avatar>
                                 <div className="flex flex-col gap-1 w-full">
