@@ -26,7 +26,7 @@ export const LoginForm = () => {
         email: z.string({ required_error: tCommon("validation.required.email") })
             .email(tCommon("validation.invalid.email")),
         password: z.string({ required_error: tCommon("validation.required.password") })
-            .min(8, tCommon("validation.invalid.passwordLength")),
+            .min(1, tCommon("validation.required.password")),
     });
 
     type LoginFormData = z.infer<typeof loginSchema>;

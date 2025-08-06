@@ -1,15 +1,16 @@
-import Image from "next/image";
-import { notFound } from "next/navigation";
-import { Badge } from "@/ui/badge";
+import { createFileUrl } from "@/lib/utils";
 import { Icon } from "@/ui/icon";
 import { getTranslations } from "next-intl/server";
-import { getPost, getPosts } from "./_api/getPosts";
+import Image from "next/image";
 import Link from "next/link";
-import { createFileUrl } from "@/lib/utils";
+import { notFound } from "next/navigation";
+import { getPost, getPosts } from "./_api/getPosts";
 
 export default async function PostPage({ params }: { params: { id: string } }) {
+    const resolvedParams = await params;
+    
     try {
-        const post = await getPost(params.id);
+        const post = await getPost(resolvedParams.id);
         const relatedPosts = await getPosts();
         const t = await getTranslations("pages");
 
@@ -23,7 +24,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
             <main className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
                 <div className="container mx-auto px-4 mt-5 lg:mt-6">
                     <nav className="flex items-center gap-2 text-sm text-caption mb-8 p-4 bg-white backdrop-blur-sm rounded-xl border border-border/50">
-                        <Link href="/" className="hover:text-primary transition-colors duration-200 font-medium">خانه</Link>
+                        <Link href="/" className="hover:text-primary transition-colors duration-200 font-medium">{t("post.home")}</Link>
                         {/* <Icon icon="solar--alt-arrow-left-outline" sizeClass="size-3" />
                         <Link href="/posts" className="hover:text-primary transition-colors duration-200 font-medium">اخبار و مقالات</Link> */}
                         <Icon icon="solar--alt-arrow-left-outline" sizeClass="size-3" />
@@ -54,7 +55,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
                                         <div className="p-1.5 bg-primary/10 rounded-full">
                                             <Icon icon="solar--eye-outline" sizeClass="size-4 text-primary" />
                                         </div>
-                                        <span className="font-normal">{post.view} بازدید</span>
+                                        <span className="font-normal">{post.view} {t("post.views")}</span>
                                     </div>
                                 </div>
                             </header>
@@ -69,7 +70,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
                                                 className="w-full h-full object-cover"
                                                 poster={createFileUrl(post.image) || undefined}
                                             >
-                                                متصفح شما از ویدیو پشتیبانی نمی‌کند.
+                                                {t("post.videoNotSupported")}
                                             </video>
                                         </div>
                                     ) : post.image && (
@@ -94,7 +95,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
                                             <Icon icon="solar--pen-2-outline" sizeClass="size-5 text-primary" />
                                         </div>
                                         <div>
-                                            <h3 className="text-lg font-semibold text-title mb-2">خلاصه مطلب</h3>
+                                            <h3 className="text-lg font-semibold text-title mb-2">{t("post.postSummary")}</h3>
                                             <p className="text-lg leading-relaxed text-caption">{post.summary}</p>
                                         </div>
                                     </div>
@@ -117,9 +118,9 @@ export default async function PostPage({ params }: { params: { id: string } }) {
                                             <div className="p-2 bg-primary/10 rounded-xl">
                                                 <Icon icon="solar--document-text-outline" sizeClass="size-5 text-primary" />
                                             </div>
-                                            <h2 className="text-xl font-bold text-title">مطالب مرتبط</h2>
+                                            <h2 className="text-xl font-bold text-title">{t("post.relatedPosts")}</h2>
                                         </div>
-                                        <p className="text-sm text-caption">مطالب دیگری که ممکن است برای شما جالب باشد</p>
+                                        <p className="text-sm text-caption">{t("post.relatedPostsDescription")}</p>
                                     </div>
                                     <div className="space-y-4">
                                         {relatedPosts.data

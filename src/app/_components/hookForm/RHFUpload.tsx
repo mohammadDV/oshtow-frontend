@@ -79,6 +79,16 @@ export const RHFUpload: React.FC<RHFUploadProps> = ({
         const file = e.target.files?.[0];
         if (!file) return;
 
+        const maxFileSize = 1024 * 1024;
+        if (file.size > maxFileSize) {
+            setUploadError(t("validation.invalid.fileSizeError"));
+            onChange("");
+            if (inputRef.current) {
+                inputRef.current.value = "";
+            }
+            return;
+        }
+
         setFileName(file.name);
         setIsUploading(true);
         setUploadError("");

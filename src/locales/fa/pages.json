@@ -289,6 +289,14 @@
       "yourAnswer": "پاسخ شما"
     }
   },
+  "post": {
+    "home": "خانه",
+    "views": "بازدید",
+    "videoNotSupported": "متصفح شما از ویدیو پشتیبانی نمی‌کند.",
+    "postSummary": "خلاصه مطلب",
+    "relatedPosts": "مطالب مرتبط",
+    "relatedPostsDescription": "مطالب دیگری که ممکن است برای شما جالب باشد"
+  },
   "paymentResult": {
     "successPayment": "پرداخت موفق",
     "failedPayment": "پرداخت ناموفق",

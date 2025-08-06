@@ -3,5 +3,6 @@ export const regex = {
   postalCode: /^\d{10}$/,
   nationalCode: /^\d{10}$/,
   cardNumber: /^\d{16}$/,
-  shebaNumber: /^\d{24}$/
+  shebaNumber: /^\d{24}$/,
+  password: /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.{8,})/
 };

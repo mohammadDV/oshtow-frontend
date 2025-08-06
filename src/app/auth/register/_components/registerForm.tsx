@@ -33,7 +33,7 @@ export const RegisterForm = () => {
         mobile: z.string({ required_error: tCommon("validation.required.mobile") })
             .regex(regex.phone, tCommon("validation.invalid.mobile")),
         password: z.string({ required_error: tCommon("validation.required.password") })
-            .min(8, tCommon("validation.invalid.passwordLength")),
+            .regex(regex.password, tCommon("validation.invalid.passwordRequirements")),
         password_confirmation: z.string({ required_error: tCommon("validation.required.passwordConfirmation") }),
         privacy_policy: z.boolean().refine(val => val === true, {
             message: tCommon("validation.required.privacyPolicy")
