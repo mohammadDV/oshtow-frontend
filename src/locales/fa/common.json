@@ -48,7 +48,9 @@
     "addSupportTicket": "ایجاد درخواست پشتیبانی",
     "watch": "مشاهده",
     "sendTicket": "ارسال تیکت",
-    "sendMessage": "ارسال پیام"
+    "sendMessage": "ارسال پیام",
+    "goHome": "بازگشت به خانه",
+    "goProfile": "رفتن به پروفایل"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
