@@ -82,7 +82,8 @@
     "hasSubmitRequest": "درخواست شما قبلا ثبت شده",
     "needGuid": "نیاز به راهنمایی دارید؟",
     "codeCopied": "کد با موفقیت کپی شد!",
-    "noNotifications": "اطلاعیه ای یافت نشد!"
+    "noNotifications": "اطلاعیه ای یافت نشد!",
+    "loggingOut": "در حال خروج..."
   },
   "validation": {
     "required": {

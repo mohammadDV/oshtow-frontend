@@ -12,9 +12,8 @@ export function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/auth/login" ||
     request.nextUrl.pathname === "/auth/register";
 
-  const isVerificationPath = request.nextUrl.pathname === "/auth/check-verification";
-
-  const isLogoutPath = request.nextUrl.pathname === "/auth/logout";
+  const isVerificationPath =
+    request.nextUrl.pathname === "/auth/check-verification";
 
   const token = request.cookies.get("token")?.value;
   const userData = request.cookies.get("userData")?.value;
@@ -25,13 +24,6 @@ export function middleware(request: NextRequest) {
 
   if (isVerificationPath && !token) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
-  }
-
-  if (isLogoutPath) {
-    const response = NextResponse.redirect(new URL("/auth/login", request.url));
-    response.cookies.delete("token");
-    response.cookies.delete("userData");
-    return response;
   }
 
   if (isProfilePath) {
