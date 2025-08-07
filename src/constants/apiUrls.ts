@@ -25,7 +25,8 @@ export const apiUrls = {
     logout: "/logout",
     verifyNotification: "/email/verification-notification",
     checkVerification: "/profile/check-verification",
-    forgotPassword: "/forgot-password"
+    forgotPassword: "/forgot-password",
+    verifyResetToken: "/verify-reset-token",
   },
   files: {
     image: "/upload-image",
