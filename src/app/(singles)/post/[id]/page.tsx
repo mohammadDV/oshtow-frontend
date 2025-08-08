@@ -6,7 +6,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPost, getPosts } from "./_api/getPosts";
 
-export default async function PostPage({ params }: { params: { id: string } }) {
+interface PostPageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export default async function PostPage({ params }: PostPageProps) {
     const resolvedParams = await params;
     
     try {
