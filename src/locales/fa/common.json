@@ -68,7 +68,13 @@
     "profile": "پروفایل",
     "others": "سایر",
     "share": "اشتراک گذاری",
-    "newNotifications": "اطلاعیه های جدید"
+    "newNotifications": "اطلاعیه های جدید",
+    "searchModalTitle": "انتخاب نوع جستجو",
+    "searchModalDescription": "نوع جستجوی مورد نظر خود را انتخاب کنید",
+    "addModalTitle": "انتخاب نوع آگهی",
+    "addModalDescription": "نوع آگهی مورد نظر خود را انتخاب کنید",
+    "submitSenderAd": "ثبت آگهی مرسوله",
+    "submitPassengerAd": "ثبت آگهی سفر"
   },
   "messages": {
     "loading": "در حال بارگذاری...",
