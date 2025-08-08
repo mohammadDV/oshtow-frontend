@@ -1,7 +1,15 @@
 import { ReadType } from "@/constants/enums";
 import { PaginationLink } from "./project.type";
 
-export type NotificationsModalType = "claim" | "passenger" | "sender";
+export type NotificationsModalType =
+  | "claim"
+  | "passenger"
+  | "sender"
+  | "profile"
+  | "chat"
+  | "wallet"
+  | "withdrawal"
+  | "ticket";
 
 export interface Notification {
   id: number;

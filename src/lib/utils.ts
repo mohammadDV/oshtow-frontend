@@ -48,6 +48,16 @@ export const notificationLinkGenerator = (
       return `/profile/projects/passenger`;
     case "sender":
       return `/profile/projects/sender`;
+    case "profile":
+      return `/profile`;
+    case "chat":
+      return `/profile/chat?chatId=${id}`;
+    case "ticket":
+      return `/profile/support/${id}`;
+    case "wallet":
+      return `/profile/wallet`;
+    case "withdrawal":
+      return `/profile/wallet?tab=withdraws`;
     default:
       return `/profile/notifications`;
   }

@@ -46,12 +46,12 @@ export default async function HomePage() {
       <Benefits />
       <Carousel
         title={t("home.lastSenders")}
-        seeMoreLink="/"
+        seeMoreLink="/projects/sender"
         slides={featuredProjectsData?.data?.sender?.map(project => <SenderCard key={project.id} data={project} />)}
       />
       <Carousel
         title={t("home.lastPassengers")}
-        seeMoreLink="/"
+        seeMoreLink="/projects/passenger"
         slides={featuredProjectsData?.data?.sender?.map(project => <PassengerCard key={project.id} data={project} />)}
 
       />

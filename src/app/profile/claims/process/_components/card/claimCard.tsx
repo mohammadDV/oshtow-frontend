@@ -1,7 +1,8 @@
 "use client"
 
 import { ShowMore } from "@/app/_components/showMore";
-import { useCommonTranslation } from "@/hooks/useTranslation";
+import { Modal } from "@/app/_components/modal";
+import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { createFileUrl, putCommas } from "@/lib/utils";
 import { FullClaim } from "@/types/claim.type"
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/avatar";
@@ -21,20 +22,22 @@ interface ClaimCardProps {
 export const ClaimCard = ({ data }: ClaimCardProps) => {
     const router = useRouter();
     const t = useCommonTranslation();
+    const tPages = usePagesTranslation();
     const [isLoading, setIsLoading] = useState(false);
+    const [isOpenModal, setIsOpenModal] = useState(false);
 
     const handleSelectUser = async () => {
         setIsLoading(true);
         try {
             const result: ApproveClaimResponse = await approveClaimAction(data.id);
             if (result.status === StatusCode.Success) {
+                setIsOpenModal(false);
                 router.replace(`/profile/claims/process?claimId=${result.data?.id}`)
                 toast.success(result.message);
             } else {
                 toast.error(result.message);
             }
         } catch (error) {
-            console.log(error)
             toast.error(t("messages.error"));
         } finally {
             setIsLoading(false);
@@ -137,8 +140,7 @@ export const ClaimCard = ({ data }: ClaimCardProps) => {
                                 variant={"ghost"}
                                 size={"sm"}
                                 className="flex-1 lg:flex-initial"
-                                onClick={handleSelectUser}
-                                isLoading={isLoading}
+                                onClick={() => setIsOpenModal(true)}
                             >
                                 {t("buttons.selectUser")}
                             </Button>
@@ -146,6 +148,19 @@ export const ClaimCard = ({ data }: ClaimCardProps) => {
                     </div>
                 </div>
             </div>
+            <Modal
+                open={isOpenModal}
+                size="sm"
+                onOpenChange={setIsOpenModal}
+                title={`${tPages("profile.claims.selectUserConfirmTitle")} ${data.user.nickname}`}
+                description={tPages("profile.claims.selectUserConfirmDescription")}
+                confirmText={t("buttons.yes")}
+                cancelText={t("buttons.cancel")}
+                confirmVariant="default"
+                onCancel={() => setIsOpenModal(false)}
+                loading={isLoading}
+                onConfirm={handleSelectUser}
+            />
         </div>
     )
 };

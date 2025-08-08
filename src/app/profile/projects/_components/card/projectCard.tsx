@@ -7,8 +7,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 import { Project, ProjectType } from "@/types/project.type";
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn, isEmpty } from "@/lib/utils";
 import { createdDateConvertor } from "@/lib/dateUtils";
+import Link from "next/link";
 
 interface ProfileProjectCardProps {
     data: Project;
@@ -164,12 +165,14 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
                         {t(`projectStatus.${data.status}`)}
                     </Badge>
                 </div>
-                <Button
-                    variant={"ghost"}
-                    size={"sm"}
-                    disabled={data.status !== "approved" && data.status !== "in_progress"}>
-                    {t("buttons.managePassenger")}
-                </Button>
+                <Link href={`/profile/claims/process?projectId=${data.id}${!isEmpty(data.claimSelected) ? "&claimId=" + data.claimSelected?.[0].id : ''}`}
+                    className={(data.status !== "approved" && data.status !== "in_progress") ? "pointer-events-none opacity-50" : ""}>
+                    <Button
+                        variant={"ghost"}
+                        size={"sm"}>
+                        {t("buttons.managePassenger")}
+                    </Button>
+                </Link>
             </div>
         </div>
     )

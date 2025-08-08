@@ -32,7 +32,7 @@ export const ProjectClaimsCard = ({ data }: ProjectClaimsCardProps) => {
                     className="text-caption"
                 />
                 <div className="flex lg:flex-col w-full lg:items-start gap-2.5">
-                    <h3 className="text-lg font-medium text-title">
+                    <h3 className="text-lg font-medium text-title line-clamp-1">
                         {data.title}
                     </h3>
                     {!isEmpty(data?.categories) && <Badge variant={"primary"} className="mr-auto lg:mr-0">

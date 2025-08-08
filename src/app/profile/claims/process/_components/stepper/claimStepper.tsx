@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { ClaimStatus } from "@/types/claim.type";
 import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
+import Link from "next/link";
 
 interface ClaimStepperProps {
   isMobile: boolean;
@@ -175,9 +176,17 @@ export const ClaimStepper = ({ currentStep, isMobile }: ClaimStepperProps) => {
                 {tCommon("messages.needGuid")}
               </p>
               <div className="flex items-center gap-1 text-caption">
-                <span className="text-primary">{tPages("profile.claims.supportRequest")}</span>
+                <Link
+                  href={"/profile/support"}
+                  className="text-primary">
+                  {tPages("profile.claims.supportRequest")}
+                </Link>
                 {tPages("profile.claims.or")}
-                <span className="text-primary">{tPages("profile.claims.contactUs")}</span>
+                <Link
+                  href={"/contact"}
+                  className="text-primary">
+                  {tPages("profile.claims.contactUs")}
+                </Link>
               </div>
             </div>
           </div>

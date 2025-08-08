@@ -102,7 +102,7 @@ export const WalletHistory = ({ transactionsData, withdrawRequestsData, activeTa
             </div>
             <div className="bg-white p-6 rounded-3xl">
                 <div className="flex flex-col lg:flex-row justify-between gap-4 mb-4">
-                    <h2 className="text-lg font-medium text-title">
+                    <h2 className="text-lg font-medium text-title line-clamp-1">
                         {activeTab === 'transactions'
                             ? tPages("profile.wallet.transactionsHistory")
                             : tPages("profile.wallet.withdrawRequestsHistory")
