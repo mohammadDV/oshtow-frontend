@@ -19,6 +19,7 @@ interface SubmitProjectCardProps {
     infoText: string,
     showRequestButton: boolean;
     showChatButton: boolean;
+    chat_id: number | null;
 }
 
 export const SubmitProjectCard = ({
@@ -29,7 +30,8 @@ export const SubmitProjectCard = ({
     chatLabel,
     infoText,
     showRequestButton,
-    showChatButton
+    showChatButton,
+    chat_id
 }: SubmitProjectCardProps) => {
     const { userData, isLoading } = useGetUser();
     const tPages = usePagesTranslation();
@@ -56,10 +58,12 @@ export const SubmitProjectCard = ({
                                 {tCommon("messages.hasSubmitRequest")}
                             </p>
                         </div>}
-                    {showChatButton && <Button variant={"ghost"} size={"default"} className="flex-1">
-                        {chatLabel}
-                        <Icon icon="solar--chat-round-dots-outline" sizeClass="size-5" />
-                    </Button>}
+                    {(showChatButton && chat_id) && <Link href={`/profile/chat?chatId=${chat_id}`}>
+                        <Button variant={"ghost"} size={"default"} className="flex-1">
+                            {chatLabel}
+                            <Icon icon="solar--chat-round-dots-outline" sizeClass="size-5" />
+                        </Button>
+                    </Link>}
                 </div>
                 : <Link href={"/auth/login"}>
                     <Button variant={"default"} size={"default"} className="w-full" isLoading={isLoading}>
@@ -95,13 +99,15 @@ export const SubmitProjectCard = ({
                                     {tCommon("messages.hasSubmitRequest")}
                                 </p>
                             </div>}
-                        {showChatButton && <Button variant={"ghost"} size={"default"} className="w-full py-3 mb-2">
-                            {chatLabel}
-                            <Icon
-                                icon="solar--chat-round-dots-outline"
-                                sizeClass="size-5"
-                            />
-                        </Button>}
+                        {(showChatButton && chat_id) && <Link href={`/profile/chat?chatId=${chat_id}`}>
+                            <Button variant={"ghost"} size={"default"} className="w-full py-3 mb-2">
+                                {chatLabel}
+                                <Icon
+                                    icon="solar--chat-round-dots-outline"
+                                    sizeClass="size-5"
+                                />
+                            </Button>
+                        </Link>}
                     </>
                     : <Link href={"/auth/login"}>
                         <Button variant={"default"} size={"default"} className="mb-3 w-full py-3" isLoading={isLoading}>

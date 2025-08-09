@@ -8,6 +8,7 @@ interface CheckRequestProps {
 interface CheckRequestService {
     request_enable: boolean;
     chat_enable: boolean;
+    chat_id: number | null;
 }
 
 export const getCheckRequest = async ({ id }: CheckRequestProps): Promise<CheckRequestService> => {

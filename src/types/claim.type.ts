@@ -55,4 +55,5 @@ export interface ClaimStatusResponse {
   status: ClaimStatus;
   delivery_code: string;
   show_review_form: boolean;
+  chat_id: number | null;
 }

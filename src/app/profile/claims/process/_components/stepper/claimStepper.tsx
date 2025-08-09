@@ -11,9 +11,10 @@ import Link from "next/link";
 interface ClaimStepperProps {
   isMobile: boolean;
   currentStep: ClaimStatus;
+  chat_id?: number | null;
 }
 
-export const ClaimStepper = ({ currentStep, isMobile }: ClaimStepperProps) => {
+export const ClaimStepper = ({ currentStep, isMobile, chat_id }: ClaimStepperProps) => {
   const tPages = usePagesTranslation();
   const tCommon = useCommonTranslation();
 
@@ -161,10 +162,12 @@ export const ClaimStepper = ({ currentStep, isMobile }: ClaimStepperProps) => {
         </div>
 
         <div className="mt-16">
-          <Button variant={"ghost"} size={"default"} className="w-full">
-            {tCommon("buttons.chatWithPassenger")}
-            <Icon icon="solar--chat-round-dots-outline" sizeClass="size-5" />
-          </Button>
+          {chat_id && <Link href={`/profile/chat?chatId=${chat_id}`}>
+            <Button variant={"ghost"} size={"default"} className="w-full">
+              {tCommon("buttons.chatWithPassenger")}
+              <Icon icon="solar--chat-round-dots-outline" sizeClass="size-5" />
+            </Button>
+          </Link>}
           <div className="mt-6 flex items-center gap-2.5">
             <Icon
               icon="solar--headphones-round-bold-duotone"

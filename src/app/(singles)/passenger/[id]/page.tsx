@@ -186,7 +186,8 @@ export default async function PassengerPage({ params }: PassengerPageProps) {
             chatLabel={t("passenger.chat")}
             infoText={t("passenger.submitInfo")}
             showRequestButton={checkRequestData.request_enable}
-            showChatButton={checkRequestData.chat_enable} />
+            showChatButton={checkRequestData.chat_enable}
+            chat_id={checkRequestData.chat_id} />
         </div>
 
         <Carousel

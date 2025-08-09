@@ -7,8 +7,8 @@ import Link from "next/link";
 import { BottomNavigation } from "../_components/bottomNavigation";
 import { Footer } from "../_components/footer";
 import { Header } from "../_components/header";
-import { MobileHeader } from "../_components/header/mobileHeader";
 import { getWallet } from "./_api/getWallet";
+import { ProfileNavigation } from "./_components/profileNavigation/profileNavigation";
 import { ProfileSidebar } from "./_components/sidebar";
 
 export default async function ProfileLayout({
@@ -23,7 +23,7 @@ export default async function ProfileLayout({
 
   return (
     <>
-      {isMobile ? <MobileHeader /> : <Header userData={userData} />}
+      {isMobile ? <ProfileNavigation /> : <Header userData={userData} />}
       {!userData.verify_access && (
         <div className="flex lg:hidden items-center px-4 py-3.5 rounded-2xl bg-border justify-between mt-5 mx-4">
           <div className="flex items-center gap-2">

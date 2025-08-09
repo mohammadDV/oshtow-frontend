@@ -197,7 +197,8 @@ export default async function SenderPage({ params }: SenderPageProps) {
             chatLabel={t("sender.chat")}
             infoText={t("sender.submitInfo")}
             showRequestButton={checkRequestData.request_enable}
-            showChatButton={checkRequestData.chat_enable} />
+            showChatButton={checkRequestData.chat_enable}
+            chat_id={checkRequestData.chat_id} />
         </div>
 
         <Carousel

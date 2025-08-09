@@ -49,9 +49,10 @@ export default async function ClaimProcessPage({ searchParams }: ClaimProcessPro
             <div className="w-full lg:w-2xs">
                 <ClaimStepper
                     currentStep={!resolvedSearchParams?.claimId ? "pending" : claimStatus?.status || "pending"}
-                    isMobile={isMobile} />
+                    isMobile={isMobile}
+                    chat_id={claimStatus?.chat_id} />
             </div>
-            <div className="flex-1">
+            <div className="w-full lg:w-auto lg:flex-1">
                 {(!resolvedSearchParams?.claimId && claimsData) && (
                     <div>
                         <ClaimsList claimsData={claimsData.data} />
