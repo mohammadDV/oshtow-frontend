@@ -2,6 +2,7 @@
 
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { Icon } from "@/ui/icon";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export const ProfileNavigation = () => {
@@ -20,10 +21,18 @@ export const ProfileNavigation = () => {
                         sizeClass="size-6"
                         className="text-text"
                         onClick={goToPrevPageHandler} />
-                    <Icon
-                        icon="solar--headphones-round-bold-duotone"
-                        className="text-text"
-                    />
+                    <div className="flex items-center gap-3.5">
+                        <Link href={"/profile/notifications"}>
+                            <Icon
+                                icon="solar--bell-bold-duotone"
+                                className="text-text"
+                            />
+                        </Link>
+                        <Icon
+                            icon="solar--headphones-round-bold-duotone"
+                            className="text-text"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
