@@ -9,23 +9,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'prod-data-sport.storage.iran.liara.space',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.varzeshpod.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'varzeshpod-prod.s3.ir-thr-at1.arvanstorage.com',
+        hostname: 'oshtow.s3.ir-thr-at1.arvanstorage.com',
         port: '',
         pathname: '/**',
       },
