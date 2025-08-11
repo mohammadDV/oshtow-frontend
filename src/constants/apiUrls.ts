@@ -38,7 +38,8 @@ export const apiUrls = {
     recordsInfo: "/profile/identity-records-info",
   },
   wallet: {
-    all: "/profile/wallet",
+    all: "/profile/wallets",
+    single: "/profile/wallet",
     topUp: "/profile/wallet/top-up",
     transfer: "/profile/wallet/transfer",
     transactions: "/profile/wallet-transaction",

@@ -108,7 +108,7 @@ export const transactionsColumns = (): ColumnDef<WalletTransaction>[] => {
         },
         {
             accessorKey: "description",
-            header: t("columns.transactionType"),
+            header: t("columns.description"),
             cell: ({ getValue }) => (
                 <span className="text-sm text-caption">{getValue() as string}</span>
             ),

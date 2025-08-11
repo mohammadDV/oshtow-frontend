@@ -327,7 +327,7 @@ export const AdvancedSearch = () => {
                   <Button variant={"default"} size={"default"}>
                     {selectedTab === "passenger"
                       ? tPages("home.seeAllPassengers")
-                      : tCommon("home.seeAllSenders")}
+                      : tPages("home.seeAllSenders")}
                   </Button>
                 </Link>
               </div>
