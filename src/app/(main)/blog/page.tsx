@@ -18,7 +18,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
     return (
         <div className="container mx-auto lg:mt-14 mt-8 px-4 lg:px-0">
-            <div className="mb-8 lg:mb-16">
+            <div className="mb-8 lg:mb-14">
                 <h1 className="text-2xl lg:text-3xl text-title text-center font-semibold mb-3">
                     {t("blog.title")}
                 </h1>
