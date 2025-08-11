@@ -28,7 +28,7 @@ export default async function PaymentResultPage({ params }: PaymentResultPagePro
 
     const paymentResultData: PaymentResultResponse = await getPaymentResult({ id: resolvedParams.transactionId })
 
-    const paymentDate = new Date(paymentResultData.date.replace(' ', 'T'));
+    const paymentDate = new Date(paymentResultData?.date?.replace(' ', 'T'));
     const formattedDate = formatToShamsiWithYear(paymentDate);
     const formattedTime = paymentDate.toLocaleTimeString('fa-IR', {
         hour: '2-digit',
@@ -110,7 +110,7 @@ export default async function PaymentResultPage({ params }: PaymentResultPagePro
                             {tPage("paymentResult.paidAmount")}
                         </p>
                         <p className="text-title font-medium">
-                            {putCommas(parseFloat(paymentResultData?.amount.toString()))}
+                            {putCommas(parseFloat(paymentResultData?.amount?.toString()))}
                             {" "}
                             {tCommon("unit.toman")}
                         </p>

@@ -1,17 +1,14 @@
-import { getTranslations } from "next-intl/server";
-import { AuthForm } from "./_components/authForm";
 import { getUserData } from "@/lib/getUserDataFromHeaders";
 import { Icon } from "@/ui/icon";
-import { getIdentifyInfo, IdentifyInfoResponse } from "./_api/getIdentifyInfo";
+import { getTranslations } from "next-intl/server";
+import { getIdentifyInfo } from "./_api/getIdentifyInfo";
+import { AuthForm } from "./_components/authForm";
 
 export default async function AuthPage() {
     const t = await getTranslations("pages");
     const userData = await getUserData();
-    let identifyInfo;
 
-    if (userData.status_approval === "pending") {
-        identifyInfo = await getIdentifyInfo({ id: userData.user.id });
-    }
+    let identifyInfo = await getIdentifyInfo({ id: userData.user.id });
 
     return (
         <div className="bg-white rounded-3xl p-6 pb-12">
