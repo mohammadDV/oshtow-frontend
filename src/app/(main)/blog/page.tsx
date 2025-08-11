@@ -35,7 +35,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
                         ))}
                     </div>
 
-                    {postsData.data.length > 12 && <Pagination
+                    {postsData.total > 12 && <Pagination
                         currentPage={postsData.current_page}
                         lastPage={postsData.last_page}
                         links={postsData.links}

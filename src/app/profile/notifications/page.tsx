@@ -4,10 +4,20 @@ import Link from "next/link";
 import { Icon } from "@/ui/icon";
 import { createdDateConvertor } from "@/lib/dateUtils";
 import { notificationLinkGenerator } from "@/lib/utils";
+import { Pagination } from "@/app/_components/pagination";
 
-export default async function NotificationsPage() {
+interface NotificationsPageProps {
+    searchParams: Promise<{
+        page?: string;
+    }>;
+}
+
+export default async function NotificationsPage({ searchParams }: NotificationsPageProps) {
     const t = await getTranslations("pages");
-    const notificationsData = await getNotifications({});
+    const resolvedSearchParams = await searchParams;
+    const page = parseInt(resolvedSearchParams?.page || "1");
+
+    const notificationsData = await getNotifications({ page });
 
     return (
         <>
@@ -40,6 +50,16 @@ export default async function NotificationsPage() {
                         </div>
                     ))}
                 </div>
+
+                {notificationsData?.data && notificationsData.total > 10 && (
+                    <Pagination
+                        currentPage={notificationsData.current_page}
+                        lastPage={notificationsData.last_page}
+                        links={notificationsData.links}
+                        total={notificationsData.total}
+                        routeUrl="/profile/notifications"
+                    />
+                )}
             </div>
         </>
     )

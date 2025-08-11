@@ -65,7 +65,7 @@ export default async function PostPage({ params }: PostPageProps) {
                                             </video>
                                         </div>
                                     ) : post.image && (
-                                        <div className="relative w-full h-[400px] lg:h-[460px] rounded-3xl overflow-hidden border border-border/20">
+                                        <div className="relative w-full h-[230px] lg:h-[460px] rounded-3xl overflow-hidden border border-border/20">
                                             <Image
                                                 src={createFileUrl(post.image)}
                                                 alt={post.title}

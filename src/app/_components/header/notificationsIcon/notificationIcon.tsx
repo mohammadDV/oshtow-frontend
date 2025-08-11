@@ -89,7 +89,7 @@ export const NotificationIcon = ({ userData }: NotificationIconProps) => {
                         </div>
                     ) : notificationsData && notificationsData.length > 0 ? (
                         <div className="divide-y divide-border">
-                            {notificationsData?.map(item => (
+                            {notificationsData?.reverse()?.map(item => (
                                 <Link
                                     key={item.id}
                                     href={notificationLinkGenerator(item.model_type, item.model_id)}

@@ -10,7 +10,7 @@ interface GetNotificationsParams {
 
 export const getNotifications = async ({
   page = 1,
-  count = 25,
+  count = 10,
 }: GetNotificationsParams): Promise<NotificationsResponse> => {
   const params = new URLSearchParams({
     page: page.toString(),

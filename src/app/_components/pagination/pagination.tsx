@@ -30,7 +30,9 @@ export const Pagination = ({ currentPage, links, routeUrl }: PaginationProps) =>
     );
 
     const handlePageChange = (page: number) => {
-        router.push(`${routeUrl}/${params.type}?${createQueryString('page', page.toString())}`);
+        if (params.type) {
+            router.push(`${routeUrl}/${params.type}?${createQueryString('page', page.toString())}`);
+        } else router.push(`${routeUrl}?${createQueryString('page', page.toString())}`);
     };
 
     const renderPageButton = (link: PaginationLink, index: number) => {
