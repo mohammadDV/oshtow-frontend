@@ -26,7 +26,7 @@ export const LastPosts = ({ postsData }: LastPostsProps) => {
         </div>
         <div className="flex items-center justify-end gap-4">
           <Link
-            href={"/"}
+            href={"/blog"}
             className="h-8 lg:h-9 flex items-center gap-1.5 justify-center px-3 lg:px-4 text-primary text-xs lg:text-sm rounded-full bg-white"
           >
             {t("buttons.seeMore")}

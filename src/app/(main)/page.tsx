@@ -59,7 +59,7 @@ export default async function HomePage() {
       {isMobile ? (
         <Carousel
           title={t("home.postsTitle")}
-          seeMoreLink="/"
+          seeMoreLink="/blog"
           slides={postsData.data?.map(post => <PostCard key={post.id} data={post} heightClass="h-64" showAuthor />)}
         />
       ) : (

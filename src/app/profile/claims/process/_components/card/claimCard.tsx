@@ -131,6 +131,13 @@ export const ClaimCard = ({ data }: ClaimCardProps) => {
                                     {t(`address.${data.address_type}`)}
                                 </p>
                             </div>
+                            {data.image && <Link href={data.image}>
+                                <Icon
+                                    icon="solar--paperclip-linear"
+                                    sizeClass="size-5"
+                                    className="text-sub"
+                                />
+                            </Link>}
                         </div>
                         <div className="flex items-center gap-2 w-full lg:w-auto">
                             <Button variant={"outline"} size={"sm"} className="py-2 flex-1 lg:flex-initial">
