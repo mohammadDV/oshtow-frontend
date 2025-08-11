@@ -21,6 +21,7 @@ import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 import { createPassengerAction, editPassengerAction, PassengerService } from "../_api/passengerAction";
+import { RHFCurrency } from "@/app/_components/hookForm/RHFCurrency";
 
 interface PassengerForm {
     projectData?: ProjectEditResponse;
@@ -386,10 +387,9 @@ export const PassengerForm = ({ projectData, id }: PassengerForm) => {
                                     label={tCommon("inputs.emptySize")}
                                     type="number"
                                 />
-                                <RHFInput
+                                <RHFCurrency
                                     name="amount"
                                     label={tCommon("inputs.suggestAmount")}
-                                    type="number"
                                 />
                             </div>
                             <Button

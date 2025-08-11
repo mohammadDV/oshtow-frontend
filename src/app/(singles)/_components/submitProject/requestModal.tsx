@@ -2,6 +2,7 @@
 
 import { Modal } from "@/app/_components/modal"
 import { RHFInput } from "@/app/_components/hookForm/RHFInput";
+import { RHFCurrency } from "@/app/_components/hookForm/RHFCurrency";
 import { RHFTextarea } from "@/app/_components/hookForm/RHFTextarea";
 import { RHFUpload } from "@/app/_components/hookForm/RHFUpload";
 import { RHFCombobox } from "@/app/_components/hookForm/RHFCombobox";
@@ -140,10 +141,9 @@ export const RequestModal = ({ title, isOpenModal, setIsOpenModal, projectData }
             size="sm">
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-                    <RHFInput
+                    <RHFCurrency
                         name="amount"
                         placeholder={t("inputs.amount")}
-                        type="number"
                     />
                     <RHFInput
                         name="weight"

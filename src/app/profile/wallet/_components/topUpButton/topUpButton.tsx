@@ -12,6 +12,7 @@ import z from "zod";
 import { topUpAction, TopUpResponse } from "../../_api/topUpAction";
 import { StatusCode } from "@/constants/enums";
 import { toast } from "sonner";
+import { RHFCurrency } from "@/app/_components/hookForm/RHFCurrency";
 
 export const TopUpButton = () => {
     const tPages = usePagesTranslation();
@@ -98,11 +99,10 @@ export const TopUpButton = () => {
             >
                 <FormProvider {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2 flex flex-col gap-4">
-                        <RHFInput
+                        <RHFCurrency
                             name="amount"
                             placeholder={tCommon("inputs.enterAmount")}
                             label={tCommon("inputs.amount")}
-                            type="number"
                         />
                         <div className="flex items-center justify-end gap-3 mt-6">
                             <Button

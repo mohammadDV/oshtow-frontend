@@ -1,7 +1,7 @@
-import { NextConfig } from 'next';
-import createNextIntlPlugin from 'next-intl/plugin';
+import { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin('./src/lib/next-intl.config.ts');
+const withNextIntl = createNextIntlPlugin("./src/lib/next-intl.config.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -12,12 +12,17 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'oshtow.s3.ir-thr-at1.arvanstorage.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "oshtow.s3.ir-thr-at1.arvanstorage.com",
+        port: "",
+        pathname: "/**",
       },
     ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "20mb",
+    },
   },
 };
 
