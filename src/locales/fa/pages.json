@@ -211,6 +211,9 @@
       "transactionsHistory": "تاریخچه تراکنش‌ها",
       "withdrawRequestsHistory": "تاریخچه درخواست‌های برداشت"
     },
+    "transactions": {
+      "title": "تراکنش‌ها"
+    },
     "plans": {
       "title": "پلن ها و تعرفه ها",
       "description": "برای ثبت آگهی و یا ارسال درخواست، باید یکی از پلن های زیر را خریداری نمایید.",

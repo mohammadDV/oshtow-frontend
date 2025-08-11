@@ -50,7 +50,8 @@
     "sendTicket": "ارسال تیکت",
     "sendMessage": "ارسال پیام",
     "goHome": "بازگشت به خانه",
-    "goProfile": "رفتن به پروفایل"
+    "goProfile": "رفتن به پروفایل",
+    "clearFilters": "پاک کردن فیلترها"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -229,7 +230,14 @@
   "transactionStatus": {
     "pending": "در انتظار",
     "completed": "تکمیل شده",
+    "cancelled": "لغو شده",
     "failed": "ناموفق"
+  },
+  "transactionType": {
+    "wallet": "کیف پول",
+    "plan": "اشتراک",
+    "identity": "احراز هویت",
+    "secure": "ضمانت"
   },
   "pagination": {
     "page": "صفحه:",
@@ -277,7 +285,10 @@
     "row": "ردیف",
     "trackingNumber": "شماره پیگیری",
     "transactionType": "نوع تراکنش",
+    "transactionId": "شناسه تراکنش",
+    "reference": "کد مرجع",
     "amount": "مبلغ",
+    "type": "نوع",
     "status": "وضعیت",
     "date": "تاریخ",
     "description": "توضیحات",
@@ -292,6 +303,11 @@
   "unit": {
     "toman": "تومان",
     "kg": "کیلوگرم"
+  },
+  "filters": {
+    "status": "وضعیت",
+    "type": "نوع",
+    "all": "همه"
   },
   "address": {
     "me": "آدرس من",
