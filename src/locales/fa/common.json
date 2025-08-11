@@ -60,6 +60,7 @@
     "passengers": "سفر ها",
     "faq": "سوالات متداول",
     "magazine": "مجله",
+    "blog": "وبلاگ",
     "privacyPolicy": "سیاست و حریم خصوصی",
     "plansCost": "تعرفه ها و هزینه ها",
     "home": "خانه",
@@ -74,7 +75,8 @@
     "addModalTitle": "انتخاب نوع آگهی",
     "addModalDescription": "نوع آگهی مورد نظر خود را انتخاب کنید",
     "submitSenderAd": "ثبت آگهی مرسوله",
-    "submitPassengerAd": "ثبت آگهی سفر"
+    "submitPassengerAd": "ثبت آگهی سفر",
+    "fastAccess": "دسترسی سریع به صفحات مهم"
   },
   "messages": {
     "loading": "در حال بارگذاری...",
@@ -198,7 +200,7 @@
     "receiveDate": "ارسال تا تاریخ",
     "weight": "وزن مرسوله (kg)",
     "dimensions": "ابعاد مرسوله",
-    "addressType": "انتخای نوع آدرس",
+    "addressType": "انتخاب نوع آدرس",
     "image": "تصویر",
     "receivedItem": "تصویر مرسوله دریافت شده",
     "deliveryCode": "کد تحویل",

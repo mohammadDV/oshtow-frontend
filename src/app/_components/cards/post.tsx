@@ -12,7 +12,7 @@ interface PostCardProps {
 export const PostCard = ({ heightClass, showAuthor, data }: PostCardProps) => {
   return (
     <Link
-      href={`/post/${data.id}`}
+      href={`/post/${data.id}/${data.slug}`}
       className={cn(
         "relative overflow-hidden transition-all cursor-pointer rounded-2xl lg:rounded-3xl",
         heightClass

@@ -137,7 +137,7 @@ export default async function PostPage({ params }: PostPageProps) {
                                             .map(relatedPost => (
                                                 <Link
                                                     key={relatedPost.id}
-                                                    href={`/post/${relatedPost.id}`}
+                                                    href={`/post/${relatedPost.id}/${relatedPost.slug}`}
                                                     className="group block rounded-xl border border-border"
                                                 >
                                                     <div className="flex gap-3 p-3">

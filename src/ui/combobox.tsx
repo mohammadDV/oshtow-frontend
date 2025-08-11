@@ -88,7 +88,7 @@ export function Combobox({ options, value, onChange, placeholder, id, className,
                 <Command>
                     <CommandInput placeholder={t("inputs.search")} />
                     <CommandEmpty>{loading ? t("messages.loading") : t("inputs.noResults")}</CommandEmpty>
-                    <CommandGroup>
+                    <CommandGroup className="max-h-48 overflow-auto">
                         {options.map((option) => (
                             <CommandItem
                                 key={option.value}
