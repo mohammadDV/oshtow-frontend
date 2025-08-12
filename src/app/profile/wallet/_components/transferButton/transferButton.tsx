@@ -12,6 +12,7 @@ import { Modal } from "@/app/_components/modal";
 import { FormProvider } from "react-hook-form";
 import { RHFInput } from "@/app/_components/hookForm/RHFInput";
 import { Button } from "@/ui/button";
+import { RHFCurrency } from "@/app/_components/hookForm/RHFCurrency";
 
 export const TransferButton = () => {
     const tPages = usePagesTranslation();
@@ -101,11 +102,10 @@ export const TransferButton = () => {
             >
                 <FormProvider {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2 flex flex-col gap-6">
-                        <RHFInput
+                        <RHFCurrency
                             name="amount"
                             placeholder={tCommon("inputs.enterAmount")}
                             label={tCommon("inputs.amount")}
-                            type="number"
                         />
                         <RHFInput
                             name="customer_number"

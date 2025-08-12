@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import z from "zod";
 import { IdentifyInfoResponse } from "../_api/getIdentifyInfo";
 import { identityAction, IdentityResponse } from "../_api/identityAction";
+import { getCities, getProvinces } from "@/app/(main)/projects/_api/getLocations";
 
 interface AuthFormProps {
   identifyInfo?: IdentifyInfoResponse;
@@ -38,6 +39,11 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
     FormData
   >(identityAction, null);
 
+  const [provinces, setProvinces] = useState<any[]>([]);
+  const [cities, setCities] = useState<any[]>([]);
+  const [loadingProvinces, setLoadingProvinces] = useState(false);
+  const [loadingCities, setLoadingCities] = useState(false);
+
   const { response: countriesResponse } = useFetchData<Country[]>(
     apiUrls.locations.countries
   );
@@ -47,6 +53,16 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
       label: country.title,
       value: country.id.toString(),
     })) || [];
+
+  const provinceOptions = provinces?.map(province => ({
+    label: province.title,
+    value: province.id.toString(),
+  })) || [];
+
+  const cityOptions = cities?.map(city => ({
+    label: city.title,
+    value: city.id.toString(),
+  })) || [];
 
   const stepsData = [
     {
@@ -62,7 +78,8 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
   ];
 
   const firstStepSchema = z.object({
-    fullname: z.string().min(1, tCommon("validation.required.thisField")),
+    first_name: z.string().min(1, tCommon("validation.required.firstName")),
+    last_name: z.string().min(1, tCommon("validation.required.lastName")),
     national_code: z
       .string()
       .min(1, tCommon("validation.required.thisField"))
@@ -74,7 +91,9 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
     email: z
       .string({ required_error: tCommon("validation.required.email") })
       .email(tCommon("validation.invalid.email")),
-    country: z.string().min(1, tCommon("validation.required.thisField")),
+    country_id: z.string().min(1, tCommon("validation.required.thisField")),
+    province_id: z.string().min(1, tCommon("validation.required.thisField")),
+    city_id: z.string().min(1, tCommon("validation.required.thisField")),
     postal_code: z
       .string({ required_error: tCommon("validation.required.thisField") })
       .regex(regex.postalCode, tCommon("validation.invalid.postalCode")),
@@ -104,12 +123,15 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
   const formSchema = firstStepSchema.merge(secondStepSchema);
   const form = useZodForm(formSchema, {
     defaultValues: {
-      fullname: identifyInfo?.fullname || "",
+      first_name: identifyInfo?.first_name || "",
+      last_name: identifyInfo?.last_name || "",
       national_code: identifyInfo?.national_code || "",
       mobile: identifyInfo?.mobile || "",
       email: identifyInfo?.email || "",
       birthday: identifyInfo?.birthday || "",
-      country: identifyInfo?.country || "",
+      country_id: identifyInfo?.country_id?.toString() || "",
+      province_id: identifyInfo?.province_id?.toString() || "",
+      city_id: identifyInfo?.city_id?.toString() || "",
       postal_code: identifyInfo?.postal_code || "",
       address: identifyInfo?.address || "",
       image_national_code_front: identifyInfo?.image_national_code_front || "",
@@ -117,6 +139,69 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
       video: identifyInfo?.video || "",
     },
   });
+
+  const watchedCountryId = form.watch("country_id");
+  const watchedProvinceId = form.watch("province_id");
+
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      if (watchedCountryId) {
+        setLoadingProvinces(true);
+        setProvinces([]);
+        setCities([]);
+        form.setValue("province_id", "");
+        form.setValue("city_id", "");
+
+        try {
+          const response = await getProvinces(parseInt(watchedCountryId));
+          setProvinces(response || []);
+          if (identifyInfo?.province_id && response?.some((p: any) => p.id === identifyInfo.province_id)) {
+            form.setValue("province_id", identifyInfo.province_id.toString());
+          }
+        } catch (error) {
+          console.error("Error fetching provinces:", error);
+          setProvinces([]);
+        } finally {
+          setLoadingProvinces(false);
+        }
+      } else {
+        setProvinces([]);
+        setCities([]);
+        form.setValue("province_id", "");
+        form.setValue("city_id", "");
+      }
+    };
+
+    fetchProvinces();
+  }, [watchedCountryId, form, identifyInfo?.province_id]);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      if (watchedProvinceId) {
+        setLoadingCities(true);
+        setCities([]);
+        form.setValue("city_id", "");
+
+        try {
+          const response = await getCities(parseInt(watchedProvinceId));
+          setCities(response || []);
+          if (identifyInfo?.city_id && response?.some((c: any) => c.id === identifyInfo.city_id)) {
+            form.setValue("city_id", identifyInfo.city_id.toString());
+          }
+        } catch (error) {
+          console.error("Error fetching cities:", error);
+          setCities([]);
+        } finally {
+          setLoadingCities(false);
+        }
+      } else {
+        setCities([]);
+        form.setValue("city_id", "");
+      }
+    };
+
+    fetchCities();
+  }, [watchedProvinceId, form, identifyInfo?.city_id]);
 
   useEffect(() => {
     console.log(formState);
@@ -145,12 +230,15 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
 
   const validateFirstStep = async () => {
     const firstStepFields = [
-      "fullname",
+      "first_name",
+      "last_name",
       "national_code",
       "mobile",
       "email",
       "birthday",
-      "country",
+      "country_id",
+      "province_id",
+      "city_id",
       "postal_code",
       "address",
     ] as (keyof AuthFormData)[];
@@ -208,12 +296,15 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
     form.clearErrors();
 
     const formData = new FormData();
-    formData.append("fullname", data.fullname);
+    formData.append("first_name", data.first_name);
+    formData.append("last_name", data.last_name);
     formData.append("national_code", data.national_code);
     formData.append("mobile", data.mobile);
     formData.append("birthday", data.birthday);
     formData.append("email", data.email);
-    formData.append("country", data.country);
+    formData.append("country_id", data.country_id);
+    formData.append("province_id", data.province_id);
+    formData.append("city_id", data.city_id);
     formData.append("postal_code", data.postal_code);
     formData.append("address", data.address);
     formData.append(
@@ -231,28 +322,43 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
   const renderFirstStep = () => (
     <div className="flex flex-col gap-5">
       <div className="flex items-start justify-between gap-5">
-        <RHFInput name="fullname" placeholder={tCommon("inputs.fullname")} />
+        <RHFInput name="first_name" placeholder={tCommon("inputs.firstName")} />
+        <RHFInput name="last_name" placeholder={tCommon("inputs.lastName")} />
+      </div>
+      <div className="flex items-start justify-between gap-5">
         <RHFInput
           name="national_code"
           placeholder={tCommon("inputs.nationalCode")}
         />
-      </div>
-      <div className="flex items-start justify-between gap-5">
         <RHFInput name="mobile" placeholder={tCommon("inputs.mobile")} />
-        <RHFInput name="email" placeholder={tCommon("inputs.email")} />
       </div>
       <div className="flex items-start justify-between gap-5">
+        <RHFInput name="email" placeholder={tCommon("inputs.email")} />
         <RHFDatePicker
           name="birthday"
           placeholder={tCommon("inputs.birthday")}
         />
+      </div>
+      <div className="flex items-start justify-between gap-5">
         <RHFCombobox
           options={countryOptions}
-          name="country"
+          name="country_id"
           placeholder={tCommon("inputs.country")}
         />
+        <RHFCombobox
+          options={provinceOptions}
+          name="province_id"
+          placeholder={tCommon("inputs.province")}
+          loading={loadingProvinces}
+        />
       </div>
-      <div className="flex items-start justify-between gap-5 lg:w-1/2 pl-2.5">
+      <div className="flex items-start justify-between gap-5">
+        <RHFCombobox
+          options={cityOptions}
+          name="city_id"
+          placeholder={tCommon("inputs.city")}
+          loading={loadingCities}
+        />
         <RHFInput
           name="postal_code"
           placeholder={tCommon("inputs.postalCode")}

@@ -1,3 +1,5 @@
+"use server"
+
 import { apiUrls } from "@/constants/apiUrls";
 import { StatusCode } from "@/constants/enums";
 import { postFetchAuth } from "@/core/baseService";

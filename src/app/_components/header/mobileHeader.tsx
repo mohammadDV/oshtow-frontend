@@ -18,11 +18,15 @@ export const MobileHeader = () => {
             {t("brand.name")}
           </Link>
           <div className="flex items-center justify-end gap-4">
-            <Icon
-              icon="solar--headphones-round-bold-duotone"
-              className="text-text"
-            />
-            <Icon icon="solar--user-circle-bold" className="text-text" />
+            <Link href={"/contact"}>
+              <Icon
+                icon="solar--headphones-round-bold-duotone"
+                className="text-text"
+              />
+            </Link>
+            <Link href={"/auth/login"}>
+              <Icon icon="solar--user-circle-bold" className="text-text" />
+            </Link>
           </div>
         </div>
       </div>

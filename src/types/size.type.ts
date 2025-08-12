@@ -1,1 +1,1 @@
-export type Size = "default" | "sm" | "lg";
+export type Size = "default" | "sm" | "lg" | "icon";

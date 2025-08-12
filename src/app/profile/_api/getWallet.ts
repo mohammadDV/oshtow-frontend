@@ -12,5 +12,5 @@ export interface WalletService {
 }
 
 export const getWallet = async (): Promise<WalletService> => {
-  return await getFetchAuth<WalletService>(apiUrls.wallet.all);
+  return await getFetchAuth<WalletService>(apiUrls.wallet.single);
 };

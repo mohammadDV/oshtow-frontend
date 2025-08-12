@@ -90,7 +90,7 @@ export const ProfileStatistics = ({ dashboardInfo, subscriptionActivityCount }: 
             {subscriptionActivityCount.original.subscription.has_active_subscription === SubscriptionType.Active
                 ? (
                     <div className="bg-white lg:px-5 lg:py-4.5 p-4 rounded-2xl lg:rounded-3xl flex flex-col gap-4 lg:flex-row items-center justify-between">
-                        <div className="flex items-center gap-2.5">
+                        <div className="flex flex-col lg:flex-row items-center gap-2.5">
                             <Icon icon="solar--tag-price-outline" sizeClass="size-6" className="text-caption lg:block hidden" />
                             <p className="text-title text-lg font-medium">
                                 {tPages("profile.activePlan")}
@@ -99,7 +99,7 @@ export const ProfileStatistics = ({ dashboardInfo, subscriptionActivityCount }: 
                             <p className="text-sm font-normal text-text">
                                 پلن الماس
                             </p> */}
-                            <div className="w-px h-4 bg-border"></div>
+                            <div className="w-px h-4 bg-border hidden lg:block"></div>
                             <p className="text-sm font-normal text-text">
                                 {subscriptionActivityCount.original.subscription.message}
                             </p>

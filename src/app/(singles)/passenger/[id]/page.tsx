@@ -119,25 +119,10 @@ export default async function PassengerPage({ params }: PassengerPageProps) {
                   />
                   <div className="flex flex-col gap-1 lg:gap-1.5">
                     <span className="text-caption font-normal text-xs lg:text-sm">
-                      {t("passenger.startDate")}
+                      {t("passenger.passengerDate")}
                     </span>
                     <p className="text-title font-normal lg:text-base text-sm">
                       {passengerData.project?.send_date || '-'}
-                    </p>
-                  </div>
-                </div>
-                <div className="py-2 px-2 lg:py-2.5 lg:px-3 rounded-lg lg:rounded-xl bg-light flex items-center gap-1.5 lg:gap-3">
-                  <Icon
-                    icon="solar--calendar-bold-duotone"
-                    sizeClass="size-7 lg:size-9"
-                    className="text-sub"
-                  />
-                  <div className="flex flex-col gap-1 lg:gap-1.5">
-                    <span className="text-caption font-normal text-xs lg:text-sm">
-                      {t("passenger.endDate")}
-                    </span>
-                    <p className="text-title font-normal lg:text-base text-sm">
-                      {passengerData.project?.receive_date || '-'}
                     </p>
                   </div>
                 </div>

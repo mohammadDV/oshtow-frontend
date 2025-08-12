@@ -38,7 +38,8 @@ export const apiUrls = {
     recordsInfo: "/profile/identity-records-info",
   },
   wallet: {
-    all: "/profile/wallet",
+    all: "/profile/wallets",
+    single: "/profile/wallet",
     topUp: "/profile/wallet/top-up",
     transfer: "/profile/wallet/transfer",
     transactions: "/profile/wallet-transaction",
@@ -57,6 +58,7 @@ export const apiUrls = {
   },
   payment: {
     result: "/payment/result",
+    transactions: "/profile/payment/transactions",
   },
   claims: {
     all: "/claims",
@@ -75,6 +77,7 @@ export const apiUrls = {
   chat: {
     all: "/profile/chats",
     info: "/profile/chats/info",
+    claims: "/profile/chats/claims",
   },
   ticket: {
     all: "/profile/tickets",

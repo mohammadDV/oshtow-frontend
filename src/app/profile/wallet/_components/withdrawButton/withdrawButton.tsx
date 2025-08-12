@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import z from "zod";
 import { withdrawAction, WithdrawResponse } from "../../_api/withdrawAction";
 import { RHFTextarea } from "@/app/_components/hookForm/RHFTextarea";
+import { RHFCurrency } from "@/app/_components/hookForm/RHFCurrency";
 
 export const WithdrawButton = () => {
     const tPages = usePagesTranslation();
@@ -111,11 +112,10 @@ export const WithdrawButton = () => {
             >
                 <FormProvider {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2 flex flex-col gap-6">
-                        <RHFInput
+                        <RHFCurrency
                             name="amount"
                             placeholder={tCommon("inputs.enterAmount")}
                             label={tCommon("inputs.amount")}
-                            type="number"
                         />
                         <RHFInput
                             name="card"

@@ -40,14 +40,14 @@ export const Header = ({ userData }: HeaderProps) => {
         },
         {
             id: 5,
-            title: t('navigation.about'),
-            link: '/about'
+            title: t('navigation.blog'),
+            link: '/blog'
         },
         {
             id: 6,
-            title: t('navigation.contact'),
-            link: '/contact'
-        },
+            title: t('navigation.about'),
+            link: '/about'
+        }
     ];
 
     return (

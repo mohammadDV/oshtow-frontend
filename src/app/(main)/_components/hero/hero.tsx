@@ -69,12 +69,12 @@ export const Hero = () => {
                     {slide.description}
                   </p>
                   <div className="lg:flex items-center justify-end gap-4 hidden">
-                    <Link href={"/"}>
+                    <Link href={"/profile/projects/sender/create"}>
                       <Button variant="default" size="default" className="py-3">
                         {slide.sendButton}
                       </Button>
                     </Link>
-                    <Link href={"/"}>
+                    <Link href={"/profile/projects/passenger/create"}>
                       <Button
                         variant="outline"
                         size="default"

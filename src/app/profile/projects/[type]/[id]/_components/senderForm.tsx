@@ -21,6 +21,7 @@ import { FormProvider } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 import { createSenderAction, editSenderAction, SenderService } from "../_api/senderAction";
+import { RHFCurrency } from "@/app/_components/hookForm/RHFCurrency";
 
 interface SenderForm {
     projectData?: ProjectEditResponse;
@@ -419,10 +420,9 @@ export const SenderForm = ({ projectData, id }: SenderForm) => {
                                     label={tCommon("inputs.weight")}
                                     type="number"
                                 />
-                                <RHFInput
+                                <RHFCurrency
                                     name="amount"
                                     label={tCommon("inputs.suggestAmount")}
-                                    type="number"
                                 />
                                 <RHFInput
                                     name="dimensions"

@@ -50,7 +50,8 @@
     "sendTicket": "ارسال تیکت",
     "sendMessage": "ارسال پیام",
     "goHome": "بازگشت به خانه",
-    "goProfile": "رفتن به پروفایل"
+    "goProfile": "رفتن به پروفایل",
+    "clearFilters": "پاک کردن فیلترها"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -60,6 +61,7 @@
     "passengers": "سفر ها",
     "faq": "سوالات متداول",
     "magazine": "مجله",
+    "blog": "وبلاگ",
     "privacyPolicy": "سیاست و حریم خصوصی",
     "plansCost": "تعرفه ها و هزینه ها",
     "home": "خانه",
@@ -74,7 +76,8 @@
     "addModalTitle": "انتخاب نوع آگهی",
     "addModalDescription": "نوع آگهی مورد نظر خود را انتخاب کنید",
     "submitSenderAd": "ثبت آگهی مرسوله",
-    "submitPassengerAd": "ثبت آگهی سفر"
+    "submitPassengerAd": "ثبت آگهی سفر",
+    "fastAccess": "دسترسی سریع به صفحات مهم"
   },
   "messages": {
     "loading": "در حال بارگذاری...",
@@ -170,7 +173,7 @@
     "selectImage": "انتخاب تصویر",
     "selectVideo": "انتخاب ویدیو",
     "selectFile": "انتخاب فایل",
-    "amount": "مبلغ (تومان)",
+    "amount": "مبلغ",
     "enterAmount": "مبلغ مورد نظر را وارد نمایید",
     "cardNumber": "شماره کارت",
     "enterCardNumber": "شماره کارت خود را وارد نمایید",
@@ -192,13 +195,13 @@
     "destinationCity": "شهر مقصد",
     "pathType": "نوع سفر",
     "emptySize": "فضای خالی (kg)",
-    "suggestAmountPerKG": "قیمت پیشنهادی به ازای هر Kg (تومان)",
-    "suggestAmount": "مبلغ پیشنهادی (تومان)",
+    "suggestAmountPerKG": "قیمت پیشنهادی به ازای هر Kg",
+    "suggestAmount": "مبلغ پیشنهادی",
     "sendDate": "ارسال از تاریخ",
     "receiveDate": "ارسال تا تاریخ",
     "weight": "وزن مرسوله (kg)",
     "dimensions": "ابعاد مرسوله",
-    "addressType": "انتخای نوع آدرس",
+    "addressType": "انتخاب نوع آدرس",
     "image": "تصویر",
     "receivedItem": "تصویر مرسوله دریافت شده",
     "deliveryCode": "کد تحویل",
@@ -227,7 +230,14 @@
   "transactionStatus": {
     "pending": "در انتظار",
     "completed": "تکمیل شده",
+    "cancelled": "لغو شده",
     "failed": "ناموفق"
+  },
+  "transactionType": {
+    "wallet": "کیف پول",
+    "plan": "اشتراک",
+    "identity": "احراز هویت",
+    "secure": "ضمانت"
   },
   "pagination": {
     "page": "صفحه:",
@@ -275,7 +285,10 @@
     "row": "ردیف",
     "trackingNumber": "شماره پیگیری",
     "transactionType": "نوع تراکنش",
+    "transactionId": "شناسه تراکنش",
+    "reference": "کد مرجع",
     "amount": "مبلغ",
+    "type": "نوع",
     "status": "وضعیت",
     "date": "تاریخ",
     "description": "توضیحات",
@@ -290,6 +303,11 @@
   "unit": {
     "toman": "تومان",
     "kg": "کیلوگرم"
+  },
+  "filters": {
+    "status": "وضعیت",
+    "type": "نوع",
+    "all": "همه"
   },
   "address": {
     "me": "آدرس من",

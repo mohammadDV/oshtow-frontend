@@ -1,7 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { cn, createFileUrl } from "@/lib/utils";
 import { Post } from "@/types/post.tye";
-import Link from "next/link";
 
 interface PostCardProps {
   heightClass?: string;
@@ -12,23 +12,33 @@ interface PostCardProps {
 export const PostCard = ({ heightClass, showAuthor, data }: PostCardProps) => {
   return (
     <Link
-      href={`/post/${data.id}`}
+      href={`/post/${data.id}/${data.slug}`}
       className={cn(
-        "relative overflow-hidden transition-all cursor-pointer rounded-2xl lg:rounded-3xl",
+        "group relative block overflow-hidden rounded-2xl lg:rounded-3xl cursor-pointer",
         heightClass
       )}
     >
-      <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-700 rounded-2xl lg:rounded-3xl"></div>
-      <Image src={createFileUrl(data.image)} alt="" width={512} height={512} className="object-cover w-full h-full" />
-      <div className="absolute bottom-0 z-20 w-full p-4 lg:p-6">
-        <span className="bg-primary text-white text-xs  px-3 py-1 rounded-full">
+      <div className="w-full h-full">
+        <Image
+          src={createFileUrl(data.image)}
+          alt={data.title || ""}
+          width={800}
+          height={800}
+          className="object-cover w-full h-full"
+        />
+      </div>
+
+      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-gray-700 to-transparent"></div>
+
+      <div className="absolute bottom-0 left-0 w-full p-4 lg:p-6 text-white">
+        <span className="inline-block bg-primary text-xs px-3 py-1 rounded-full">
           اخبار و مقالات
         </span>
-        <h3 className="text-white text-lg lg:text-xl font-semibold mt-3 line-clamp-1">
+        <h3 className="mt-3 text-lg lg:text-xl font-semibold line-clamp-2">
           {data.title}
         </h3>
         {showAuthor && (
-          <p className="mt-2.5 lg:mt-3 text-white text-xs font-medium">مدیر وبسایت</p>
+          <p className="mt-2 text-xs font-medium">مدیر وبسایت</p>
         )}
       </div>
     </Link>

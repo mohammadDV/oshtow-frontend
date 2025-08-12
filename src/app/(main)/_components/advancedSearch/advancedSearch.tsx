@@ -1,7 +1,10 @@
 "use client";
 
 import { Modal } from "@/app/_components/modal";
-import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
+import {
+  useCommonTranslation,
+  usePagesTranslation,
+} from "@/hooks/useTranslation";
 import { cn } from "@/lib/utils";
 import { CityWithDetails } from "@/types/location.type";
 import {
@@ -30,14 +33,20 @@ export const AdvancedSearch = () => {
 
   const [selectedTab, setSelectedTab] = useState<ProjectType>("passenger");
   const [originCity, setOriginCity] = useState<CityWithDetails | null>(null);
-  const [destinationCity, setDestinationCity] = useState<CityWithDetails | null>(null);
-  const [dateRange, setDateRange] = useState<{ from: string; to: string; } | null>(null);
-  const [pathType, setPathType] = useState<PathType | null>('air');
+  const [destinationCity, setDestinationCity] =
+    useState<CityWithDetails | null>(null);
+  const [dateRange, setDateRange] = useState<{
+    from: string;
+    to: string;
+  } | null>(null);
+  const [pathType, setPathType] = useState<PathType | null>("air");
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchParams, setSearchParams] = useState<ProjectSearchParams | null>(null);
+  const [searchParams, setSearchParams] = useState<ProjectSearchParams | null>(
+    null
+  );
 
   const destinationInputRef = useRef<CitySearchInputRef>(null);
   const dateRangeInputRef = useRef<DateRangeInputRef>(null);
@@ -75,16 +84,16 @@ export const AdvancedSearch = () => {
 
   useEffect(() => {
     setSelectedCategory(null);
-    if (selectedTab === 'sender') {
-      setPathType(null)
-    } else setPathType('air')
-  }, [selectedTab])
+    if (selectedTab === "sender") {
+      setPathType(null);
+    } else setPathType("air");
+  }, [selectedTab]);
 
   const selectTabHandler = (value: ProjectType) => setSelectedTab(value);
 
   const handleSearch = async () => {
     if (!originCity || !destinationCity) {
-      toast.error(tPages("home.originDestinationRequired"))
+      toast.error(tPages("home.originDestinationRequired"));
       return;
     }
 
@@ -151,7 +160,9 @@ export const AdvancedSearch = () => {
                     icon={tab.icon}
                     className={cn(
                       "size-6 transition-all",
-                      tab.value === selectedTab ? "text-primary" : "text-caption"
+                      tab.value === selectedTab
+                        ? "text-primary"
+                        : "text-caption"
                     )}
                   />
                   <span
@@ -170,13 +181,10 @@ export const AdvancedSearch = () => {
                 </div>
               ))}
             </div>
-            {selectedTab === 'passenger' && (
-              <PathTypeFilter
-                value={pathType}
-                onChange={setPathType}
-              />
+            {selectedTab === "passenger" && (
+              <PathTypeFilter value={pathType} onChange={setPathType} />
             )}
-            {selectedTab === 'sender' && (
+            {selectedTab === "sender" && (
               <CategoryFilter
                 value={selectedCategory}
                 onChange={setSelectedCategory}
@@ -189,9 +197,11 @@ export const AdvancedSearch = () => {
               <CitySearchInput
                 icon="solar--map-point-outline"
                 placeholder={tPages("home.originCity")}
-                description={selectedTab === "passenger"
-                  ? tPages("home.originPassengerDescription")
-                  : tPages("home.originSenderDescription")}
+                description={
+                  selectedTab === "passenger"
+                    ? tPages("home.originPassengerDescription")
+                    : tPages("home.originSenderDescription")
+                }
                 value={originCity}
                 onChange={setOriginCity}
               />
@@ -201,9 +211,11 @@ export const AdvancedSearch = () => {
                   ref={destinationInputRef}
                   icon="solar--map-point-outline"
                   placeholder={tPages("home.destinationCity")}
-                  description={selectedTab === "passenger"
-                    ? tPages("home.destinationPassengerDescription")
-                    : tPages("home.destinationSenderDescription")}
+                  description={
+                    selectedTab === "passenger"
+                      ? tPages("home.destinationPassengerDescription")
+                      : tPages("home.destinationSenderDescription")
+                  }
                   value={destinationCity}
                   onChange={setDestinationCity}
                 />
@@ -214,9 +226,11 @@ export const AdvancedSearch = () => {
                   ref={dateRangeInputRef}
                   icon="solar--calendar-outline"
                   placeholder={tPages("home.passengerDate")}
-                  description={selectedTab === "passenger"
-                    ? tPages("home.datePassengerDescription")
-                    : tPages("home.dateSenderDescription")}
+                  description={
+                    selectedTab === "passenger"
+                      ? tPages("home.datePassengerDescription")
+                      : tPages("home.dateSenderDescription")
+                  }
                   value={dateRange}
                   onChange={setDateRange}
                 />
@@ -292,13 +306,31 @@ export const AdvancedSearch = () => {
               </div>
               <div className="flex justify-center pt-4">
                 <Button onClick={handleShowMore} className="w-full sm:w-auto">
-                  {tCommon('buttons.seeAllResults')}
+                  {tCommon("buttons.seeAllResults")}
                 </Button>
               </div>
             </>
           ) : (
-            <div className="text-center text-lg py-8 text-caption">
-              {tCommon('messages.noResult')}
+            <div className="flex flex-col">
+              <div className="text-center text-lg py-8 text-caption">
+                {tCommon("messages.noResult")}
+              </div>
+              <div className="flex items-center justify-center mt-7 gap-3">
+                <Button
+                  variant={"outline"}
+                  size={"default"}
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  {tCommon("buttons.backToSearch")}
+                </Button>
+                <Link href={`/projects/${selectedTab}`}>
+                  <Button variant={"default"} size={"default"}>
+                    {selectedTab === "passenger"
+                      ? tPages("home.seeAllPassengers")
+                      : tPages("home.seeAllSenders")}
+                  </Button>
+                </Link>
+              </div>
             </div>
           )}
         </div>

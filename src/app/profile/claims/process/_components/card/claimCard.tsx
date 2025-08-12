@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 import { approveClaimAction, ApproveClaimResponse } from "../../_api/approveClaimAction";
+import { getClaimChat, ClaimChatResponse } from "../../_api/getClaimChat";
 import { StatusCode } from "@/constants/enums";
 import { useRouter } from "next/navigation";
 
@@ -24,6 +25,7 @@ export const ClaimCard = ({ data }: ClaimCardProps) => {
     const t = useCommonTranslation();
     const tPages = usePagesTranslation();
     const [isLoading, setIsLoading] = useState(false);
+    const [isChatLoading, setIsChatLoading] = useState(false);
     const [isOpenModal, setIsOpenModal] = useState(false);
 
     const handleSelectUser = async () => {
@@ -41,6 +43,19 @@ export const ClaimCard = ({ data }: ClaimCardProps) => {
             toast.error(t("messages.error"));
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const handleChatWithUser = async () => {
+        setIsChatLoading(true);
+        try {
+            const result: ClaimChatResponse = await getClaimChat(data.id);
+            if (result.id)
+                router.push(`/profile/chat?chatId=${result.id}`);
+        } catch (error) {
+            toast.error(t("messages.error"));
+        } finally {
+            setIsChatLoading(false);
         }
     };
 
@@ -131,9 +146,22 @@ export const ClaimCard = ({ data }: ClaimCardProps) => {
                                     {t(`address.${data.address_type}`)}
                                 </p>
                             </div>
+                            {data.image && <Link href={data.image}>
+                                <Icon
+                                    icon="solar--paperclip-linear"
+                                    sizeClass="size-5"
+                                    className="text-sub"
+                                />
+                            </Link>}
                         </div>
                         <div className="flex items-center gap-2 w-full lg:w-auto">
-                            <Button variant={"outline"} size={"sm"} className="py-2 flex-1 lg:flex-initial">
+                            <Button
+                                variant={"outline"}
+                                size={"sm"}
+                                className="py-2 flex-1 lg:flex-initial"
+                                onClick={handleChatWithUser}
+                                isLoading={isChatLoading}
+                            >
                                 {t("buttons.chatWithUser")}
                             </Button>
                             <Button

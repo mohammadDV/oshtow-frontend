@@ -42,7 +42,9 @@ export default async function ProfilePage() {
             )}
             {isMobile && (
                 <>
-                    <div className="flex items-center justify-between bg-white p-4 rounded-2xl mb-4">
+                    <Link
+                        href={"/profile/settings/account"}
+                        className="flex items-center justify-between bg-white p-4 rounded-2xl mb-4">
                         <div className="flex items-center gap-3">
                             <img
                                 src={userData?.user?.profile_photo_path
@@ -64,7 +66,7 @@ export default async function ProfilePage() {
                             </div>
                         </div>
                         <Icon icon="solar--alt-arrow-left-outline" sizeClass="size-5" className="text-caption" />
-                    </div>
+                    </Link>
                     <div className="lg:w-2xs bg-white rounded-2xl lg:rounded-3xl overflow-hidden pb-4">
                         <div className="mt-4 lg:mt-6 px-6">
                             <ProfileMenu items={userProfileMenu} />

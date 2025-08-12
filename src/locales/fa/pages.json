@@ -31,7 +31,9 @@
     "searchResults": "نتایج جستجو",
     "searchPassenger": "جستجوی سفر",
     "searchSender": "جستجوی مرسوله",
-    "originDestinationRequired": "وارد کردن مبدا و مقصد الزامی می‌باشد!"
+    "originDestinationRequired": "وارد کردن مبدا و مقصد الزامی می‌باشد!",
+    "seeAllPassengers": "مشاهده همه سفر ها",
+    "seeAllSenders": "مشاهده همه مرسوله ها"
   },
   "projects": {
     "sendersTitle": "جستجوی آگهی مرسوله ها",
@@ -89,6 +91,7 @@
     "emptySize": "فضای خالی",
     "startDate": "ارسال از تاریخ",
     "endDate": "ارسال تا تاریخ",
+    "passengerDate": "تاریخ سفر",
     "suggestPrice": "قیمت پیشنهادی (kg)",
     "description": "توضیحات سفر",
     "sharePassenger": "اشتراک گذاری سفر",
@@ -208,6 +211,9 @@
       "transactionsHistory": "تاریخچه تراکنش‌ها",
       "withdrawRequestsHistory": "تاریخچه درخواست‌های برداشت"
     },
+    "transactions": {
+      "title": "تراکنش‌ها"
+    },
     "plans": {
       "title": "پلن ها و تعرفه ها",
       "description": "برای ثبت آگهی و یا ارسال درخواست، باید یکی از پلن های زیر را خریداری نمایید.",
@@ -278,7 +284,7 @@
       "deliveredDescription": "این سفر با موفقیت به پایان رسیده است.",
       "yourReview": "نظر شما",
       "selectUserConfirmTitle": "انتخاب کاربر",
-      "selectUserConfirmDescription": "آیا از انتخاب این کاربر برای حمل مرسوله خود مطمئن هستید؟ پس از تایید، وارد مراحل بعدی سفر خواهید شد."
+      "selectUserConfirmDescription": "آیا از انتخاب این کاربر برای سفر خود مطمئن هستید؟ شما تنها یکی از کاربران را میتوانید انتخاب کنید و پس از تایید امکان بازگشت وجود ندارد."
     },
     "notifications": {
       "title": "اطلاعیه های من"
@@ -295,6 +301,13 @@
       "ticketTo": "تیکت به",
       "yourAnswer": "پاسخ شما"
     }
+  },
+  "blog": {
+    "title": "اخبار و مقالات",
+    "description": "آخرین اخبار و مقالات مفید در زمینه حمل و نقل",
+    "noPostsTitle": "هیچ مقاله‌ای یافت نشد",
+    "specialBadge": "منتخب",
+    "views": "بازدید"
   },
   "post": {
     "home": "خانه",
@@ -315,7 +328,7 @@
     "paidAmount": "مبلغ پرداخت شده"
   },
   "notFound": {
-      "title": "اینجا هیچ بسته‌ای تحویل داده نمی‌شه!",
-      "description": "متأسفانه صفحه‌ای که به دنبال آن هستید وجود ندارد یا ممکن است حذف شده باشد."
+    "title": "اینجا هیچ بسته‌ای تحویل داده نمی‌شه!",
+    "description": "متأسفانه صفحه‌ای که به دنبال آن هستید وجود ندارد یا ممکن است حذف شده باشد."
   }
 }

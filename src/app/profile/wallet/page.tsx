@@ -9,6 +9,7 @@ import { getWithdrawRequests } from "./_api/getWithdrawRequests";
 import { TransactionStatus, TransactionType, WithdrawStatus } from "@/types/wallet.type";
 import { getWallet } from "../_api/getWallet";
 import { putCommas } from "@/lib/utils";
+import { getWallets } from "./_api/getWallets";
 
 interface WalletPageProps {
     searchParams: Promise<{
@@ -22,10 +23,9 @@ interface WalletPageProps {
 export default async function WalletPage({ searchParams }: WalletPageProps) {
     const tPages = await getTranslations("pages");
     const tCommon = await getTranslations("common");
-    const userData = await getUserData();
     const resolvedSearchParams = await searchParams;
 
-    const walletData = await getWallet();
+    const walletsData = await getWallets();
 
     const page = parseInt(resolvedSearchParams?.page || "1");
     const tab = resolvedSearchParams?.tab || 'transactions';
@@ -38,7 +38,7 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
         const status = resolvedSearchParams?.status as TransactionStatus;
 
         transactionsData = await getWalletTransactions({
-            id: userData.user.id.toString(),
+            id: walletsData?.data?.[0].id.toString(),
             page,
             type,
             status,
@@ -62,7 +62,7 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
                         {tPages("profile.wallet.walletCredit")}
                     </p>
                     <p className="text-2xl font-medium text-white">
-                        {putCommas(walletData?.data?.available_balance)} {' '} {tCommon("unit.toman")}
+                        {putCommas(parseFloat(walletsData?.data?.[0].balance))} {' '} {tCommon("unit.toman")}
                     </p>
                     <span className="text-white/30 font-normal absolute left-6 bottom-5">
                         {tCommon("brand.domain")}

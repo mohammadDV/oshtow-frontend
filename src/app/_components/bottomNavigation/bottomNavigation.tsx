@@ -207,12 +207,11 @@ export const BottomNavigation = () => {
         </div>
       </Modal>
 
-      {/* Others Modal */}
       <Modal
         open={isOthersModalOpen}
         onOpenChange={setIsOthersModalOpen}
         title={t("navigation.others")}
-        description="دسترسی سریع به صفحات مهم"
+        description={t("navigation.fastAccess")}
         showConfirm={false}
         showCancel={false}
         size="sm"
@@ -274,7 +273,7 @@ export const BottomNavigation = () => {
           </button>
           <button
             onClick={() => {
-              router.push("/magazine");
+              router.push("/blog");
               setIsOthersModalOpen(false);
             }}
             className="flex items-center gap-3 p-4 rounded-xl border border-border hover:bg-gray-50 transition-colors"
@@ -286,7 +285,7 @@ export const BottomNavigation = () => {
             />
             <div className="text-right">
               <p className="font-medium text-text">
-                {t("navigation.magazine")}
+                {t("navigation.blog")}
               </p>
             </div>
           </button>
