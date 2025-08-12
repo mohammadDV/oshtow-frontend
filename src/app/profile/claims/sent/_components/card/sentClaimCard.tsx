@@ -30,8 +30,8 @@ export const SentClaimCard = ({ data }: SentClaimCardProps) => {
                     sizeClass="size-8"
                     className="text-caption"
                 />
-                <div className="flex flex-col w-full lg:items-start gap-2.5">
-                    <h3 className="text-lg font-medium text-title line-clamp-1">
+                <div className="flex flex-col w-full items-start gap-2.5">
+                    <h3 className="lg:text-lg font-medium text-title line-clamp-2 max-w-44 lg:max-w-72">
                         {data.project.title}
                     </h3>
                     <p className="text-sm text-text font-normal">

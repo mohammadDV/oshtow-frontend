@@ -31,8 +31,8 @@ export const ProjectClaimsCard = ({ data }: ProjectClaimsCardProps) => {
                     sizeClass="size-8"
                     className="text-caption"
                 />
-                <div className="flex lg:flex-col w-full lg:items-start gap-2.5">
-                    <h3 className="text-lg font-medium text-title line-clamp-1">
+                <div className="flex lg:flex-col w-full items-start gap-2.5">
+                    <h3 className="lg:text-lg font-medium text-title line-clamp-2 max-w-44 lg:max-w-72">
                         {data.title}
                     </h3>
                     {!isEmpty(data?.categories) && <Badge variant={"primary"} className="mr-auto lg:mr-0">
@@ -40,7 +40,7 @@ export const ProjectClaimsCard = ({ data }: ProjectClaimsCardProps) => {
                     </Badge>}
                 </div>
             </div>
-            <div className="flex justify-between items-center lg:gap-24 w-full lg:w-auto mt-7 lg:mt-0">
+            <div className="flex justify-between items-center lg:gap-24 w-full lg:w-auto mt-6 lg:mt-0">
                 <div className="flex flex-col gap-3">
                     {!isEmpty(data?.claimsLimit) && <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2">
                         {data?.claimsLimit?.map(claim => (

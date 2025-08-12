@@ -28,33 +28,33 @@ export default async function PostPage({ params }: PostPageProps) {
 
         return (
             <main className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
-                <div className="container mx-auto px-4 mt-5 lg:mt-6">
-                    <nav className="flex items-center gap-2 text-sm text-caption mb-8 p-4 bg-white backdrop-blur-sm rounded-xl border border-border/50">
-                        <Link href="/" className="hover:text-primary transition-colors duration-200 font-medium">{t("post.home")}</Link>
-                        {/* <Icon icon="solar--alt-arrow-left-outline" sizeClass="size-3" />
-                        <Link href="/posts" className="hover:text-primary transition-colors duration-200 font-medium">اخبار و مقالات</Link> */}
+                <div className="container mx-auto px-4 mt-4 lg:mt-6">
+                    <nav className="flex items-center gap-2 text-sm text-caption mb-5 lg:mb-8 p-4 bg-white backdrop-blur-sm rounded-xl border border-border/50">
+                        <Link href="/" className="hover:text-primary transition-colors w-fit duration-200">{t("post.home")}</Link>
                         <Icon icon="solar--alt-arrow-left-outline" sizeClass="size-3" />
-                        <span className="text-primary font-semibold">{post.title}</span>
+                        <Link href="/posts" className="hover:text-primary transition-colors w-fit duration-200">وبلاگ</Link>
+                        <Icon icon="solar--alt-arrow-left-outline" sizeClass="size-3" />
+                        <span className="text-primary line-clamp-1 w-fit">{post.title}</span>
                     </nav>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
                         <div className="lg:col-span-2">
 
-                            <header className="mb-5 text-center">
-                                <h1 className="text-2xl lg:text-4xl font-bold text-title mb-4 leading-tight">
+                            <div className="mb-5">
+                                <h1 className="text-xl lg:text-2xl font-bold text-title mb-2 leading-7 lg:leading-9">
                                     {post.title}
                                 </h1>
                                 {post.pre_title && (
-                                    <div className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+                                    <div className="inline-block text-primary rounded-full text-sm font-medium">
                                         {post.pre_title}
                                     </div>
                                 )}
-                            </header>
+                            </div>
 
                             {(post.video || post.image) && (
-                                <div className="relative w-full mb-8">
+                                <div className="relative w-full mb-6">
                                     {post.video ? (
-                                        <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-border/20">
+                                        <div className="relative w-full aspect-video rounded-2xl lg:rounded-3xl overflow-hidden border border-border/20">
                                             <video
                                                 src={createFileUrl(post.video)}
                                                 controls
@@ -65,7 +65,7 @@ export default async function PostPage({ params }: PostPageProps) {
                                             </video>
                                         </div>
                                     ) : post.image && (
-                                        <div className="relative w-full h-[230px] lg:h-[460px] rounded-3xl overflow-hidden border border-border/20">
+                                        <div className="relative w-full h-[230px] lg:h-[460px] rounded-2xl lg:rounded-3xl overflow-hidden border border-border/20">
                                             <Image
                                                 src={createFileUrl(post.image)}
                                                 alt={post.title}
@@ -78,7 +78,7 @@ export default async function PostPage({ params }: PostPageProps) {
                                 </div>
                             )}
 
-                            <div className="flex items-center justify-center mb-6">
+                            <div className="flex items-center justify-center mb-5 lg:mb-6">
                                 <div className="items-center justify-center gap-6 text-sm text-caption bg-white backdrop-blur-sm rounded-xl p-4 border border-border/50 inline-flex">
                                     <div className="flex items-center gap-2">
                                         <div className="p-1.5 bg-primary/10 rounded-full">
@@ -97,20 +97,20 @@ export default async function PostPage({ params }: PostPageProps) {
                             </div>
 
                             {post.summary && (
-                                <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 p-6 lg:p-8 rounded-2xl mb-6 border border-primary/20">
+                                <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 p-4 lg:p-8 rounded-2xl mb-5 lg:mb-6 border border-primary/20">
                                     <div className="flex items-start gap-4">
                                         <div className="p-2 bg-primary/10 rounded-xl">
                                             <Icon icon="solar--pen-2-outline" sizeClass="size-5 text-primary" />
                                         </div>
                                         <div>
-                                            <h3 className="text-lg font-semibold text-title mb-2">{t("post.postSummary")}</h3>
-                                            <p className="text-lg leading-relaxed text-caption">{post.summary}</p>
+                                            <h3 className="text-sm lg:text-lg font-semibold text-title mb-2">{t("post.postSummary")}</h3>
+                                            <p className="text-sm lg:text-base leading-relaxed text-caption">{post.summary}</p>
                                         </div>
                                     </div>
                                 </div>
                             )}
 
-                            <article className="bg-white backdrop-blur-sm rounded-2xl p-6 lg:p-10">
+                            <article className="bg-white backdrop-blur-sm rounded-2xl p-5 lg:p-10">
                                 <div
                                     className="prose text-text prose-lg max-w-none prose-headings:text-text prose-p:text-caption prose-p:leading-relaxed prose-a:text-primary prose-strong:text-text prose-blockquote:border-primary prose-blockquote:bg-primary/5 prose-blockquote:text-caption"
                                     dangerouslySetInnerHTML={{ __html: post.content || '' }}
