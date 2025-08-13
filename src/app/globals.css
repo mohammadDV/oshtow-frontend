@@ -1,6 +1,30 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* PWA Splash Screen - Immediate hide for standalone mode */
+@media (display-mode: standalone) {
+  body {
+    visibility: hidden;
+  }
+  
+  body.pwa-ready {
+    visibility: visible;
+  }
+  
+  body.splash-active {
+    visibility: visible;
+    overflow: hidden;
+  }
+  
+  body.splash-active > * {
+    visibility: hidden;
+  }
+  
+  body.splash-active .splash-screen {
+    visibility: visible;
+  }
+}
+
 html,
 body {
   box-sizing: border-box;
