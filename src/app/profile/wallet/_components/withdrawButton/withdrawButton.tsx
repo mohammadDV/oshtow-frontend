@@ -126,6 +126,7 @@ export const WithdrawButton = () => {
                             name="sheba"
                             placeholder={tCommon("inputs.enterShebaNumber")}
                             label={tCommon("inputs.shebaNumber")}
+                            trailingLabel="IR"
                         />
                         <RHFTextarea
                             name="description"

@@ -58,7 +58,7 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
                         sizeClass="size-8"
                         className="text-caption"
                     />
-                    <h3 className="text-lg lg:text-xl font-medium text-title line-clamp-1">
+                    <h3 className="text-lg lg:text-xl font-medium text-title line-clamp-2 max-w-52 lg:max-w-xl">
                         {data.title}
                     </h3>
                     <Badge variant={getStatusBadgeVariant(data.status)} className="lg:block hidden">

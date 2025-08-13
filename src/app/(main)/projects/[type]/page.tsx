@@ -33,7 +33,10 @@ interface ProjectsPageProps {
   }>;
 }
 
-export default async function ProjectsPage({ params, searchParams }: ProjectsPageProps) {
+export default async function ProjectsPage({
+  params,
+  searchParams,
+}: ProjectsPageProps) {
   const isMobile = await isMobileDevice();
   const t = await getTranslations("pages");
 
@@ -59,8 +62,8 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
   const categories = Array.isArray(categoriesParam)
     ? categoriesParam
     : categoriesParam
-      ? [categoriesParam]
-      : undefined;
+    ? [categoriesParam]
+    : undefined;
 
   const projectsData = await getProjects({
     type: resolvedParams.type,
@@ -78,7 +81,7 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
     min_weight,
     max_weight,
     sort,
-    column
+    column,
   });
 
   return (
@@ -99,20 +102,27 @@ export default async function ProjectsPage({ params, searchParams }: ProjectsPag
           {isMobile && <RemoveFilters />}
           {!isMobile && (
             <p className="text-sm font-normal text-caption">
-              {projectsData.total} {' '}
+              {projectsData.total}{" "}
               {resolvedParams.type === "sender" && t("projects.foundedSender")}
-              {resolvedParams.type === "passenger" && t("projects.foundedPassenger")}
+              {resolvedParams.type === "passenger" &&
+                t("projects.foundedPassenger")}
             </p>
           )}
         </div>
-        {resolvedParams.type === "sender" && <SendersList isMobile={isMobile} data={projectsData.data} />}
-        {resolvedParams.type === "passenger" && <PassengersList data={projectsData.data} />}
-        <Pagination
-          currentPage={projectsData.current_page}
-          lastPage={projectsData.last_page}
-          links={projectsData.links}
-          total={projectsData.total}
-        />
+        {resolvedParams.type === "sender" && (
+          <SendersList isMobile={isMobile} data={projectsData.data} />
+        )}
+        {resolvedParams.type === "passenger" && (
+          <PassengersList data={projectsData.data} />
+        )}
+        {projectsData.data && projectsData.total > 12 && (
+          <Pagination
+            currentPage={projectsData.current_page}
+            lastPage={projectsData.last_page}
+            links={projectsData.links}
+            total={projectsData.total}
+          />
+        )}
       </main>
     </div>
   );

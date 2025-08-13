@@ -68,7 +68,7 @@ export const TransferButton = () => {
         const formData = new FormData();
 
         formData.append("amount", data.amount.toString());
-        formData.append("customer_number", data.amount);
+        formData.append("customer_number", data.customer_number);
         startTransition(async () => {
             await formAction(formData);
         });

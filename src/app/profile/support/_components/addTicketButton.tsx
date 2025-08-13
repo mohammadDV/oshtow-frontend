@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import { useFetchData } from "@/hooks/useFetchData";
 import { apiUrls } from "@/constants/apiUrls";
 import { useRouter } from "next/navigation";
+import { Icon } from "@/ui/icon";
 
 export const AddTicketButton = () => {
   const t = useCommonTranslation();
@@ -120,6 +121,13 @@ export const AddTicketButton = () => {
       >
         {t("buttons.addSupportTicket")}
       </Button>
+
+      <Icon
+        onClick={showModalHandler}
+        icon="solar--add-square-bold"
+        sizeClass="size-10"
+        className="text-primary lg:hidden"
+      />
 
       <Modal
         open={isOpenModal}
