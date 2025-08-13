@@ -204,7 +204,6 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
   }, [watchedProvinceId, form, identifyInfo?.city_id]);
 
   useEffect(() => {
-    console.log(formState);
     if (!!formState && formState.status === StatusCode.Failed) {
       toast.error(
         !!formState?.errors

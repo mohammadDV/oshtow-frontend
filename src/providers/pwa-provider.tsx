@@ -28,25 +28,23 @@ export function PWAProvider({ children }: PWAProviderProps) {
   const [isInstalled, setIsInstalled] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     const checkInstallation = () => {
       const standalone = window.matchMedia("(display-mode: standalone)").matches;
       const webkitStandalone = (window.navigator as any).standalone === true;
       const isInStandaloneMode = standalone || webkitStandalone;
-      
+
       setIsStandalone(isInStandaloneMode);
       setIsInstalled(isInStandaloneMode);
-      
+
       if (isInStandaloneMode) {
         setShowSplash(true);
         document.body.classList.add('splash-active');
       } else {
         document.body.classList.add('pwa-ready');
       }
-      
-      setIsInitialized(true);
+
     };
 
     checkInstallation();
