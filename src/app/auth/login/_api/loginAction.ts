@@ -15,6 +15,7 @@ export interface LoginService {
     verify_email?: boolean;
     verify_access?: boolean;
     status_approval?: false | 'pending' | 'paid' | 'completed'
+    customer_number?: string;
     user?: UserInfo;
 }
 
@@ -42,6 +43,7 @@ export const loginAction = async (_state: any, formData: FormData): Promise<any>
                     verify_email: res?.verify_email,
                     verify_access: res?.verify_access,
                     status_approval: res?.status_approval,
+                    customer_number: res.customer_number,
                     user: res?.user,
                 }),
                 httpOnly: false,

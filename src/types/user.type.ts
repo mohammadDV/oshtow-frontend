@@ -15,6 +15,7 @@ export interface UserData {
     verify_email: boolean;
     verify_access: boolean;
     status_approval: false | 'pending' | 'paid' | 'completed'
+    customer_number: string;
     user: UserInfo;
 }
 

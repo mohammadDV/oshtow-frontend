@@ -168,6 +168,7 @@
   "profile": {
     "welcomeUser": "کاربر گرامی، خوش آمدید!",
     "walletCredit": "اعتبار کیف پول",
+    "customerNumber": "شماره کاربری",
     "authTitle": "احراز هویت",
     "authDescription": "جهت بهره مندی از خدمات اوشتو، احراز هویت خود را تکمیل نمایید.",
     "completeAuth": "تکمیل احراز هویت",
