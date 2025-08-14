@@ -4,6 +4,9 @@ import { getWallet } from "../_api/getWallet";
 import { getSubscriptionPlans } from "./_api/getSubscriptionPlans";
 import { PlansList } from "./_components/plansList";
 import { PlansHistory } from "./_components/plansHistory/plansHistory";
+import { getSubscriptionActivityCount } from "../_api/getSubscriptionActivityCount";
+import { SubscriptionType } from "@/constants/enums";
+import { Icon } from "@/ui/icon";
 
 interface PlansPageProps {
     searchParams: Promise<{
@@ -16,14 +19,23 @@ export default async function PlansPage({ searchParams }: PlansPageProps) {
     const resolvedSearchParams = await searchParams;
     const page = parseInt(resolvedSearchParams.page || '1');
 
-    const [activePlans, walletData, subscriptionPlans] = await Promise.all([
+    const [activePlans, walletData, subscriptionPlans, subscriptionActivityCount] = await Promise.all([
         getActivePlans(),
         getWallet(),
-        getSubscriptionPlans({ page, count: 5 })
+        getSubscriptionPlans({ page, count: 5 }),
+        getSubscriptionActivityCount()
     ]);
 
     return (
         <div>
+            {subscriptionActivityCount.original.subscription.has_active_subscription === SubscriptionType.Active && (
+                <div className="p-4 rounded-2xl bg-border flex gap-2.5 lg:mb-8">
+                    <Icon icon='solar--info-circle-outline' className='text-warning' />
+                    <p className="text-text w-fit">
+                        {t("profile.plans.rewritePlan")}
+                    </p>
+                </div>
+            )}
             <h1 className="text-center text-2xl lg:text-3xl mt-6 lg:mt-0 font-semibold text-title">
                 {t("profile.plans.title")}
             </h1>

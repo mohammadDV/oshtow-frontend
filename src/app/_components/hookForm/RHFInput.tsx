@@ -25,7 +25,7 @@ export const RHFInput: React.FC<RHFInputProps> = ({
         <FormField
             control={control}
             name={name}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
                 <FormItem className="gap-1.5 w-full">
                     {label && <FormLabel className="text-text mb-1">{label}</FormLabel>}
                     <FormControl>
@@ -35,6 +35,7 @@ export const RHFInput: React.FC<RHFInputProps> = ({
                                 {...props}
                                 value={field.value ?? ''}
                                 className={className}
+                                aria-invalid={!!fieldState.error}
                             />
                             {trailingLabel && (
                                 <div className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-caption pointer-events-none">

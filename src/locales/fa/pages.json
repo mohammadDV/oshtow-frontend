@@ -236,7 +236,8 @@
       "walletBalance": "موجودی",
       "chargeWallet": "شارژ کیف پول",
       "directPayment": "درگاه پرداخت مستقیم",
-      "subscriptionHistory": "تاریخچه اشتراک‌ها"
+      "subscriptionHistory": "تاریخچه اشتراک‌ها",
+      "rewritePlan": "با خرید پلن جدید، پلن فعال شما لغو و با پلن جدید جایگزین می‌شود."
     },
     "projects": {
       "passengersTitle": "مدیریت سفر های من",

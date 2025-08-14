@@ -217,7 +217,8 @@
     "ticketFile": "فایل ضمیمه (اختیاری)",
     "enterTicketMessage": "پیام خود را وارد کنید",
     "selectTicketSubject": "موضوع درخواست را انتخاب کنید",
-    "suggestedAmount": "مبلغ پیشنهادی جدید"
+    "suggestedAmount": "مبلغ پیشنهادی جدید",
+    "shipmentImage": "تصویر مرسوله"
   },
   "path": {
     "air": "هوایی",

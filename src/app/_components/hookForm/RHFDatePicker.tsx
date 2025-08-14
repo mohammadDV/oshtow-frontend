@@ -30,7 +30,7 @@ export const RHFDatePicker: React.FC<RHFDatePickerProps> = ({
         <FormField
             control={control}
             name={name}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
                 <FormItem className="gap-1.5 w-full">
                     {label && <FormLabel className="text-text mb-1">{label}</FormLabel>}
                     <FormControl>
@@ -38,7 +38,10 @@ export const RHFDatePicker: React.FC<RHFDatePickerProps> = ({
                             value={field.value ?? ''}
                             onChange={field.onChange}
                             placeholder={placeholder}
-                            className={className}
+                            className={cn(
+                                fieldState.error && "border-destructive/50",
+                                className
+                            )}
                             disabled={disabled}
                             minDate={minDate}
                             maxDate={maxDate}

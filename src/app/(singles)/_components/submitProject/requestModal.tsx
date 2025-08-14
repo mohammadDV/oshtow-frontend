@@ -58,7 +58,9 @@ export const RequestModal = ({ title, isOpenModal, setIsOpenModal, projectData }
         description: z.string().min(1, t("validation.required.thisField")),
         address_type: z.string().min(1, t("validation.required.thisField")),
         address: z.string().optional(),
-        image: z.string().optional(),
+        image: projectData.project.type === "passenger"
+            ? z.string().min(1, t("validation.required.thisField"))
+            : z.string().optional(),
     }).refine((data) => {
         if (data.address_type === "me") {
             return data.address && data.address.length > 0;
@@ -168,7 +170,9 @@ export const RequestModal = ({ title, isOpenModal, setIsOpenModal, projectData }
                     <RHFUpload
                         uploadType="image"
                         name="image"
-                        placeholder={t("inputs.image")}
+                        placeholder={projectData.project.type === "passenger"
+                            ? t("inputs.shipmentImage")
+                            : t("inputs.ticketImage")}
                     />
                     <div className="flex items-center justify-end gap-3 mt-2">
                         <Button
