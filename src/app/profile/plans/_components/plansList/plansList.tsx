@@ -1,6 +1,7 @@
 "use client"
 
 import { Modal } from '@/app/_components/modal'
+import { WalletService } from '@/app/profile/_api/getWallet'
 import { StatusCode } from '@/constants/enums'
 import { useCommonTranslation, usePagesTranslation } from '@/hooks/useTranslation'
 import { formatToShamsiWithYear } from '@/lib/dateUtils'
@@ -12,8 +13,7 @@ import { RadioGroup, RadioGroupItem } from '@/ui/radio-group'
 import Link from 'next/link'
 import { useActionState, useEffect, useState, useTransition } from 'react'
 import { toast } from 'sonner'
-import { subscriptionAction, SubscriptionResponse } from '../_api/subscriptionAction'
-import { WalletService } from '../../_api/getWallet'
+import { subscriptionAction, SubscriptionResponse } from '../../_api/subscriptionAction'
 
 interface PlansListProps {
     plansData: Plan[];

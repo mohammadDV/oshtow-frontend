@@ -300,6 +300,7 @@
     "type": "نوع",
     "status": "وضعیت",
     "date": "تاریخ",
+    "orderDate": "تاریخ سفارش",
     "description": "توضیحات",
     "cardNumber": "شماره کارت",
     "shebaNumber": "شماره شبا",
@@ -308,7 +309,9 @@
     "message": "پیام",
     "subject": "موضوع",
     "file": "فایل درخواست",
-    "operation": "عملیات"
+    "operation": "عملیات",
+    "planTitle": "عنوان اشتراک",
+    "endsAt": "تاریخ انقضا"
   },
   "unit": {
     "toman": "تومان",
@@ -318,6 +321,10 @@
     "status": "وضعیت",
     "type": "نوع",
     "all": "همه"
+  },
+  "status": {
+    "active": "فعال",
+    "inactive": "غیرفعال"
   },
   "address": {
     "me": "آدرس من",

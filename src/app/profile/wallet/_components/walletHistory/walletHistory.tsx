@@ -163,6 +163,6 @@ export const WalletHistory = ({ transactionsData, withdrawRequestsData, activeTa
                     </>
                 )}
             </div>
-        </div >
+        </div>
     );
 };

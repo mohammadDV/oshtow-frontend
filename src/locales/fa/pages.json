@@ -235,7 +235,8 @@
       "walletPayment": "پرداخت با کیف پول",
       "walletBalance": "موجودی",
       "chargeWallet": "شارژ کیف پول",
-      "directPayment": "درگاه پرداخت مستقیم"
+      "directPayment": "درگاه پرداخت مستقیم",
+      "subscriptionHistory": "تاریخچه اشتراک‌ها"
     },
     "projects": {
       "passengersTitle": "مدیریت سفر های من",

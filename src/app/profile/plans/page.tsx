@@ -1,23 +1,37 @@
 import { getTranslations } from "next-intl/server"
 import { getActivePlans } from "./_api/getActivePlans";
-import { PlansList } from "./_components/plansList";
 import { getWallet } from "../_api/getWallet";
+import { getSubscriptionPlans } from "./_api/getSubscriptionPlans";
+import { PlansList } from "./_components/plansList";
+import { PlansHistory } from "./_components/plansHistory/plansHistory";
 
-export default async function PlansPage() {
+interface PlansPageProps {
+    searchParams: Promise<{
+        page?: string;
+    }>;
+}
+
+export default async function PlansPage({ searchParams }: PlansPageProps) {
     const t = await getTranslations("pages");
+    const resolvedSearchParams = await searchParams;
+    const page = parseInt(resolvedSearchParams.page || '1');
 
-    const activePlans = await getActivePlans();
-    const walletData = await getWallet();
+    const [activePlans, walletData, subscriptionPlans] = await Promise.all([
+        getActivePlans(),
+        getWallet(),
+        getSubscriptionPlans({ page, count: 5 })
+    ]);
 
     return (
         <div>
-            <h1 className="text-center text-2xl lg:text-3xl font-semibold text-title">
+            <h1 className="text-center text-2xl lg:text-3xl mt-6 lg:mt-0 font-semibold text-title">
                 {t("profile.plans.title")}
             </h1>
             <p className="text-center font-normal text-caption mt-3">
                 {t("profile.plans.description")}
             </p>
             <PlansList plansData={activePlans} walletData={walletData} />
+            <PlansHistory plansData={subscriptionPlans} />
         </div>
     )
 }
