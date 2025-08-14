@@ -3,7 +3,7 @@
 import { Modal } from '@/app/_components/modal';
 import { StatusCode } from '@/constants/enums';
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
-import { putCommas } from "@/lib/utils";
+import { isEmpty, putCommas } from "@/lib/utils";
 import { ClaimStatusResponse, FullClaim } from "@/types/claim.type";
 import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
@@ -13,7 +13,9 @@ import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 import { payClaimAction, PayClaimResponse } from '../../_api/payClaimAction';
+import { confirmNewAmountAction, ConfirmNewAmountResponse } from '../../_api/confirmNewAmountAction';
 import { WalletService } from '@/app/profile/_api/getWallet';
+import { SuggestNewAmountButton } from './suggestNewAmountButton';
 
 interface SecurePaymentProps {
     claimStatus: ClaimStatusResponse;
@@ -29,8 +31,13 @@ export const SecurePayment = ({ claimData, claimStatus, walletData }: SecurePaym
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
     const [paymentMethod, setPaymentMethod] = useState<string>("wallet");
     const [isPending, startTransition] = useTransition();
+    const [confirmPending, startConfirmTransition] = useTransition();
     const [formState, formAction] = useActionState<PayClaimResponse | null, FormData>(
         payClaimAction,
+        null
+    );
+    const [confirmFormState, confirmFormAction] = useActionState<ConfirmNewAmountResponse | null, FormData>(
+        confirmNewAmountAction,
         null
     );
 
@@ -48,6 +55,27 @@ export const SecurePayment = ({ claimData, claimStatus, walletData }: SecurePaym
             setIsOpenModal(false);
         }
     }, [formState]);
+
+    useEffect(() => {
+        if (!!confirmFormState && confirmFormState.status === StatusCode.Failed) {
+            toast.error(confirmFormState?.message || tCommon("messages.error"));
+        } else if (!!confirmFormState && confirmFormState.status === StatusCode.Success) {
+            toast.success(tCommon("messages.success"));
+            router.replace(`/profile/claims/process?claimId=${claimData?.id}`);
+        }
+    }, [confirmFormState]);
+
+    const handleConfirmAmount = (confirm: boolean) => {
+        if (!claimData?.id) return;
+
+        const formData = new FormData();
+        formData.append("claimId", claimData.id.toString());
+        formData.append("confirm", confirm.toString());
+
+        startConfirmTransition(async () => {
+            await confirmFormAction(formData);
+        });
+    };
 
     const handlePayment = () => {
         if (!claimData?.id || !claimData?.amount) return;
@@ -79,7 +107,7 @@ export const SecurePayment = ({ claimData, claimStatus, walletData }: SecurePaym
                 </p>
                 {claimStatus.sponsor && <div className="flex flex-col lg:flex-row items-center gap-4 justify-between mt-5 lg:mt-6">
                     <div>
-                        <span className="text-sm text-text font-normal inline-block ml-1">
+                        <span className="text-text font-normal inline-block ml-1">
                             {tPages("profile.claims.agreedAmount")}
                         </span>
                         {claimData?.amount && <span className="text-title font-medium inline-block">
@@ -92,6 +120,63 @@ export const SecurePayment = ({ claimData, claimStatus, walletData }: SecurePaym
                     </Button>
                 </div>}
             </div>
+
+            {claimStatus.sponsor && (
+                isEmpty(claimStatus.suggested_amount)
+                    ? (
+                        <div className="p-5 mt-5 rounded-2xl lg:rounded-3xl bg-white flex flex-col lg:flex-row gap-3 items-center justify-between">
+                            <p className='text-text'>
+                                {tPages("profile.claims.youCanAddSuggestedAmount")}
+                            </p>
+                            {claimData && <SuggestNewAmountButton claimId={claimData?.id} />}
+                        </div>
+                    )
+                    : (
+                        <div className="p-5 mt-5 rounded-2xl lg:rounded-3xl bg-white flex gap-2 justify-between">
+                            <Icon icon='solar--info-circle-outline' className='text-warning mt-0.5' />
+                            <p className='text-text w-fit'>
+                                {tPages("profile.claims.yourSuggestedAmountSentPrev")}
+                                <span className='text-primary inline-block mx-1'>
+                                    {putCommas(parseFloat(claimStatus.suggested_amount))} {' '}
+                                    {tCommon("unit.toman")}
+                                </span>
+                                {tPages("profile.claims.yourSuggestedAmountSentNext")}
+                            </p>
+                        </div>
+                    )
+            )}
+
+            {!claimStatus.sponsor && !isEmpty(claimStatus.suggested_amount) && (
+                <div className="p-5 mt-5 rounded-2xl lg:rounded-3xl bg-white">
+                    <p className='text-text'>
+                        {tPages("profile.claims.currentUserSuggestedAmountPrev")} {' '}
+                        <span className='text-primary inline-block mx-1'>
+                            {putCommas(parseFloat(claimStatus.suggested_amount))} {' '}
+                            {tCommon("unit.toman")}
+                        </span>
+                        {tPages("profile.claims.currentUserSuggestedAmountNext")} {' '}
+                        {tPages("profile.claims.doYouAgree")}
+                    </p>
+                    <div className='flex items-center justify-end gap-2.5 mt-3'>
+                        <Button
+                            variant={"outline"}
+                            size={"sm"}
+                            className='flex-1 lg:flex-initial'
+                            isLoading={confirmPending}
+                            onClick={() => handleConfirmAmount(false)}>
+                            {tCommon("buttons.disAgree")}
+                        </Button>
+                        <Button
+                            variant={"default"}
+                            size={"sm"}
+                            className='flex-1 lg:flex-initial'
+                            isLoading={confirmPending}
+                            onClick={() => handleConfirmAmount(true)}>
+                            {tCommon("buttons.confirmRequest")}
+                        </Button>
+                    </div>
+                </div>
+            )}
 
             <Modal
                 size='sm'

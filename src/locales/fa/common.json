@@ -51,7 +51,10 @@
     "sendMessage": "ارسال پیام",
     "goHome": "بازگشت به خانه",
     "goProfile": "رفتن به پروفایل",
-    "clearFilters": "پاک کردن فیلترها"
+    "clearFilters": "پاک کردن فیلترها",
+    "suggestAmount": "پیشنهاد مبلغ جدید",
+    "disAgree": "رد درخواست",
+    "confirmRequest": "تایید درخواست"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -213,7 +216,8 @@
     "ticketSubject": "موضوع درخواست",
     "ticketFile": "فایل ضمیمه (اختیاری)",
     "enterTicketMessage": "پیام خود را وارد کنید",
-    "selectTicketSubject": "موضوع درخواست را انتخاب کنید"
+    "selectTicketSubject": "موضوع درخواست را انتخاب کنید",
+    "suggestedAmount": "مبلغ پیشنهادی جدید"
   },
   "path": {
     "air": "هوایی",
@@ -275,6 +279,11 @@
     "all": "همه وضعیت ها",
     "active": "فعال",
     "closed": "بسته شده"
+  },
+  "claimPaymentStatus": {
+    "pending": "پرداخت شده",
+    "released": "آزاد شده",
+    "cancelled": "لغو شده"
   },
   "projectTypes": {
     "all": "همه آگهی ها",
