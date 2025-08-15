@@ -89,7 +89,7 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
                                 <Icon icon="solar--pen-2-outline" sizeClass="size-5" className="text-sub" />
                                 {t("buttons.edit")}
                             </button>
-                            <button
+                            {/* <button
                                 onClick={handleDeactivate}
                                 className={cn("flex items-center gap-2 px-3 py-2 text-sm text-title hover:bg-gray-100 rounded-md transition-colors w-full text-right",
                                     data.status === "approved" ? "" : "pointer-events-none opacity-40"
@@ -97,7 +97,7 @@ export const ProfileProjectCard = ({ data, type }: ProfileProjectCardProps) => {
                             >
                                 <Icon icon="solar--close-circle-outline" sizeClass="size-5" className="text-sub" />
                                 {t("buttons.deactivate")}
-                            </button>
+                            </button> */}
                             <button
                                 onClick={handleViewOnSite}
                                 className={cn("flex items-center gap-2 px-3 py-2 text-sm text-title hover:bg-gray-100 rounded-md transition-colors w-full text-right",

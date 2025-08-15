@@ -44,7 +44,6 @@ export const WeightRangeFilter = () => {
         const weightRange: [number, number] = [newValues[0], newValues[1]]
         setValues(weightRange)
         updateURL(weightRange)
-        console.log('Final weight range:', weightRange)
     }
 
     useEffect(() => {

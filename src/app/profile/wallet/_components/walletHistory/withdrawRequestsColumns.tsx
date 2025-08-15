@@ -2,6 +2,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { WithdrawRequest } from "@/types/wallet.type";
 import { Badge } from "@/ui/badge";
 import { useCommonTranslation } from "@/hooks/useTranslation";
+import Link from "next/link";
+import { createFileUrl } from "@/lib/utils";
 
 const getStatusVariant = (status: string) => {
     switch (status) {
@@ -105,6 +107,18 @@ export const withdrawRequestsColumns = (): ColumnDef<WithdrawRequest>[] => {
                 const reason = getValue() as string;
                 return reason ? (
                     <span className="text-sm text-destructive">{reason}</span>
+                ) : (
+                    <span className="text-sm text-caption">-</span>
+                );
+            },
+        },
+        {
+            accessorKey: "image",
+            header: t("columns.file"),
+            cell: ({ getValue }) => {
+                const image = getValue() as string | null;
+                return image ? (
+                    <Link href={createFileUrl(image)} className="text-sm text-primary">{t("buttons.downloadFile")}</Link>
                 ) : (
                     <span className="text-sm text-caption">-</span>
                 );

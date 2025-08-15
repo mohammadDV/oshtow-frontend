@@ -50,7 +50,6 @@ export const DeliveredClaim = ({ claimStatus, claimData, reviewsData }: Delivere
     });
 
     useEffect(() => {
-        console.log(formState)
         if (!!formState && formState.status === StatusCode.Failed) {
             toast.error(formState?.message || tCommon("messages.error"));
         } else if (!!formState && formState.status === StatusCode.Success) {

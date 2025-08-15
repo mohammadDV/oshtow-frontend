@@ -55,6 +55,7 @@ export const apiUrls = {
   subscription: {
     profile: "/profile/subscribe",
     activityCount: "/profile/activity-count",
+    subscriptions: "/profile/subscriptions",
   },
   payment: {
     result: "/payment/result",

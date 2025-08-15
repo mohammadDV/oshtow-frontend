@@ -10,56 +10,56 @@ export const Footer = () => {
   const useFullLinks = [
     {
       id: 1,
-      title: t("navigation.firstPage"),
-      link: "/",
-    },
-    {
-      id: 2,
       title: t("navigation.senders"),
       link: "/projects/sender",
     },
     {
-      id: 3,
+      id: 2,
       title: t("navigation.passengers"),
       link: "/projects/passenger",
     },
     {
-      id: 4,
-      title: t("navigation.magazine"),
+      id: 3,
+      title: t("navigation.blog"),
       link: "/blog",
     },
     {
+      id: 4,
+      title: t("navigation.about"),
+      link: "/about",
+    },
+    {
       id: 5,
-      title: t("navigation.faq"),
-      link: "/faq",
+      title: t("navigation.contact"),
+      link: "/contact",
     },
   ];
 
   const customerGuide = [
     {
       id: 1,
-      title: t("navigation.about"),
-      link: "/about",
-    },
-    {
-      id: 2,
-      title: t("navigation.contact"),
-      link: "/contact",
-    },
-    {
-      id: 3,
       title: t("navigation.faq"),
       link: "/faq",
     },
     {
-      id: 4,
+      id: 2,
       title: t("navigation.privacyPolicy"),
-      link: "/privacyPolicy",
+      link: "/privacy-policy",
+    },
+    {
+      id: 3,
+      title: t("navigation.termsConditions"),
+      link: "/terms-and-conditions",
+    },
+    {
+      id: 4,
+      title: t("navigation.refundReturns"),
+      link: "/refund-returns",
     },
     {
       id: 5,
-      title: t("navigation.plansCost"),
-      link: "/plans",
+      title: t("navigation.workWithUs"),
+      link: "/work-with-us",
     },
   ];
 

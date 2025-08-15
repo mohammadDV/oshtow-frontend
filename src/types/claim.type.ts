@@ -2,6 +2,7 @@ import { PaginationLink, Project, ProjectType } from "./project.type";
 import { UserInfo } from "./user.type";
 
 export type AddressType = "other" | "me";
+export type ClaimPaymentStatus = "pending" | "released" | "cancelled";
 export type ClaimStatus =
   | "pending"
   | "approved"
@@ -56,4 +57,14 @@ export interface ClaimStatusResponse {
   delivery_code: string;
   show_review_form: boolean;
   chat_id: number | null;
+  suggested_amount: string;
+  payments: ClaimPayment[];
+}
+
+export interface ClaimPayment {
+  id: number;
+  amount: string;
+  status: ClaimPaymentStatus;
+  user_id: number;
+  created_at: string;
 }

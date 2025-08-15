@@ -51,7 +51,10 @@
     "sendMessage": "ارسال پیام",
     "goHome": "بازگشت به خانه",
     "goProfile": "رفتن به پروفایل",
-    "clearFilters": "پاک کردن فیلترها"
+    "clearFilters": "پاک کردن فیلترها",
+    "suggestAmount": "پیشنهاد مبلغ جدید",
+    "disAgree": "رد درخواست",
+    "confirmRequest": "تایید درخواست"
   },
   "navigation": {
     "firstPage": "صفحه اصلی",
@@ -63,6 +66,9 @@
     "magazine": "مجله",
     "blog": "وبلاگ",
     "privacyPolicy": "سیاست و حریم خصوصی",
+    "termsConditions": "قوانین و مقررات",
+    "refundReturns": "سیاست بازگشت وجه",
+    "workWithUs": "همکاری با ما",
     "plansCost": "تعرفه ها و هزینه ها",
     "home": "خانه",
     "ads": "آگهی ها",
@@ -94,7 +100,8 @@
     "needGuid": "نیاز به راهنمایی دارید؟",
     "codeCopied": "کد با موفقیت کپی شد!",
     "noNotifications": "اطلاعیه ای یافت نشد!",
-    "loggingOut": "در حال خروج..."
+    "loggingOut": "در حال خروج...",
+    "noRequest": "هنوز درخواستی ارسال نشده است!"
   },
   "validation": {
     "required": {
@@ -213,7 +220,9 @@
     "ticketSubject": "موضوع درخواست",
     "ticketFile": "فایل ضمیمه (اختیاری)",
     "enterTicketMessage": "پیام خود را وارد کنید",
-    "selectTicketSubject": "موضوع درخواست را انتخاب کنید"
+    "selectTicketSubject": "موضوع درخواست را انتخاب کنید",
+    "suggestedAmount": "مبلغ پیشنهادی جدید",
+    "shipmentImage": "تصویر مرسوله"
   },
   "path": {
     "air": "هوایی",
@@ -276,6 +285,11 @@
     "active": "فعال",
     "closed": "بسته شده"
   },
+  "claimPaymentStatus": {
+    "pending": "پرداخت شده",
+    "released": "آزاد شده",
+    "cancelled": "لغو شده"
+  },
   "projectTypes": {
     "all": "همه آگهی ها",
     "sender": "مرسوله ها",
@@ -291,6 +305,7 @@
     "type": "نوع",
     "status": "وضعیت",
     "date": "تاریخ",
+    "orderDate": "تاریخ سفارش",
     "description": "توضیحات",
     "cardNumber": "شماره کارت",
     "shebaNumber": "شماره شبا",
@@ -298,7 +313,10 @@
     "releaseAt": "منتشر شده در تاریخ",
     "message": "پیام",
     "subject": "موضوع",
-    "operation": "عملیات"
+    "file": "فایل درخواست",
+    "operation": "عملیات",
+    "planTitle": "عنوان اشتراک",
+    "endsAt": "تاریخ انقضا"
   },
   "unit": {
     "toman": "تومان",
@@ -308,6 +326,10 @@
     "status": "وضعیت",
     "type": "نوع",
     "all": "همه"
+  },
+  "status": {
+    "active": "فعال",
+    "inactive": "غیرفعال"
   },
   "address": {
     "me": "آدرس من",

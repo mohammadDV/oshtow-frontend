@@ -4,6 +4,7 @@ import * as React from "react"
 import { useFormContext } from "react-hook-form"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./form"
 import { Combobox } from "@/ui/combobox"
+import { cn } from "@/lib/utils"
 
 export type OptionTypes = {
     label: string,
@@ -33,7 +34,7 @@ export const RHFCombobox: React.FC<RHFComboboxProps> = ({
         <FormField
             control={control}
             name={name}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
                 <FormItem className="gap-1.5 w-full">
                     {label && <FormLabel className="text-text mb-1">{label}</FormLabel>}
                     <FormControl>
@@ -43,7 +44,10 @@ export const RHFCombobox: React.FC<RHFComboboxProps> = ({
                             onChange={field.onChange}
                             loading={loading}
                             placeholder={placeholder}
-                            className={className}
+                            className={cn(
+                                fieldState.error && "border-destructive/50",
+                                className
+                            )}
                         />
                     </FormControl>
                     <FormMessage className="text-sm" />

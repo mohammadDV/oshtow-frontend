@@ -11,6 +11,7 @@ import { LogoutButton } from "./_components/logoutButton/logoutButton";
 import { getDashboardInfo } from "./_api/getDashboadInfo";
 import { getSubscriptionActivityCount } from "./_api/getSubscriptionActivityCount";
 import { createFileUrl } from "@/lib/utils";
+import AuthPrompt from "./_components/authPrompt/authPrompt";
 
 export default async function ProfilePage() {
   const isMobile = await isMobileDevice();
@@ -22,32 +23,7 @@ export default async function ProfilePage() {
 
   return (
     <div>
-      {!userData.verify_access && (
-        <div className="hidden lg:flex mb-5 items-center px-4 py-3.5 rounded-2xl bg-border justify-between">
-          <div className="flex items-center gap-2">
-            <Icon
-              icon="solar--notes-line-duotone"
-              sizeClass="size-6"
-              className="text-primary"
-            />
-            <span className="text-title text-lg font-medium">
-              {t("profile.authTitle")}
-            </span>
-            <span className="text-text text-sm font-normal">
-              {t("profile.authDescription")}
-            </span>
-          </div>
-          <Link href={"/profile/settings/auth"}>
-            <Button
-              variant={"outline"}
-              size={"sm"}
-              className="border-primary border text-primary"
-            >
-              {t("profile.completeAuth")}
-            </Button>
-          </Link>
-        </div>
-      )}
+      {!userData.verify_access && <AuthPrompt variant="desktop" />}
       {isMobile && (
         <>
           <Link

@@ -1,15 +1,13 @@
 import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { getUserData } from "@/lib/getUserDataFromHeaders";
-import { Button } from "@/ui/button";
-import { Icon } from "@/ui/icon";
 import { getTranslations } from "next-intl/server";
-import Link from "next/link";
 import { BottomNavigation } from "../_components/bottomNavigation";
 import { Footer } from "../_components/footer";
 import { Header } from "../_components/header";
 import { getWallet } from "./_api/getWallet";
 import { ProfileNavigation } from "./_components/profileNavigation/profileNavigation";
 import { ProfileSidebar } from "./_components/sidebar";
+import AuthPrompt from "./_components/authPrompt/authPrompt";
 
 export default async function ProfileLayout({
   children,
@@ -24,21 +22,7 @@ export default async function ProfileLayout({
   return (
     <>
       {isMobile ? <ProfileNavigation /> : <Header userData={userData} />}
-      {!userData.verify_access && (
-        <div className="flex lg:hidden items-center px-4 py-3.5 rounded-2xl bg-border justify-between mt-5 mx-4">
-          <div className="flex items-center gap-2">
-            <Icon icon="solar--notes-line-duotone" sizeClass="size-6" className="text-primary" />
-            <span className="text-title text-lg font-medium">
-              {t("profile.authTitle")}
-            </span>
-          </div>
-          <Link href={'/profile/settings/auth'}>
-            <Button variant={"outline"} size={"sm"} className="border-primary border text-primary">
-              {t("profile.completeAuth")}
-            </Button>
-          </Link>
-        </div>
-      )}
+      {!userData.verify_access && <AuthPrompt variant="mobile" />}
       <div className="mt-4 lg:mt-10 md:flex justify-between items-start mx-auto gap-8 container px-4">
         {!isMobile && <ProfileSidebar userData={userData} walletData={walletData} />}
         <div className="flex-1 lg:overflow-auto">

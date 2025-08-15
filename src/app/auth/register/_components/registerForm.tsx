@@ -141,7 +141,7 @@ export const RegisterForm = () => {
                     </div>
                     <div className="flex items-start gap-1.5">
                         <RHFCheckbox id="privacy_policy" name="privacy_policy" label={tPage("auth.iHaveRead")} />
-                        <Link href="/privacy-policy" className="text-primary text-sm">
+                        <Link href="/terms-and-conditions" className="text-primary text-sm">
                             {tPage("auth.seePrivacy")}
                         </Link>
                     </div>

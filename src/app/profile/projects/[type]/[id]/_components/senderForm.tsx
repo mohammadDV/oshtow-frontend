@@ -60,7 +60,7 @@ export const SenderForm = ({ projectData, id }: SenderForm) => {
         title: z.string().min(1, tCommon("validation.required.thisField")),
         description: z.string().min(1, tCommon("validation.required.thisField")),
         address: z.string().min(1, tCommon("validation.required.thisField")),
-        image: z.string().optional(),
+        image: z.string().min(1, tCommon("validation.required.thisField")),
         o_country_id: z.string().min(1, tCommon("validation.required.thisField")),
         o_province_id: z.string().min(1, tCommon("validation.required.thisField")),
         o_city_id: z.string().min(1, tCommon("validation.required.thisField")),
@@ -340,7 +340,7 @@ export const SenderForm = ({ projectData, id }: SenderForm) => {
                                 <RHFUpload
                                     uploadType="image"
                                     name="image"
-                                    label={tCommon("inputs.ticketImage")}
+                                    label={tCommon("inputs.shipmentImage")}
                                 />
                             </div>
                         </div>
