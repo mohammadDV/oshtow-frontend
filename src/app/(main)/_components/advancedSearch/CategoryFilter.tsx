@@ -50,7 +50,7 @@ export const CategoryFilter = ({
     }
 
     return (
-        <div className={cn('flex items-center justify-end gap-2', className)}>
+        <div className={cn('flex flex-wrap items-center lg:justify-end gap-2', className)}>
             <div
                 onClick={() => handleCategorySelect(null)}
                 className={cn(

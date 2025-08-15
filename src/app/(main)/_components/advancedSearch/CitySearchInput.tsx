@@ -48,6 +48,11 @@ export const CitySearchInput = forwardRef<CitySearchInputRef, CitySearchInputPro
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   useEffect(() => {
+    setSelectedCity(value || null);
+    setSearchQuery(value?.title || "");
+  }, [value]);
+
+  useEffect(() => {
     if (debouncedSearchQuery && debouncedSearchQuery.length > 0) {
       searchCities(debouncedSearchQuery);
     } else if (isOpen) {
@@ -58,7 +63,7 @@ export const CitySearchInput = forwardRef<CitySearchInputRef, CitySearchInputPro
   const loadInitialCities = async () => {
     setLoading(true);
     try {
-      const data = await getCitiesSearch({ count: 6, page: 1 });
+      const data = await getCitiesSearch({ count: 12, page: 1 });
       setCities(data.data);
     } catch (error) {
       console.error('Failed to load initial cities:', error);
@@ -70,7 +75,7 @@ export const CitySearchInput = forwardRef<CitySearchInputRef, CitySearchInputPro
   const searchCities = async (query: string) => {
     setLoading(true);
     try {
-      const data = await getCitiesSearch({ query, count: 6, page: 1 });
+      const data = await getCitiesSearch({ query, count: 12, page: 1 });
       setCities(data.data);
     } catch (error) {
       console.error('Failed to search cities:', error);
@@ -115,7 +120,7 @@ export const CitySearchInput = forwardRef<CitySearchInputRef, CitySearchInputPro
   }));
 
   return (
-    <div className={cn("flex gap-2 cursor-text", className)} onClick={handleContainerClick}>
+    <div className={cn("flex gap-2 cursor-text border border-border lg:border-none rounded-xl py-3 px-2 lg:p-0", className)} onClick={handleContainerClick}>
       <Icon icon={icon} sizeClass="size-7 lg:size-8" className="text-caption" />
       <div className="flex-1">
         <div

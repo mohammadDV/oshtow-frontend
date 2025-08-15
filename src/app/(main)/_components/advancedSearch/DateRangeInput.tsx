@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { Calendar } from '@/ui/calendar';
 import { Icon } from '@/ui/icon';
 import { Popover, PopoverContent, PopoverTrigger } from '@/ui/popover';
-import { forwardRef, useImperativeHandle, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import type { DateRange } from 'react-day-picker';
 
 interface DateRangeInputProps {
@@ -39,6 +39,17 @@ export const DateRangeInput = forwardRef<DateRangeInputRef, DateRangeInputProps>
             to: value.to ? new Date(value.to) : undefined
         } : undefined
     );
+
+    useEffect(() => {
+        if (value) {
+            setSelectedRange({
+                from: value.from ? new Date(value.from) : undefined,
+                to: value.to ? new Date(value.to) : undefined
+            });
+        } else {
+            setSelectedRange(undefined);
+        }
+    }, [value]);
 
     const handleDateRangeSelect = (range: DateRange | undefined) => {
         setSelectedRange(range);
@@ -78,7 +89,7 @@ export const DateRangeInput = forwardRef<DateRangeInputRef, DateRangeInputProps>
     }));
 
     return (
-        <div className={cn('flex gap-2 cursor-pointer', className)} onClick={handleContainerClick}>
+        <div className={cn('flex gap-2 cursor-pointer border border-border lg:border-none rounded-xl py-3 px-2 lg:p-0', className)} onClick={handleContainerClick}>
             <Icon icon={icon} sizeClass="size-7 lg:size-8" className="text-caption" />
             <div className="flex-1">
                 <Popover open={isOpen} onOpenChange={handlePopoverOpenChange}>
@@ -100,7 +111,7 @@ export const DateRangeInput = forwardRef<DateRangeInputRef, DateRangeInputProps>
                             defaultMonth={selectedRange?.from || new Date()}
                             selected={selectedRange}
                             onSelect={handleDateRangeSelect}
-                            numberOfMonths={2}
+                            numberOfMonths={1}
                             showOutsideDays={false}
                             className="rounded-md border"
                         />

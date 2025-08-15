@@ -1,18 +1,19 @@
 "use client"
 
+import { Modal } from "@/app/_components/modal";
 import { useCommonTranslation, usePagesTranslation } from "@/hooks/useTranslation";
 import { cn, isEmpty } from "@/lib/utils";
-import { Category } from "@/types/category.type";
 import { CityWithDetails } from "@/types/location.type";
-import { PathType, Project, ProjectSearchResponse, ProjectType } from "@/types/project.type";
-import { Combobox } from "@/ui/combobox";
-import { DatePickerComponent } from "@/ui/datepicker";
+import { PathType, Project, ProjectType } from "@/types/project.type";
 import { Icon } from "@/ui/icon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getActiveCategories, getCitiesSearch, getProjectsSearch, ProjectSearchParams } from "./searchServices";
-import { Modal } from "@/app/_components/modal";
+import { CategoryFilter } from "./CategoryFilter";
+import { CitySearchInput } from "./CitySearchInput";
+import { DateRangeInput } from "./DateRangeInput";
+import { PathTypeFilter } from "./PathTypeFilter";
+import { getProjectsSearch, ProjectSearchParams } from "./searchServices";
 
 export const MobileAdvancedSearch = () => {
     const tPages = usePagesTranslation();
@@ -23,14 +24,12 @@ export const MobileAdvancedSearch = () => {
     const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
     const [isResultsModalOpen, setIsResultsModalOpen] = useState(false);
 
-    const [originCity, setOriginCity] = useState<string>("");
-    const [destinationCity, setDestinationCity] = useState<string>("");
-    const [dateRange, setDateRange] = useState<{ from: string; to?: string } | undefined>(undefined);
-    const [pathType, setPathType] = useState<string>("");
-    const [selectedCategory, setSelectedCategory] = useState<string>("");
+    const [originCity, setOriginCity] = useState<CityWithDetails | null>(null);
+    const [destinationCity, setDestinationCity] = useState<CityWithDetails | null>(null);
+    const [dateRange, setDateRange] = useState<{ from: string; to: string } | null>(null);
+    const [pathType, setPathType] = useState<PathType | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
-    const [cities, setCities] = useState<{ label: string; value: string }[]>([]);
-    const [categories, setCategories] = useState<{ label: string; value: string }[]>([]);
     const [searchResults, setSearchResults] = useState<Project[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [searchParams, setSearchParams] = useState<ProjectSearchParams | null>(null);
@@ -50,59 +49,6 @@ export const MobileAdvancedSearch = () => {
         },
     ];
 
-    const pathTypeOptions = [
-        { label: tCommon("path.air"), value: "air" },
-        { label: tCommon("path.land"), value: "land" },
-        { label: tCommon("path.sea"), value: "sea" },
-    ];
-
-    const fetchCities = async () => {
-        try {
-            const response = await getCitiesSearch({ query: "", count: 50, page: 1 });
-            if (response.data) {
-                const cityOptions = response.data.map((city: CityWithDetails) => ({
-                    label: `${city.title} - ${city.province.title}`,
-                    value: city.id.toString()
-                }));
-                setCities(cityOptions);
-            }
-        } catch (error) {
-            console.error('Failed to fetch cities:', error);
-        }
-    };
-
-    useEffect(() => {
-        if (selectedTab === 'sender') {
-            const fetchCategories = async () => {
-                try {
-                    const categories = await getActiveCategories();
-                    const categoryOptions = categories.map((category: Category) => ({
-                        label: category.title,
-                        value: category.id.toString()
-                    }));
-                    setCategories(categoryOptions);
-                } catch (error) {
-                    console.error('Failed to fetch categories:', error);
-                }
-            };
-            fetchCategories();
-        }
-    }, [selectedTab]);
-
-    useEffect(() => {
-        if (isSearchModalOpen) {
-            fetchCities();
-        }
-    }, [isSearchModalOpen]);
-
-    useEffect(() => {
-        setOriginCity("");
-        setDestinationCity("");
-        setDateRange(undefined);
-        setPathType('');
-        setSelectedCategory("");
-    }, [selectedTab]);
-
     const selectTabHandler = (value: ProjectType) => setSelectedTab(value);
 
     const handleSearch = async () => {
@@ -116,12 +62,12 @@ export const MobileAdvancedSearch = () => {
             type: selectedTab,
             page: 1,
             count: 9,
-            o_city_id: parseInt(originCity),
-            d_city_id: parseInt(destinationCity),
+            o_city_id: originCity?.id,
+            d_city_id: destinationCity?.id,
             send_date: dateRange?.from,
             receive_date: dateRange?.to,
-            path_type: pathType as PathType || undefined,
-            categories: selectedCategory ? parseInt(selectedCategory) : undefined,
+            path_type: pathType || undefined,
+            categories: selectedCategory || undefined,
         };
 
         setSearchParams(searchParams);
@@ -161,6 +107,14 @@ export const MobileAdvancedSearch = () => {
     const backToSearchHandler = () => {
         setIsSearchModalOpen(true);
         setIsResultsModalOpen(false);
+    }
+
+    const resetValues = () => {
+        setOriginCity(null);
+        setDestinationCity(null);
+        setDateRange(null);
+        setPathType(null);
+        setSelectedCategory(null);
     }
 
     return (
@@ -240,66 +194,82 @@ export const MobileAdvancedSearch = () => {
                 loading={isLoading}
                 disabled={!originCity || !destinationCity}
             >
+                {(!isEmpty(originCity) || !isEmpty(destinationCity) || !isEmpty(dateRange) || !isEmpty(pathType) || !isEmpty(selectedCategory)) && (
+                    <div className="flex justify-end mb-4">
+                        <button
+                            onClick={resetValues}
+                            className="text-primary transition-colors text-sm flex items-center gap-1"
+                            type="button"
+                        >
+                            <Icon icon="solar--refresh-outline" sizeClass="size-4" />
+                            {tCommon("buttons.clearFilters")}
+                        </button>
+                    </div>
+                )}
                 <div className="space-y-4">
                     <div>
-                        <Combobox
-                            options={cities}
+                        <CitySearchInput
+                            placeholder={tPages("home.originCity")}
+                            icon="solar--map-point-outline"
+                            description={selectedTab === "passenger"
+                                ? tPages('home.originPassengerDescription')
+                                : tPages('home.originSenderDescription')}
                             value={originCity}
                             onChange={setOriginCity}
-                            placeholder={tPages("home.originCity")}
                             className="w-full"
                         />
                     </div>
 
                     <div>
-                        <Combobox
-                            options={cities}
+                        <CitySearchInput
+                            placeholder={tPages("home.destinationCity")}
+                            icon="solar--map-point-outline"
+                            description={selectedTab === "passenger"
+                                ? tPages('home.destinationPassengerDescription')
+                                : tPages('home.destinationSenderDescription')}
                             value={destinationCity}
                             onChange={setDestinationCity}
-                            placeholder={tPages("home.destinationCity")}
                             className="w-full"
                         />
                     </div>
 
                     <div>
-                        <DatePickerComponent
-                            mode="range"
+                        <DateRangeInput
+                            icon="solar--calendar-outline"
+                            placeholder={tPages("home.passengerDate")}
+                            description={
+                                selectedTab === "passenger"
+                                    ? tPages("home.datePassengerDescription")
+                                    : tPages("home.dateSenderDescription")
+                            }
                             value={dateRange}
-                            onChange={(value) => {
-                                if (typeof value === 'object' || value === undefined) {
-                                    setDateRange(value as { from: string; to?: string } | undefined);
-                                }
-                            }}
-                            placeholder={selectedTab === "passenger"
-                                ? tPages("home.passengerDate")
-                                : tPages("home.passengerDate")}
+                            onChange={setDateRange}
                             className="w-full"
                         />
                     </div>
 
-                    {selectedTab === 'passenger' && (
-                        <div>
-                            <Combobox
-                                options={pathTypeOptions}
-                                value={pathType}
-                                onChange={setPathType}
-                                placeholder={tCommon("inputs.selectPath")}
-                                className="w-full"
-                            />
-                        </div>
-                    )}
+                    <div className="border border-border rounded-xl p-2.5">
+                        <p className="text-title mb-2">
+                            {selectedTab === 'passenger'
+                                ? tCommon("inputs.selectPath")
+                                : tCommon("inputs.selectCategory")}
+                        </p>
 
-                    {selectedTab === 'sender' && (
-                        <div>
-                            <Combobox
-                                options={categories}
-                                value={selectedCategory}
-                                onChange={setSelectedCategory}
-                                placeholder={tCommon("inputs.selectCategory")}
-                                className="w-full"
-                            />
-                        </div>
-                    )}
+                        {selectedTab === 'passenger' && (
+                            <div>
+                                <PathTypeFilter value={pathType} onChange={setPathType} />
+                            </div>
+                        )}
+
+                        {selectedTab === 'sender' && (
+                            <div>
+                                <CategoryFilter
+                                    value={selectedCategory}
+                                    onChange={setSelectedCategory}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </Modal>
 
@@ -311,7 +281,6 @@ export const MobileAdvancedSearch = () => {
                 onConfirm={handleShowMore}
                 confirmText={tCommon('buttons.seeAllResults')}
                 showConfirm={searchResults && searchResults?.length > 0}
-                showCancel={isEmpty(searchResults)}
                 cancelText={tCommon("buttons.backToSearch")}
                 onCancel={backToSearchHandler}
             >

@@ -40,7 +40,7 @@ export const PathTypeFilter = ({
     ];
 
     return (
-        <div className={cn('flex items-center justify-end gap-2', className)}>
+        <div className={cn('flex items-center lg:justify-end gap-2', className)}>
             {pathTypeOptions.map((option) => {
                 const isSelected = value === option.value;
                 return (
