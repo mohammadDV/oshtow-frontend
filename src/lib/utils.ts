@@ -49,7 +49,7 @@ export const notificationLinkGenerator = (
     case "sender":
       return `/profile/projects/sender`;
     case "profile":
-      return `/auth/check-verification`;
+      return `/profile`;
     case "chat":
       return `/profile/chat?chatId=${id}`;
     case "ticket":

@@ -17,7 +17,7 @@ export const ClaimsList = ({ claimsData }: ClaimsListProps) => {
                 ))
             ) : (
                 <div className="text-center py-8 text-text">
-                    {t("messages.noResult")}
+                    {t("messages.noRequest")}
                 </div>
             )}
         </div>

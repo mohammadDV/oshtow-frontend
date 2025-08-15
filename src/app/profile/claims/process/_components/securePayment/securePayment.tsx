@@ -198,6 +198,26 @@ export const SecurePayment = ({ claimData, claimStatus, walletData }: SecurePaym
                             {putCommas(parseFloat(claimData.amount))} {tCommon("unit.toman")}
                         </p>}
                     </div>
+                    {paymentMethod === "bank" && claimData?.amount && (
+                        <>
+                            <div className='flex items-center justify-between mb-4'>
+                                <p className='text-text text-sm font-medium'>
+                                    {tPages("profile.claims.commission")}
+                                </p>
+                                <p className='text-text text-sm font-medium'>
+                                    {putCommas(Math.round(parseFloat(claimData.amount) * 0.1))} {tCommon("unit.toman")}
+                                </p>
+                            </div>
+                            <div className='flex items-center justify-between mb-4'>
+                                <p className='text-text text-sm font-medium'>
+                                    {tPages("profile.claims.payableAmount")}
+                                </p>
+                                <p className='text-primary text-sm font-semibold'>
+                                    {putCommas(Math.round(parseFloat(claimData.amount) * 1.1))} {tCommon("unit.toman")}
+                                </p>
+                            </div>
+                        </>
+                    )}
                     <hr className='border-t border-border my-4' />
 
                     <div className='mb-3'>

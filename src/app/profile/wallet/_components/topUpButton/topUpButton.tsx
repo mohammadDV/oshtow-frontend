@@ -13,6 +13,7 @@ import { topUpAction, TopUpResponse } from "../../_api/topUpAction";
 import { StatusCode } from "@/constants/enums";
 import { toast } from "sonner";
 import { RHFCurrency } from "@/app/_components/hookForm/RHFCurrency";
+import { putCommas } from "@/lib/utils";
 
 export const TopUpButton = () => {
     const tPages = usePagesTranslation();
@@ -41,6 +42,11 @@ export const TopUpButton = () => {
             amount: '',
         }
     });
+
+    const watchedAmount = form.watch("amount");
+    const numericAmount = watchedAmount ? parseFloat(watchedAmount.replace(/,/g, '')) : 0;
+    const commission = numericAmount * 0.1;
+    const totalPayable = numericAmount + commission;
 
     useEffect(() => {
         if (!!formState && formState.status === StatusCode.Failed) {
@@ -104,7 +110,27 @@ export const TopUpButton = () => {
                             placeholder={tCommon("inputs.enterAmount")}
                             label={tCommon("inputs.amount")}
                         />
-                        <div className="flex items-center justify-end gap-3 mt-6">
+                        {numericAmount > 0 && (
+                            <div className="space-y-3 text-sm mt-1.5">
+                                <div className="flex justify-between items-center">
+                                    <span className="text-caption">
+                                        {tPages("profile.wallet.commission")}:
+                                    </span>
+                                    <span className="text-text font-medium">
+                                        {putCommas(commission)}{" "}{tCommon("unit.toman")}
+                                    </span>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-caption">
+                                        {tPages("profile.wallet.payableAmount")}:
+                                    </span>
+                                    <span className="text-primary font-medium">
+                                        {putCommas(totalPayable)}{" "}{tCommon("unit.toman")}
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+                        <div className="flex items-center justify-end gap-3 mt-4">
                             <Button
                                 variant={"outline"}
                                 size={"default"}

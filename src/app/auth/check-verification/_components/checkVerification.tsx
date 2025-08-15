@@ -36,7 +36,6 @@ export default function CheckVerification() {
                     router.replace(backUrl || "/profile")
                 } else setIsLoading(false);
             } catch (error) {
-                console.error('Verification check failed:', error);
                 setIsLoading(false);
             }
         };

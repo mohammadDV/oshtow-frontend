@@ -100,7 +100,8 @@
     "needGuid": "نیاز به راهنمایی دارید؟",
     "codeCopied": "کد با موفقیت کپی شد!",
     "noNotifications": "اطلاعیه ای یافت نشد!",
-    "loggingOut": "در حال خروج..."
+    "loggingOut": "در حال خروج...",
+    "noRequest": "هنوز درخواستی ارسال نشده است!"
   },
   "validation": {
     "required": {
