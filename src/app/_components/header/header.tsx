@@ -8,6 +8,7 @@ import { Icon } from "@/ui/icon"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { NotificationIcon } from "./notificationsIcon/notificationIcon"
+import Image from "next/image"
 
 interface HeaderProps {
     userData?: UserData | null;
@@ -51,10 +52,10 @@ export const Header = ({ userData }: HeaderProps) => {
     ];
 
     return (
-        <div className="bg-white w-full py-5 border-b border-border">
+        <div className="bg-white w-full py-4.5 border-b border-border">
             <div className="container mx-auto flex items-center justify-between px-4">
-                <Link href={'/'} className="text-3xl font-bold text-primary">
-                    {t('brand.name')}
+                <Link href={'/'} className="text-3xl font-bold text-primary w-[108px]">
+                    <Image src={"/images/oshtow-logo.svg"} alt="oshtow logo" width={200} height={90} />
                 </Link>
                 <ul className="flex items-center justify-center gap-8">
                     {menuData.map(item => (

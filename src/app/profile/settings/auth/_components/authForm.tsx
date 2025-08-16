@@ -78,19 +78,11 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
   ];
 
   const firstStepSchema = z.object({
-    first_name: z.string().min(1, tCommon("validation.required.firstName")),
-    last_name: z.string().min(1, tCommon("validation.required.lastName")),
     national_code: z
       .string()
       .min(1, tCommon("validation.required.thisField"))
       .regex(regex.nationalCode, tCommon("validation.invalid.nationalCode")),
-    mobile: z
-      .string({ required_error: tCommon("validation.required.mobile") })
-      .regex(regex.phone, tCommon("validation.invalid.mobile")),
     birthday: z.string().min(1, tCommon("validation.required.thisField")),
-    email: z
-      .string({ required_error: tCommon("validation.required.email") })
-      .email(tCommon("validation.invalid.email")),
     country_id: z.string().min(1, tCommon("validation.required.thisField")),
     province_id: z.string().min(1, tCommon("validation.required.thisField")),
     city_id: z.string().min(1, tCommon("validation.required.thisField")),
@@ -123,11 +115,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
   const formSchema = firstStepSchema.merge(secondStepSchema);
   const form = useZodForm(formSchema, {
     defaultValues: {
-      first_name: identifyInfo?.first_name || "",
-      last_name: identifyInfo?.last_name || "",
       national_code: identifyInfo?.national_code || "",
-      mobile: identifyInfo?.mobile || "",
-      email: identifyInfo?.email || "",
       birthday: identifyInfo?.birthday || "",
       country_id: identifyInfo?.country_id?.toString() || "",
       province_id: identifyInfo?.province_id?.toString() || "",
@@ -229,11 +217,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
 
   const validateFirstStep = async () => {
     const firstStepFields = [
-      "first_name",
-      "last_name",
       "national_code",
-      "mobile",
-      "email",
       "birthday",
       "country_id",
       "province_id",
@@ -295,12 +279,8 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
     form.clearErrors();
 
     const formData = new FormData();
-    formData.append("first_name", data.first_name);
-    formData.append("last_name", data.last_name);
     formData.append("national_code", data.national_code);
-    formData.append("mobile", data.mobile);
     formData.append("birthday", data.birthday);
-    formData.append("email", data.email);
     formData.append("country_id", data.country_id);
     formData.append("province_id", data.province_id);
     formData.append("city_id", data.city_id);
@@ -321,18 +301,10 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
   const renderFirstStep = () => (
     <div className="flex flex-col gap-5">
       <div className="flex items-start justify-between gap-5">
-        <RHFInput name="first_name" placeholder={tCommon("inputs.firstName")} />
-        <RHFInput name="last_name" placeholder={tCommon("inputs.lastName")} />
-      </div>
-      <div className="flex items-start justify-between gap-5">
         <RHFInput
           name="national_code"
           placeholder={tCommon("inputs.nationalCode")}
         />
-        <RHFInput name="mobile" placeholder={tCommon("inputs.mobile")} />
-      </div>
-      <div className="flex items-start justify-between gap-5">
-        <RHFInput name="email" placeholder={tCommon("inputs.email")} />
         <RHFDatePicker
           name="birthday"
           placeholder={tCommon("inputs.birthday")}
