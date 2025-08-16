@@ -100,7 +100,10 @@ export const MobileAdvancedSearch = () => {
         if (searchParams.categories)
             queryParams.append("categories", searchParams.categories.toString());
 
-        router.push(`/projects/${searchParams.type}?${queryParams.toString()}`);
+        if (searchResults && searchResults?.length > 0) {
+            router.push(`/projects/${searchParams.type}?${queryParams.toString()}`);
+        } else router.push(`/projects/${searchParams.type}`);
+
         setIsResultsModalOpen(false);
     };
 
@@ -194,18 +197,21 @@ export const MobileAdvancedSearch = () => {
                 loading={isLoading}
                 disabled={!originCity || !destinationCity}
             >
-                {(!isEmpty(originCity) || !isEmpty(destinationCity) || !isEmpty(dateRange) || !isEmpty(pathType) || !isEmpty(selectedCategory)) && (
-                    <div className="flex justify-end mb-4">
-                        <button
-                            onClick={resetValues}
-                            className="text-primary transition-colors text-sm flex items-center gap-1"
-                            type="button"
-                        >
-                            <Icon icon="solar--refresh-outline" sizeClass="size-4" />
-                            {tCommon("buttons.clearFilters")}
-                        </button>
-                    </div>
-                )}
+
+                <div className="flex justify-end mb-4">
+                    <button
+                        onClick={resetValues}
+                        className={cn("text-primary transition-colors text-sm flex items-center gap-1",
+                            (isEmpty(originCity) && isEmpty(destinationCity) && isEmpty(dateRange) && isEmpty(pathType) && isEmpty(selectedCategory)) && "pointer-events-none opacity-50 text-caption"
+                        )}
+                        type="button"
+                        disabled={isEmpty(originCity) && isEmpty(destinationCity) && isEmpty(dateRange) && isEmpty(pathType) && isEmpty(selectedCategory)}
+                    >
+                        <Icon icon="solar--refresh-outline" sizeClass="size-4" />
+                        {tCommon("buttons.clearFilters")}
+                    </button>
+                </div>
+
                 <div className="space-y-4">
                     <div>
                         <CitySearchInput
@@ -280,7 +286,6 @@ export const MobileAdvancedSearch = () => {
                 size="xl"
                 onConfirm={handleShowMore}
                 confirmText={tCommon('buttons.seeAllResults')}
-                showConfirm={searchResults && searchResults?.length > 0}
                 cancelText={tCommon("buttons.backToSearch")}
                 onCancel={backToSearchHandler}
             >

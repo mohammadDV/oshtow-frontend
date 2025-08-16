@@ -3,12 +3,8 @@ import { getFetchAuth } from "@/core/baseService";
 
 export interface IdentifyInfoResponse {
     id: number;
-    first_name: string;
-    last_name: string;
     national_code: string;
-    mobile: string;
     birthday: string;
-    email: string;
     country_id: number;
     province_id: number;
     city_id: number;
