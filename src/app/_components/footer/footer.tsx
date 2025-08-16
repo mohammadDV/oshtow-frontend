@@ -66,8 +66,8 @@ export const Footer = () => {
   return (
     <footer className="lg:mt-20 mt-12 container mx-auto px-4 mb-24 lg:mb-0">
       <div className="flex items-center gap-4">
-        <span className="text-2xl lg:text-3xl font-bold text-primary flex-1 min-w-max">
-          {t("brand.name")}
+        <span className="text-2xl lg:text-3xl font-bold text-primary flex-1 min-w-24 lg:min-w-28">
+          <Image src={"/images/oshtow-logo.svg"} alt="oshtow logo" width={200} height={90} />
         </span>
         <div className="h-0.5 w-full bg-gradient-to-l from-border to-border/20"></div>
       </div>
@@ -145,31 +145,16 @@ export const Footer = () => {
           </div>
           <div className="grid grid-cols-3 gap-3 mt-8">
             <div className="flex items-center justify-center p-3 border-2 border-border rounded-lg">
-              <Image
-                src={"/images/enamad.png"}
-                alt=""
-                width={72}
-                height={72}
-                className="object-contain"
-              />
-            </div>
-            <div className="flex items-center justify-center p-3 border-2 border-border rounded-lg">
-              <Image
-                src={"/images/enamad.png"}
-                alt=""
-                width={72}
-                height={72}
-                className="object-contain"
-              />
-            </div>
-            <div className="flex items-center justify-center p-3 border-2 border-border rounded-lg">
-              <Image
-                src={"/images/enamad.png"}
-                alt=""
-                width={72}
-                height={72}
-                className="object-contain"
-              />
+              <a
+                referrerPolicy='origin'
+                target='_blank'
+                href='https://trustseal.enamad.ir/?id=606706&Code=BWoQKjqkLFhXgV4RehoCoHaxvljQOXwx'>
+                <img
+                  referrerPolicy='origin'
+                  src='https://trustseal.enamad.ir/logo.aspx?id=606706&Code=BWoQKjqkLFhXgV4RehoCoHaxvljQOXwx'
+                  alt=''
+                  className="cursor-pointer" />
+              </a>
             </div>
           </div>
         </div>

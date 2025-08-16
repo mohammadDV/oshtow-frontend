@@ -10,25 +10,25 @@
   "scope": "/",
   "icons": [
     {
-      "src": "/icons/icon.svg",
+      "src": "/icons/app.jpg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon.svg",
+      "src": "/icons/app.jpg",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "maskable"
     },
     {
-      "src": "/icons/icon.svg",
+      "src": "/icons/app.jpg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"
     },
     {
-      "src": "/icons/splash-640x1136.svg",
+      "src": "/images/oshtow-tagline.png",
       "sizes": "640x1136",
       "type": "image/svg+xml",
       "purpose": "any"
