@@ -52,7 +52,7 @@ export default async function HomePage() {
       <Carousel
         title={t("home.lastPassengers")}
         seeMoreLink="/projects/passenger"
-        slides={featuredProjectsData?.data?.passenger?.map(project => <PassengerCard key={project.id} data={project} />)}
+        slides={featuredProjectsData?.data?.passenger?.map(project => <PassengerCard key={project.id} data={project} classNames="h-60" />)}
 
       />
       <CtaBanner />

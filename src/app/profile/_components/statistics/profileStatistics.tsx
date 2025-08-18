@@ -111,11 +111,11 @@ export const ProfileStatistics = ({ dashboardInfo, subscriptionActivityCount }: 
                                         {tPages("profile.requestsCount")}
                                     </p>
                                     <p className="text-text font-normal text-sm">
-                                        {subscriptionActivityCount.original.claim_count}/{subscriptionActivityCount.original.claims}
+                                        {subscriptionActivityCount.original.claim_count}/{subscriptionActivityCount.original.claims === 0 ? '∞' : subscriptionActivityCount.original.claims}
                                     </p>
                                 </div>
                                 <Progress
-                                    value={(subscriptionActivityCount.original.claim_count / subscriptionActivityCount.original.claims) * 100}
+                                    value={subscriptionActivityCount.original.claims == 0 ? 0 : (subscriptionActivityCount.original.claim_count / subscriptionActivityCount.original.claims) * 100}
                                     className="w-full lg:w-40"
                                 />
                             </div>
@@ -125,11 +125,11 @@ export const ProfileStatistics = ({ dashboardInfo, subscriptionActivityCount }: 
                                         {tPages("profile.adsCount")}
                                     </p>
                                     <p className="text-text font-normal text-sm">
-                                        {subscriptionActivityCount.original.project_count}/{subscriptionActivityCount.original.projects}
+                                        {subscriptionActivityCount.original.project_count}/{subscriptionActivityCount.original.projects === 0 ? '∞' : subscriptionActivityCount.original.projects}
                                     </p>
                                 </div>
                                 <Progress
-                                    value={(subscriptionActivityCount.original.project_count / subscriptionActivityCount.original.projects) * 100}
+                                    value={subscriptionActivityCount.original.projects == 0 ? 0 : (subscriptionActivityCount.original.project_count / subscriptionActivityCount.original.projects) * 100}
                                     className="w-full lg:w-40"
                                 />
                             </div>
