@@ -34,7 +34,7 @@ export const RHFAvatar: React.FC<RHFAvatarProps> = ({
 
         const maxFileSize = 5 * 1024 * 1024;
         if (file.size > maxFileSize) {
-            setUploadError(t("validation.invalid.fileSizeError"));
+            setUploadError(t("validation.invalid.lowSizeError"));
             onChange("");
             if (inputRef.current) {
                 inputRef.current.value = "";

@@ -14,7 +14,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "اوشتو | جابجایی سریع مرسوله های بین المللی",
-  description: "",
+  description: "اوشتو (Oshtow) پلتفرمی نوآورانه برای حمل مرسوله توسط مسافران است؛ بستری امن و سریع برای ارتباط مستقیم بین مسافران و ارسال‌کنندگان بسته",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -24,6 +24,14 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
+  openGraph: {
+    title: "اوشتو | جابجایی سریع مرسوله های بین المللی",
+    description: "اوشتو (Oshtow) پلتفرمی نوآورانه برای حمل مرسوله توسط مسافران است؛ بستری امن و سریع برای ارتباط مستقیم بین مسافران و ارسال‌کنندگان بسته",
+    siteName: "اوشتو",
+    images: "/icons/app.jpg",
+    locale: "fa_IR",
+    type: "website",
+  }
 };
 
 export const viewport: Viewport = {

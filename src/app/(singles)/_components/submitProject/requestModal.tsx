@@ -145,34 +145,36 @@ export const RequestModal = ({ title, isOpenModal, setIsOpenModal, projectData }
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
                     <RHFCurrency
                         name="amount"
-                        placeholder={t("inputs.amount")}
+                        label={t("inputs.amount")}
+                        tooltip={t("tooltips.suggestedAmount")}
                     />
                     <RHFInput
                         name="weight"
-                        placeholder={t("inputs.weight")}
+                        label={t("inputs.weight")}
                         type="number"
                     />
                     <RHFTextarea
                         name="description"
-                        placeholder={t("inputs.description")}
+                        label={t("inputs.description")}
                     />
                     <RHFCombobox
                         name="address_type"
-                        placeholder={t("inputs.addressType")}
+                        label={t("inputs.addressType")}
                         options={addressTypeOptions}
                     />
                     {watchedAddressType === "me" && (
                         <RHFTextarea
                             name="address"
-                            placeholder={t("inputs.address")}
+                            label={t("inputs.address")}
                         />
                     )}
                     <RHFUpload
                         uploadType="image"
                         name="image"
-                        placeholder={projectData.project.type === "passenger"
+                        label={projectData.project.type === "passenger"
                             ? t("inputs.shipmentImage")
                             : t("inputs.ticketImage")}
+                        tooltip={projectData.project.type === "passenger" ? t("tooltips.shipmentImage") : undefined}
                     />
                     <div className="flex items-center justify-end gap-3 mt-2">
                         <Button
