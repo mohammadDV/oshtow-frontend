@@ -332,15 +332,18 @@ export const SenderForm = ({ projectData, id }: SenderForm) => {
                                 <RHFTextarea
                                     name="description"
                                     label={tCommon("inputs.adDescription")}
+                                    tooltip={tCommon("tooltips.adDescription")}
                                 />
                                 <RHFTextarea
                                     name="address"
                                     label={tCommon("inputs.address")}
+                                    tooltip={tCommon("tooltips.adAddress")}
                                 />
                                 <RHFUpload
                                     uploadType="image"
                                     name="image"
                                     label={tCommon("inputs.shipmentImage")}
+                                    tooltip={tCommon("tooltips.shipmentImage")}
                                 />
                             </div>
                         </div>
@@ -423,6 +426,7 @@ export const SenderForm = ({ projectData, id }: SenderForm) => {
                                 <RHFCurrency
                                     name="amount"
                                     label={tCommon("inputs.suggestAmount")}
+                                    tooltip={tCommon("tooltips.suggestedAmount")}
                                 />
                                 <RHFInput
                                     name="dimensions"

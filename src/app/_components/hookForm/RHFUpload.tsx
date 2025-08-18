@@ -8,6 +8,7 @@ import { Icon } from "@/ui/icon";
 import { uploadImageAction, uploadVideoAction, uploadFileAction, UploadResponse } from "./formAction";
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { StatusCode } from "@/constants/enums";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/ui/tooltip";
 
 type UploadType = 'image' | 'video' | 'file';
 
@@ -18,6 +19,7 @@ interface RHFUploadProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "de
     defaultValue?: string;
     placeholder?: string;
     uploadType: UploadType;
+    tooltip?: string;
 }
 
 export const RHFUpload: React.FC<RHFUploadProps> = ({
@@ -27,6 +29,7 @@ export const RHFUpload: React.FC<RHFUploadProps> = ({
     defaultValue,
     placeholder,
     uploadType,
+    tooltip,
     ...rest
 }) => {
     const t = useCommonTranslation();
@@ -34,6 +37,7 @@ export const RHFUpload: React.FC<RHFUploadProps> = ({
     const [fileName, setFileName] = useState<string>("");
     const [isUploading, setIsUploading] = useState<boolean>(false);
     const [uploadError, setUploadError] = useState<string>("");
+    const [isTooltipOpen, setIsTooltipOpen] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const getAcceptTypes = () => {
@@ -93,7 +97,9 @@ export const RHFUpload: React.FC<RHFUploadProps> = ({
 
         const maxFileSize = getMaxFileSize();
         if (file.size > maxFileSize) {
-            setUploadError(t("validation.invalid.fileSizeError"));
+            setUploadError(uploadType === "image"
+                ? t("validation.invalid.lowSizeError")
+                : t("validation.invalid.highSizeError"));
             onChange("");
             if (inputRef.current) {
                 inputRef.current.value = "";
@@ -156,7 +162,28 @@ export const RHFUpload: React.FC<RHFUploadProps> = ({
             name={name}
             render={({ field, fieldState }) => (
                 <FormItem className="gap-1.5 w-full">
-                    {label && <FormLabel className="text-text mb-1">{label}</FormLabel>}
+                    {label && (
+                        <div className="flex items-center mb-1 gap-1.5">
+                            <FormLabel className="text-text">{label}</FormLabel>
+                            {tooltip && (
+                                <Tooltip open={isTooltipOpen} onOpenChange={setIsTooltipOpen}>
+                                    <TooltipTrigger asChild>
+                                        <button
+                                            type="button"
+                                            className="cursor-help touch-manipulation"
+                                            onClick={() => setIsTooltipOpen(!isTooltipOpen)}
+                                            onBlur={() => setIsTooltipOpen(false)}
+                                        >
+                                            <Icon icon="solar--info-circle-outline" sizeClass="size-4" className="text-muted-foreground" />
+                                        </button>
+                                    </TooltipTrigger>
+                                    <TooltipContent className="max-w-xs" side="top">
+                                        <p className="text-sm">{tooltip}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            )}
+                        </div>
+                    )}
                     <FormControl>
                         <div className="relative">
                             <div className={cn(
