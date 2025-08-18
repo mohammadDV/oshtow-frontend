@@ -2,6 +2,7 @@ import { useCommonTranslation } from "@/hooks/useTranslation";
 import { Project } from "@/types/project.type";
 import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
+import Image from "next/image";
 import Link from "next/link";
 
 interface SenderCardProps {
@@ -54,11 +55,7 @@ export const SenderCard = ({ data }: SenderCardProps) => {
           <p className="text-xs font-normal text-text">{data.send_date}</p>
         </div>
         <div className="flex items-center gap-1.5">
-          <Icon
-            icon="solar--weigher-bold-duotone"
-            sizeClass="size-5"
-            className="text-sub"
-          />
+          <Image src={"/icons/favicon.png"} alt="" width={14} height={14}/>
           <p className="text-xs font-normal text-text">{data.weight} {t("unit.kg")}</p>
         </div>
       </div>

@@ -1,23 +1,30 @@
 import { useCommonTranslation } from "@/hooks/useTranslation";
-import { createFileUrl, pathTypeGenerator } from "@/lib/utils";
+import { cn, createFileUrl, pathTypeGenerator } from "@/lib/utils";
 import { Project } from "@/types/project.type";
 import { Icon } from "@/ui/icon";
 import Image from "next/image";
 import Link from "next/link";
 
 interface PassengerCardProps {
-  data: Project
+  data: Project;
+  classNames?: string;
 }
 
-export const PassengerCard = ({ data }: PassengerCardProps) => {
+export const PassengerCard = ({ data, classNames }: PassengerCardProps) => {
   const t = useCommonTranslation();
 
   return (
     <Link href={`/passenger/${data.id}`}>
-      <div className="relative overflow-hidden transition-all cursor-pointer h-56 lg:h-[350px] rounded-2xl lg:rounded-3xl">
-        {data?.vip && <div className="absolute left-2 top-2 lg:left-3 lg:top-3 size-6 lg:size-7 bg-violet-400 flex items-center rounded-full justify-center">
-          <Icon icon="solar--crown-minimalistic-outline" sizeClass="size-3.5 lg:size-4" className="text-white" />
-        </div>}
+      <div className={cn("relative overflow-hidden transition-all cursor-pointer h-56 lg:h-[350px] rounded-2xl lg:rounded-3xl", classNames)}>
+        {data?.vip && (
+          <div className="absolute left-2 top-2 lg:left-3 lg:top-3 size-6 lg:size-7 bg-violet-400 flex items-center rounded-full justify-center">
+            <Icon
+              icon="solar--crown-minimalistic-outline"
+              sizeClass="size-3.5 lg:size-4"
+              className="text-white"
+            />
+          </div>
+        )}
         <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-700"></div>
         <Image
           src={createFileUrl(data?.destination_image)}
@@ -41,12 +48,8 @@ export const PassengerCard = ({ data }: PassengerCardProps) => {
                 {data.origin.city.title}
               </p>
             </div>
-            <div className="flex items-center gap-1">
-              <Icon
-                icon="solar--weigher-outline"
-                sizeClass="size-4 lg:size-5"
-                className="text-white"
-              />
+            <div className="flex items-center gap-1.5">
+              <Image src={"/icons/icon.png"} alt="" width={14} height={14} />
               <p className="text-xs lg:text-sm text-white font-normal">
                 {data.weight} کیلوگرم فضا
               </p>
@@ -73,6 +76,6 @@ export const PassengerCard = ({ data }: PassengerCardProps) => {
           </div>
         </div>
       </div>
-    </Link >
+    </Link>
   );
 };
