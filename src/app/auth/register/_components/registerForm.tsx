@@ -128,6 +128,7 @@ export const RegisterForm = () => {
                         name="mobile"
                         placeholder={tCommon("inputs.mobile")}
                         type="text"
+                        convertPersianNumbers={true}
                     />
                     <div className="flex flex-col md:flex-row items-start justify-between gap-4 md:gap-3">
                         <RHFPasswordInput

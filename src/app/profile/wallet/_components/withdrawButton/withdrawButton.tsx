@@ -121,12 +121,14 @@ export const WithdrawButton = () => {
                             name="card"
                             placeholder={tCommon("inputs.enterCardNumber")}
                             label={tCommon("inputs.cardNumber")}
+                            convertPersianNumbers={true}
                         />
                         <RHFInput
                             name="sheba"
                             placeholder={tCommon("inputs.enterShebaNumber")}
                             label={tCommon("inputs.shebaNumber")}
                             trailingLabel="IR"
+                            convertPersianNumbers={true}
                         />
                         <RHFTextarea
                             name="description"

@@ -1,6 +1,6 @@
 'use client'
 
-import { cn } from "@/lib/utils";
+import { cn, convertPersianToEnglish } from "@/lib/utils";
 import { useFormContext } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./form";
 import { Input } from "@/ui/input";
@@ -14,6 +14,7 @@ interface RHFInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string;
     trailingLabel?: string;
     tooltip?: string;
+    convertPersianNumbers?: boolean;
 }
 
 export const RHFInput: React.FC<RHFInputProps> = ({
@@ -22,10 +23,24 @@ export const RHFInput: React.FC<RHFInputProps> = ({
     className,
     trailingLabel,
     tooltip,
+    convertPersianNumbers = false,
     ...props
 }) => {
     const { control } = useFormContext();
     const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        onChange: (...event: any[]) => void
+    ) => {
+        let inputValue = e.target.value;
+
+        if (convertPersianNumbers) {
+            inputValue = convertPersianToEnglish(inputValue);
+        }
+
+        onChange(inputValue);
+    };
 
     return (
         <FormField
@@ -61,6 +76,7 @@ export const RHFInput: React.FC<RHFInputProps> = ({
                                 {...field}
                                 {...props}
                                 value={field.value ?? ''}
+                                onChange={convertPersianNumbers ? (e) => handleInputChange(e, field.onChange) : field.onChange}
                                 className={className}
                                 aria-invalid={!!fieldState.error}
                             />

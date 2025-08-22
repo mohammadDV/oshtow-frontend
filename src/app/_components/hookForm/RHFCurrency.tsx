@@ -1,6 +1,6 @@
 'use client'
 
-import { cn, putCommas } from "@/lib/utils";
+import { cn, convertPersianToEnglish, putCommas } from "@/lib/utils";
 import { useFormContext } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./form";
 import { Input } from "@/ui/input";
@@ -34,19 +34,10 @@ export const RHFCurrency: React.FC<RHFCurrencyProps> = ({
 
     const formatNumber = (value: string): string => {
         const numericValue = value.replace(/[^\d]/g, '');
-        
-        if (!numericValue) return '';
-        
-        return putCommas(Number(numericValue));
-    };
 
-    const convertPersianToEnglish = (str: string): string => {
-        const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
-        const englishDigits = '0123456789';
-        
-        return str.replace(/[۰-۹]/g, (char) => {
-            return englishDigits[persianDigits.indexOf(char)];
-        });
+        if (!numericValue) return '';
+
+        return putCommas(Number(numericValue));
     };
 
     const handleInputChange = (
@@ -54,14 +45,14 @@ export const RHFCurrency: React.FC<RHFCurrencyProps> = ({
         onChange: (...event: any[]) => void
     ) => {
         let inputValue = e.target.value;
-        
+
         inputValue = convertPersianToEnglish(inputValue);
-        
+
         const numericValue = inputValue.replace(/[^\d]/g, '');
-        
+
         const formattedValue = formatNumber(numericValue);
         setDisplayValue(formattedValue);
-        
+
         onChange(numericValue);
     };
 
