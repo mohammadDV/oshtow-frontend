@@ -24,12 +24,15 @@ import z from "zod";
 import { IdentifyInfoResponse } from "../_api/getIdentifyInfo";
 import { identityAction, IdentityResponse } from "../_api/identityAction";
 import { getCities, getProvinces } from "@/app/(main)/projects/_api/getLocations";
+import { PaymentModal } from "./paymentModal";
+import { UserData } from "@/types/user.type";
 
 interface AuthFormProps {
   identifyInfo?: IdentifyInfoResponse;
+  userData: UserData
 }
 
-export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
+export const AuthForm = ({ identifyInfo, userData }: AuthFormProps) => {
   const tCommon = useCommonTranslation();
   const tPage = usePagesTranslation();
   const [step, setStep] = useState<"first" | "second">("first");
@@ -43,6 +46,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
   const [cities, setCities] = useState<any[]>([]);
   const [loadingProvinces, setLoadingProvinces] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   const { response: countriesResponse } = useFetchData<Country[]>(
     apiUrls.locations.countries
@@ -103,9 +107,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
       image_national_code_front: z
         .string()
         .min(1, tCommon("validation.required.thisField")),
-      image_national_code_back: z
-        .string()
-        .min(1, tCommon("validation.required.thisField")),
+      image_national_code_back: z.string().optional(),
       video: z.string().min(1, tCommon("validation.required.thisField")),
     })
   );
@@ -210,8 +212,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
         });
       }
     } else if (!!formState && formState.status === StatusCode.Success) {
-      toast.info(tCommon("messages.redirectingToGateway"));
-      window.location.href = formState.url!;
+      setShowPaymentModal(true);
     }
   }, [formState, form]);
 
@@ -300,7 +301,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
 
   const renderFirstStep = () => (
     <div className="flex flex-col gap-5">
-      <div className="flex items-start justify-between gap-5">
+      <div className="flex items-start flex-col lg:flex-row justify-between gap-5">
         <RHFInput
           name="national_code"
           placeholder={tCommon("inputs.nationalCode")}
@@ -310,7 +311,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
           placeholder={tCommon("inputs.birthday")}
         />
       </div>
-      <div className="flex items-start justify-between gap-5">
+      <div className="flex items-start flex-col lg:flex-row justify-between gap-5">
         <RHFCombobox
           options={countryOptions}
           name="country_id"
@@ -323,7 +324,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
           loading={loadingProvinces}
         />
       </div>
-      <div className="flex items-start justify-between gap-5">
+      <div className="flex items-start flex-col lg:flex-row justify-between gap-5">
         <RHFCombobox
           options={cityOptions}
           name="city_id"
@@ -343,17 +344,24 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
 
   const renderSecondStep = () => (
     <div className="flex flex-col gap-5">
-      <div className="flex items-start justify-between gap-5">
-        <RHFUpload
-          uploadType="image"
-          name="image_national_code_front"
-          placeholder={tCommon("inputs.imageNationalCodeFront")}
-        />
-        <RHFUpload
-          uploadType="image"
-          name="image_national_code_back"
-          placeholder={tCommon("inputs.imageNationalCodeBack")}
-        />
+      <div className="flex items-start flex-col lg:flex-row justify-between gap-5">
+        <div className="flex-1">
+          <RHFUpload
+            uploadType="image"
+            name="image_national_code_front"
+            placeholder={tCommon("inputs.imageNationalCodeFront")}
+          />
+          <p className="text-sm text-caption mt-2.5">
+            {tCommon("inputs.alsoPassport")}
+          </p>
+        </div>
+        <div className="flex-1 w-full">
+          <RHFUpload
+            uploadType="image"
+            name="image_national_code_back"
+            placeholder={tCommon("inputs.imageNationalCodeBack")}
+          />
+        </div>
       </div>
       <div>
         <RHFUpload
@@ -370,7 +378,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
 
   return (
     <div className="mt-8 lg:max-w-2xl mx-auto">
-      <div className="flex items-center justify-between gap-5 mb-7">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-5 mb-7">
         {stepsData.map((stepData, index) => (
           <div
             key={stepData.value}
@@ -409,7 +417,7 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           {step === "first" ? renderFirstStep() : renderSecondStep()}
 
-          <div className="flex justify-between mt-6">
+          <div className="flex flex-col-reverse lg:flex-row gap-1.5 justify-between mt-6">
             {step === "second" && (
               <Button type="button" variant="outline" onClick={handlePrevStep}>
                 {tCommon("buttons.prevStep")}
@@ -429,6 +437,12 @@ export const AuthForm = ({ identifyInfo }: AuthFormProps) => {
           </div>
         </form>
       </FormProvider>
+
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onOpenChange={setShowPaymentModal}
+        userData={userData}
+      />
     </div>
   );
 };

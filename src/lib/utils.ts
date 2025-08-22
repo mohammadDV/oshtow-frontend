@@ -62,3 +62,12 @@ export const notificationLinkGenerator = (
       return `/profile/notifications`;
   }
 };
+
+export const convertPersianToEnglish = (str: string): string => {
+  const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+  const englishDigits = "0123456789";
+
+  return str.replace(/[۰-۹]/g, (char) => {
+    return englishDigits[persianDigits.indexOf(char)];
+  });
+};

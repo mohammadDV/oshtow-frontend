@@ -228,6 +228,7 @@ export const AccountForm = ({ accountData }: AccountFormProps) => {
                                 name="mobile"
                                 placeholder={t("inputs.mobile")}
                                 type="text"
+                                convertPersianNumbers={true}
                             />
                         </div>
                         <div className="flex flex-col md:flex-row items-start gap-4 md:gap-5 justify-between">

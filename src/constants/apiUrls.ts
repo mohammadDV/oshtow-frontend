@@ -60,6 +60,8 @@ export const apiUrls = {
   payment: {
     result: "/payment/result",
     transactions: "/profile/payment/transactions",
+    redirectToGatewayForIdentity: "/profile/payment/redirect-to-gateway-for-identity",
+    manualPayment: "/profile/payment/manual-payment",
   },
   claims: {
     all: "/claims",

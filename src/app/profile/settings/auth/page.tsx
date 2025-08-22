@@ -22,7 +22,7 @@ export default async function AuthPage() {
                 <li className="text-sm text-caption mt-1 font-normal">{t("profile.auth.forthRule")}</li>
             </ol>
             <div className="relative">
-                <AuthForm identifyInfo={identifyInfo} />
+                <AuthForm identifyInfo={identifyInfo} userData={userData} />
                 {userData.verify_access && (
                     <div className="absolute -left-2 -top-2 -right-2 -bottom-4 backdrop-blur-xs z-20 flex flex-col gap-4 items-center pt-6 md:pt-0 md:justify-center">
                         <Icon icon="solar--check-circle-outline" sizeClass="size-16" className="text-teal-400" />
