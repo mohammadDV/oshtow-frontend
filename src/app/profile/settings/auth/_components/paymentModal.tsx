@@ -232,7 +232,7 @@ export const PaymentModal = ({ isOpen, onOpenChange, onSuccess, userData }: Paym
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4">
             {paymentMethod === "manual" && (
-              <div className="mb-4">
+              <div className="mb-2">
                 <RHFUpload
                   uploadType="image"
                   name="image"

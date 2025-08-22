@@ -23,6 +23,7 @@ interface WalletPageProps {
 export default async function WalletPage({ searchParams }: WalletPageProps) {
     const tPages = await getTranslations("pages");
     const tCommon = await getTranslations("common");
+    const userData = await getUserData();
     const resolvedSearchParams = await searchParams;
 
     const walletsData = await getWallets();
@@ -69,7 +70,7 @@ export default async function WalletPage({ searchParams }: WalletPageProps) {
                     </span>
                 </div>
                 <div className="grid grid-cols-3 gap-3 md:gap-5 h-28 lg:h-44 lg:w-2/3 w-full">
-                    <TopUpButton />
+                    <TopUpButton userData={userData} />
                     <WithdrawButton />
                     <TransferButton />
                 </div>

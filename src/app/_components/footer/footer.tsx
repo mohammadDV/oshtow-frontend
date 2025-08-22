@@ -117,31 +117,27 @@ export const Footer = () => {
             {t("footer.socialNetworks")}
           </h4>
           <div className="flex items-center gap-5">
-            <Icon
-              icon="iconoir--telegram"
-              sizeClass="size-7"
-              className="text-primary"
-            />
-            <Icon
-              icon="iconoir--instagram"
-              sizeClass="size-7"
-              className="text-primary"
-            />
-            <Icon
-              icon="iconoir--whatsapp"
-              sizeClass="size-7"
-              className="text-primary"
-            />
-            <Icon
-              icon="iconoir--facebook"
-              sizeClass="size-7"
-              className="text-primary"
-            />
-            <Icon
-              icon="iconoir--linkedin"
-              sizeClass="size-7"
-              className="text-primary"
-            />
+            <Link href={"https://t.me/oshtow"} target="_blank">
+              <Icon
+                icon="iconoir--telegram"
+                sizeClass="size-7"
+                className="text-primary"
+              />
+            </Link>
+            <Link href={"https://www.instagram.com/oshtow.ir"} target="_blank">
+              <Icon
+                icon="iconoir--instagram"
+                sizeClass="size-7"
+                className="text-primary"
+              />
+            </Link>
+            <Link href={"https://wa.me/+905384104957"} target="_blank">
+              <Icon
+                icon="iconoir--whatsapp"
+                sizeClass="size-7"
+                className="text-primary"
+              />
+            </Link>
           </div>
           <div className="grid grid-cols-3 gap-3 mt-8">
             <div className="flex items-center justify-center p-3 border-2 border-border rounded-lg">
