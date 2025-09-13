@@ -1,3 +1,4 @@
+import vipIcon from "@/assets/images/safar.svg";
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { cn, createFileUrl, pathTypeGenerator } from "@/lib/utils";
 import { Project } from "@/types/project.type";
@@ -18,11 +19,7 @@ export const PassengerCard = ({ data, classNames }: PassengerCardProps) => {
       <div className={cn("relative overflow-hidden transition-all cursor-pointer h-56 lg:h-[350px] rounded-2xl lg:rounded-3xl", classNames)}>
         {data?.vip && (
           <div className="absolute left-2 top-2 lg:left-3 lg:top-3 size-6 lg:size-7 bg-violet-400 flex items-center rounded-full justify-center">
-            <Icon
-              icon="solar--crown-minimalistic-outline"
-              sizeClass="size-3.5 lg:size-4"
-              className="text-white"
-            />
+            <Image src={vipIcon} alt="" width={16} height={16} className="size-3 lg:size-4" />
           </div>
         )}
         <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-gray-700"></div>

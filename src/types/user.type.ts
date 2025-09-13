@@ -1,3 +1,4 @@
+import { VipType } from "@/constants/enums";
 import { Project } from "./project.type";
 
 export interface UserInfo {
@@ -8,6 +9,7 @@ export interface UserInfo {
   bg_photo_path: string | null;
   rate: number;
   point: number | null;
+  vip: VipType;
 }
 
 export interface UserData {
