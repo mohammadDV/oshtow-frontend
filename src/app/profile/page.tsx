@@ -1,17 +1,19 @@
+import { userProfileMenu } from "@/_mock/profileMenuData";
+import vipIcon from "@/assets/images/profile.svg";
+import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
 import { getUserData } from "@/lib/getUserDataFromHeaders";
-import { Button } from "@/ui/button";
+import { createFileUrl } from "@/lib/utils";
 import { Icon } from "@/ui/icon";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import Link from "next/link";
-import { ProfileStatistics } from "./_components/statistics/profileStatistics";
-import { isMobileDevice } from "@/lib/getDeviceFromHeaders";
-import { ProfileMenu } from "./_components/menu/profileMenu";
-import { userProfileMenu } from "@/_mock/profileMenuData";
-import { LogoutButton } from "./_components/logoutButton/logoutButton";
 import { getDashboardInfo } from "./_api/getDashboadInfo";
 import { getSubscriptionActivityCount } from "./_api/getSubscriptionActivityCount";
-import { createFileUrl } from "@/lib/utils";
 import AuthPrompt from "./_components/authPrompt/authPrompt";
+import { LogoutButton } from "./_components/logoutButton/logoutButton";
+import { ProfileMenu } from "./_components/menu/profileMenu";
+import { ProfileStatistics } from "./_components/statistics/profileStatistics";
+import { VipType } from "@/constants/enums";
 
 export default async function ProfilePage() {
   const isMobile = await isMobileDevice();
@@ -31,17 +33,22 @@ export default async function ProfilePage() {
             className="flex items-center justify-between bg-white p-4 rounded-2xl mb-4"
           >
             <div className="flex items-center gap-3">
-              <img
-                src={
-                  userData?.user?.profile_photo_path
-                    ? createFileUrl(userData?.user?.profile_photo_path)
-                    : undefined
-                }
-                alt=""
-                width={70}
-                height={70}
-                className="size-16 rounded-full mx-auto"
-              />
+              <div className="relative">
+                <img
+                  src={
+                    userData?.user?.profile_photo_path
+                      ? createFileUrl(userData?.user?.profile_photo_path)
+                      : undefined
+                  }
+                  alt=""
+                  width={70}
+                  height={70}
+                  className="size-16 rounded-full mx-auto"
+                />
+                {userData?.user?.vip === VipType.IsVip && (
+                  <Image src={vipIcon} alt="" width={26} height={26} className="absolute -top-1.5 left-1/2 -translate-1/2" />
+                )}
+              </div>
               <div className="flex flex-col gap-2">
                 <p className="text-sm font-normal text-primary">
                   {userData?.user.nickname}

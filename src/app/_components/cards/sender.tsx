@@ -1,3 +1,4 @@
+import vipIcon from "@/assets/images/safar.svg";
 import { useCommonTranslation } from "@/hooks/useTranslation";
 import { Project } from "@/types/project.type";
 import { Button } from "@/ui/button";
@@ -15,7 +16,7 @@ export const SenderCard = ({ data }: SenderCardProps) => {
   return (
     <div className="bg-white rounded-2xl lg:rounded-3xl p-4 lg:p-4.5 relative overflow-hidden">
       {data?.vip && <div className="absolute left-2 top-2 lg:left-3 lg:top-3 size-6 lg:size-7 bg-violet-400 flex items-center rounded-full justify-center">
-        <Icon icon="solar--crown-minimalistic-outline" sizeClass="size-3.5 lg:size-4" className="text-white" />
+        <Image src={vipIcon} alt="" width={16} height={16} className="size-3.5 lg:size-4" />
       </div>}
       <div className="flex items-center gap-2">
         <div className="flex items-center justify-center size-10 lg:size-12 rounded-lg lg:rounded-xl bg-gradient-to-l from-light to-light/25">
@@ -55,7 +56,7 @@ export const SenderCard = ({ data }: SenderCardProps) => {
           <p className="text-xs font-normal text-text">{data.send_date}</p>
         </div>
         <div className="flex items-center gap-1.5">
-          <Image src={"/icons/favicon.png"} alt="" width={14} height={14}/>
+          <Image src={"/icons/favicon.png"} alt="" width={14} height={14} />
           <p className="text-xs font-normal text-text">{data.weight} {t("unit.kg")}</p>
         </div>
       </div>

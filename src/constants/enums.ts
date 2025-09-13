@@ -12,3 +12,8 @@ export enum SubscriptionType {
   NotActive,
   Active,
 }
+
+export enum VipType {
+  NotVip,
+  IsVip
+}

@@ -1,15 +1,18 @@
 "use client";
 
 import { userProfileMenu } from "@/_mock/profileMenuData";
+import vipIcon from "@/assets/images/profile.svg";
+import { VipType } from "@/constants/enums";
 import {
   useCommonTranslation,
   usePagesTranslation,
 } from "@/hooks/useTranslation";
+import { createFileUrl, putCommas } from "@/lib/utils";
 import { UserData } from "@/types/user.type";
+import Image from "next/image";
+import { WalletService } from "../../_api/getWallet";
 import { LogoutButton } from "../logoutButton/logoutButton";
 import { ProfileMenu } from "../menu/profileMenu";
-import { createFileUrl, putCommas } from "@/lib/utils";
-import { WalletService } from "../../_api/getWallet";
 
 interface ProfileSidebarProps {
   userData?: UserData | null;
@@ -28,17 +31,22 @@ export const ProfileSidebar = ({
     <div className="lg:w-2xs bg-white rounded-2xl lg:shrink-0 lg:rounded-3xl overflow-hidden pb-4">
       <div>
         <div className="w-full h-28 bg-border rounded-b-full"></div>
-        <img
-          src={
-            userData?.user?.profile_photo_path
-              ? createFileUrl(userData?.user?.profile_photo_path)
-              : undefined
-          }
-          alt=""
-          width={98}
-          height={98}
-          className="size-20 bg-white rounded-full mx-auto -mt-12"
-        />
+        <div className="relative">
+          <img
+            src={
+              userData?.user?.profile_photo_path
+                ? createFileUrl(userData?.user?.profile_photo_path)
+                : undefined
+            }
+            alt=""
+            width={98}
+            height={98}
+            className="size-20 bg-white rounded-full mx-auto -mt-12"
+          />
+          {userData?.user?.vip === VipType.IsVip && (
+            <Image src={vipIcon} alt="" width={36} height={36} className="absolute -top-1.5 left-1/2 -translate-1/2" />
+          )}
+        </div>
         <p className="mt-4 text-center text-sm font-normal text-primary">
           {userData?.user.nickname}
         </p>
