@@ -176,7 +176,7 @@ export default async function PassengerPage({ params }: PassengerPageProps) {
         </div>
 
         <Carousel
-          desktopSlidesPerView={3.5}
+          desktopSlidesPerView={3}
           title={t("passenger.sameItems")}
           slides={passengerData?.recommended?.map(item => <PassengerCard key={item.id} data={item} />)}
         />

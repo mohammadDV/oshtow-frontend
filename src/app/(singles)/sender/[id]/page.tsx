@@ -202,7 +202,7 @@ export default async function SenderPage({ params }: SenderPageProps) {
         </div>
 
         <Carousel
-          desktopSlidesPerView={3.5}
+          desktopSlidesPerView={3}
           title={t("sender.sameItems")}
           slides={senderData.recommended?.map(item => <SenderCard key={item.id} data={item} />)}
         />
