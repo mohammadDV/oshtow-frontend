@@ -2,7 +2,10 @@ import { usePagesTranslation } from "@/hooks/useTranslation";
 import { createFileUrl } from "@/lib/utils";
 import { UserInfoResponse } from "@/types/user.type";
 import { Icon } from "@/ui/icon";
+import Image from "next/image";
 import Link from "next/link";
+import vipIcon from "@/assets/images/profile.svg"
+import { VipType } from "@/constants/enums";
 
 interface ProfileHeaderProps {
     data: UserInfoResponse
@@ -20,15 +23,20 @@ export const ProfileHeader = ({ data }: ProfileHeaderProps) => {
                 height={150}
                 className="w-full rounded-t-3xl h-[80px] lg:h-36 object-cover" />
             <div className="px-6 lg:px-12 flex flex-col items-center lg:flex-row lg:items-end gap-3 lg:gap-5 -mt-12">
-                <img
-                    src={data?.user?.profile_photo_path
-                        ? createFileUrl(data?.user?.profile_photo_path)
-                        : undefined
-                    }
-                    alt=""
-                    width={128}
-                    height={128}
-                    className="size-28 lg:size-32 rounded-full border-4 border-white" />
+                <div className="relative">
+                    <img
+                        src={data?.user?.profile_photo_path
+                            ? createFileUrl(data?.user?.profile_photo_path)
+                            : undefined
+                        }
+                        alt=""
+                        width={128}
+                        height={128}
+                        className="size-28 lg:size-32 rounded-full border-4 border-white" />
+                    {data.user.vip === VipType.IsVip && (
+                        <Image src={vipIcon} alt="" width={36} height={36} className="absolute -top-1.5 left-1/2 -translate-1/2" />
+                    )}
+                </div>
                 <div className="flex items-center justify-between flex-1 mb-1">
                     <div>
                         <h1 className="text-xl text-title font-semibold text-center lg:text-right mb-3 lg:mb-2.5">
