@@ -60,6 +60,17 @@ export default async function RootLayout({
         <link rel="apple-touch-startup-image" href="/icons/app.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
         <link rel="apple-touch-startup-image" href="/icons/app.jpg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
         <link rel="apple-touch-startup-image" href="/icons/app.jpg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-P7EB7VQR7L"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-P7EB7VQR7L');
+            `,
+          }}
+        />
       </head>
       <body className={peydaFont.className}>
         <NextTopLoader color="#e64eb5" />
