@@ -26,7 +26,7 @@ export default async function ContactPage() {
             <h3 className="text-title text-lg font-semibold mt-6 mb-3">
               {t("contact.email")}
             </h3>
-            <p className="text-text font-normal">Info@oshtow.org</p>
+            <p className="text-text font-normal">Info@oshtow.com</p>
           </div>
           <div className="rounded-2xl lg:rounded-3xl bg-white py-7 lg:py-9 flex flex-col items-center">
             <div className="flex items-center justify-center size-14 rounded-full bg-sub/25">

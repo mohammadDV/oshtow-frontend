@@ -17,9 +17,9 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Set environment variables for production build
-ENV NEXT_PUBLIC_API_URL=https://oshtow.org/api
+ENV NEXT_PUBLIC_API_URL=https://oshtow.com/api
 ENV NEXT_PUBLIC_FILES_URL=https://oshtow.s3.ir-thr-at1.arvanstorage.com
-ENV NEXT_PUBLIC_SITE_URL=https://oshtow.org
+ENV NEXT_PUBLIC_SITE_URL=https://oshtow.com
 
 # Build the application
 RUN npm run build
