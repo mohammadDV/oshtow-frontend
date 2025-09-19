@@ -39,7 +39,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero />
+      <Hero isMobile={isMobile} />
       <div className="mx-4 -mt-16 lg:-mt-24 z-20 relative">
         {isMobile ? <MobileAdvancedSearch /> : <AdvancedSearch />}
       </div>
