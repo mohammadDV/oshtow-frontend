@@ -9,22 +9,28 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import desktopBanner1 from "@/assets/images/oshotow-banner-1-desktop.webp"
+import desktopBanner2 from "@/assets/images/oshotow-banner-2-desktop.webp"
+import mobileBanner1 from "@/assets/images/oshotow-banner-1-mobile.webp"
+import mobileBanner2 from "@/assets/images/oshotow-banner-2-mobile.webp"
 
-export const Hero = () => {
+interface HeroProps {
+  isMobile: boolean;
+}
+
+export const Hero = ({ isMobile }: HeroProps) => {
   const t = usePagesTranslation();
 
   const slideData = [
     {
-      title: t("home.heroTitle"),
-      description: t("home.heroDescription"),
-      sendButton: t("home.heroSendButton"),
-      submitPassenger: t("home.heroSubmitPassenger"),
+      id: 1,
+      desktop: desktopBanner1,
+      mobile: mobileBanner1
     },
     {
-      title: t("home.heroTitle"),
-      description: t("home.heroDescription"),
-      sendButton: t("home.heroSendButton"),
-      submitPassenger: t("home.heroSubmitPassenger"),
+      id: 2,
+      desktop: desktopBanner2,
+      mobile: mobileBanner2
     },
   ];
 
@@ -47,45 +53,15 @@ export const Hero = () => {
         className="h-full"
       >
         {slideData.map((slide, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={slide.id}>
             <div className="relative w-full h-full">
-              <div className="absolute inset-0">
-                <Image
-                  src={heroBg}
-                  alt=""
-                  priority={index === 0}
-                  quality={100}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-l from-gray-700/80 to-gray-700/60 lg:bg-gradient-to-r lg:from-gray-700 lg:to-gray-700/20"></div>
-              </div>
-
-              <div className="relative container px-4 pt-6 lg:pt-0 mx-auto z-10 h-full lg:pb-24 flex justify-end">
-                <div className="flex flex-col justify-center items-start max-w-lg h-full text-white">
-                  <h1 className="text-xl lg:text-4xl leading-8 lg:leading-14 font-semibold lg:font-bold mb-6">
-                    {slide.title}
-                  </h1>
-                  <p className="font-light text-lg mb-8 hidden lg:block">
-                    {slide.description}
-                  </p>
-                  <div className="lg:flex items-center justify-end gap-4 hidden">
-                    <Link href={"/profile/projects/sender/create"}>
-                      <Button variant="default" size="default" className="py-3">
-                        {slide.sendButton}
-                      </Button>
-                    </Link>
-                    <Link href={"/profile/projects/passenger/create"}>
-                      <Button
-                        variant="outline"
-                        size="default"
-                        className="text-white"
-                      >
-                        {slide.submitPassenger}
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              <Image
+                src={isMobile ? slide.mobile : slide.desktop}
+                alt=""
+                priority={index === 0}
+                quality={100}
+                className="w-full h-full object-cover"
+              />
             </div>
           </SwiperSlide>
         ))}
