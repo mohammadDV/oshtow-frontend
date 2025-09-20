@@ -135,7 +135,7 @@
   },
   "brand": {
     "name": "اوشتو (لوگو)",
-    "domain": "Oshtow.org"
+    "domain": "Oshtow.com"
   },
   "footer": {
     "aboutSite": "درباره سایت اوشتو",
@@ -179,6 +179,7 @@
     "imageNationalCodeBack": "تصویر کارت ملی از پشت (اختیاری)",
     "alsoPassport": "همچنین تصویر شناسنامه یا پاسپورت مورد قبول می‌باشد.",
     "video": "ویدیو",
+    "selfie": "تصویر سلفی مطابق نمونه",
     "selectImage": "انتخاب تصویر",
     "selectVideo": "انتخاب ویدیو",
     "selectFile": "انتخاب فایل",

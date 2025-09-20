@@ -26,6 +26,8 @@ import { identityAction, IdentityResponse } from "../_api/identityAction";
 import { getCities, getProvinces } from "@/app/(main)/projects/_api/getLocations";
 import { PaymentModal } from "./paymentModal";
 import { UserData } from "@/types/user.type";
+import selfieSample from "@/assets/images/selfie-sample.jpg"
+import Image from "next/image";
 
 interface AuthFormProps {
   identifyInfo?: IdentifyInfoResponse;
@@ -365,13 +367,14 @@ export const AuthForm = ({ identifyInfo, userData }: AuthFormProps) => {
       </div>
       <div>
         <RHFUpload
-          uploadType="video"
+          uploadType="image"
           name="video"
-          placeholder={tCommon("inputs.video")}
+          placeholder={tCommon("inputs.selfie")}
         />
         <p className="text-sm text-caption mt-2.5">
-          {tPage("profile.auth.videoDescription")}
+          {tPage("profile.auth.selfieDescription")}
         </p>
+        <Image src={selfieSample} alt="selfie sample" width={476} height={476} className="w-32 lg:w-40 mr-auto" />
       </div>
     </div>
   );
